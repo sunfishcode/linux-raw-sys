@@ -1,0 +1,22 @@
+[package]
+name = "linux-raw-sys"
+version = "0.0.0"
+authors = ["Dan Gohman <dev@sunfishcode.online>"]
+description = "Generated bindings for Linux's userspace API"
+documentation = "https://docs.rs/linux-raw-sys"
+license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
+repository = "https://github.com/sunfishcode/linux-raw-sys"
+edition = "2018"
+keywords = ["linux", "uapi", "ffi"]
+categories = ["external-ffi-bindings"]
+exclude = ["gen"]
+
+# The rest of this file is auto-generated!
+[features]
+v2_6_32 = []
+general = []
+errno = []
+netlink = []
+v5_4 = []
+v5_11 = []
+default = ["general","errno"]

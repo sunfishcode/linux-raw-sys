@@ -1,0 +1,9 @@
+[package]
+name = "gen"
+version = "0.0.0"
+edition = "2018"
+publish = false
+
+[dependencies]
+bindgen = { version = "0.58", default-features = false, features = ["which-rustfmt"] }
+tempdir = "0.3.7"

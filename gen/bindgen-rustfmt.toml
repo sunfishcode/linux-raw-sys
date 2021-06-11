@@ -1,0 +1,4 @@
+# The generated bindings can be quite large, so disable indentation
+# and wrapping to keep the file size down.
+max_width = 500
+tab_spaces = 0
