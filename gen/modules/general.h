@@ -29,6 +29,10 @@
 #include <linux/unistd.h>
 #include <linux/wait.h>
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,17,0)
+#include <linux/memfd.h>
+#endif
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(5,6,0)
 #include <linux/openat2.h>
 #endif
