@@ -152,3 +152,15 @@ typedef __statfs_word __fsword_t;
 #define AF_PHONET     35
 #define AF_IEEE802154 36
 #define AF_MAX        37
+
+#define STDIN_FILENO  0
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
+
+// Linux exports these, but the definitions have syntax that bindgen doesn't
+// recognize as constants.
+#define RWF_HIPRI       0x00000001
+#define RWF_DSYNC       0x00000002
+#define RWF_SYNC        0x00000004
+#define RWF_NOWAIT      0x00000008
+#define RWF_APPEND      0x00000010
