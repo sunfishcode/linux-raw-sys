@@ -1399,6 +1399,7 @@ pub const MSG_RST: u32 = 4096;
 pub const MSG_ERRQUEUE: u32 = 8192;
 pub const MSG_NOSIGNAL: u32 = 16384;
 pub const MSG_MORE: u32 = 32768;
+pub const MSG_CMSG_CLOEXEC: u32 = 1073741824;
 pub const STDIN_FILENO: u32 = 0;
 pub const STDOUT_FILENO: u32 = 1;
 pub const STDERR_FILENO: u32 = 2;
