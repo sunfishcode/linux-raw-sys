@@ -27,7 +27,7 @@ const LINUX_VERSIONS: [&str; 3] = [
 const DEFAULT_LINUX_VERSION: &str = "v2.6.32";
 
 /// Some commonly used features.
-const DEFAULT_FEATURES: &str = "\"general\",\"errno\"";
+const DEFAULT_FEATURES: &str = "\"general\", \"errno\"";
 
 fn main() {
     let mut args = env::args();
