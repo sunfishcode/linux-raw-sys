@@ -11,6 +11,10 @@ keywords = ["linux", "uapi", "ffi"]
 categories = ["external-ffi-bindings"]
 exclude = ["gen"]
 
+[package.metadata.docs.rs]
+all-features = true
+targets = ["x86_64-unknown-linux-gnu", "i686-unknown-linux-gnu"]
+
 # The rest of this file is auto-generated!
 [features]
 v2_6_32 = []
@@ -20,7 +24,3 @@ netlink = []
 v5_4 = []
 v5_11 = []
 default = ["general","errno"]
-
-[package.metadata.docs.rs]
-all-features = true
-targets = ["x86_64-unknown-linux-gnu", "i686-unknown-linux-gnu"]
