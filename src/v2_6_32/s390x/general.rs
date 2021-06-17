@@ -395,6 +395,99 @@ pub const INADDR_ALLHOSTS_GROUP: u32 = 3758096385;
 pub const INADDR_ALLRTRS_GROUP: u32 = 3758096386;
 pub const INADDR_MAX_LOCAL_GROUP: u32 = 3758096639;
 pub const __BIG_ENDIAN: u32 = 4321;
+pub const IPV6_FL_A_GET: u32 = 0;
+pub const IPV6_FL_A_PUT: u32 = 1;
+pub const IPV6_FL_A_RENEW: u32 = 2;
+pub const IPV6_FL_F_CREATE: u32 = 1;
+pub const IPV6_FL_F_EXCL: u32 = 2;
+pub const IPV6_FL_S_NONE: u32 = 0;
+pub const IPV6_FL_S_EXCL: u32 = 1;
+pub const IPV6_FL_S_PROCESS: u32 = 2;
+pub const IPV6_FL_S_USER: u32 = 3;
+pub const IPV6_FL_S_ANY: u32 = 255;
+pub const IPV6_FLOWINFO_FLOWLABEL: u32 = 1048575;
+pub const IPV6_FLOWINFO_PRIORITY: u32 = 267386880;
+pub const IPV6_PRIORITY_UNCHARACTERIZED: u32 = 0;
+pub const IPV6_PRIORITY_FILLER: u32 = 256;
+pub const IPV6_PRIORITY_UNATTENDED: u32 = 512;
+pub const IPV6_PRIORITY_RESERVED1: u32 = 768;
+pub const IPV6_PRIORITY_BULK: u32 = 1024;
+pub const IPV6_PRIORITY_RESERVED2: u32 = 1280;
+pub const IPV6_PRIORITY_INTERACTIVE: u32 = 1536;
+pub const IPV6_PRIORITY_CONTROL: u32 = 1792;
+pub const IPV6_PRIORITY_8: u32 = 2048;
+pub const IPV6_PRIORITY_9: u32 = 2304;
+pub const IPV6_PRIORITY_10: u32 = 2560;
+pub const IPV6_PRIORITY_11: u32 = 2816;
+pub const IPV6_PRIORITY_12: u32 = 3072;
+pub const IPV6_PRIORITY_13: u32 = 3328;
+pub const IPV6_PRIORITY_14: u32 = 3584;
+pub const IPV6_PRIORITY_15: u32 = 3840;
+pub const IPPROTO_HOPOPTS: u32 = 0;
+pub const IPPROTO_ROUTING: u32 = 43;
+pub const IPPROTO_FRAGMENT: u32 = 44;
+pub const IPPROTO_ICMPV6: u32 = 58;
+pub const IPPROTO_NONE: u32 = 59;
+pub const IPPROTO_DSTOPTS: u32 = 60;
+pub const IPPROTO_MH: u32 = 135;
+pub const IPV6_TLV_PAD0: u32 = 0;
+pub const IPV6_TLV_PADN: u32 = 1;
+pub const IPV6_TLV_ROUTERALERT: u32 = 5;
+pub const IPV6_TLV_JUMBO: u32 = 194;
+pub const IPV6_TLV_HAO: u32 = 201;
+pub const IPV6_ADDRFORM: u32 = 1;
+pub const IPV6_2292PKTINFO: u32 = 2;
+pub const IPV6_2292HOPOPTS: u32 = 3;
+pub const IPV6_2292DSTOPTS: u32 = 4;
+pub const IPV6_2292RTHDR: u32 = 5;
+pub const IPV6_2292PKTOPTIONS: u32 = 6;
+pub const IPV6_CHECKSUM: u32 = 7;
+pub const IPV6_2292HOPLIMIT: u32 = 8;
+pub const IPV6_NEXTHOP: u32 = 9;
+pub const IPV6_AUTHHDR: u32 = 10;
+pub const IPV6_FLOWINFO: u32 = 11;
+pub const IPV6_UNICAST_HOPS: u32 = 16;
+pub const IPV6_MULTICAST_IF: u32 = 17;
+pub const IPV6_MULTICAST_HOPS: u32 = 18;
+pub const IPV6_MULTICAST_LOOP: u32 = 19;
+pub const IPV6_ADD_MEMBERSHIP: u32 = 20;
+pub const IPV6_DROP_MEMBERSHIP: u32 = 21;
+pub const IPV6_ROUTER_ALERT: u32 = 22;
+pub const IPV6_MTU_DISCOVER: u32 = 23;
+pub const IPV6_MTU: u32 = 24;
+pub const IPV6_RECVERR: u32 = 25;
+pub const IPV6_V6ONLY: u32 = 26;
+pub const IPV6_JOIN_ANYCAST: u32 = 27;
+pub const IPV6_LEAVE_ANYCAST: u32 = 28;
+pub const IPV6_PMTUDISC_DONT: u32 = 0;
+pub const IPV6_PMTUDISC_WANT: u32 = 1;
+pub const IPV6_PMTUDISC_DO: u32 = 2;
+pub const IPV6_PMTUDISC_PROBE: u32 = 3;
+pub const IPV6_FLOWLABEL_MGR: u32 = 32;
+pub const IPV6_FLOWINFO_SEND: u32 = 33;
+pub const IPV6_IPSEC_POLICY: u32 = 34;
+pub const IPV6_XFRM_POLICY: u32 = 35;
+pub const IPV6_RECVPKTINFO: u32 = 49;
+pub const IPV6_PKTINFO: u32 = 50;
+pub const IPV6_RECVHOPLIMIT: u32 = 51;
+pub const IPV6_HOPLIMIT: u32 = 52;
+pub const IPV6_RECVHOPOPTS: u32 = 53;
+pub const IPV6_HOPOPTS: u32 = 54;
+pub const IPV6_RTHDRDSTOPTS: u32 = 55;
+pub const IPV6_RECVRTHDR: u32 = 56;
+pub const IPV6_RTHDR: u32 = 57;
+pub const IPV6_RECVDSTOPTS: u32 = 58;
+pub const IPV6_DSTOPTS: u32 = 59;
+pub const IPV6_RECVTCLASS: u32 = 66;
+pub const IPV6_TCLASS: u32 = 67;
+pub const IPV6_ADDR_PREFERENCES: u32 = 72;
+pub const IPV6_PREFER_SRC_TMP: u32 = 1;
+pub const IPV6_PREFER_SRC_PUBLIC: u32 = 2;
+pub const IPV6_PREFER_SRC_PUBTMP_DEFAULT: u32 = 256;
+pub const IPV6_PREFER_SRC_COA: u32 = 4;
+pub const IPV6_PREFER_SRC_HOME: u32 = 1024;
+pub const IPV6_PREFER_SRC_CGA: u32 = 8;
+pub const IPV6_PREFER_SRC_NONCGA: u32 = 2048;
 pub const ADFS_SUPER_MAGIC: u32 = 44533;
 pub const AFFS_SUPER_MAGIC: u32 = 44543;
 pub const AFS_SUPER_MAGIC: u32 = 1397113167;
@@ -1645,6 +1738,45 @@ pub sin_family: u16,
 pub sin_port: __be16,
 pub sin_addr: in_addr,
 pub __pad: [::std::os::raw::c_uchar; 8usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_addr {
+pub in6_u: in6_addr__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union in6_addr__bindgen_ty_1 {
+pub u6_addr8: [__u8; 16usize],
+pub u6_addr16: [__be16; 8usize],
+pub u6_addr32: [__be32; 4usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sockaddr_in6 {
+pub sin6_family: ::std::os::raw::c_ushort,
+pub sin6_port: __be16,
+pub sin6_flowinfo: __be32,
+pub sin6_addr: in6_addr,
+pub sin6_scope_id: __u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ipv6_mreq {
+pub ipv6mr_multiaddr: in6_addr,
+pub ipv6mr_ifindex: ::std::os::raw::c_int,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_flowlabel_req {
+pub flr_dst: in6_addr,
+pub flr_label: __be32,
+pub flr_action: __u8,
+pub flr_share: __u8,
+pub flr_flags: __u16,
+pub flr_expires: __u16,
+pub flr_linger: __u16,
+pub __flr_pad: __u32,
 }
 #[repr(u32)]
 #[non_exhaustive]
