@@ -7,7 +7,7 @@ use std::collections::HashSet;
 use std::env;
 use std::fs;
 use std::fs::File;
-use std::io::{Write, Read};
+use std::io::{Read, Write};
 use std::path::Path;
 use std::process::Command;
 
@@ -55,25 +55,41 @@ fn main() {
     // Edit ../src/lib.rs
     let mut src_lib_rs_in = File::open("../src/lib.rs").unwrap();
     let mut src_lib_rs_contents = String::new();
-    src_lib_rs_in.read_to_string(&mut src_lib_rs_contents).unwrap();
-    let edit_at = src_lib_rs_contents.find("// The rest of this file is auto-generated!\n").unwrap();
+    src_lib_rs_in
+        .read_to_string(&mut src_lib_rs_contents)
+        .unwrap();
+    let edit_at = src_lib_rs_contents
+        .find("// The rest of this file is auto-generated!\n")
+        .unwrap();
     src_lib_rs_contents = src_lib_rs_contents[..edit_at].to_owned();
 
     let mut src_lib_rs = File::create("../src/lib.rs").unwrap();
-    src_lib_rs.write_all(src_lib_rs_contents.as_bytes()).unwrap();
-    src_lib_rs.write_all("// The rest of this file is auto-generated!\n".as_bytes()).unwrap();
+    src_lib_rs
+        .write_all(src_lib_rs_contents.as_bytes())
+        .unwrap();
+    src_lib_rs
+        .write_all("// The rest of this file is auto-generated!\n".as_bytes())
+        .unwrap();
 
     // Edit ../Cargo.toml
     let mut cargo_toml_in = File::open("../Cargo.toml").unwrap();
     let mut cargo_toml_contents = String::new();
-    cargo_toml_in.read_to_string(&mut cargo_toml_contents).unwrap();
-    let edit_at = cargo_toml_contents.find("# The rest of this file is auto-generated!\n").unwrap();
+    cargo_toml_in
+        .read_to_string(&mut cargo_toml_contents)
+        .unwrap();
+    let edit_at = cargo_toml_contents
+        .find("# The rest of this file is auto-generated!\n")
+        .unwrap();
     cargo_toml_contents = cargo_toml_contents[..edit_at].to_owned();
 
     // Generate Cargo.toml
     let mut cargo_toml = File::create("../Cargo.toml").unwrap();
-    cargo_toml.write_all(cargo_toml_contents.as_bytes()).unwrap();
-    cargo_toml.write_all("# The rest of this file is auto-generated!\n".as_bytes()).unwrap();
+    cargo_toml
+        .write_all(cargo_toml_contents.as_bytes())
+        .unwrap();
+    cargo_toml
+        .write_all("# The rest of this file is auto-generated!\n".as_bytes())
+        .unwrap();
     writeln!(cargo_toml, "[features]").unwrap();
 
     let mut features: HashSet<String> = HashSet::new();
@@ -255,12 +271,10 @@ fn run_bindgen(
         .rustfmt_configuration_file(Some(Path::new("bindgen-rustfmt.toml").to_owned()))
         .layout_tests(false)
         .generate_comments(false)
-
         .default_enum_style(EnumVariation::Rust {
             non_exhaustive: true,
         })
         .array_pointers_in_arguments(true)
-
         .derive_debug(true)
         .clang_arg(&format!("--target={}-unknown-linux", clang_arch))
         .clang_arg("-nostdinc")
