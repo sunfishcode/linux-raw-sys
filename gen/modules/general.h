@@ -102,10 +102,6 @@ typedef __statfs_word __fsword_t;
 #define SOCK_RDM       4
 #define SOCK_SEQPACKET 5
 
-// `SOCK_CLOEXEC` is defined to `O_CLOEXEC` but it appears bindgen doesn't
-// understand that.
-#define SOCK_CLOEXEC   02000000
-
 #define F_OK 0
 #define R_OK 4
 #define W_OK 2
@@ -114,7 +110,6 @@ typedef __statfs_word __fsword_t;
 #define UTIME_NOW 0x3fffffff
 #define UTIME_OMIT 0x3ffffffe
 
-#define MSG_PEEK 2
 #define MSG_DONTWAIT 0x40
 
 #define AF_UNSPEC     0

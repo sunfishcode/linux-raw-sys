@@ -277,6 +277,7 @@ fn run_bindgen(
         .array_pointers_in_arguments(true)
         .derive_debug(true)
         .clang_arg(&format!("--target={}-unknown-linux", clang_arch))
+        .clang_arg("-DBITS_PER_LONG=(__SIZEOF_LONG__*__CHAR_BIT__)")
         .clang_arg("-nostdinc")
         .clang_arg("-I")
         .clang_arg("include")

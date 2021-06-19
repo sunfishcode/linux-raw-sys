@@ -1469,14 +1469,12 @@ pub const SOCK_DGRAM: u32 = 2;
 pub const SOCK_RAW: u32 = 3;
 pub const SOCK_RDM: u32 = 4;
 pub const SOCK_SEQPACKET: u32 = 5;
-pub const SOCK_CLOEXEC: u32 = 524288;
 pub const F_OK: u32 = 0;
 pub const R_OK: u32 = 4;
 pub const W_OK: u32 = 2;
 pub const X_OK: u32 = 1;
 pub const UTIME_NOW: u32 = 1073741823;
 pub const UTIME_OMIT: u32 = 1073741822;
-pub const MSG_PEEK: u32 = 2;
 pub const MSG_DONTWAIT: u32 = 64;
 pub const AF_UNSPEC: u32 = 0;
 pub const AF_LOCAL: u32 = 1;
@@ -1515,6 +1513,7 @@ pub const AF_PHONET: u32 = 35;
 pub const AF_IEEE802154: u32 = 36;
 pub const AF_MAX: u32 = 37;
 pub const MSG_OOB: u32 = 1;
+pub const MSG_PEEK: u32 = 2;
 pub const MSG_DONTROUTE: u32 = 4;
 pub const MSG_CTRUNC: u32 = 8;
 pub const MSG_PROBE: u32 = 16;
@@ -2145,32 +2144,32 @@ pub st_ctime: ::std::os::raw::c_uint,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct statfs {
-pub f_type: __u32,
-pub f_bsize: __u32,
-pub f_blocks: __u32,
-pub f_bfree: __u32,
-pub f_bavail: __u32,
-pub f_files: __u32,
-pub f_ffree: __u32,
+pub f_type: ::std::os::raw::c_long,
+pub f_bsize: ::std::os::raw::c_long,
+pub f_blocks: ::std::os::raw::c_long,
+pub f_bfree: ::std::os::raw::c_long,
+pub f_bavail: ::std::os::raw::c_long,
+pub f_files: ::std::os::raw::c_long,
+pub f_ffree: ::std::os::raw::c_long,
 pub f_fsid: __kernel_fsid_t,
-pub f_namelen: __u32,
-pub f_frsize: __u32,
-pub f_spare: [__u32; 5usize],
+pub f_namelen: ::std::os::raw::c_long,
+pub f_frsize: ::std::os::raw::c_long,
+pub f_spare: [::std::os::raw::c_long; 5usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct statfs64 {
-pub f_type: __u32,
-pub f_bsize: __u32,
+pub f_type: ::std::os::raw::c_long,
+pub f_bsize: ::std::os::raw::c_long,
 pub f_blocks: __u64,
 pub f_bfree: __u64,
 pub f_bavail: __u64,
 pub f_files: __u64,
 pub f_ffree: __u64,
 pub f_fsid: __kernel_fsid_t,
-pub f_namelen: __u32,
-pub f_frsize: __u32,
-pub f_spare: [__u32; 5usize],
+pub f_namelen: ::std::os::raw::c_long,
+pub f_frsize: ::std::os::raw::c_long,
+pub f_spare: [::std::os::raw::c_long; 5usize],
 }
 #[repr(C, packed(4))]
 #[derive(Debug, Copy, Clone)]
@@ -2187,4 +2186,4 @@ pub f_namelen: __u32,
 pub f_frsize: __u32,
 pub f_spare: [__u32; 5usize],
 }
-pub type __fsword_t = __u32;
+pub type __fsword_t = ::std::os::raw::c_long;
