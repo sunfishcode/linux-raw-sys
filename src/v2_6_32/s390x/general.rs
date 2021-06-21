@@ -2068,6 +2068,13 @@ pub struct sockaddr {
 pub __storage: __kernel_sockaddr_storage,
 }
 pub type __kernel_sa_family_t = u16;
+pub type __kernel_time64_t = ::std::os::raw::c_longlong;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __kernel_timespec {
+pub tv_sec: __kernel_time64_t,
+pub tv_nsec: ::std::os::raw::c_longlong,
+}
 #[repr(C)]
 #[derive(Debug)]
 pub struct linux_dirent64 {

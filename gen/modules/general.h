@@ -48,6 +48,14 @@ struct sockaddr {
 typedef uint16_t __kernel_sa_family_t;
 #endif
 
+#if LINUX_VERSION_CODE == KERNEL_VERSION(2,6,32)
+typedef long long __kernel_time64_t;
+struct __kernel_timespec {
+    __kernel_time64_t tv_sec;
+    long long         tv_nsec;
+};
+#endif
+
 #define DT_UNKNOWN 0
 #define DT_FIFO    1
 #define DT_CHR     2
