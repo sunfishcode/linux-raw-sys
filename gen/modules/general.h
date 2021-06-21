@@ -44,6 +44,9 @@
 struct sockaddr {
     struct __kernel_sockaddr_storage __storage;
 };
+#if LINUX_VERSION_CODE == KERNEL_VERSION(2,6,32)
+typedef uint16_t __kernel_sa_family_t;
+#endif
 
 #define DT_UNKNOWN 0
 #define DT_FIFO    1
@@ -113,7 +116,7 @@ typedef __statfs_word __fsword_t;
 #define MSG_DONTWAIT 0x40
 
 #define AF_UNSPEC     0
-#define AF_LOCAL      1
+#define AF_UNIX       1
 #define AF_INET       2
 #define AF_AX25       3
 #define AF_IPX        4

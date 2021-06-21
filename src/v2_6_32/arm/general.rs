@@ -1512,7 +1512,7 @@ pub const UTIME_NOW: u32 = 1073741823;
 pub const UTIME_OMIT: u32 = 1073741822;
 pub const MSG_DONTWAIT: u32 = 64;
 pub const AF_UNSPEC: u32 = 0;
-pub const AF_LOCAL: u32 = 1;
+pub const AF_UNIX: u32 = 1;
 pub const AF_INET: u32 = 2;
 pub const AF_AX25: u32 = 3;
 pub const AF_IPX: u32 = 4;
@@ -2130,6 +2130,7 @@ pub sun_path: [::std::os::raw::c_char; 108usize],
 pub struct sockaddr {
 pub __storage: __kernel_sockaddr_storage,
 }
+pub type __kernel_sa_family_t = u16;
 #[repr(C)]
 #[derive(Debug)]
 pub struct linux_dirent64 {
