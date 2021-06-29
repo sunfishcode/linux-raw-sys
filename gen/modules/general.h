@@ -6,6 +6,7 @@
 // Selected Linux headers.
 
 #include <linux/fadvise.h>
+#include <linux/falloc.h>
 #include <linux/fcntl.h>
 #include <linux/fs.h>
 #include <linux/futex.h>

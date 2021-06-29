@@ -80,6 +80,7 @@ pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
 pub const POSIX_FADV_WILLNEED: u32 = 3;
 pub const POSIX_FADV_DONTNEED: u32 = 4;
 pub const POSIX_FADV_NOREUSE: u32 = 5;
+pub const FALLOC_FL_KEEP_SIZE: u32 = 1;
 pub const O_APPEND: u32 = 8;
 pub const O_SYNC: u32 = 16;
 pub const O_NONBLOCK: u32 = 128;
