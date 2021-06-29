@@ -34,10 +34,6 @@ pub use s390x::*;
 mod aarch64;
 #[cfg(target_arch = "aarch64")]
 pub use aarch64::*;
-#[cfg(target_arch = "hexagon")]
-mod hexagon;
-#[cfg(target_arch = "hexagon")]
-pub use hexagon::*;
 #[cfg(target_arch = "x86")]
 mod x86;
 #[cfg(target_arch = "x86")]

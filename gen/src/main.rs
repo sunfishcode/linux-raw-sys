@@ -12,10 +12,15 @@ use std::path::Path;
 use std::process::Command;
 
 #[allow(unused_doc_comments)]
-const LINUX_VERSIONS: [&str; 3] = [
-    /// Rust supports Linux versions back to this.
+const LINUX_VERSIONS: [&str; 8] = [
+    /// Base supported revisions for various architectures.
     /// <https://doc.rust-lang.org/nightly/rustc/platform-support.html>
     "v2.6.32",
+    "v3.2",
+    "v3.10",
+    "v4.2",
+    "v4.4",
+    "v4.20",
     /// This is the oldest kernel version available on Github Actions.
     /// <https://github.com/actions/virtual-environments#available-environments>
     "v5.4",
@@ -23,8 +28,19 @@ const LINUX_VERSIONS: [&str; 3] = [
     "v5.11",
 ];
 
-/// Rust supports Linux versions back to this this.
-const DEFAULT_LINUX_VERSION: &str = "v2.6.32";
+/// Base supported revisions for various architectures.
+/// <https://doc.rust-lang.org/nightly/rustc/platform-support.html>
+const DEFAULT_LINUX_VERSIONS: [(&str, &str); 9] = [
+    ("x86", "v2.6.32"),
+    ("x86_64", "v2.6.32"),
+    ("aarch64", "v4.2"),
+    ("mips", "v4.4"),
+    ("mips64", "v4.4"),
+    ("arm", "v3.2"),
+    ("powerpc", "v2.6.32"),
+    ("powerpc64", "v3.10"), // powerpc64 has 2.6.32, but powerpc64le has 3.10; go with the later for now.
+    ("riscv64", "v4.20"),
+];
 
 /// Some commonly used features.
 const DEFAULT_FEATURES: &str = "\"general\", \"errno\"";
@@ -102,13 +118,29 @@ fn main() {
             writeln!(cargo_toml, "{} = []", linux_version_mod).unwrap();
         }
 
-        let cfg_version = format!("#[cfg(feature = \"{}\")]", linux_version_mod);
-        if linux_version != &DEFAULT_LINUX_VERSION {
+        // Define the module. If this isn't the default version, make it
+        // conditional.
+        if DEFAULT_LINUX_VERSIONS.iter().any(|default| &default.1 == linux_version) {
+            for default in &DEFAULT_LINUX_VERSIONS {
+                if &default.1 == linux_version {
+                    let cfg_version = format!("#[cfg(target_arch = \"{}\")]", default.0);
+                    writeln!(src_lib_rs, "{}", cfg_version).unwrap();
+                    writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
+                }
+            }
+        } else {
+            let cfg_version = format!("#[cfg(feature = \"{}\")]", linux_version_mod);
             writeln!(src_lib_rs, "{}", cfg_version).unwrap();
+            writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
         }
-        writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
-        if linux_version == &DEFAULT_LINUX_VERSION {
-            writeln!(src_lib_rs, "pub use {}::*;", linux_version_mod).unwrap();
+
+        // If this is the default version for an architecture, make the
+        // contents available in the top-level namespace.
+        for default in &DEFAULT_LINUX_VERSIONS {
+            if linux_version == &default.1 {
+                writeln!(src_lib_rs, "#[cfg(target_arch = \"{}\")]", default.0).unwrap();
+                writeln!(src_lib_rs, "pub use {}::*;", linux_version_mod).unwrap();
+            }
         }
 
         let src_vers = format!("../src/{}", linux_version_mod);
@@ -132,9 +164,21 @@ fn main() {
 
             fs::create_dir_all(&linux_headers).unwrap();
 
-            make_headers_install(&linux_arch, &linux_headers);
-
+            let mut headers_made = false;
             for rust_arch in rust_arches {
+                // Only build the default versions on their associated
+                // architectures.
+                if !DEFAULT_LINUX_VERSIONS.iter().any(|default| rust_arch == &default.0 && linux_version == &default.1) &&
+                DEFAULT_LINUX_VERSIONS.iter().any(|default| linux_version == &default.1)
+                {
+                    continue;
+                }
+
+                if !headers_made {
+                    make_headers_install(&linux_arch, &linux_headers);
+                    headers_made = true;
+                }
+
                 eprintln!(
                     "Generating all bindings for Linux {} architecture {}",
                     linux_version, rust_arch
@@ -181,23 +225,14 @@ fn main() {
 
     writeln!(cargo_toml, "default = [{}]", DEFAULT_FEATURES).unwrap();
 
-    // Reset the `linux` directory back to the default branch.
-    git_checkout(DEFAULT_LINUX_VERSION);
+    // Reset the `linux` directory back to the original branch.
+    git_checkout(LINUX_VERSIONS[0]);
 
     eprintln!("All bindings generated!");
 }
 
 fn git_checkout(rev: &str) {
-    // Check out the given revision.
-    assert!(Command::new("git")
-        .arg("checkout")
-        .arg(rev)
-        .current_dir("linux")
-        .status()
-        .unwrap()
-        .success());
-
-    // Delete any untracked generated files from other versions.
+    // Delete any generated files from previous versions.
     assert!(Command::new("git")
         .arg("clean")
         .arg("-f")
@@ -211,6 +246,25 @@ fn git_checkout(rev: &str) {
     assert!(Command::new("git")
         .arg("restore")
         .arg(".")
+        .current_dir("linux")
+        .status()
+        .unwrap()
+        .success());
+
+    // Check out the given revision.
+    assert!(Command::new("git")
+        .arg("checkout")
+        .arg(rev)
+        .current_dir("linux")
+        .status()
+        .unwrap()
+        .success());
+
+    // Delete any untracked generated files from previous versions.
+    assert!(Command::new("git")
+        .arg("clean")
+        .arg("-f")
+        .arg("-d")
         .current_dir("linux")
         .status()
         .unwrap()
@@ -236,7 +290,8 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         "arm" => &["arm"],
         "arm64" => &["aarch64"],
         "avr32" => &["avr"],
-        "hexagon" => &["hexagon"],
+        // hexagon gets build errors; disable it for now
+        "hexagon" => &[],
         "mips" => &["mips", "mips64"],
         "powerpc" => &["powerpc", "powerpc64"],
         "riscv" => &["riscv32", "riscv64"],
@@ -245,7 +300,8 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         "x86" => &["x86", "x86_64"],
         "alpha" | "cris" | "h8300" | "m68k" | "microblaze" | "mn10300" | "score" | "blackfin"
         | "frv" | "ia64" | "m32r" | "m68knommu" | "parisc" | "sh" | "um" | "xtensa"
-        | "unicore32" | "c6x" | "nios2" | "openrisc" | "csky" | "arc" | "nds32" => &[],
+        | "unicore32" | "c6x" | "nios2" | "openrisc" | "csky" | "arc" | "nds32" | "metag"
+        | "tile" => &[],
         _ => panic!("unrecognized arch: {}", linux_arch),
     }
 }
@@ -280,9 +336,9 @@ fn run_bindgen(
         .clang_arg("-DBITS_PER_LONG=(__SIZEOF_LONG__*__CHAR_BIT__)")
         .clang_arg("-nostdinc")
         .clang_arg("-I")
-        .clang_arg("include")
-        .clang_arg("-I")
         .clang_arg(linux_include)
+        .clang_arg("-I")
+        .clang_arg("include")
         .blocklist_item("NULL");
 
     let bindings = builder
