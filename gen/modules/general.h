@@ -185,6 +185,11 @@ typedef __statfs_word __fsword_t;
 
 // Linux exports these, but the definitions have syntax that bindgen doesn't
 // recognize as constants.
+#undef RWF_HIPRI
+#undef RWF_DSYNC
+#undef RWF_SYNC
+#undef RWF_NOWAIT
+#undef RWF_APPEND
 #define RWF_HIPRI       0x00000001
 #define RWF_DSYNC       0x00000002
 #define RWF_SYNC        0x00000004
