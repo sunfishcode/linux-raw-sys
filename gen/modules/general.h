@@ -49,7 +49,7 @@ struct sockaddr {
 typedef uint16_t __kernel_sa_family_t;
 #endif
 
-#if LINUX_VERSION_CODE == KERNEL_VERSION(2,6,32)
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,4,0)
 typedef long long __kernel_time64_t;
 struct __kernel_timespec {
     __kernel_time64_t tv_sec;
