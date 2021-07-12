@@ -196,3 +196,8 @@ typedef __statfs_word __fsword_t;
 #define RWF_SYNC        0x00000004
 #define RWF_NOWAIT      0x00000008
 #define RWF_APPEND      0x00000010
+
+// Linux doesn't appear to export <linux/eventfd.h> at all.
+#define EFD_SEMAPHORE (1 << 0)
+#define EFD_CLOEXEC O_CLOEXEC
+#define EFD_NONBLOCK O_NONBLOCK
