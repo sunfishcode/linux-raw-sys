@@ -74,13 +74,6 @@ true
 }
 impl<T> ::std::cmp::Eq for __BindgenUnionField<T> {}
 pub const LINUX_VERSION_CODE: u32 = 132640;
-pub const POSIX_FADV_NORMAL: u32 = 0;
-pub const POSIX_FADV_RANDOM: u32 = 1;
-pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
-pub const POSIX_FADV_WILLNEED: u32 = 3;
-pub const POSIX_FADV_DONTNEED: u32 = 4;
-pub const POSIX_FADV_NOREUSE: u32 = 5;
-pub const FALLOC_FL_KEEP_SIZE: u32 = 1;
 pub const O_DIRECTORY: u32 = 16384;
 pub const O_NOFOLLOW: u32 = 32768;
 pub const O_LARGEFILE: u32 = 65536;
@@ -154,6 +147,19 @@ pub const AT_FDCWD: i32 = -100;
 pub const AT_SYMLINK_NOFOLLOW: u32 = 256;
 pub const AT_REMOVEDIR: u32 = 512;
 pub const AT_SYMLINK_FOLLOW: u32 = 1024;
+pub const EPOLL_CLOEXEC: u32 = 524288;
+pub const EPOLL_CTL_ADD: u32 = 1;
+pub const EPOLL_CTL_DEL: u32 = 2;
+pub const EPOLL_CTL_MOD: u32 = 3;
+pub const EPOLLONESHOT: u32 = 1073741824;
+pub const EPOLLET: u32 = 2147483648;
+pub const POSIX_FADV_NORMAL: u32 = 0;
+pub const POSIX_FADV_RANDOM: u32 = 1;
+pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
+pub const POSIX_FADV_WILLNEED: u32 = 3;
+pub const POSIX_FADV_DONTNEED: u32 = 4;
+pub const POSIX_FADV_NOREUSE: u32 = 5;
+pub const FALLOC_FL_KEEP_SIZE: u32 = 1;
 pub const NR_OPEN: u32 = 1024;
 pub const NGROUPS_MAX: u32 = 65536;
 pub const ARG_MAX: u32 = 131072;
@@ -1635,6 +1641,12 @@ pub l_whence: ::std::os::raw::c_short,
 pub l_start: __kernel_loff_t,
 pub l_len: __kernel_loff_t,
 pub l_pid: __kernel_pid_t,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct epoll_event {
+pub events: __u32,
+pub data: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

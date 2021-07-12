@@ -31,19 +31,6 @@ fmt.write_str("__IncompleteArrayField")
 }
 }
 pub const LINUX_VERSION_CODE: u32 = 328704;
-pub const POSIX_FADV_NORMAL: u32 = 0;
-pub const POSIX_FADV_RANDOM: u32 = 1;
-pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
-pub const POSIX_FADV_WILLNEED: u32 = 3;
-pub const POSIX_FADV_DONTNEED: u32 = 4;
-pub const POSIX_FADV_NOREUSE: u32 = 5;
-pub const FALLOC_FL_KEEP_SIZE: u32 = 1;
-pub const FALLOC_FL_PUNCH_HOLE: u32 = 2;
-pub const FALLOC_FL_NO_HIDE_STALE: u32 = 4;
-pub const FALLOC_FL_COLLAPSE_RANGE: u32 = 8;
-pub const FALLOC_FL_ZERO_RANGE: u32 = 16;
-pub const FALLOC_FL_INSERT_RANGE: u32 = 32;
-pub const FALLOC_FL_UNSHARE_RANGE: u32 = 64;
 pub const O_DIRECTORY: u32 = 16384;
 pub const O_NOFOLLOW: u32 = 32768;
 pub const O_LARGEFILE: u32 = 65536;
@@ -152,6 +139,23 @@ pub const AT_STATX_SYNC_AS_STAT: u32 = 0;
 pub const AT_STATX_FORCE_SYNC: u32 = 8192;
 pub const AT_STATX_DONT_SYNC: u32 = 16384;
 pub const AT_RECURSIVE: u32 = 32768;
+pub const EPOLL_CLOEXEC: u32 = 524288;
+pub const EPOLL_CTL_ADD: u32 = 1;
+pub const EPOLL_CTL_DEL: u32 = 2;
+pub const EPOLL_CTL_MOD: u32 = 3;
+pub const POSIX_FADV_NORMAL: u32 = 0;
+pub const POSIX_FADV_RANDOM: u32 = 1;
+pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
+pub const POSIX_FADV_WILLNEED: u32 = 3;
+pub const POSIX_FADV_DONTNEED: u32 = 4;
+pub const POSIX_FADV_NOREUSE: u32 = 5;
+pub const FALLOC_FL_KEEP_SIZE: u32 = 1;
+pub const FALLOC_FL_PUNCH_HOLE: u32 = 2;
+pub const FALLOC_FL_NO_HIDE_STALE: u32 = 4;
+pub const FALLOC_FL_COLLAPSE_RANGE: u32 = 8;
+pub const FALLOC_FL_ZERO_RANGE: u32 = 16;
+pub const FALLOC_FL_INSERT_RANGE: u32 = 32;
+pub const FALLOC_FL_UNSHARE_RANGE: u32 = 64;
 pub const NR_OPEN: u32 = 1024;
 pub const NGROUPS_MAX: u32 = 65536;
 pub const ARG_MAX: u32 = 131072;
@@ -2083,6 +2087,12 @@ pub l_whence: ::std::os::raw::c_short,
 pub l_start: __kernel_loff_t,
 pub l_len: __kernel_loff_t,
 pub l_pid: __kernel_pid_t,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct epoll_event {
+pub events: __poll_t,
+pub data: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
