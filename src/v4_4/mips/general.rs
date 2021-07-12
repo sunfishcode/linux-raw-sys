@@ -1892,6 +1892,7 @@ pub const EPOLLWRNORM: u32 = 256;
 pub const EPOLLWRBAND: u32 = 512;
 pub const EPOLLMSG: u32 = 1024;
 pub const EPOLLRDHUP: u32 = 8192;
+pub const EPOLLEXCLUSIVE: u32 = 268435456;
 pub type size_t = ::std::os::raw::c_uint;
 pub type ssize_t = ::std::os::raw::c_int;
 pub type __s8 = ::std::os::raw::c_schar;
