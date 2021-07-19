@@ -225,3 +225,5 @@ typedef __statfs_word __fsword_t;
 #define EPOLLRDHUP  0x00002000
 #define EPOLLEXCLUSIVE (1u << 28)
 #define EPOLLWAKEUP    (1u << 29)
+#define EPOLLONESHOT   (1u << 30)
+#define EPOLLET        (1u << 31)
