@@ -36,6 +36,10 @@
 #include <linux/memfd.h>
 #endif
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,20,0)
+#include <linux/timerfd.h>
+#endif
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(5,6,0)
 #include <linux/openat2.h>
 #endif
@@ -227,3 +231,11 @@ typedef __statfs_word __fsword_t;
 #define EPOLLWAKEUP    (1u << 29)
 #define EPOLLONESHOT   (1u << 30)
 #define EPOLLET        (1u << 31)
+
+// Flags for timerfd
+#define TFD_TIMER_ABSTIME (1 << 0)
+#define TFD_CLOEXEC O_CLOEXEC
+#define TFD_NONBLOCK O_NONBLOCK
+#define TFD_SHARED_FCNTL_FLAGS (TFD_CLOEXEC | TFD_NONBLOCK)
+#define TFD_CREATE_FLAGS TFD_SHARED_FCNTL_FLAGS
+#define TFD_SETTIME_FLAGS TFD_TIMER_ABSTIME
