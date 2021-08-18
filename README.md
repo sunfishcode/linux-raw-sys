@@ -16,7 +16,7 @@ This crate contains bindgen-generated bindings for Linux's userspace API.
 This is primarily of interest if you want to make raw system calls directly,
 which is tedious and error prone and not necessary for most use cases. For a
 minimal type-safe, memory-safe, and I/O-safe API to the Linux system calls
-built on these bindings, see the [posish crate].
+built on these bindings, see the [rsix crate].
 
 The full bindings are quite large, so they've been split up into modules and
 cargo features. By default, `general` and `errno` are enabled, which provide
@@ -43,4 +43,4 @@ needed by userspace.
 [linux-sys]: https://crates.io/crates/linux-sys
 
 [oldest version supported by Rust]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
-[posish crate]: https://github.com/bytecodealliance/posish#linux-raw-syscall-support
+[rsix crate]: https://github.com/bytecodealliance/rsix#linux-raw-syscall-support
