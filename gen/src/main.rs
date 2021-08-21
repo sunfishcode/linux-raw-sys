@@ -54,6 +54,8 @@ fn main() {
     assert!(cmd.is_none());
     assert!(args.next().is_none());
 
+    git_init();
+
     let out = tempdir::TempDir::new("linux-raw-sys").unwrap();
     let out_dir = out.path();
     let linux_headers = out_dir.join("linux-headers");
@@ -120,7 +122,10 @@ fn main() {
 
         // Define the module. If this isn't the default version, make it
         // conditional.
-        if DEFAULT_LINUX_VERSIONS.iter().any(|default| &default.1 == linux_version) {
+        if DEFAULT_LINUX_VERSIONS
+            .iter()
+            .any(|default| &default.1 == linux_version)
+        {
             for default in &DEFAULT_LINUX_VERSIONS {
                 if &default.1 == linux_version {
                     let cfg_version = format!("#[cfg(target_arch = \"{}\")]", default.0);
@@ -168,8 +173,12 @@ fn main() {
             for rust_arch in rust_arches {
                 // Only build the default versions on their associated
                 // architectures.
-                if !DEFAULT_LINUX_VERSIONS.iter().any(|default| rust_arch == &default.0 && linux_version == &default.1) &&
-                DEFAULT_LINUX_VERSIONS.iter().any(|default| linux_version == &default.1)
+                if !DEFAULT_LINUX_VERSIONS
+                    .iter()
+                    .any(|default| rust_arch == &default.0 && linux_version == &default.1)
+                    && DEFAULT_LINUX_VERSIONS
+                        .iter()
+                        .any(|default| linux_version == &default.1)
                 {
                     continue;
                 }
@@ -231,7 +240,7 @@ fn main() {
     eprintln!("All bindings generated!");
 }
 
-fn git_checkout(rev: &str) {
+fn git_init() {
     // Clone the linux kernel source repo if necessary. Ignore exit code as it will be non-zero in
     // case it was already cloned.
     // Use a treeless partial clone to save disk space and clone time.
@@ -244,9 +253,33 @@ fn git_checkout(rev: &str) {
         .arg("clone")
         .arg("https://github.com/torvalds/linux.git")
         .arg("--filter=tree:0")
+        .arg("--no-checkout")
         .status()
         .unwrap();
 
+    // Setup sparse checkout. This greatly reduces the amount of objects necessary to checkout the
+    // tree.
+    assert!(Command::new("git")
+        .arg("sparse-checkout")
+        .arg("init")
+        .current_dir("linux")
+        .status()
+        .unwrap()
+        .success());
+
+    fs::write(
+        "linux/.git/info/sparse-checkout",
+        "/*
+!/*/
+/include/
+/arch/
+/scripts/
+/tools/",
+    )
+    .unwrap();
+}
+
+fn git_checkout(rev: &str) {
     // Delete any generated files from previous versions.
     assert!(Command::new("git")
         .arg("clean")
