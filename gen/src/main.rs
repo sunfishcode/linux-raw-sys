@@ -290,19 +290,11 @@ fn git_checkout(rev: &str) {
         .unwrap()
         .success());
 
-    // Restore any deleted files.
-    assert!(Command::new("git")
-        .arg("restore")
-        .arg(".")
-        .current_dir("linux")
-        .status()
-        .unwrap()
-        .success());
-
     // Check out the given revision.
     assert!(Command::new("git")
         .arg("checkout")
         .arg(rev)
+        .arg("-f")
         .current_dir("linux")
         .status()
         .unwrap()
