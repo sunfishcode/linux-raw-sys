@@ -93,7 +93,7 @@ typedef __UINT32_TYPE__ socklen_t;
 #include <asm/statfs.h>
 
 // Linux only defines this as a macro; make it available as a typedef.
-// And use the libc name. And mips and s930x are special.
+// And use the libc name. And mips and s390x are special.
 #if defined(__mips__) || defined(__s390x__)
 typedef __u32 __fsword_t;
 #elif defined(__mips64__)
