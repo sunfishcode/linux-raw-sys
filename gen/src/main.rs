@@ -232,6 +232,21 @@ fn main() {
 }
 
 fn git_checkout(rev: &str) {
+    // Clone the linux kernel source repo if necessary. Ignore exit code as it will be non-zero in
+    // case it was already cloned.
+    // Use a treeless partial clone to save disk space and clone time.
+    // See https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/ for
+    // more info on partial clones.
+    // Note: this is not using the official repo
+    // git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git but the github fork as the
+    // server of the official repo doesn't recognize filtering.
+    Command::new("git")
+        .arg("clone")
+        .arg("https://github.com/torvalds/linux.git")
+        .arg("--filter=tree:0")
+        .status()
+        .unwrap();
+
     // Delete any generated files from previous versions.
     assert!(Command::new("git")
         .arg("clean")
