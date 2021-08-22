@@ -2,11 +2,11 @@
 
 #[repr(C)]
 #[derive(Default)]
-pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
+pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
 impl<T> __IncompleteArrayField<T> {
 #[inline]
 pub const fn new() -> Self {
-__IncompleteArrayField(::std::marker::PhantomData, [])
+__IncompleteArrayField(::core::marker::PhantomData, [])
 }
 #[inline]
 pub fn as_ptr(&self) -> *const T {
@@ -18,15 +18,15 @@ self as *mut _ as *mut T
 }
 #[inline]
 pub unsafe fn as_slice(&self, len: usize) -> &[T] {
-::std::slice::from_raw_parts(self.as_ptr(), len)
+::core::slice::from_raw_parts(self.as_ptr(), len)
 }
 #[inline]
 pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
-::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
+::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
 }
 }
-impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
-fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
+fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
 fmt.write_str("__IncompleteArrayField")
 }
 }
@@ -213,16 +213,16 @@ pub const RTEXT_FILTER_VF: u32 = 1;
 pub const RTEXT_FILTER_BRVLAN: u32 = 2;
 pub const RTEXT_FILTER_BRVLAN_COMPRESSED: u32 = 4;
 pub const RTEXT_FILTER_SKIP_STATS: u32 = 8;
-pub type size_t = ::std::os::raw::c_ulong;
-pub type ssize_t = ::std::os::raw::c_long;
-pub type __s8 = ::std::os::raw::c_schar;
-pub type __u8 = ::std::os::raw::c_uchar;
-pub type __s16 = ::std::os::raw::c_short;
-pub type __u16 = ::std::os::raw::c_ushort;
-pub type __s32 = ::std::os::raw::c_int;
-pub type __u32 = ::std::os::raw::c_uint;
-pub type __s64 = ::std::os::raw::c_long;
-pub type __u64 = ::std::os::raw::c_ulong;
+pub type size_t = crate::ctypes::c_ulong;
+pub type ssize_t = crate::ctypes::c_long;
+pub type __s8 = crate::ctypes::c_schar;
+pub type __u8 = crate::ctypes::c_uchar;
+pub type __s16 = crate::ctypes::c_short;
+pub type __u16 = crate::ctypes::c_ushort;
+pub type __s32 = crate::ctypes::c_int;
+pub type __u32 = crate::ctypes::c_uint;
+pub type __s64 = crate::ctypes::c_long;
+pub type __u64 = crate::ctypes::c_ulong;
 #[repr(C)]
 #[repr(align(16))]
 #[derive(Debug, Copy, Clone)]
@@ -232,24 +232,24 @@ pub u: [__u32; 4usize],
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fd_set {
-pub fds_bits: [::std::os::raw::c_ulong; 16usize],
+pub fds_bits: [crate::ctypes::c_ulong; 16usize],
 }
-pub type __kernel_sighandler_t = ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
-pub type __kernel_key_t = ::std::os::raw::c_int;
-pub type __kernel_mqd_t = ::std::os::raw::c_int;
-pub type __kernel_old_dev_t = ::std::os::raw::c_ulong;
-pub type __kernel_long_t = ::std::os::raw::c_long;
-pub type __kernel_ulong_t = ::std::os::raw::c_ulong;
+pub type __kernel_sighandler_t = ::core::option::Option<unsafe extern "C" fn(arg1: crate::ctypes::c_int)>;
+pub type __kernel_key_t = crate::ctypes::c_int;
+pub type __kernel_mqd_t = crate::ctypes::c_int;
+pub type __kernel_old_dev_t = crate::ctypes::c_ulong;
+pub type __kernel_long_t = crate::ctypes::c_long;
+pub type __kernel_ulong_t = crate::ctypes::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
-pub type __kernel_mode_t = ::std::os::raw::c_uint;
-pub type __kernel_pid_t = ::std::os::raw::c_int;
-pub type __kernel_ipc_pid_t = ::std::os::raw::c_int;
-pub type __kernel_uid_t = ::std::os::raw::c_uint;
-pub type __kernel_gid_t = ::std::os::raw::c_uint;
+pub type __kernel_mode_t = crate::ctypes::c_uint;
+pub type __kernel_pid_t = crate::ctypes::c_int;
+pub type __kernel_ipc_pid_t = crate::ctypes::c_int;
+pub type __kernel_uid_t = crate::ctypes::c_uint;
+pub type __kernel_gid_t = crate::ctypes::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
-pub type __kernel_daddr_t = ::std::os::raw::c_int;
-pub type __kernel_uid32_t = ::std::os::raw::c_uint;
-pub type __kernel_gid32_t = ::std::os::raw::c_uint;
+pub type __kernel_daddr_t = crate::ctypes::c_int;
+pub type __kernel_uid32_t = crate::ctypes::c_uint;
+pub type __kernel_gid32_t = crate::ctypes::c_uint;
 pub type __kernel_old_uid_t = __kernel_uid_t;
 pub type __kernel_old_gid_t = __kernel_gid_t;
 pub type __kernel_size_t = __kernel_ulong_t;
@@ -258,18 +258,18 @@ pub type __kernel_ptrdiff_t = __kernel_long_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fsid_t {
-pub val: [::std::os::raw::c_int; 2usize],
+pub val: [crate::ctypes::c_int; 2usize],
 }
 pub type __kernel_off_t = __kernel_long_t;
-pub type __kernel_loff_t = ::std::os::raw::c_longlong;
+pub type __kernel_loff_t = crate::ctypes::c_longlong;
 pub type __kernel_time_t = __kernel_long_t;
-pub type __kernel_time64_t = ::std::os::raw::c_longlong;
+pub type __kernel_time64_t = crate::ctypes::c_longlong;
 pub type __kernel_clock_t = __kernel_long_t;
-pub type __kernel_timer_t = ::std::os::raw::c_int;
-pub type __kernel_clockid_t = ::std::os::raw::c_int;
-pub type __kernel_caddr_t = *mut ::std::os::raw::c_char;
-pub type __kernel_uid16_t = ::std::os::raw::c_ushort;
-pub type __kernel_gid16_t = ::std::os::raw::c_ushort;
+pub type __kernel_timer_t = crate::ctypes::c_int;
+pub type __kernel_clockid_t = crate::ctypes::c_int;
+pub type __kernel_caddr_t = *mut crate::ctypes::c_char;
+pub type __kernel_uid16_t = crate::ctypes::c_ushort;
+pub type __kernel_gid16_t = crate::ctypes::c_ushort;
 pub type __le16 = __u16;
 pub type __be16 = __u16;
 pub type __le32 = __u32;
@@ -278,7 +278,7 @@ pub type __le64 = __u64;
 pub type __be64 = __u64;
 pub type __sum16 = __u16;
 pub type __wsum = __u32;
-pub type __poll_t = ::std::os::raw::c_uint;
+pub type __poll_t = crate::ctypes::c_uint;
 #[repr(C)]
 #[derive(Debug)]
 pub struct sysinfo {
@@ -295,9 +295,9 @@ pub pad: __u16,
 pub totalhigh: __kernel_ulong_t,
 pub freehigh: __kernel_ulong_t,
 pub mem_unit: __u32,
-pub _f: __IncompleteArrayField<::std::os::raw::c_char>,
+pub _f: __IncompleteArrayField<crate::ctypes::c_char>,
 }
-pub type __kernel_sa_family_t = ::std::os::raw::c_ushort;
+pub type __kernel_sa_family_t = crate::ctypes::c_ushort;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct __kernel_sockaddr_storage {
@@ -307,19 +307,19 @@ pub __bindgen_anon_1: __kernel_sockaddr_storage__bindgen_ty_1,
 #[derive(Copy, Clone)]
 pub union __kernel_sockaddr_storage__bindgen_ty_1 {
 pub __bindgen_anon_1: __kernel_sockaddr_storage__bindgen_ty_1__bindgen_ty_1,
-pub __align: *mut ::std::os::raw::c_void,
+pub __align: *mut crate::ctypes::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_sockaddr_storage__bindgen_ty_1__bindgen_ty_1 {
 pub ss_family: __kernel_sa_family_t,
-pub __data: [::std::os::raw::c_char; 126usize],
+pub __data: [crate::ctypes::c_char; 126usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr_nl {
 pub nl_family: __kernel_sa_family_t,
-pub nl_pad: ::std::os::raw::c_ushort,
+pub nl_pad: crate::ctypes::c_ushort,
 pub nl_pid: __u32,
 pub nl_groups: __u32,
 }
@@ -335,7 +335,7 @@ pub nlmsg_pid: __u32,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nlmsgerr {
-pub error: ::std::os::raw::c_int,
+pub error: crate::ctypes::c_int,
 pub msg: nlmsghdr,
 }
 impl nlmsgerr_attrs {
@@ -359,16 +359,16 @@ pub group: __u32,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nl_mmap_req {
-pub nm_block_size: ::std::os::raw::c_uint,
-pub nm_block_nr: ::std::os::raw::c_uint,
-pub nm_frame_size: ::std::os::raw::c_uint,
-pub nm_frame_nr: ::std::os::raw::c_uint,
+pub nm_block_size: crate::ctypes::c_uint,
+pub nm_block_nr: crate::ctypes::c_uint,
+pub nm_frame_size: crate::ctypes::c_uint,
+pub nm_frame_nr: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nl_mmap_hdr {
-pub nm_status: ::std::os::raw::c_uint,
-pub nm_len: ::std::os::raw::c_uint,
+pub nm_status: crate::ctypes::c_uint,
+pub nm_len: crate::ctypes::c_uint,
 pub nm_group: __u32,
 pub nm_pid: __u32,
 pub nm_uid: __u32,
@@ -2094,21 +2094,21 @@ __RTM_MAX = 107,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtattr {
-pub rta_len: ::std::os::raw::c_ushort,
-pub rta_type: ::std::os::raw::c_ushort,
+pub rta_len: crate::ctypes::c_ushort,
+pub rta_type: crate::ctypes::c_ushort,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtmsg {
-pub rtm_family: ::std::os::raw::c_uchar,
-pub rtm_dst_len: ::std::os::raw::c_uchar,
-pub rtm_src_len: ::std::os::raw::c_uchar,
-pub rtm_tos: ::std::os::raw::c_uchar,
-pub rtm_table: ::std::os::raw::c_uchar,
-pub rtm_protocol: ::std::os::raw::c_uchar,
-pub rtm_scope: ::std::os::raw::c_uchar,
-pub rtm_type: ::std::os::raw::c_uchar,
-pub rtm_flags: ::std::os::raw::c_uint,
+pub rtm_family: crate::ctypes::c_uchar,
+pub rtm_dst_len: crate::ctypes::c_uchar,
+pub rtm_src_len: crate::ctypes::c_uchar,
+pub rtm_tos: crate::ctypes::c_uchar,
+pub rtm_table: crate::ctypes::c_uchar,
+pub rtm_protocol: crate::ctypes::c_uchar,
+pub rtm_scope: crate::ctypes::c_uchar,
+pub rtm_type: crate::ctypes::c_uchar,
+pub rtm_flags: crate::ctypes::c_uint,
 }
 pub const RTN_UNSPEC: _bindgen_ty_49 = _bindgen_ty_49::RTN_UNSPEC;
 pub const RTN_UNICAST: _bindgen_ty_49 = _bindgen_ty_49::RTN_UNICAST;
@@ -2202,10 +2202,10 @@ __RTA_MAX = 31,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtnexthop {
-pub rtnh_len: ::std::os::raw::c_ushort,
-pub rtnh_flags: ::std::os::raw::c_uchar,
-pub rtnh_hops: ::std::os::raw::c_uchar,
-pub rtnh_ifindex: ::std::os::raw::c_int,
+pub rtnh_len: crate::ctypes::c_ushort,
+pub rtnh_flags: crate::ctypes::c_uchar,
+pub rtnh_hops: crate::ctypes::c_uchar,
+pub rtnh_ifindex: crate::ctypes::c_int,
 }
 #[repr(C)]
 #[derive(Debug)]
@@ -2306,29 +2306,29 @@ pub mfcs_wrong_if: __u64,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtgenmsg {
-pub rtgen_family: ::std::os::raw::c_uchar,
+pub rtgen_family: crate::ctypes::c_uchar,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ifinfomsg {
-pub ifi_family: ::std::os::raw::c_uchar,
-pub __ifi_pad: ::std::os::raw::c_uchar,
-pub ifi_type: ::std::os::raw::c_ushort,
-pub ifi_index: ::std::os::raw::c_int,
-pub ifi_flags: ::std::os::raw::c_uint,
-pub ifi_change: ::std::os::raw::c_uint,
+pub ifi_family: crate::ctypes::c_uchar,
+pub __ifi_pad: crate::ctypes::c_uchar,
+pub ifi_type: crate::ctypes::c_ushort,
+pub ifi_index: crate::ctypes::c_int,
+pub ifi_flags: crate::ctypes::c_uint,
+pub ifi_change: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct prefixmsg {
-pub prefix_family: ::std::os::raw::c_uchar,
-pub prefix_pad1: ::std::os::raw::c_uchar,
-pub prefix_pad2: ::std::os::raw::c_ushort,
-pub prefix_ifindex: ::std::os::raw::c_int,
-pub prefix_type: ::std::os::raw::c_uchar,
-pub prefix_len: ::std::os::raw::c_uchar,
-pub prefix_flags: ::std::os::raw::c_uchar,
-pub prefix_pad3: ::std::os::raw::c_uchar,
+pub prefix_family: crate::ctypes::c_uchar,
+pub prefix_pad1: crate::ctypes::c_uchar,
+pub prefix_pad2: crate::ctypes::c_ushort,
+pub prefix_ifindex: crate::ctypes::c_int,
+pub prefix_type: crate::ctypes::c_uchar,
+pub prefix_len: crate::ctypes::c_uchar,
+pub prefix_flags: crate::ctypes::c_uchar,
+pub prefix_pad3: crate::ctypes::c_uchar,
 }
 pub const PREFIX_UNSPEC: _bindgen_ty_51 = _bindgen_ty_51::PREFIX_UNSPEC;
 pub const PREFIX_ADDRESS: _bindgen_ty_51 = _bindgen_ty_51::PREFIX_ADDRESS;
@@ -2352,10 +2352,10 @@ pub valid_time: __u32,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct tcmsg {
-pub tcm_family: ::std::os::raw::c_uchar,
-pub tcm__pad1: ::std::os::raw::c_uchar,
-pub tcm__pad2: ::std::os::raw::c_ushort,
-pub tcm_ifindex: ::std::os::raw::c_int,
+pub tcm_family: crate::ctypes::c_uchar,
+pub tcm__pad1: crate::ctypes::c_uchar,
+pub tcm__pad2: crate::ctypes::c_ushort,
+pub tcm_ifindex: crate::ctypes::c_int,
 pub tcm_handle: __u32,
 pub tcm_parent: __u32,
 pub tcm_info: __u32,
@@ -2400,14 +2400,14 @@ __TCA_MAX = 15,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nduseroptmsg {
-pub nduseropt_family: ::std::os::raw::c_uchar,
-pub nduseropt_pad1: ::std::os::raw::c_uchar,
-pub nduseropt_opts_len: ::std::os::raw::c_ushort,
-pub nduseropt_ifindex: ::std::os::raw::c_int,
+pub nduseropt_family: crate::ctypes::c_uchar,
+pub nduseropt_pad1: crate::ctypes::c_uchar,
+pub nduseropt_opts_len: crate::ctypes::c_ushort,
+pub nduseropt_ifindex: crate::ctypes::c_int,
 pub nduseropt_icmp_type: __u8,
 pub nduseropt_icmp_code: __u8,
-pub nduseropt_pad2: ::std::os::raw::c_ushort,
-pub nduseropt_pad3: ::std::os::raw::c_uint,
+pub nduseropt_pad2: crate::ctypes::c_ushort,
+pub nduseropt_pad3: crate::ctypes::c_uint,
 }
 pub const NDUSEROPT_UNSPEC: _bindgen_ty_53 = _bindgen_ty_53::NDUSEROPT_UNSPEC;
 pub const NDUSEROPT_SRCADDR: _bindgen_ty_53 = _bindgen_ty_53::NDUSEROPT_SRCADDR;
@@ -2462,9 +2462,9 @@ __RTNLGRP_MAX = 33,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct tcamsg {
-pub tca_family: ::std::os::raw::c_uchar,
-pub tca__pad1: ::std::os::raw::c_uchar,
-pub tca__pad2: ::std::os::raw::c_ushort,
+pub tca_family: crate::ctypes::c_uchar,
+pub tca__pad1: crate::ctypes::c_uchar,
+pub tca__pad2: crate::ctypes::c_ushort,
 }
 pub const TCA_ROOT_UNSPEC: _bindgen_ty_54 = _bindgen_ty_54::TCA_ROOT_UNSPEC;
 pub const TCA_ROOT_TAB: _bindgen_ty_54 = _bindgen_ty_54::TCA_ROOT_TAB;

@@ -392,6 +392,8 @@ fn run_bindgen(
         .blocklist_item("NULL");
 
     let bindings = builder
+        .use_core()
+        .ctypes_prefix("crate::ctypes")
         .header(header_name)
         .generate()
         .expect(&format!("generate bindings for {}", mod_name));
