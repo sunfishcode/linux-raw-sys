@@ -54,6 +54,8 @@ fn main() {
     assert!(cmd.is_none());
     assert!(args.next().is_none());
 
+    git_init();
+
     let out = tempdir::TempDir::new("linux-raw-sys").unwrap();
     let out_dir = out.path();
     let linux_headers = out_dir.join("linux-headers");
@@ -120,7 +122,10 @@ fn main() {
 
         // Define the module. If this isn't the default version, make it
         // conditional.
-        if DEFAULT_LINUX_VERSIONS.iter().any(|default| &default.1 == linux_version) {
+        if DEFAULT_LINUX_VERSIONS
+            .iter()
+            .any(|default| &default.1 == linux_version)
+        {
             for default in &DEFAULT_LINUX_VERSIONS {
                 if &default.1 == linux_version {
                     let cfg_version = format!("#[cfg(target_arch = \"{}\")]", default.0);
@@ -150,8 +155,13 @@ fn main() {
         // Checkout a specific version of Linux.
         git_checkout(linux_version);
 
-        for linux_arch_entry in fs::read_dir(&format!("linux/arch")).unwrap() {
-            let linux_arch_entry = linux_arch_entry.unwrap();
+        let mut linux_archs = fs::read_dir(&format!("linux/arch"))
+            .unwrap()
+            .map(|entry| entry.unwrap())
+            .collect::<Vec<_>>();
+        // Sort archs list as filesystem iteration order is non-deterministic
+        linux_archs.sort_by_key(|entry| entry.file_name());
+        for linux_arch_entry in linux_archs {
             if !linux_arch_entry.file_type().unwrap().is_dir() {
                 continue;
             }
@@ -168,8 +178,12 @@ fn main() {
             for rust_arch in rust_arches {
                 // Only build the default versions on their associated
                 // architectures.
-                if !DEFAULT_LINUX_VERSIONS.iter().any(|default| rust_arch == &default.0 && linux_version == &default.1) &&
-                DEFAULT_LINUX_VERSIONS.iter().any(|default| linux_version == &default.1)
+                if !DEFAULT_LINUX_VERSIONS
+                    .iter()
+                    .any(|default| rust_arch == &default.0 && linux_version == &default.1)
+                    && DEFAULT_LINUX_VERSIONS
+                        .iter()
+                        .any(|default| linux_version == &default.1)
                 {
                     continue;
                 }
@@ -194,8 +208,13 @@ fn main() {
                 writeln!(src_vers_mod_rs, "{}", cfg_arch).unwrap();
                 writeln!(src_vers_mod_rs, "pub use {}::*;", rust_arch).unwrap();
 
-                for mod_entry in fs::read_dir("modules").unwrap() {
-                    let mod_entry = mod_entry.unwrap();
+                let mut modules = fs::read_dir("modules")
+                    .unwrap()
+                    .map(|entry| entry.unwrap())
+                    .collect::<Vec<_>>();
+                // Sort module list as filesystem iteration order is non-deterministic
+                modules.sort_by_key(|entry| entry.file_name());
+                for mod_entry in modules {
                     let header_name = mod_entry.path();
                     let mod_name = header_name.file_stem().unwrap().to_str().unwrap();
                     let mod_rs = format!("{}/{}.rs", src_arch, mod_name);
@@ -231,6 +250,48 @@ fn main() {
     eprintln!("All bindings generated!");
 }
 
+fn git_init() {
+    // Clone the linux kernel source repo if necessary. Ignore exit code as it will be non-zero in
+    // case it was already cloned.
+    // Use a treeless partial clone to save disk space and clone time.
+    // See https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/ for
+    // more info on partial clones.
+    // Note: this is not using the official repo
+    // git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git but the github fork as the
+    // server of the official repo doesn't recognize filtering.
+    if !Path::new("linux/.git").exists() {
+        assert!(Command::new("git")
+            .arg("clone")
+            .arg("https://github.com/torvalds/linux.git")
+            .arg("--filter=tree:0")
+            .arg("--no-checkout")
+            .status()
+            .unwrap()
+            .success());
+    }
+
+    // Setup sparse checkout. This greatly reduces the amount of objects necessary to checkout the
+    // tree.
+    assert!(Command::new("git")
+        .arg("sparse-checkout")
+        .arg("init")
+        .current_dir("linux")
+        .status()
+        .unwrap()
+        .success());
+
+    fs::write(
+        "linux/.git/info/sparse-checkout",
+        "/*
+!/*/
+/include/
+/arch/
+/scripts/
+/tools/",
+    )
+    .unwrap();
+}
+
 fn git_checkout(rev: &str) {
     // Delete any generated files from previous versions.
     assert!(Command::new("git")
@@ -242,19 +303,11 @@ fn git_checkout(rev: &str) {
         .unwrap()
         .success());
 
-    // Restore any deleted files.
-    assert!(Command::new("git")
-        .arg("restore")
-        .arg(".")
-        .current_dir("linux")
-        .status()
-        .unwrap()
-        .success());
-
     // Check out the given revision.
     assert!(Command::new("git")
         .arg("checkout")
         .arg(rev)
+        .arg("-f")
         .current_dir("linux")
         .status()
         .unwrap()

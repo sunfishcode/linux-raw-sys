@@ -1,3 +1,0 @@
-[submodule "gen/linux"]
-	path = gen/linux
-	url = git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git

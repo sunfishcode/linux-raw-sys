@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable, beta, nightly]
+
+    env:
+      RUSTFLAGS: -D warnings
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        rustup set profile minimal
+        rustup install ${{ matrix.rust }}
+        rustup default ${{ matrix.rust }}
+
+        cargo check --features v2_6_32
+        cargo check --features v3_2
+        cargo check --features v3_10
+        cargo check --features v4_2
+        cargo check --features v4_4
+        cargo check --features v4_20
+        cargo check --features v5_4
+        cargo check --features v5_11
+        cargo check --features "v3_2 netlink"
+        cargo check --no-default-features --features "v5_11 netlink"
+
+  gen:
+    name: Update generated files
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        sudo apt install libclang-dev
+        cd gen && cargo run --release
+        git diff --exit-code
