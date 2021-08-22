@@ -122,30 +122,27 @@ fn main() {
 
         // Define the module. If this isn't the default version, make it
         // conditional.
-        if DEFAULT_LINUX_VERSIONS
+        let default_arch_versions = DEFAULT_LINUX_VERSIONS
             .iter()
-            .any(|default| &default.1 == linux_version)
-        {
-            for default in &DEFAULT_LINUX_VERSIONS {
-                if &default.1 == linux_version {
-                    let cfg_version = format!("#[cfg(target_arch = \"{}\")]", default.0);
-                    writeln!(src_lib_rs, "{}", cfg_version).unwrap();
-                    writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
-                }
+            .filter(|default| &default.1 == linux_version)
+            .map(|default| default.0)
+            .collect::<Vec<_>>();
+        if !default_arch_versions.is_empty() {
+            let mut cfg_versions = vec![];
+            for arch in default_arch_versions {
+                cfg_versions.push(format!("target_arch = \"{}\"", arch));
             }
+            writeln!(src_lib_rs, "{}", gen_cfg_any(&cfg_versions)).unwrap();
+            writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
+
+            // If this is the default version for an architecture, make the
+            // contents available in the top-level namespace.
+            writeln!(src_lib_rs, "{}", gen_cfg_any(&cfg_versions)).unwrap();
+            writeln!(src_lib_rs, "pub use {}::*;", linux_version_mod).unwrap();
         } else {
             let cfg_version = format!("#[cfg(feature = \"{}\")]", linux_version_mod);
             writeln!(src_lib_rs, "{}", cfg_version).unwrap();
             writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
-        }
-
-        // If this is the default version for an architecture, make the
-        // contents available in the top-level namespace.
-        for default in &DEFAULT_LINUX_VERSIONS {
-            if linux_version == &default.1 {
-                writeln!(src_lib_rs, "#[cfg(target_arch = \"{}\")]", default.0).unwrap();
-                writeln!(src_lib_rs, "pub use {}::*;", linux_version_mod).unwrap();
-            }
         }
 
         let src_vers = format!("../src/{}", linux_version_mod);
@@ -408,5 +405,13 @@ fn compute_clang_arch(rust_arch: &str) -> &str {
         "i686"
     } else {
         rust_arch
+    }
+}
+
+fn gen_cfg_any(cfgs: &[String]) -> String {
+    match &cfgs[..] {
+        [] => String::new(),
+        [cfg] => format!("#[cfg({})]", cfg),
+        cfgs => format!("#[cfg(any({}))]", cfgs.join(", ")),
     }
 }
