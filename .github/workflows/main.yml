@@ -21,16 +21,16 @@ jobs:
         rustup install ${{ matrix.rust }}
         rustup default ${{ matrix.rust }}
 
-        cargo build --features v2_6_32
-        cargo build --features v3_2
-        cargo build --features v3_10
-        cargo build --features v4_2
-        cargo build --features v4_4
-        cargo build --features v4_20
-        cargo build --features v5_4
-        cargo build --features v5_11
-        cargo build --features "v3_2 netlink"
-        cargo build --no-default-features --features "v5_11 netlink"
+        cargo check --features v2_6_32
+        cargo check --features v3_2
+        cargo check --features v3_10
+        cargo check --features v4_2
+        cargo check --features v4_4
+        cargo check --features v4_20
+        cargo check --features v5_4
+        cargo check --features v5_11
+        cargo check --features "v3_2 netlink"
+        cargo check --no-default-features --features "v5_11 netlink"
 
   gen:
     name: Update generated files
