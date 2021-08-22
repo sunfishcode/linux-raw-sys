@@ -39,5 +39,5 @@ jobs:
     - uses: actions/checkout@v2
     - run: |
         sudo apt install libclang-dev
-        cd gen && cargo run
+        cd gen && cargo run --release
         git diff --exit-code
