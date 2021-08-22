@@ -31,7 +31,7 @@ jobs:
         cargo check --features v5_11
         cargo check --features "v3_2 netlink"
         cargo check --no-default-features --features "v5_11 netlink"
-        cargo check --features libc
+        cargo check --features no_std
 
   gen:
     name: Update generated files
