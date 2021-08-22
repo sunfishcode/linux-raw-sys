@@ -155,8 +155,13 @@ fn main() {
         // Checkout a specific version of Linux.
         git_checkout(linux_version);
 
-        for linux_arch_entry in fs::read_dir(&format!("linux/arch")).unwrap() {
-            let linux_arch_entry = linux_arch_entry.unwrap();
+        let mut linux_archs = fs::read_dir(&format!("linux/arch"))
+            .unwrap()
+            .map(|entry| entry.unwrap())
+            .collect::<Vec<_>>();
+        // Sort archs list as filesystem iteration order is non-deterministic
+        linux_archs.sort_by_key(|entry| entry.file_name());
+        for linux_arch_entry in linux_archs {
             if !linux_arch_entry.file_type().unwrap().is_dir() {
                 continue;
             }
@@ -203,8 +208,13 @@ fn main() {
                 writeln!(src_vers_mod_rs, "{}", cfg_arch).unwrap();
                 writeln!(src_vers_mod_rs, "pub use {}::*;", rust_arch).unwrap();
 
-                for mod_entry in fs::read_dir("modules").unwrap() {
-                    let mod_entry = mod_entry.unwrap();
+                let mut modules = fs::read_dir("modules")
+                    .unwrap()
+                    .map(|entry| entry.unwrap())
+                    .collect::<Vec<_>>();
+                // Sort module list as filesystem iteration order is non-deterministic
+                modules.sort_by_key(|entry| entry.file_name());
+                for mod_entry in modules {
                     let header_name = mod_entry.path();
                     let mod_name = header_name.file_stem().unwrap().to_str().unwrap();
                     let mod_rs = format!("{}/{}.rs", src_arch, mod_name);
