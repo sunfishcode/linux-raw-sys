@@ -1,17 +1,9 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 
 // The rest of this file is auto-generated!
-#[cfg(target_arch = "x86")]
+#[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "powerpc"))]
 pub mod v2_6_32;
-#[cfg(target_arch = "x86_64")]
-pub mod v2_6_32;
-#[cfg(target_arch = "powerpc")]
-pub mod v2_6_32;
-#[cfg(target_arch = "x86")]
-pub use v2_6_32::*;
-#[cfg(target_arch = "x86_64")]
-pub use v2_6_32::*;
-#[cfg(target_arch = "powerpc")]
+#[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "powerpc"))]
 pub use v2_6_32::*;
 #[cfg(target_arch = "arm")]
 pub mod v3_2;
@@ -25,13 +17,9 @@ pub use v3_10::*;
 pub mod v4_2;
 #[cfg(target_arch = "aarch64")]
 pub use v4_2::*;
-#[cfg(target_arch = "mips")]
+#[cfg(any(target_arch = "mips", target_arch = "mips64"))]
 pub mod v4_4;
-#[cfg(target_arch = "mips64")]
-pub mod v4_4;
-#[cfg(target_arch = "mips")]
-pub use v4_4::*;
-#[cfg(target_arch = "mips64")]
+#[cfg(any(target_arch = "mips", target_arch = "mips64"))]
 pub use v4_4::*;
 #[cfg(target_arch = "riscv64")]
 pub mod v4_20;
