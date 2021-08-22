@@ -118,62 +118,62 @@ pub const RTMGRP_DECnet_ROUTE: u32 = 16384;
 pub const RTMGRP_IPV6_PREFIX: u32 = 131072;
 pub const TCA_ACT_TAB: u32 = 1;
 pub const TCAA_MAX: u32 = 1;
-pub type size_t = ::std::os::raw::c_uint;
-pub type ssize_t = ::std::os::raw::c_int;
+pub type size_t = crate::ctypes::c_uint;
+pub type ssize_t = crate::ctypes::c_int;
 #[repr(C)]
 #[repr(align(4))]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_sockaddr_storage {
-pub ss_family: ::std::os::raw::c_ushort,
-pub __data: [::std::os::raw::c_char; 126usize],
+pub ss_family: crate::ctypes::c_ushort,
+pub __data: [crate::ctypes::c_char; 126usize],
 }
-pub type __s8 = ::std::os::raw::c_schar;
-pub type __u8 = ::std::os::raw::c_uchar;
-pub type __s16 = ::std::os::raw::c_short;
-pub type __u16 = ::std::os::raw::c_ushort;
-pub type __s32 = ::std::os::raw::c_int;
-pub type __u32 = ::std::os::raw::c_uint;
-pub type __s64 = ::std::os::raw::c_longlong;
-pub type __u64 = ::std::os::raw::c_ulonglong;
-pub type umode_t = ::std::os::raw::c_ushort;
+pub type __s8 = crate::ctypes::c_schar;
+pub type __u8 = crate::ctypes::c_uchar;
+pub type __s16 = crate::ctypes::c_short;
+pub type __u16 = crate::ctypes::c_ushort;
+pub type __s32 = crate::ctypes::c_int;
+pub type __u32 = crate::ctypes::c_uint;
+pub type __s64 = crate::ctypes::c_longlong;
+pub type __u64 = crate::ctypes::c_ulonglong;
+pub type umode_t = crate::ctypes::c_ushort;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fd_set {
-pub fds_bits: [::std::os::raw::c_ulong; 32usize],
+pub fds_bits: [crate::ctypes::c_ulong; 32usize],
 }
-pub type __kernel_sighandler_t = ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
-pub type __kernel_key_t = ::std::os::raw::c_int;
-pub type __kernel_mqd_t = ::std::os::raw::c_int;
-pub type __kernel_ino_t = ::std::os::raw::c_ulong;
-pub type __kernel_mode_t = ::std::os::raw::c_ushort;
-pub type __kernel_nlink_t = ::std::os::raw::c_ushort;
-pub type __kernel_off_t = ::std::os::raw::c_long;
-pub type __kernel_pid_t = ::std::os::raw::c_int;
-pub type __kernel_ipc_pid_t = ::std::os::raw::c_ushort;
-pub type __kernel_uid_t = ::std::os::raw::c_ushort;
-pub type __kernel_gid_t = ::std::os::raw::c_ushort;
-pub type __kernel_size_t = ::std::os::raw::c_uint;
-pub type __kernel_ssize_t = ::std::os::raw::c_int;
-pub type __kernel_ptrdiff_t = ::std::os::raw::c_int;
-pub type __kernel_time_t = ::std::os::raw::c_long;
-pub type __kernel_suseconds_t = ::std::os::raw::c_long;
-pub type __kernel_clock_t = ::std::os::raw::c_long;
-pub type __kernel_timer_t = ::std::os::raw::c_int;
-pub type __kernel_clockid_t = ::std::os::raw::c_int;
-pub type __kernel_daddr_t = ::std::os::raw::c_int;
-pub type __kernel_caddr_t = *mut ::std::os::raw::c_char;
-pub type __kernel_uid16_t = ::std::os::raw::c_ushort;
-pub type __kernel_gid16_t = ::std::os::raw::c_ushort;
-pub type __kernel_uid32_t = ::std::os::raw::c_uint;
-pub type __kernel_gid32_t = ::std::os::raw::c_uint;
-pub type __kernel_old_uid_t = ::std::os::raw::c_ushort;
-pub type __kernel_old_gid_t = ::std::os::raw::c_ushort;
-pub type __kernel_old_dev_t = ::std::os::raw::c_ushort;
-pub type __kernel_loff_t = ::std::os::raw::c_longlong;
+pub type __kernel_sighandler_t = ::core::option::Option<unsafe extern "C" fn(arg1: crate::ctypes::c_int)>;
+pub type __kernel_key_t = crate::ctypes::c_int;
+pub type __kernel_mqd_t = crate::ctypes::c_int;
+pub type __kernel_ino_t = crate::ctypes::c_ulong;
+pub type __kernel_mode_t = crate::ctypes::c_ushort;
+pub type __kernel_nlink_t = crate::ctypes::c_ushort;
+pub type __kernel_off_t = crate::ctypes::c_long;
+pub type __kernel_pid_t = crate::ctypes::c_int;
+pub type __kernel_ipc_pid_t = crate::ctypes::c_ushort;
+pub type __kernel_uid_t = crate::ctypes::c_ushort;
+pub type __kernel_gid_t = crate::ctypes::c_ushort;
+pub type __kernel_size_t = crate::ctypes::c_uint;
+pub type __kernel_ssize_t = crate::ctypes::c_int;
+pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
+pub type __kernel_time_t = crate::ctypes::c_long;
+pub type __kernel_suseconds_t = crate::ctypes::c_long;
+pub type __kernel_clock_t = crate::ctypes::c_long;
+pub type __kernel_timer_t = crate::ctypes::c_int;
+pub type __kernel_clockid_t = crate::ctypes::c_int;
+pub type __kernel_daddr_t = crate::ctypes::c_int;
+pub type __kernel_caddr_t = *mut crate::ctypes::c_char;
+pub type __kernel_uid16_t = crate::ctypes::c_ushort;
+pub type __kernel_gid16_t = crate::ctypes::c_ushort;
+pub type __kernel_uid32_t = crate::ctypes::c_uint;
+pub type __kernel_gid32_t = crate::ctypes::c_uint;
+pub type __kernel_old_uid_t = crate::ctypes::c_ushort;
+pub type __kernel_old_gid_t = crate::ctypes::c_ushort;
+pub type __kernel_old_dev_t = crate::ctypes::c_ushort;
+pub type __kernel_loff_t = crate::ctypes::c_longlong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fsid_t {
-pub val: [::std::os::raw::c_int; 2usize],
+pub val: [crate::ctypes::c_int; 2usize],
 }
 pub type __le16 = __u16;
 pub type __be16 = __u16;
@@ -192,7 +192,7 @@ _unused: [u8; 0],
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr_nl {
 pub nl_family: u16,
-pub nl_pad: ::std::os::raw::c_ushort,
+pub nl_pad: crate::ctypes::c_ushort,
 pub nl_pid: __u32,
 pub nl_groups: __u32,
 }
@@ -208,7 +208,7 @@ pub nlmsg_pid: __u32,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nlmsgerr {
-pub error: ::std::os::raw::c_int,
+pub error: crate::ctypes::c_int,
 pub msg: nlmsghdr,
 }
 #[repr(C)]
@@ -666,21 +666,21 @@ __RTM_MAX = 80,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtattr {
-pub rta_len: ::std::os::raw::c_ushort,
-pub rta_type: ::std::os::raw::c_ushort,
+pub rta_len: crate::ctypes::c_ushort,
+pub rta_type: crate::ctypes::c_ushort,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtmsg {
-pub rtm_family: ::std::os::raw::c_uchar,
-pub rtm_dst_len: ::std::os::raw::c_uchar,
-pub rtm_src_len: ::std::os::raw::c_uchar,
-pub rtm_tos: ::std::os::raw::c_uchar,
-pub rtm_table: ::std::os::raw::c_uchar,
-pub rtm_protocol: ::std::os::raw::c_uchar,
-pub rtm_scope: ::std::os::raw::c_uchar,
-pub rtm_type: ::std::os::raw::c_uchar,
-pub rtm_flags: ::std::os::raw::c_uint,
+pub rtm_family: crate::ctypes::c_uchar,
+pub rtm_dst_len: crate::ctypes::c_uchar,
+pub rtm_src_len: crate::ctypes::c_uchar,
+pub rtm_tos: crate::ctypes::c_uchar,
+pub rtm_table: crate::ctypes::c_uchar,
+pub rtm_protocol: crate::ctypes::c_uchar,
+pub rtm_scope: crate::ctypes::c_uchar,
+pub rtm_type: crate::ctypes::c_uchar,
+pub rtm_flags: crate::ctypes::c_uint,
 }
 pub const RTN_UNSPEC: _bindgen_ty_12 = _bindgen_ty_12::RTN_UNSPEC;
 pub const RTN_UNICAST: _bindgen_ty_12 = _bindgen_ty_12::RTN_UNICAST;
@@ -759,10 +759,10 @@ __RTA_MAX = 16,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtnexthop {
-pub rtnh_len: ::std::os::raw::c_ushort,
-pub rtnh_flags: ::std::os::raw::c_uchar,
-pub rtnh_hops: ::std::os::raw::c_uchar,
-pub rtnh_ifindex: ::std::os::raw::c_int,
+pub rtnh_len: crate::ctypes::c_ushort,
+pub rtnh_flags: crate::ctypes::c_uchar,
+pub rtnh_hops: crate::ctypes::c_uchar,
+pub rtnh_ifindex: crate::ctypes::c_int,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -842,29 +842,29 @@ pub ident: __u16,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rtgenmsg {
-pub rtgen_family: ::std::os::raw::c_uchar,
+pub rtgen_family: crate::ctypes::c_uchar,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ifinfomsg {
-pub ifi_family: ::std::os::raw::c_uchar,
-pub __ifi_pad: ::std::os::raw::c_uchar,
-pub ifi_type: ::std::os::raw::c_ushort,
-pub ifi_index: ::std::os::raw::c_int,
-pub ifi_flags: ::std::os::raw::c_uint,
-pub ifi_change: ::std::os::raw::c_uint,
+pub ifi_family: crate::ctypes::c_uchar,
+pub __ifi_pad: crate::ctypes::c_uchar,
+pub ifi_type: crate::ctypes::c_ushort,
+pub ifi_index: crate::ctypes::c_int,
+pub ifi_flags: crate::ctypes::c_uint,
+pub ifi_change: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct prefixmsg {
-pub prefix_family: ::std::os::raw::c_uchar,
-pub prefix_pad1: ::std::os::raw::c_uchar,
-pub prefix_pad2: ::std::os::raw::c_ushort,
-pub prefix_ifindex: ::std::os::raw::c_int,
-pub prefix_type: ::std::os::raw::c_uchar,
-pub prefix_len: ::std::os::raw::c_uchar,
-pub prefix_flags: ::std::os::raw::c_uchar,
-pub prefix_pad3: ::std::os::raw::c_uchar,
+pub prefix_family: crate::ctypes::c_uchar,
+pub prefix_pad1: crate::ctypes::c_uchar,
+pub prefix_pad2: crate::ctypes::c_ushort,
+pub prefix_ifindex: crate::ctypes::c_int,
+pub prefix_type: crate::ctypes::c_uchar,
+pub prefix_len: crate::ctypes::c_uchar,
+pub prefix_flags: crate::ctypes::c_uchar,
+pub prefix_pad3: crate::ctypes::c_uchar,
 }
 pub const PREFIX_UNSPEC: _bindgen_ty_14 = _bindgen_ty_14::PREFIX_UNSPEC;
 pub const PREFIX_ADDRESS: _bindgen_ty_14 = _bindgen_ty_14::PREFIX_ADDRESS;
@@ -888,10 +888,10 @@ pub valid_time: __u32,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct tcmsg {
-pub tcm_family: ::std::os::raw::c_uchar,
-pub tcm__pad1: ::std::os::raw::c_uchar,
-pub tcm__pad2: ::std::os::raw::c_ushort,
-pub tcm_ifindex: ::std::os::raw::c_int,
+pub tcm_family: crate::ctypes::c_uchar,
+pub tcm__pad1: crate::ctypes::c_uchar,
+pub tcm__pad2: crate::ctypes::c_ushort,
+pub tcm_ifindex: crate::ctypes::c_int,
 pub tcm_handle: __u32,
 pub tcm_parent: __u32,
 pub tcm_info: __u32,
@@ -924,14 +924,14 @@ __TCA_MAX = 9,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nduseroptmsg {
-pub nduseropt_family: ::std::os::raw::c_uchar,
-pub nduseropt_pad1: ::std::os::raw::c_uchar,
-pub nduseropt_opts_len: ::std::os::raw::c_ushort,
-pub nduseropt_ifindex: ::std::os::raw::c_int,
+pub nduseropt_family: crate::ctypes::c_uchar,
+pub nduseropt_pad1: crate::ctypes::c_uchar,
+pub nduseropt_opts_len: crate::ctypes::c_ushort,
+pub nduseropt_ifindex: crate::ctypes::c_int,
 pub nduseropt_icmp_type: __u8,
 pub nduseropt_icmp_code: __u8,
-pub nduseropt_pad2: ::std::os::raw::c_ushort,
-pub nduseropt_pad3: ::std::os::raw::c_uint,
+pub nduseropt_pad2: crate::ctypes::c_ushort,
+pub nduseropt_pad3: crate::ctypes::c_uint,
 }
 pub const NDUSEROPT_UNSPEC: _bindgen_ty_16 = _bindgen_ty_16::NDUSEROPT_UNSPEC;
 pub const NDUSEROPT_SRCADDR: _bindgen_ty_16 = _bindgen_ty_16::NDUSEROPT_SRCADDR;
@@ -976,7 +976,7 @@ __RTNLGRP_MAX = 23,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct tcamsg {
-pub tca_family: ::std::os::raw::c_uchar,
-pub tca__pad1: ::std::os::raw::c_uchar,
-pub tca__pad2: ::std::os::raw::c_ushort,
+pub tca_family: crate::ctypes::c_uchar,
+pub tca__pad1: crate::ctypes::c_uchar,
+pub tca__pad2: crate::ctypes::c_ushort,
 }

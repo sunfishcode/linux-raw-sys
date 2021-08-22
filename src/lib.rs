@@ -1,4 +1,13 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
+#![no_std]
+
+#[cfg(not(feature = "libc"))]
+extern crate std;
+#[cfg(not(feature = "libc"))]
+use std::os::raw as ctypes;
+
+#[cfg(feature = "libc")]
+use libc as ctypes;
 
 // The rest of this file is auto-generated!
 #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "powerpc"))]
