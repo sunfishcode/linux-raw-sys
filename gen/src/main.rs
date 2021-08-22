@@ -259,13 +259,16 @@ fn git_init() {
     // Note: this is not using the official repo
     // git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git but the github fork as the
     // server of the official repo doesn't recognize filtering.
-    Command::new("git")
-        .arg("clone")
-        .arg("https://github.com/torvalds/linux.git")
-        .arg("--filter=tree:0")
-        .arg("--no-checkout")
-        .status()
-        .unwrap();
+    if !Path::new("linux/.git").exists() {
+        assert!(Command::new("git")
+            .arg("clone")
+            .arg("https://github.com/torvalds/linux.git")
+            .arg("--filter=tree:0")
+            .arg("--no-checkout")
+            .status()
+            .unwrap()
+            .success());
+    }
 
     // Setup sparse checkout. This greatly reduces the amount of objects necessary to checkout the
     // tree.
