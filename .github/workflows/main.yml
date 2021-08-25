@@ -30,8 +30,9 @@ jobs:
         cargo check --features v5_4
         cargo check --features v5_11
         cargo check --features "v3_2 netlink"
-        cargo check --no-default-features --features "v5_11 netlink"
-        cargo check --features no_std
+        cargo check --no-default-features --features "std v5_11 netlink"
+        cargo check --no-default-features --features "no_std v5_4 netlink"
+        cargo check --no-default-features --features "no_std general errno"
 
   gen:
     name: Update generated files

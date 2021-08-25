@@ -1,9 +1,7 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
-#![no_std]
+#![cfg_attr(not(feature = "std"), no_std)]
 
-#[cfg(not(feature = "no_std"))]
-extern crate std;
-#[cfg(not(feature = "no_std"))]
+#[cfg(feature = "std")]
 use std::os::raw as ctypes;
 
 #[cfg(feature = "no_std")]

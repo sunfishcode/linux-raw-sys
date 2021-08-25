@@ -239,7 +239,8 @@ fn main() {
         }
     }
 
-    writeln!(cargo_toml, "default = [{}]", DEFAULT_FEATURES).unwrap();
+    writeln!(cargo_toml, "default = [\"std\", {}]", DEFAULT_FEATURES).unwrap();
+    writeln!(cargo_toml, "std = []").unwrap();
     writeln!(cargo_toml, "no_std = ['cty']").unwrap();
 
     // Reset the `linux` directory back to the original branch.
