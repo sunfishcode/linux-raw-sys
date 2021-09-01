@@ -31,6 +31,7 @@
 #include <linux/uio.h>
 #include <linux/un.h>
 #include <linux/unistd.h>
+#include <linux/utsname.h>
 #include <linux/wait.h>
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,17,0)

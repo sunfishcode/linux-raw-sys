@@ -1810,6 +1810,8 @@ pub const __NR_sendfile64: u32 = 71;
 pub const __NR_mmap2: u32 = 222;
 pub const __NR_fadvise64_64: u32 = 223;
 pub const __NR_riscv_flush_icache: u32 = 259;
+pub const __OLD_UTS_LEN: u32 = 8;
+pub const __NEW_UTS_LEN: u32 = 64;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
@@ -2774,6 +2776,34 @@ pub iov_len: __kernel_size_t,
 pub struct sockaddr_un {
 pub sun_family: __kernel_sa_family_t,
 pub sun_path: [crate::ctypes::c_char; 108usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct oldold_utsname {
+pub sysname: [crate::ctypes::c_char; 9usize],
+pub nodename: [crate::ctypes::c_char; 9usize],
+pub release: [crate::ctypes::c_char; 9usize],
+pub version: [crate::ctypes::c_char; 9usize],
+pub machine: [crate::ctypes::c_char; 9usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct old_utsname {
+pub sysname: [crate::ctypes::c_char; 65usize],
+pub nodename: [crate::ctypes::c_char; 65usize],
+pub release: [crate::ctypes::c_char; 65usize],
+pub version: [crate::ctypes::c_char; 65usize],
+pub machine: [crate::ctypes::c_char; 65usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct new_utsname {
+pub sysname: [crate::ctypes::c_char; 65usize],
+pub nodename: [crate::ctypes::c_char; 65usize],
+pub release: [crate::ctypes::c_char; 65usize],
+pub version: [crate::ctypes::c_char; 65usize],
+pub machine: [crate::ctypes::c_char; 65usize],
+pub domainname: [crate::ctypes::c_char; 65usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
