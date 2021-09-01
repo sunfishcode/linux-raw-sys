@@ -5,6 +5,7 @@
 
 // Selected Linux headers.
 
+#include <linux/auxvec.h>
 #include <linux/eventpoll.h>
 #include <linux/fadvise.h>
 #include <linux/falloc.h>

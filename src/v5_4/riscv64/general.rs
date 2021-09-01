@@ -31,6 +31,30 @@ fmt.write_str("__IncompleteArrayField")
 }
 }
 pub const LINUX_VERSION_CODE: u32 = 328704;
+pub const AT_SYSINFO_EHDR: u32 = 33;
+pub const AT_NULL: u32 = 0;
+pub const AT_IGNORE: u32 = 1;
+pub const AT_EXECFD: u32 = 2;
+pub const AT_PHDR: u32 = 3;
+pub const AT_PHENT: u32 = 4;
+pub const AT_PHNUM: u32 = 5;
+pub const AT_PAGESZ: u32 = 6;
+pub const AT_BASE: u32 = 7;
+pub const AT_FLAGS: u32 = 8;
+pub const AT_ENTRY: u32 = 9;
+pub const AT_NOTELF: u32 = 10;
+pub const AT_UID: u32 = 11;
+pub const AT_EUID: u32 = 12;
+pub const AT_GID: u32 = 13;
+pub const AT_EGID: u32 = 14;
+pub const AT_PLATFORM: u32 = 15;
+pub const AT_HWCAP: u32 = 16;
+pub const AT_CLKTCK: u32 = 17;
+pub const AT_SECURE: u32 = 23;
+pub const AT_BASE_PLATFORM: u32 = 24;
+pub const AT_RANDOM: u32 = 25;
+pub const AT_HWCAP2: u32 = 26;
+pub const AT_EXECFN: u32 = 31;
 pub const __FD_SETSIZE: u32 = 1024;
 pub const O_ACCMODE: u32 = 3;
 pub const O_RDONLY: u32 = 0;
