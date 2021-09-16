@@ -2599,6 +2599,13 @@ pub version: [crate::ctypes::c_char; 65usize],
 pub machine: [crate::ctypes::c_char; 65usize],
 pub domainname: [crate::ctypes::c_char; 65usize],
 }
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum membarrier_cmd {
+MEMBARRIER_CMD_QUERY = 0,
+MEMBARRIER_CMD_SHARED = 1,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr {

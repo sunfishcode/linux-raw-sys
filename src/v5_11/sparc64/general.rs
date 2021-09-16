@@ -3203,6 +3203,30 @@ pub version: [crate::ctypes::c_char; 65usize],
 pub machine: [crate::ctypes::c_char; 65usize],
 pub domainname: [crate::ctypes::c_char; 65usize],
 }
+impl membarrier_cmd {
+pub const MEMBARRIER_CMD_SHARED: membarrier_cmd = membarrier_cmd::MEMBARRIER_CMD_GLOBAL;
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum membarrier_cmd {
+MEMBARRIER_CMD_QUERY = 0,
+MEMBARRIER_CMD_GLOBAL = 1,
+MEMBARRIER_CMD_GLOBAL_EXPEDITED = 2,
+MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED = 4,
+MEMBARRIER_CMD_PRIVATE_EXPEDITED = 8,
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED = 16,
+MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE = 32,
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE = 64,
+MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ = 128,
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ = 256,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum membarrier_cmd_flag {
+MEMBARRIER_CMD_FLAG_CPU = 1,
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct sockaddr {

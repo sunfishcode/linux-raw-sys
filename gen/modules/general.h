@@ -38,6 +38,10 @@
 #include <linux/memfd.h>
 #endif
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,3,0)
+#include <linux/membarrier.h>
+#endif
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,20,0)
 #include <linux/timerfd.h>
 #endif
