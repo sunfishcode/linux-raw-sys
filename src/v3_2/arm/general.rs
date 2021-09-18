@@ -2724,6 +2724,12 @@ pub domainname: [crate::ctypes::c_char; 65usize],
 pub struct sockaddr {
 pub __storage: __kernel_sockaddr_storage,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct linger {
+pub l_onoff: crate::ctypes::c_int,
+pub l_linger: crate::ctypes::c_int,
+}
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

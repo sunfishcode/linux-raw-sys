@@ -61,6 +61,11 @@ struct sockaddr {
 typedef uint16_t __kernel_sa_family_t;
 #endif
 
+struct linger {
+    int l_onoff;
+    int l_linger;
+};
+
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(4,4,0)
 typedef long long __kernel_time64_t;
 struct __kernel_timespec {

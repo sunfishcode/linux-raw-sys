@@ -3512,6 +3512,12 @@ pub struct sockaddr {
 pub __storage: __kernel_sockaddr_storage,
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct linger {
+pub l_onoff: crate::ctypes::c_int,
+pub l_linger: crate::ctypes::c_int,
+}
+#[repr(C)]
 #[derive(Debug)]
 pub struct linux_dirent64 {
 pub d_ino: crate::ctypes::c_ulong,
