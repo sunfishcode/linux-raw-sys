@@ -3820,3 +3820,110 @@ pub f_flags: __u32,
 pub f_spare: [__u32; 4usize],
 }
 pub type __fsword_t = __u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct user_desc {
+pub entry_number: crate::ctypes::c_uint,
+pub base_addr: crate::ctypes::c_uint,
+pub limit: crate::ctypes::c_uint,
+pub _bitfield_align_1: [u8; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+pub __bindgen_padding_0: [u8; 3usize],
+}
+impl user_desc {
+#[inline]
+pub fn seg_32bit(&self) -> crate::ctypes::c_uint {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_seg_32bit(&mut self, val: crate::ctypes::c_uint) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn contents(&self) -> crate::ctypes::c_uint {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(1usize, 2u8) as u32) }
+}
+#[inline]
+pub fn set_contents(&mut self, val: crate::ctypes::c_uint) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(1usize, 2u8, val as u64)
+}
+}
+#[inline]
+pub fn read_exec_only(&self) -> crate::ctypes::c_uint {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(3usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_read_exec_only(&mut self, val: crate::ctypes::c_uint) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(3usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn limit_in_pages(&self) -> crate::ctypes::c_uint {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_limit_in_pages(&mut self, val: crate::ctypes::c_uint) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(4usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn seg_not_present(&self) -> crate::ctypes::c_uint {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(5usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_seg_not_present(&mut self, val: crate::ctypes::c_uint) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(5usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn useable(&self) -> crate::ctypes::c_uint {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(6usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_useable(&mut self, val: crate::ctypes::c_uint) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(6usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(seg_32bit: crate::ctypes::c_uint, contents: crate::ctypes::c_uint, read_exec_only: crate::ctypes::c_uint, limit_in_pages: crate::ctypes::c_uint, seg_not_present: crate::ctypes::c_uint, useable: crate::ctypes::c_uint) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 1u8, {
+let seg_32bit: u32 = unsafe { ::core::mem::transmute(seg_32bit) };
+seg_32bit as u64
+});
+__bindgen_bitfield_unit.set(1usize, 2u8, {
+let contents: u32 = unsafe { ::core::mem::transmute(contents) };
+contents as u64
+});
+__bindgen_bitfield_unit.set(3usize, 1u8, {
+let read_exec_only: u32 = unsafe { ::core::mem::transmute(read_exec_only) };
+read_exec_only as u64
+});
+__bindgen_bitfield_unit.set(4usize, 1u8, {
+let limit_in_pages: u32 = unsafe { ::core::mem::transmute(limit_in_pages) };
+limit_in_pages as u64
+});
+__bindgen_bitfield_unit.set(5usize, 1u8, {
+let seg_not_present: u32 = unsafe { ::core::mem::transmute(seg_not_present) };
+seg_not_present as u64
+});
+__bindgen_bitfield_unit.set(6usize, 1u8, {
+let useable: u32 = unsafe { ::core::mem::transmute(useable) };
+useable as u64
+});
+__bindgen_bitfield_unit
+}
+}
