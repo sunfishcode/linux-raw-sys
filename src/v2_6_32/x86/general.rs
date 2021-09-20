@@ -1711,6 +1711,7 @@ pub const TFD_NONBLOCK: u32 = 2048;
 pub const TFD_SHARED_FCNTL_FLAGS: u32 = 526336;
 pub const TFD_CREATE_FLAGS: u32 = 526336;
 pub const TFD_SETTIME_FLAGS: u32 = 1;
+pub const ARCH_SET_FS: u32 = 4098;
 pub type size_t = crate::ctypes::c_uint;
 pub type ssize_t = crate::ctypes::c_int;
 pub type __s8 = crate::ctypes::c_schar;
