@@ -22,6 +22,7 @@
 #include <linux/prctl.h>
 #include <linux/random.h>
 #include <linux/resource.h>
+#include <linux/sched.h>
 #include <linux/signal.h>
 #include <linux/socket.h>
 #include <linux/stat.h>
