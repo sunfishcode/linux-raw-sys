@@ -273,5 +273,6 @@ struct user_desc {
 #endif
 
 #if !defined(__sparc__) || !defined(__sparc64__)
+#define BLKSSZGET  0x1268
 #define BLKPBSZGET 0x127B
 #endif
