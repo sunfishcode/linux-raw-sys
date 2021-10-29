@@ -271,3 +271,7 @@ struct user_desc {
 #if defined(__x86_64__) || defined(__i386__)
 #define ARCH_SET_FS 0x1002
 #endif
+
+#if defined(__x86_64__)
+#define BLKPBSZGET 0x127B
+#endif
