@@ -2,10 +2,10 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 #[cfg(feature = "std")]
-use std::os::raw as ctypes;
+pub use std::os::raw as ctypes;
 
 #[cfg(feature = "no_std")]
-use cty as ctypes;
+pub use cty as ctypes;
 
 // The rest of this file is auto-generated!
 #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "powerpc"))]
