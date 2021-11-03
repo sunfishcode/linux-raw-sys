@@ -1,6 +1,9 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
+#[cfg(feature = "rustc-dep-of-std")]
+extern crate rustc_std_workspace_core as core;
+
 #[cfg(feature = "std")]
 pub use std::os::raw as ctypes;
 

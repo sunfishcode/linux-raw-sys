@@ -12,7 +12,7 @@ categories = ["external-ffi-bindings"]
 exclude = ["gen"]
 
 [dependencies]
-core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
+rustc-std-workspace-core = { version = "1.0.0", optional = true }
 compiler_builtins = { version = '0.1.49', optional = true }
 
 [package.metadata.docs.rs]
@@ -35,4 +35,4 @@ v5_11 = []
 default = ["std", "general", "errno"]
 std = []
 no_std = []
-rustc-dep-of-std = ["core", "compiler_builtins", "no_std"]
+rustc-dep-of-std = ["rustc-std-workspace-core", "compiler_builtins", "no_std"]
