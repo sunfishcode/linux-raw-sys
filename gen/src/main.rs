@@ -242,7 +242,7 @@ fn main() {
     writeln!(cargo_toml, "default = [\"std\", {}]", DEFAULT_FEATURES).unwrap();
     writeln!(cargo_toml, "std = []").unwrap();
     writeln!(cargo_toml, "no_std = []").unwrap();
-    writeln!(cargo_toml, "rustc-dep-of-std = [\"rustc-std-workspace-core\", \"no_std\"]").unwrap();
+    writeln!(cargo_toml, "rustc-dep-of-std = [\"core\", \"no_std\"]").unwrap();
 
     // Reset the `linux` directory back to the original branch.
     git_checkout(LINUX_VERSIONS[0]);
