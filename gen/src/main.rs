@@ -241,7 +241,7 @@ fn main() {
 
     writeln!(cargo_toml, "default = [\"std\", {}]", DEFAULT_FEATURES).unwrap();
     writeln!(cargo_toml, "std = []").unwrap();
-    writeln!(cargo_toml, "no_std = ['cty']").unwrap();
+    writeln!(cargo_toml, "no_std = []").unwrap();
 
     // Reset the `linux` directory back to the original branch.
     git_checkout(LINUX_VERSIONS[0]);

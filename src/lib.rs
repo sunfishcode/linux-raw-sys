@@ -5,7 +5,30 @@
 pub use std::os::raw as ctypes;
 
 #[cfg(feature = "no_std")]
-pub use cty as ctypes;
+pub mod ctypes {
+    // The signedness of `char` is platform-specific, however a consequence
+    // of it being platform-specific is that any code which depends on the
+    // signedness of `char` is already non-portable. So we can just use `u8`
+    // here and no portable code will notice.
+    pub type c_char = u8;
+
+    // The following assumes that Linux is always either ILP32 or LP64,
+    // and char is always 8-bit.
+    pub type c_schar = i8;
+    pub type c_uchar = u8;
+    pub type c_short = i16;
+    pub type c_ushort = u16;
+    pub type c_int = i32;
+    pub type c_uint = u32;
+    pub type c_long = isize;
+    pub type c_ulong = usize;
+    pub type c_longlong = i64;
+    pub type c_ulonglong = u64;
+    pub type c_float = f32;
+    pub type c_double = f64;
+
+    pub use core::ffi::c_void;
+}
 
 // The rest of this file is auto-generated!
 #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "powerpc"))]
