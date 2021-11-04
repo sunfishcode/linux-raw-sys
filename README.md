@@ -6,6 +6,8 @@
   </p>
 
   <p>
+    <a href="https://github.com/sunfishcode/linux-raw-sys/actions?query=workflow%3ACI"><img src="https://github.com/sunfishcode/linux-raw-sys/workflows/CI/badge.svg" alt="Github Actions CI Status" /></a>
+    <a href="https://bytecodealliance.zulipchat.com/#narrow/stream/206238-general"><img src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg" alt="zulip chat" /></a>
     <a href="https://crates.io/crates/linux-raw-sys"><img src="https://img.shields.io/crates/v/linux-raw-sys.svg" alt="crates.io page" /></a>
     <a href="https://docs.rs/linux-raw-sys"><img src="https://docs.rs/linux-raw-sys/badge.svg" alt="docs.rs docs" /></a>
   </p>
