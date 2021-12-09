@@ -272,7 +272,7 @@ struct user_desc {
 #define ARCH_SET_FS 0x1002
 #endif
 
-#if defined(__sparc__) || defined(__sparc64__)
+#if defined(__sparc__) || defined(__sparc64__) || defined(__mips__) || defined(__mips64__) || defined(__powerpc__) || defined(__powerpc64__)
 #define BLKSSZGET  0x20001268
 #define BLKPBSZGET 0x2000127B
 #else
