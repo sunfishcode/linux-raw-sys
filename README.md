@@ -30,7 +30,7 @@ features `v5_4` and `v5_11` respectively, contain generated bindings for
 Linux 5.4 and Linux 5.11, which provide access to numerous new features, though
 they may not be available on all supported Linux versions.
 
-To regenerate the generated bindings, run `cd gen && cargo run --release`.
+To regenerate the generated bindings, run `cargo update && cd gen && cargo run --release`.
 
 ## Similar crates
 
