@@ -3690,3 +3690,14 @@ useable as u64
 __bindgen_bitfield_unit
 }
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct msghdr {
+pub msg_name: *mut crate::ctypes::c_void,
+pub msg_namelen: socklen_t,
+pub msg_iov: *mut iovec,
+pub msg_iovlen: size_t,
+pub msg_control: *mut crate::ctypes::c_void,
+pub msg_controllen: size_t,
+pub msg_flags: crate::ctypes::c_int,
+}
