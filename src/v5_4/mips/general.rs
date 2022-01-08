@@ -2418,6 +2418,9 @@ pub const TFD_CREATE_FLAGS: u32 = 524416;
 pub const TFD_SETTIME_FLAGS: u32 = 1;
 pub const BLKSSZGET: u32 = 536875624;
 pub const BLKPBSZGET: u32 = 536875643;
+pub const SCM_RIGHTS: u32 = 1;
+pub const SCM_CREDENTIALS: u32 = 2;
+pub const SCM_SECURITY: u32 = 3;
 pub type size_t = crate::ctypes::c_uint;
 pub type ssize_t = crate::ctypes::c_int;
 pub type __s8 = crate::ctypes::c_schar;
@@ -4342,4 +4345,18 @@ pub msg_iovlen: size_t,
 pub msg_control: *mut crate::ctypes::c_void,
 pub msg_controllen: size_t,
 pub msg_flags: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct cmsghdr {
+pub cmsg_len: __kernel_size_t,
+pub cmsg_level: crate::ctypes::c_int,
+pub cmsg_type: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ucred {
+pub pid: __u32,
+pub uid: __u32,
+pub gid: __u32,
 }

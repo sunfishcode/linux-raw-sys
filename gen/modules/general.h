@@ -283,12 +283,31 @@ struct user_desc {
 #endif
 
 
+/* -- based on  sys/socket.h -- */
+
 struct msghdr {
-    void         *msg_name;       /* Optional address */
-    socklen_t     msg_namelen;    /* Size of address */
-    struct iovec *msg_iov;        /* Scatter/gather array */
-    size_t        msg_iovlen;     /* # elements in msg_iov */
-    void         *msg_control;    /* Ancillary data, see below */
-    size_t        msg_controllen; /* Ancillary data buffer len */
-    int           msg_flags;      /* Flags (unused) */
+    void         *msg_name;
+    socklen_t     msg_namelen;
+    struct iovec *msg_iov; 
+    size_t        msg_iovlen;
+    void         *msg_control;
+    size_t        msg_controllen;
+    int           msg_flags;
+};
+
+struct cmsghdr {
+    __kernel_size_t cmsg_len;
+    int             cmsg_level;
+    int             cmsg_type;
+};
+
+
+#define	SCM_RIGHTS	0x01 /* rw: access rights (array of int) */
+#define SCM_CREDENTIALS 0x02 /* rw: struct ucred		*/
+#define SCM_SECURITY	0x03 /* rw: security label		*/
+
+struct ucred {
+    __u32 pid;
+    __u32 uid;
+    __u32 gid;
 };
