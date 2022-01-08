@@ -489,6 +489,52 @@ pub const INADDR_ALLHOSTS_GROUP: u32 = 3758096385;
 pub const INADDR_ALLRTRS_GROUP: u32 = 3758096386;
 pub const INADDR_MAX_LOCAL_GROUP: u32 = 3758096639;
 pub const __LITTLE_ENDIAN: u32 = 1234;
+pub const IPTOS_TOS_MASK: u32 = 30;
+pub const IPTOS_LOWDELAY: u32 = 16;
+pub const IPTOS_THROUGHPUT: u32 = 8;
+pub const IPTOS_RELIABILITY: u32 = 4;
+pub const IPTOS_MINCOST: u32 = 2;
+pub const IPTOS_PREC_MASK: u32 = 224;
+pub const IPTOS_PREC_NETCONTROL: u32 = 224;
+pub const IPTOS_PREC_INTERNETCONTROL: u32 = 192;
+pub const IPTOS_PREC_CRITIC_ECP: u32 = 160;
+pub const IPTOS_PREC_FLASHOVERRIDE: u32 = 128;
+pub const IPTOS_PREC_FLASH: u32 = 96;
+pub const IPTOS_PREC_IMMEDIATE: u32 = 64;
+pub const IPTOS_PREC_PRIORITY: u32 = 32;
+pub const IPTOS_PREC_ROUTINE: u32 = 0;
+pub const IPOPT_COPY: u32 = 128;
+pub const IPOPT_CLASS_MASK: u32 = 96;
+pub const IPOPT_NUMBER_MASK: u32 = 31;
+pub const IPOPT_CONTROL: u32 = 0;
+pub const IPOPT_RESERVED1: u32 = 32;
+pub const IPOPT_MEASUREMENT: u32 = 64;
+pub const IPOPT_RESERVED2: u32 = 96;
+pub const IPOPT_END: u32 = 0;
+pub const IPOPT_NOOP: u32 = 1;
+pub const IPOPT_SEC: u32 = 130;
+pub const IPOPT_LSRR: u32 = 131;
+pub const IPOPT_TIMESTAMP: u32 = 68;
+pub const IPOPT_CIPSO: u32 = 134;
+pub const IPOPT_RR: u32 = 7;
+pub const IPOPT_SID: u32 = 136;
+pub const IPOPT_SSRR: u32 = 137;
+pub const IPOPT_RA: u32 = 148;
+pub const IPVERSION: u32 = 4;
+pub const MAXTTL: u32 = 255;
+pub const IPDEFTTL: u32 = 64;
+pub const IPOPT_OPTVAL: u32 = 0;
+pub const IPOPT_OLEN: u32 = 1;
+pub const IPOPT_OFFSET: u32 = 2;
+pub const IPOPT_MINOFF: u32 = 4;
+pub const MAX_IPOPTLEN: u32 = 40;
+pub const IPOPT_NOP: u32 = 1;
+pub const IPOPT_EOL: u32 = 0;
+pub const IPOPT_TS: u32 = 68;
+pub const IPOPT_TS_TSONLY: u32 = 0;
+pub const IPOPT_TS_TSANDADDR: u32 = 1;
+pub const IPOPT_TS_PRESPEC: u32 = 3;
+pub const IPV4_BEET_PHMAXLEN: u32 = 8;
 pub const IPV6_FL_A_GET: u32 = 0;
 pub const IPV6_FL_A_PUT: u32 = 1;
 pub const IPV6_FL_A_RENEW: u32 = 2;
@@ -582,6 +628,10 @@ pub const IPV6_PREFER_SRC_COA: u32 = 4;
 pub const IPV6_PREFER_SRC_HOME: u32 = 1024;
 pub const IPV6_PREFER_SRC_CGA: u32 = 8;
 pub const IPV6_PREFER_SRC_NONCGA: u32 = 2048;
+pub const IPV6_MIN_MTU: u32 = 1280;
+pub const IPV6_SRCRT_STRICT: u32 = 1;
+pub const IPV6_SRCRT_TYPE_0: u32 = 0;
+pub const IPV6_SRCRT_TYPE_2: u32 = 2;
 pub const ADFS_SUPER_MAGIC: u32 = 44533;
 pub const AFFS_SUPER_MAGIC: u32 = 44543;
 pub const AFS_SUPER_MAGIC: u32 = 1397113167;
@@ -1949,6 +1999,90 @@ pub sin_addr: in_addr,
 pub __pad: [crate::ctypes::c_uchar; 8usize],
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct iphdr {
+pub _bitfield_align_1: [u8; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+pub tos: __u8,
+pub tot_len: __be16,
+pub id: __be16,
+pub frag_off: __be16,
+pub ttl: __u8,
+pub protocol: __u8,
+pub check: __sum16,
+pub saddr: __be32,
+pub daddr: __be32,
+}
+impl iphdr {
+#[inline]
+pub fn ihl(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_ihl(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn version(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_version(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(4usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(ihl: __u8, version: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 4u8, {
+let ihl: u8 = unsafe { ::core::mem::transmute(ihl) };
+ihl as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let version: u8 = unsafe { ::core::mem::transmute(version) };
+version as u64
+});
+__bindgen_bitfield_unit
+}
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct ip_auth_hdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+pub reserved: __be16,
+pub spi: __be32,
+pub seq_no: __be32,
+pub auth_data: __IncompleteArrayField<__u8>,
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct ip_esp_hdr {
+pub spi: __be32,
+pub seq_no: __be32,
+pub enc_data: __IncompleteArrayField<__u8>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_comp_hdr {
+pub nexthdr: __u8,
+pub flags: __u8,
+pub cpi: __be16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_beet_phdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+pub padlen: __u8,
+pub reserved: __u8,
+}
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct in6_addr {
 pub in6_u: in6_addr__bindgen_ty_1,
@@ -1986,6 +2120,165 @@ pub flr_flags: __u16,
 pub flr_expires: __u16,
 pub flr_linger: __u16,
 pub __flr_pad: __u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_pktinfo {
+pub ipi6_addr: in6_addr,
+pub ipi6_ifindex: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_ifreq {
+pub ifr6_addr: in6_addr,
+pub ifr6_prefixlen: __u32,
+pub ifr6_ifindex: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ipv6_rt_hdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+pub type_: __u8,
+pub segments_left: __u8,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ipv6_opt_hdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+}
+#[repr(C)]
+pub struct rt0_hdr {
+pub rt_hdr: ipv6_rt_hdr,
+pub reserved: __u32,
+pub addr: __IncompleteArrayField<in6_addr>,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct rt2_hdr {
+pub rt_hdr: ipv6_rt_hdr,
+pub reserved: __u32,
+pub addr: in6_addr,
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct ipv6_destopt_hao {
+pub type_: __u8,
+pub length: __u8,
+pub addr: in6_addr,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ipv6hdr {
+pub _bitfield_align_1: [u8; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+pub flow_lbl: [__u8; 3usize],
+pub payload_len: __be16,
+pub nexthdr: __u8,
+pub hop_limit: __u8,
+pub saddr: in6_addr,
+pub daddr: in6_addr,
+}
+impl ipv6hdr {
+#[inline]
+pub fn priority(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_priority(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn version(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_version(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(4usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(priority: __u8, version: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 4u8, {
+let priority: u8 = unsafe { ::core::mem::transmute(priority) };
+priority as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let version: u8 = unsafe { ::core::mem::transmute(version) };
+version as u64
+});
+__bindgen_bitfield_unit
+}
+}
+pub const DEVCONF_FORWARDING: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_FORWARDING;
+pub const DEVCONF_HOPLIMIT: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_HOPLIMIT;
+pub const DEVCONF_MTU6: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_MTU6;
+pub const DEVCONF_ACCEPT_RA: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_RA;
+pub const DEVCONF_ACCEPT_REDIRECTS: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_REDIRECTS;
+pub const DEVCONF_AUTOCONF: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_AUTOCONF;
+pub const DEVCONF_DAD_TRANSMITS: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_DAD_TRANSMITS;
+pub const DEVCONF_RTR_SOLICITS: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_RTR_SOLICITS;
+pub const DEVCONF_RTR_SOLICIT_INTERVAL: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_RTR_SOLICIT_INTERVAL;
+pub const DEVCONF_RTR_SOLICIT_DELAY: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_RTR_SOLICIT_DELAY;
+pub const DEVCONF_USE_TEMPADDR: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_USE_TEMPADDR;
+pub const DEVCONF_TEMP_VALID_LFT: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_TEMP_VALID_LFT;
+pub const DEVCONF_TEMP_PREFERED_LFT: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_TEMP_PREFERED_LFT;
+pub const DEVCONF_REGEN_MAX_RETRY: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_REGEN_MAX_RETRY;
+pub const DEVCONF_MAX_DESYNC_FACTOR: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_MAX_DESYNC_FACTOR;
+pub const DEVCONF_MAX_ADDRESSES: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_MAX_ADDRESSES;
+pub const DEVCONF_FORCE_MLD_VERSION: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_FORCE_MLD_VERSION;
+pub const DEVCONF_ACCEPT_RA_DEFRTR: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_RA_DEFRTR;
+pub const DEVCONF_ACCEPT_RA_PINFO: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_RA_PINFO;
+pub const DEVCONF_ACCEPT_RA_RTR_PREF: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_RA_RTR_PREF;
+pub const DEVCONF_RTR_PROBE_INTERVAL: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_RTR_PROBE_INTERVAL;
+pub const DEVCONF_ACCEPT_RA_RT_INFO_MAX_PLEN: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_RA_RT_INFO_MAX_PLEN;
+pub const DEVCONF_PROXY_NDP: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_PROXY_NDP;
+pub const DEVCONF_OPTIMISTIC_DAD: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_OPTIMISTIC_DAD;
+pub const DEVCONF_ACCEPT_SOURCE_ROUTE: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_SOURCE_ROUTE;
+pub const DEVCONF_MC_FORWARDING: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_MC_FORWARDING;
+pub const DEVCONF_DISABLE_IPV6: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_DISABLE_IPV6;
+pub const DEVCONF_ACCEPT_DAD: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_ACCEPT_DAD;
+pub const DEVCONF_MAX: _bindgen_ty_2 = _bindgen_ty_2::DEVCONF_MAX;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_2 {
+DEVCONF_FORWARDING = 0,
+DEVCONF_HOPLIMIT = 1,
+DEVCONF_MTU6 = 2,
+DEVCONF_ACCEPT_RA = 3,
+DEVCONF_ACCEPT_REDIRECTS = 4,
+DEVCONF_AUTOCONF = 5,
+DEVCONF_DAD_TRANSMITS = 6,
+DEVCONF_RTR_SOLICITS = 7,
+DEVCONF_RTR_SOLICIT_INTERVAL = 8,
+DEVCONF_RTR_SOLICIT_DELAY = 9,
+DEVCONF_USE_TEMPADDR = 10,
+DEVCONF_TEMP_VALID_LFT = 11,
+DEVCONF_TEMP_PREFERED_LFT = 12,
+DEVCONF_REGEN_MAX_RETRY = 13,
+DEVCONF_MAX_DESYNC_FACTOR = 14,
+DEVCONF_MAX_ADDRESSES = 15,
+DEVCONF_FORCE_MLD_VERSION = 16,
+DEVCONF_ACCEPT_RA_DEFRTR = 17,
+DEVCONF_ACCEPT_RA_PINFO = 18,
+DEVCONF_ACCEPT_RA_RTR_PREF = 19,
+DEVCONF_RTR_PROBE_INTERVAL = 20,
+DEVCONF_ACCEPT_RA_RT_INFO_MAX_PLEN = 21,
+DEVCONF_PROXY_NDP = 22,
+DEVCONF_OPTIMISTIC_DAD = 23,
+DEVCONF_ACCEPT_SOURCE_ROUTE = 24,
+DEVCONF_MC_FORWARDING = 25,
+DEVCONF_DISABLE_IPV6 = 26,
+DEVCONF_ACCEPT_DAD = 27,
+DEVCONF_MAX = 28,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2367,20 +2660,20 @@ pub union tcp_word_hdr {
 pub hdr: tcphdr,
 pub words: [__be32; 5usize],
 }
-pub const TCP_FLAG_CWR: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_CWR;
-pub const TCP_FLAG_ECE: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_ECE;
-pub const TCP_FLAG_URG: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_URG;
-pub const TCP_FLAG_ACK: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_ACK;
-pub const TCP_FLAG_PSH: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_PSH;
-pub const TCP_FLAG_RST: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_RST;
-pub const TCP_FLAG_SYN: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_SYN;
-pub const TCP_FLAG_FIN: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_FIN;
-pub const TCP_RESERVED_BITS: _bindgen_ty_2 = _bindgen_ty_2::TCP_RESERVED_BITS;
-pub const TCP_DATA_OFFSET: _bindgen_ty_2 = _bindgen_ty_2::TCP_DATA_OFFSET;
+pub const TCP_FLAG_CWR: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_CWR;
+pub const TCP_FLAG_ECE: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_ECE;
+pub const TCP_FLAG_URG: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_URG;
+pub const TCP_FLAG_ACK: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_ACK;
+pub const TCP_FLAG_PSH: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_PSH;
+pub const TCP_FLAG_RST: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_RST;
+pub const TCP_FLAG_SYN: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_SYN;
+pub const TCP_FLAG_FIN: _bindgen_ty_3 = _bindgen_ty_3::TCP_FLAG_FIN;
+pub const TCP_RESERVED_BITS: _bindgen_ty_3 = _bindgen_ty_3::TCP_RESERVED_BITS;
+pub const TCP_DATA_OFFSET: _bindgen_ty_3 = _bindgen_ty_3::TCP_DATA_OFFSET;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_2 {
+pub enum _bindgen_ty_3 {
 TCP_FLAG_CWR = 32768,
 TCP_FLAG_ECE = 16384,
 TCP_FLAG_URG = 8192,

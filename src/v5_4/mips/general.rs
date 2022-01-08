@@ -615,6 +615,52 @@ pub const INADDR_ALLRTRS_GROUP: u32 = 3758096386;
 pub const INADDR_ALLSNOOPERS_GROUP: u32 = 3758096490;
 pub const INADDR_MAX_LOCAL_GROUP: u32 = 3758096639;
 pub const __BIG_ENDIAN: u32 = 4321;
+pub const IPTOS_TOS_MASK: u32 = 30;
+pub const IPTOS_LOWDELAY: u32 = 16;
+pub const IPTOS_THROUGHPUT: u32 = 8;
+pub const IPTOS_RELIABILITY: u32 = 4;
+pub const IPTOS_MINCOST: u32 = 2;
+pub const IPTOS_PREC_MASK: u32 = 224;
+pub const IPTOS_PREC_NETCONTROL: u32 = 224;
+pub const IPTOS_PREC_INTERNETCONTROL: u32 = 192;
+pub const IPTOS_PREC_CRITIC_ECP: u32 = 160;
+pub const IPTOS_PREC_FLASHOVERRIDE: u32 = 128;
+pub const IPTOS_PREC_FLASH: u32 = 96;
+pub const IPTOS_PREC_IMMEDIATE: u32 = 64;
+pub const IPTOS_PREC_PRIORITY: u32 = 32;
+pub const IPTOS_PREC_ROUTINE: u32 = 0;
+pub const IPOPT_COPY: u32 = 128;
+pub const IPOPT_CLASS_MASK: u32 = 96;
+pub const IPOPT_NUMBER_MASK: u32 = 31;
+pub const IPOPT_CONTROL: u32 = 0;
+pub const IPOPT_RESERVED1: u32 = 32;
+pub const IPOPT_MEASUREMENT: u32 = 64;
+pub const IPOPT_RESERVED2: u32 = 96;
+pub const IPOPT_END: u32 = 0;
+pub const IPOPT_NOOP: u32 = 1;
+pub const IPOPT_SEC: u32 = 130;
+pub const IPOPT_LSRR: u32 = 131;
+pub const IPOPT_TIMESTAMP: u32 = 68;
+pub const IPOPT_CIPSO: u32 = 134;
+pub const IPOPT_RR: u32 = 7;
+pub const IPOPT_SID: u32 = 136;
+pub const IPOPT_SSRR: u32 = 137;
+pub const IPOPT_RA: u32 = 148;
+pub const IPVERSION: u32 = 4;
+pub const MAXTTL: u32 = 255;
+pub const IPDEFTTL: u32 = 64;
+pub const IPOPT_OPTVAL: u32 = 0;
+pub const IPOPT_OLEN: u32 = 1;
+pub const IPOPT_OFFSET: u32 = 2;
+pub const IPOPT_MINOFF: u32 = 4;
+pub const MAX_IPOPTLEN: u32 = 40;
+pub const IPOPT_NOP: u32 = 1;
+pub const IPOPT_EOL: u32 = 0;
+pub const IPOPT_TS: u32 = 68;
+pub const IPOPT_TS_TSONLY: u32 = 0;
+pub const IPOPT_TS_TSANDADDR: u32 = 1;
+pub const IPOPT_TS_PRESPEC: u32 = 3;
+pub const IPV4_BEET_PHMAXLEN: u32 = 8;
 pub const IPV6_FL_A_GET: u32 = 0;
 pub const IPV6_FL_A_PUT: u32 = 1;
 pub const IPV6_FL_A_RENEW: u32 = 2;
@@ -727,6 +773,12 @@ pub const IPV6_TRANSPARENT: u32 = 75;
 pub const IPV6_UNICAST_IF: u32 = 76;
 pub const IPV6_RECVFRAGSIZE: u32 = 77;
 pub const IPV6_FREEBIND: u32 = 78;
+pub const IPV6_MIN_MTU: u32 = 1280;
+pub const IPV6_SRCRT_STRICT: u32 = 1;
+pub const IPV6_SRCRT_TYPE_0: u32 = 0;
+pub const IPV6_SRCRT_TYPE_2: u32 = 2;
+pub const IPV6_SRCRT_TYPE_4: u32 = 4;
+pub const IPV6_OPT_ROUTERALERT_MLD: u32 = 0;
 pub const ADFS_SUPER_MAGIC: u32 = 44533;
 pub const AFFS_SUPER_MAGIC: u32 = 44543;
 pub const AFS_SUPER_MAGIC: u32 = 1397113167;
@@ -2766,6 +2818,161 @@ pub sin_addr: in_addr,
 pub __pad: [crate::ctypes::c_uchar; 8usize],
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct iphdr {
+pub _bitfield_align_1: [u8; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+pub tos: __u8,
+pub tot_len: __be16,
+pub id: __be16,
+pub frag_off: __be16,
+pub ttl: __u8,
+pub protocol: __u8,
+pub check: __sum16,
+pub saddr: __be32,
+pub daddr: __be32,
+}
+impl iphdr {
+#[inline]
+pub fn version(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_version(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn ihl(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_ihl(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(4usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(version: __u8, ihl: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 4u8, {
+let version: u8 = unsafe { ::core::mem::transmute(version) };
+version as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let ihl: u8 = unsafe { ::core::mem::transmute(ihl) };
+ihl as u64
+});
+__bindgen_bitfield_unit
+}
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct ip_auth_hdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+pub reserved: __be16,
+pub spi: __be32,
+pub seq_no: __be32,
+pub auth_data: __IncompleteArrayField<__u8>,
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct ip_esp_hdr {
+pub spi: __be32,
+pub seq_no: __be32,
+pub enc_data: __IncompleteArrayField<__u8>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_comp_hdr {
+pub nexthdr: __u8,
+pub flags: __u8,
+pub cpi: __be16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_beet_phdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+pub padlen: __u8,
+pub reserved: __u8,
+}
+pub const IPV4_DEVCONF_FORWARDING: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_FORWARDING;
+pub const IPV4_DEVCONF_MC_FORWARDING: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_MC_FORWARDING;
+pub const IPV4_DEVCONF_PROXY_ARP: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_PROXY_ARP;
+pub const IPV4_DEVCONF_ACCEPT_REDIRECTS: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ACCEPT_REDIRECTS;
+pub const IPV4_DEVCONF_SECURE_REDIRECTS: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_SECURE_REDIRECTS;
+pub const IPV4_DEVCONF_SEND_REDIRECTS: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_SEND_REDIRECTS;
+pub const IPV4_DEVCONF_SHARED_MEDIA: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_SHARED_MEDIA;
+pub const IPV4_DEVCONF_RP_FILTER: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_RP_FILTER;
+pub const IPV4_DEVCONF_ACCEPT_SOURCE_ROUTE: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ACCEPT_SOURCE_ROUTE;
+pub const IPV4_DEVCONF_BOOTP_RELAY: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_BOOTP_RELAY;
+pub const IPV4_DEVCONF_LOG_MARTIANS: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_LOG_MARTIANS;
+pub const IPV4_DEVCONF_TAG: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_TAG;
+pub const IPV4_DEVCONF_ARPFILTER: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ARPFILTER;
+pub const IPV4_DEVCONF_MEDIUM_ID: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_MEDIUM_ID;
+pub const IPV4_DEVCONF_NOXFRM: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_NOXFRM;
+pub const IPV4_DEVCONF_NOPOLICY: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_NOPOLICY;
+pub const IPV4_DEVCONF_FORCE_IGMP_VERSION: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_FORCE_IGMP_VERSION;
+pub const IPV4_DEVCONF_ARP_ANNOUNCE: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ARP_ANNOUNCE;
+pub const IPV4_DEVCONF_ARP_IGNORE: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ARP_IGNORE;
+pub const IPV4_DEVCONF_PROMOTE_SECONDARIES: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_PROMOTE_SECONDARIES;
+pub const IPV4_DEVCONF_ARP_ACCEPT: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ARP_ACCEPT;
+pub const IPV4_DEVCONF_ARP_NOTIFY: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ARP_NOTIFY;
+pub const IPV4_DEVCONF_ACCEPT_LOCAL: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ACCEPT_LOCAL;
+pub const IPV4_DEVCONF_SRC_VMARK: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_SRC_VMARK;
+pub const IPV4_DEVCONF_PROXY_ARP_PVLAN: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_PROXY_ARP_PVLAN;
+pub const IPV4_DEVCONF_ROUTE_LOCALNET: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_ROUTE_LOCALNET;
+pub const IPV4_DEVCONF_IGMPV2_UNSOLICITED_REPORT_INTERVAL: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_IGMPV2_UNSOLICITED_REPORT_INTERVAL;
+pub const IPV4_DEVCONF_IGMPV3_UNSOLICITED_REPORT_INTERVAL: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_IGMPV3_UNSOLICITED_REPORT_INTERVAL;
+pub const IPV4_DEVCONF_IGNORE_ROUTES_WITH_LINKDOWN: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_IGNORE_ROUTES_WITH_LINKDOWN;
+pub const IPV4_DEVCONF_DROP_UNICAST_IN_L2_MULTICAST: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_DROP_UNICAST_IN_L2_MULTICAST;
+pub const IPV4_DEVCONF_DROP_GRATUITOUS_ARP: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_DROP_GRATUITOUS_ARP;
+pub const IPV4_DEVCONF_BC_FORWARDING: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_BC_FORWARDING;
+pub const __IPV4_DEVCONF_MAX: _bindgen_ty_2 = _bindgen_ty_2::__IPV4_DEVCONF_MAX;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_2 {
+IPV4_DEVCONF_FORWARDING = 1,
+IPV4_DEVCONF_MC_FORWARDING = 2,
+IPV4_DEVCONF_PROXY_ARP = 3,
+IPV4_DEVCONF_ACCEPT_REDIRECTS = 4,
+IPV4_DEVCONF_SECURE_REDIRECTS = 5,
+IPV4_DEVCONF_SEND_REDIRECTS = 6,
+IPV4_DEVCONF_SHARED_MEDIA = 7,
+IPV4_DEVCONF_RP_FILTER = 8,
+IPV4_DEVCONF_ACCEPT_SOURCE_ROUTE = 9,
+IPV4_DEVCONF_BOOTP_RELAY = 10,
+IPV4_DEVCONF_LOG_MARTIANS = 11,
+IPV4_DEVCONF_TAG = 12,
+IPV4_DEVCONF_ARPFILTER = 13,
+IPV4_DEVCONF_MEDIUM_ID = 14,
+IPV4_DEVCONF_NOXFRM = 15,
+IPV4_DEVCONF_NOPOLICY = 16,
+IPV4_DEVCONF_FORCE_IGMP_VERSION = 17,
+IPV4_DEVCONF_ARP_ANNOUNCE = 18,
+IPV4_DEVCONF_ARP_IGNORE = 19,
+IPV4_DEVCONF_PROMOTE_SECONDARIES = 20,
+IPV4_DEVCONF_ARP_ACCEPT = 21,
+IPV4_DEVCONF_ARP_NOTIFY = 22,
+IPV4_DEVCONF_ACCEPT_LOCAL = 23,
+IPV4_DEVCONF_SRC_VMARK = 24,
+IPV4_DEVCONF_PROXY_ARP_PVLAN = 25,
+IPV4_DEVCONF_ROUTE_LOCALNET = 26,
+IPV4_DEVCONF_IGMPV2_UNSOLICITED_REPORT_INTERVAL = 27,
+IPV4_DEVCONF_IGMPV3_UNSOLICITED_REPORT_INTERVAL = 28,
+IPV4_DEVCONF_IGNORE_ROUTES_WITH_LINKDOWN = 29,
+IPV4_DEVCONF_DROP_UNICAST_IN_L2_MULTICAST = 30,
+IPV4_DEVCONF_DROP_GRATUITOUS_ARP = 31,
+IPV4_DEVCONF_BC_FORWARDING = 32,
+__IPV4_DEVCONF_MAX = 33,
+}
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct in6_addr {
 pub in6_u: in6_addr__bindgen_ty_1,
@@ -2803,6 +3010,217 @@ pub flr_flags: __u16,
 pub flr_expires: __u16,
 pub flr_linger: __u16,
 pub __flr_pad: __u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_pktinfo {
+pub ipi6_addr: in6_addr,
+pub ipi6_ifindex: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ip6_mtuinfo {
+pub ip6m_addr: sockaddr_in6,
+pub ip6m_mtu: __u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_ifreq {
+pub ifr6_addr: in6_addr,
+pub ifr6_prefixlen: __u32,
+pub ifr6_ifindex: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ipv6_rt_hdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+pub type_: __u8,
+pub segments_left: __u8,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ipv6_opt_hdr {
+pub nexthdr: __u8,
+pub hdrlen: __u8,
+}
+#[repr(C)]
+pub struct rt0_hdr {
+pub rt_hdr: ipv6_rt_hdr,
+pub reserved: __u32,
+pub addr: __IncompleteArrayField<in6_addr>,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct rt2_hdr {
+pub rt_hdr: ipv6_rt_hdr,
+pub reserved: __u32,
+pub addr: in6_addr,
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct ipv6_destopt_hao {
+pub type_: __u8,
+pub length: __u8,
+pub addr: in6_addr,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ipv6hdr {
+pub _bitfield_align_1: [u8; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+pub flow_lbl: [__u8; 3usize],
+pub payload_len: __be16,
+pub nexthdr: __u8,
+pub hop_limit: __u8,
+pub saddr: in6_addr,
+pub daddr: in6_addr,
+}
+impl ipv6hdr {
+#[inline]
+pub fn version(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_version(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn priority(&self) -> __u8 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u8) }
+}
+#[inline]
+pub fn set_priority(&mut self, val: __u8) {
+unsafe {
+let val: u8 = ::core::mem::transmute(val);
+self._bitfield_1.set(4usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(version: __u8, priority: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 4u8, {
+let version: u8 = unsafe { ::core::mem::transmute(version) };
+version as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let priority: u8 = unsafe { ::core::mem::transmute(priority) };
+priority as u64
+});
+__bindgen_bitfield_unit
+}
+}
+pub const DEVCONF_FORWARDING: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_FORWARDING;
+pub const DEVCONF_HOPLIMIT: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_HOPLIMIT;
+pub const DEVCONF_MTU6: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MTU6;
+pub const DEVCONF_ACCEPT_RA: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA;
+pub const DEVCONF_ACCEPT_REDIRECTS: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_REDIRECTS;
+pub const DEVCONF_AUTOCONF: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_AUTOCONF;
+pub const DEVCONF_DAD_TRANSMITS: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_DAD_TRANSMITS;
+pub const DEVCONF_RTR_SOLICITS: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_RTR_SOLICITS;
+pub const DEVCONF_RTR_SOLICIT_INTERVAL: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_RTR_SOLICIT_INTERVAL;
+pub const DEVCONF_RTR_SOLICIT_DELAY: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_RTR_SOLICIT_DELAY;
+pub const DEVCONF_USE_TEMPADDR: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_USE_TEMPADDR;
+pub const DEVCONF_TEMP_VALID_LFT: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_TEMP_VALID_LFT;
+pub const DEVCONF_TEMP_PREFERED_LFT: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_TEMP_PREFERED_LFT;
+pub const DEVCONF_REGEN_MAX_RETRY: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_REGEN_MAX_RETRY;
+pub const DEVCONF_MAX_DESYNC_FACTOR: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MAX_DESYNC_FACTOR;
+pub const DEVCONF_MAX_ADDRESSES: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MAX_ADDRESSES;
+pub const DEVCONF_FORCE_MLD_VERSION: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_FORCE_MLD_VERSION;
+pub const DEVCONF_ACCEPT_RA_DEFRTR: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_DEFRTR;
+pub const DEVCONF_ACCEPT_RA_PINFO: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_PINFO;
+pub const DEVCONF_ACCEPT_RA_RTR_PREF: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_RTR_PREF;
+pub const DEVCONF_RTR_PROBE_INTERVAL: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_RTR_PROBE_INTERVAL;
+pub const DEVCONF_ACCEPT_RA_RT_INFO_MAX_PLEN: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_RT_INFO_MAX_PLEN;
+pub const DEVCONF_PROXY_NDP: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_PROXY_NDP;
+pub const DEVCONF_OPTIMISTIC_DAD: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_OPTIMISTIC_DAD;
+pub const DEVCONF_ACCEPT_SOURCE_ROUTE: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_SOURCE_ROUTE;
+pub const DEVCONF_MC_FORWARDING: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MC_FORWARDING;
+pub const DEVCONF_DISABLE_IPV6: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_DISABLE_IPV6;
+pub const DEVCONF_ACCEPT_DAD: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_DAD;
+pub const DEVCONF_FORCE_TLLAO: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_FORCE_TLLAO;
+pub const DEVCONF_NDISC_NOTIFY: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_NDISC_NOTIFY;
+pub const DEVCONF_MLDV1_UNSOLICITED_REPORT_INTERVAL: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MLDV1_UNSOLICITED_REPORT_INTERVAL;
+pub const DEVCONF_MLDV2_UNSOLICITED_REPORT_INTERVAL: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MLDV2_UNSOLICITED_REPORT_INTERVAL;
+pub const DEVCONF_SUPPRESS_FRAG_NDISC: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_SUPPRESS_FRAG_NDISC;
+pub const DEVCONF_ACCEPT_RA_FROM_LOCAL: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_FROM_LOCAL;
+pub const DEVCONF_USE_OPTIMISTIC: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_USE_OPTIMISTIC;
+pub const DEVCONF_ACCEPT_RA_MTU: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_MTU;
+pub const DEVCONF_STABLE_SECRET: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_STABLE_SECRET;
+pub const DEVCONF_USE_OIF_ADDRS_ONLY: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_USE_OIF_ADDRS_ONLY;
+pub const DEVCONF_ACCEPT_RA_MIN_HOP_LIMIT: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_MIN_HOP_LIMIT;
+pub const DEVCONF_IGNORE_ROUTES_WITH_LINKDOWN: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_IGNORE_ROUTES_WITH_LINKDOWN;
+pub const DEVCONF_DROP_UNICAST_IN_L2_MULTICAST: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_DROP_UNICAST_IN_L2_MULTICAST;
+pub const DEVCONF_DROP_UNSOLICITED_NA: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_DROP_UNSOLICITED_NA;
+pub const DEVCONF_KEEP_ADDR_ON_DOWN: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_KEEP_ADDR_ON_DOWN;
+pub const DEVCONF_RTR_SOLICIT_MAX_INTERVAL: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_RTR_SOLICIT_MAX_INTERVAL;
+pub const DEVCONF_SEG6_ENABLED: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_SEG6_ENABLED;
+pub const DEVCONF_SEG6_REQUIRE_HMAC: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_SEG6_REQUIRE_HMAC;
+pub const DEVCONF_ENHANCED_DAD: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ENHANCED_DAD;
+pub const DEVCONF_ADDR_GEN_MODE: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ADDR_GEN_MODE;
+pub const DEVCONF_DISABLE_POLICY: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_DISABLE_POLICY;
+pub const DEVCONF_ACCEPT_RA_RT_INFO_MIN_PLEN: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_RT_INFO_MIN_PLEN;
+pub const DEVCONF_NDISC_TCLASS: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_NDISC_TCLASS;
+pub const DEVCONF_MAX: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MAX;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_3 {
+DEVCONF_FORWARDING = 0,
+DEVCONF_HOPLIMIT = 1,
+DEVCONF_MTU6 = 2,
+DEVCONF_ACCEPT_RA = 3,
+DEVCONF_ACCEPT_REDIRECTS = 4,
+DEVCONF_AUTOCONF = 5,
+DEVCONF_DAD_TRANSMITS = 6,
+DEVCONF_RTR_SOLICITS = 7,
+DEVCONF_RTR_SOLICIT_INTERVAL = 8,
+DEVCONF_RTR_SOLICIT_DELAY = 9,
+DEVCONF_USE_TEMPADDR = 10,
+DEVCONF_TEMP_VALID_LFT = 11,
+DEVCONF_TEMP_PREFERED_LFT = 12,
+DEVCONF_REGEN_MAX_RETRY = 13,
+DEVCONF_MAX_DESYNC_FACTOR = 14,
+DEVCONF_MAX_ADDRESSES = 15,
+DEVCONF_FORCE_MLD_VERSION = 16,
+DEVCONF_ACCEPT_RA_DEFRTR = 17,
+DEVCONF_ACCEPT_RA_PINFO = 18,
+DEVCONF_ACCEPT_RA_RTR_PREF = 19,
+DEVCONF_RTR_PROBE_INTERVAL = 20,
+DEVCONF_ACCEPT_RA_RT_INFO_MAX_PLEN = 21,
+DEVCONF_PROXY_NDP = 22,
+DEVCONF_OPTIMISTIC_DAD = 23,
+DEVCONF_ACCEPT_SOURCE_ROUTE = 24,
+DEVCONF_MC_FORWARDING = 25,
+DEVCONF_DISABLE_IPV6 = 26,
+DEVCONF_ACCEPT_DAD = 27,
+DEVCONF_FORCE_TLLAO = 28,
+DEVCONF_NDISC_NOTIFY = 29,
+DEVCONF_MLDV1_UNSOLICITED_REPORT_INTERVAL = 30,
+DEVCONF_MLDV2_UNSOLICITED_REPORT_INTERVAL = 31,
+DEVCONF_SUPPRESS_FRAG_NDISC = 32,
+DEVCONF_ACCEPT_RA_FROM_LOCAL = 33,
+DEVCONF_USE_OPTIMISTIC = 34,
+DEVCONF_ACCEPT_RA_MTU = 35,
+DEVCONF_STABLE_SECRET = 36,
+DEVCONF_USE_OIF_ADDRS_ONLY = 37,
+DEVCONF_ACCEPT_RA_MIN_HOP_LIMIT = 38,
+DEVCONF_IGNORE_ROUTES_WITH_LINKDOWN = 39,
+DEVCONF_DROP_UNICAST_IN_L2_MULTICAST = 40,
+DEVCONF_DROP_UNSOLICITED_NA = 41,
+DEVCONF_KEEP_ADDR_ON_DOWN = 42,
+DEVCONF_RTR_SOLICIT_MAX_INTERVAL = 43,
+DEVCONF_SEG6_ENABLED = 44,
+DEVCONF_SEG6_REQUIRE_HMAC = 45,
+DEVCONF_ENHANCED_DAD = 46,
+DEVCONF_ADDR_GEN_MODE = 47,
+DEVCONF_DISABLE_POLICY = 48,
+DEVCONF_ACCEPT_RA_RT_INFO_MIN_PLEN = 49,
+DEVCONF_NDISC_TCLASS = 50,
+DEVCONF_MAX = 51,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3306,20 +3724,20 @@ pub union tcp_word_hdr {
 pub hdr: tcphdr,
 pub words: [__be32; 5usize],
 }
-pub const TCP_FLAG_CWR: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_CWR;
-pub const TCP_FLAG_ECE: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_ECE;
-pub const TCP_FLAG_URG: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_URG;
-pub const TCP_FLAG_ACK: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_ACK;
-pub const TCP_FLAG_PSH: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_PSH;
-pub const TCP_FLAG_RST: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_RST;
-pub const TCP_FLAG_SYN: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_SYN;
-pub const TCP_FLAG_FIN: _bindgen_ty_2 = _bindgen_ty_2::TCP_FLAG_FIN;
-pub const TCP_RESERVED_BITS: _bindgen_ty_2 = _bindgen_ty_2::TCP_RESERVED_BITS;
-pub const TCP_DATA_OFFSET: _bindgen_ty_2 = _bindgen_ty_2::TCP_DATA_OFFSET;
+pub const TCP_FLAG_CWR: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_CWR;
+pub const TCP_FLAG_ECE: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_ECE;
+pub const TCP_FLAG_URG: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_URG;
+pub const TCP_FLAG_ACK: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_ACK;
+pub const TCP_FLAG_PSH: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_PSH;
+pub const TCP_FLAG_RST: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_RST;
+pub const TCP_FLAG_SYN: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_SYN;
+pub const TCP_FLAG_FIN: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_FIN;
+pub const TCP_RESERVED_BITS: _bindgen_ty_4 = _bindgen_ty_4::TCP_RESERVED_BITS;
+pub const TCP_DATA_OFFSET: _bindgen_ty_4 = _bindgen_ty_4::TCP_DATA_OFFSET;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_2 {
+pub enum _bindgen_ty_4 {
 TCP_FLAG_CWR = 8388608,
 TCP_FLAG_ECE = 4194304,
 TCP_FLAG_URG = 2097152,
@@ -3346,14 +3764,14 @@ pub max_window: __u32,
 pub rcv_wnd: __u32,
 pub rcv_wup: __u32,
 }
-pub const TCP_NO_QUEUE: _bindgen_ty_3 = _bindgen_ty_3::TCP_NO_QUEUE;
-pub const TCP_RECV_QUEUE: _bindgen_ty_3 = _bindgen_ty_3::TCP_RECV_QUEUE;
-pub const TCP_SEND_QUEUE: _bindgen_ty_3 = _bindgen_ty_3::TCP_SEND_QUEUE;
-pub const TCP_QUEUES_NR: _bindgen_ty_3 = _bindgen_ty_3::TCP_QUEUES_NR;
+pub const TCP_NO_QUEUE: _bindgen_ty_5 = _bindgen_ty_5::TCP_NO_QUEUE;
+pub const TCP_RECV_QUEUE: _bindgen_ty_5 = _bindgen_ty_5::TCP_RECV_QUEUE;
+pub const TCP_SEND_QUEUE: _bindgen_ty_5 = _bindgen_ty_5::TCP_SEND_QUEUE;
+pub const TCP_QUEUES_NR: _bindgen_ty_5 = _bindgen_ty_5::TCP_QUEUES_NR;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_3 {
+pub enum _bindgen_ty_5 {
 TCP_NO_QUEUE = 0,
 TCP_RECV_QUEUE = 1,
 TCP_SEND_QUEUE = 2,
@@ -3479,33 +3897,33 @@ tcpi_delivery_rate_app_limited as u64
 __bindgen_bitfield_unit
 }
 }
-pub const TCP_NLA_PAD: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_PAD;
-pub const TCP_NLA_BUSY: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_BUSY;
-pub const TCP_NLA_RWND_LIMITED: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_RWND_LIMITED;
-pub const TCP_NLA_SNDBUF_LIMITED: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_SNDBUF_LIMITED;
-pub const TCP_NLA_DATA_SEGS_OUT: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_DATA_SEGS_OUT;
-pub const TCP_NLA_TOTAL_RETRANS: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_TOTAL_RETRANS;
-pub const TCP_NLA_PACING_RATE: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_PACING_RATE;
-pub const TCP_NLA_DELIVERY_RATE: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_DELIVERY_RATE;
-pub const TCP_NLA_SND_CWND: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_SND_CWND;
-pub const TCP_NLA_REORDERING: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_REORDERING;
-pub const TCP_NLA_MIN_RTT: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_MIN_RTT;
-pub const TCP_NLA_RECUR_RETRANS: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_RECUR_RETRANS;
-pub const TCP_NLA_DELIVERY_RATE_APP_LMT: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_DELIVERY_RATE_APP_LMT;
-pub const TCP_NLA_SNDQ_SIZE: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_SNDQ_SIZE;
-pub const TCP_NLA_CA_STATE: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_CA_STATE;
-pub const TCP_NLA_SND_SSTHRESH: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_SND_SSTHRESH;
-pub const TCP_NLA_DELIVERED: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_DELIVERED;
-pub const TCP_NLA_DELIVERED_CE: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_DELIVERED_CE;
-pub const TCP_NLA_BYTES_SENT: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_BYTES_SENT;
-pub const TCP_NLA_BYTES_RETRANS: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_BYTES_RETRANS;
-pub const TCP_NLA_DSACK_DUPS: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_DSACK_DUPS;
-pub const TCP_NLA_REORD_SEEN: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_REORD_SEEN;
-pub const TCP_NLA_SRTT: _bindgen_ty_4 = _bindgen_ty_4::TCP_NLA_SRTT;
+pub const TCP_NLA_PAD: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_PAD;
+pub const TCP_NLA_BUSY: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_BUSY;
+pub const TCP_NLA_RWND_LIMITED: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_RWND_LIMITED;
+pub const TCP_NLA_SNDBUF_LIMITED: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_SNDBUF_LIMITED;
+pub const TCP_NLA_DATA_SEGS_OUT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_DATA_SEGS_OUT;
+pub const TCP_NLA_TOTAL_RETRANS: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_TOTAL_RETRANS;
+pub const TCP_NLA_PACING_RATE: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_PACING_RATE;
+pub const TCP_NLA_DELIVERY_RATE: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_DELIVERY_RATE;
+pub const TCP_NLA_SND_CWND: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_SND_CWND;
+pub const TCP_NLA_REORDERING: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_REORDERING;
+pub const TCP_NLA_MIN_RTT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_MIN_RTT;
+pub const TCP_NLA_RECUR_RETRANS: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_RECUR_RETRANS;
+pub const TCP_NLA_DELIVERY_RATE_APP_LMT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_DELIVERY_RATE_APP_LMT;
+pub const TCP_NLA_SNDQ_SIZE: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_SNDQ_SIZE;
+pub const TCP_NLA_CA_STATE: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_CA_STATE;
+pub const TCP_NLA_SND_SSTHRESH: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_SND_SSTHRESH;
+pub const TCP_NLA_DELIVERED: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_DELIVERED;
+pub const TCP_NLA_DELIVERED_CE: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_DELIVERED_CE;
+pub const TCP_NLA_BYTES_SENT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_BYTES_SENT;
+pub const TCP_NLA_BYTES_RETRANS: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_BYTES_RETRANS;
+pub const TCP_NLA_DSACK_DUPS: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_DSACK_DUPS;
+pub const TCP_NLA_REORD_SEEN: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_REORD_SEEN;
+pub const TCP_NLA_SRTT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_SRTT;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_4 {
+pub enum _bindgen_ty_6 {
 TCP_NLA_PAD = 0,
 TCP_NLA_BUSY = 1,
 TCP_NLA_RWND_LIMITED = 2,
