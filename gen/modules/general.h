@@ -13,7 +13,9 @@
 #include <linux/fs.h>
 #include <linux/futex.h>
 #include <linux/in.h>
+#include <linux/ip.h>
 #include <linux/in6.h>
+#include <linux/ipv6.h>
 #include <linux/limits.h>
 #include <linux/magic.h>
 #include <linux/mman.h>
@@ -279,3 +281,35 @@ struct user_desc {
 #define BLKSSZGET  0x1268
 #define BLKPBSZGET 0x127B
 #endif
+
+struct msghdr {
+    void         *msg_name;
+    int           msg_namelen;
+    struct iovec *msg_iov; 
+    size_t        msg_iovlen;
+    void         *msg_control;
+    size_t        msg_controllen;
+    unsigned int  msg_flags;
+};
+
+struct cmsghdr {
+    size_t cmsg_len;
+    int    cmsg_level;
+    int    cmsg_type;
+};
+
+
+#define SCM_RIGHTS      0x01
+#define SCM_CREDENTIALS 0x02
+#define SCM_SECURITY    0x03
+
+struct ucred {
+    __u32 pid;
+    __u32 uid;
+    __u32 gid;
+};
+
+struct mmsghdr {
+    struct msghdr msg_hdr;
+    unsigned int  msg_len;
+};
