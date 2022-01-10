@@ -52,8 +52,22 @@
 #include <linux/openat2.h>
 #endif
 
-// Miscellaneous definitions which don't appear to be defined in Linux's UAPI
-// headers but which are nonetheless part of the ABI.
+// Miscellaneous definitions which don't appear to be defined in Linux's public
+// headers, but which are nonetheless part of the ABI, and necessary for
+// interoperability.
+//
+// When adding definitions here, please only include content needed for
+// interoperability with Linux's public ABI, and please only include types
+// and constants.
+//
+// In particular, please don't copy comments from other sources. And please
+// don't include any functions or function-style macros, as bindgen isn't
+// able to generate bindings for them.
+//
+// Also, please be aware that libc implementations (and thus the Rust libc
+// crate as well) sometimes define types and constants with similar names but
+// which are ABI-incompatible with the Linux kernel ABI. This file should
+// only describe the kernel ABI.
 
 struct sockaddr {
     struct __kernel_sockaddr_storage __storage;
@@ -114,12 +128,6 @@ typedef long __fsword_t;
 #else
 typedef __statfs_word __fsword_t;
 #endif
-
-#define major(x) ((__u32)((((x) >> 31 >> 1) & 0xfffff000) | (((x) >> 8) & 0x00000fff)))
-#define minor(x) ((__u32)((((x) >> 12) & 0xffffff00) | ((x) & 0x000000ff)))
-#define makedev(x,y) \
-    ((((x) & 0xfffff000ULL) << 32) | (((x) & 0x00000fffULL) << 8) | \
-     (((y) & 0xffffff00ULL) << 12) | (((y) & 0x000000ffULL)))
 
 #if defined(__mips__) || defined(__mips64__)
 #define SOCK_STREAM    2
@@ -215,9 +223,9 @@ typedef __statfs_word __fsword_t;
 #define RWF_APPEND      0x00000010
 
 // Linux doesn't appear to export <linux/eventfd.h> at all.
-#define EFD_SEMAPHORE (1 << 0)
-#define EFD_CLOEXEC O_CLOEXEC
-#define EFD_NONBLOCK O_NONBLOCK
+#define EFD_SEMAPHORE   1
+#define EFD_CLOEXEC     O_CLOEXEC
+#define EFD_NONBLOCK    O_NONBLOCK
 
 // Flags for epoll_create1.
 #define EPOLL_CLOEXEC O_CLOEXEC
@@ -228,30 +236,30 @@ typedef __statfs_word __fsword_t;
 #define EPOLL_CTL_MOD 3
 
 // Flags for epoll events
-#define EPOLLIN     0x00000001
-#define EPOLLPRI    0x00000002
-#define EPOLLOUT    0x00000004
-#define EPOLLERR    0x00000008
-#define EPOLLHUP    0x00000010
-#define EPOLLNVAL   0x00000020
-#define EPOLLRDNORM 0x00000040
-#define EPOLLRDBAND 0x00000080
-#define EPOLLWRNORM 0x00000100
-#define EPOLLWRBAND 0x00000200
-#define EPOLLMSG    0x00000400
-#define EPOLLRDHUP  0x00002000
-#define EPOLLEXCLUSIVE (1u << 28)
-#define EPOLLWAKEUP    (1u << 29)
-#define EPOLLONESHOT   (1u << 30)
-#define EPOLLET        (1u << 31)
+#define EPOLLIN        0x00000001
+#define EPOLLPRI       0x00000002
+#define EPOLLOUT       0x00000004
+#define EPOLLERR       0x00000008
+#define EPOLLHUP       0x00000010
+#define EPOLLNVAL      0x00000020
+#define EPOLLRDNORM    0x00000040
+#define EPOLLRDBAND    0x00000080
+#define EPOLLWRNORM    0x00000100
+#define EPOLLWRBAND    0x00000200
+#define EPOLLMSG       0x00000400
+#define EPOLLRDHUP     0x00002000
+#define EPOLLEXCLUSIVE 0x10000000
+#define EPOLLWAKEUP    0x20000000
+#define EPOLLONESHOT   0x40000000
+#define EPOLLET        0x80000000
 
 // Flags for timerfd
-#define TFD_TIMER_ABSTIME (1 << 0)
-#define TFD_CLOEXEC O_CLOEXEC
-#define TFD_NONBLOCK O_NONBLOCK
+#define TFD_TIMER_ABSTIME      1
+#define TFD_CLOEXEC            O_CLOEXEC
+#define TFD_NONBLOCK           O_NONBLOCK
 #define TFD_SHARED_FCNTL_FLAGS (TFD_CLOEXEC | TFD_NONBLOCK)
-#define TFD_CREATE_FLAGS TFD_SHARED_FCNTL_FLAGS
-#define TFD_SETTIME_FLAGS TFD_TIMER_ABSTIME
+#define TFD_CREATE_FLAGS       TFD_SHARED_FCNTL_FLAGS
+#define TFD_SETTIME_FLAGS      TFD_TIMER_ABSTIME
 
 struct user_desc {
     unsigned entry_number;
