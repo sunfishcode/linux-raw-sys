@@ -282,9 +282,6 @@ struct user_desc {
 #define BLKPBSZGET 0x127B
 #endif
 
-
-/* -- based on  sys/socket.h -- */
-
 struct msghdr {
     void         *msg_name;
     socklen_t     msg_namelen;
@@ -302,9 +299,9 @@ struct cmsghdr {
 };
 
 
-#define	SCM_RIGHTS	0x01 /* rw: access rights (array of int) */
-#define SCM_CREDENTIALS 0x02 /* rw: struct ucred		*/
-#define SCM_SECURITY	0x03 /* rw: security label		*/
+#define SCM_RIGHTS      0x01
+#define SCM_CREDENTIALS 0x02
+#define SCM_SECURITY    0x03
 
 struct ucred {
     __u32 pid;
