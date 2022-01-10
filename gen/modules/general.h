@@ -284,18 +284,18 @@ struct user_desc {
 
 struct msghdr {
     void         *msg_name;
-    socklen_t     msg_namelen;
+    int           msg_namelen;
     struct iovec *msg_iov; 
     size_t        msg_iovlen;
     void         *msg_control;
     size_t        msg_controllen;
-    int           msg_flags;
+    unsigned int  msg_flags;
 };
 
 struct cmsghdr {
-    __kernel_size_t cmsg_len;
-    int             cmsg_level;
-    int             cmsg_type;
+    size_t cmsg_len;
+    int    cmsg_level;
+    int    cmsg_type;
 };
 
 
@@ -307,4 +307,9 @@ struct ucred {
     __u32 pid;
     __u32 uid;
     __u32 gid;
+};
+
+struct mmsghdr {
+    struct msghdr msg_hdr;
+    unsigned int  msg_len;
 };

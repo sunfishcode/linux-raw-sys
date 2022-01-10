@@ -4277,17 +4277,17 @@ __bindgen_bitfield_unit
 #[derive(Debug, Copy, Clone)]
 pub struct msghdr {
 pub msg_name: *mut crate::ctypes::c_void,
-pub msg_namelen: socklen_t,
+pub msg_namelen: crate::ctypes::c_int,
 pub msg_iov: *mut iovec,
 pub msg_iovlen: size_t,
 pub msg_control: *mut crate::ctypes::c_void,
 pub msg_controllen: size_t,
-pub msg_flags: crate::ctypes::c_int,
+pub msg_flags: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct cmsghdr {
-pub cmsg_len: __kernel_size_t,
+pub cmsg_len: size_t,
 pub cmsg_level: crate::ctypes::c_int,
 pub cmsg_type: crate::ctypes::c_int,
 }
@@ -4297,4 +4297,10 @@ pub struct ucred {
 pub pid: __u32,
 pub uid: __u32,
 pub gid: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct mmsghdr {
+pub msg_hdr: msghdr,
+pub msg_len: crate::ctypes::c_uint,
 }
