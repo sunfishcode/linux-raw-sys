@@ -2055,6 +2055,29 @@ pub const TFD_TIMER_ABSTIME: u32 = 1;
 pub const TFD_TIMER_CANCEL_ON_SET: u32 = 2;
 pub const TFD_CLOEXEC: u32 = 524288;
 pub const TFD_NONBLOCK: u32 = 2048;
+pub const _UFFDIO_REGISTER: u32 = 0;
+pub const _UFFDIO_UNREGISTER: u32 = 1;
+pub const _UFFDIO_WAKE: u32 = 2;
+pub const _UFFDIO_COPY: u32 = 3;
+pub const _UFFDIO_ZEROPAGE: u32 = 4;
+pub const _UFFDIO_API: u32 = 63;
+pub const UFFDIO: u32 = 170;
+pub const UFFD_EVENT_PAGEFAULT: u32 = 18;
+pub const UFFD_EVENT_FORK: u32 = 19;
+pub const UFFD_EVENT_REMAP: u32 = 20;
+pub const UFFD_EVENT_REMOVE: u32 = 21;
+pub const UFFD_EVENT_UNMAP: u32 = 22;
+pub const UFFD_PAGEFAULT_FLAG_WRITE: u32 = 1;
+pub const UFFD_PAGEFAULT_FLAG_WP: u32 = 2;
+pub const UFFD_FEATURE_PAGEFAULT_FLAG_WP: u32 = 1;
+pub const UFFD_FEATURE_EVENT_FORK: u32 = 2;
+pub const UFFD_FEATURE_EVENT_REMAP: u32 = 4;
+pub const UFFD_FEATURE_EVENT_REMOVE: u32 = 8;
+pub const UFFD_FEATURE_MISSING_HUGETLBFS: u32 = 16;
+pub const UFFD_FEATURE_MISSING_SHMEM: u32 = 32;
+pub const UFFD_FEATURE_EVENT_UNMAP: u32 = 64;
+pub const UFFD_FEATURE_SIGBUS: u32 = 128;
+pub const UFFD_FEATURE_THREAD_ID: u32 = 256;
 pub const DT_UNKNOWN: u32 = 0;
 pub const DT_FIFO: u32 = 1;
 pub const DT_CHR: u32 = 2;
@@ -3838,6 +3861,97 @@ MEMBARRIER_CMD_PRIVATE_EXPEDITED = 8,
 MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED = 16,
 MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE = 32,
 MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE = 64,
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct uffd_msg {
+pub event: __u8,
+pub reserved1: __u8,
+pub reserved2: __u16,
+pub reserved3: __u32,
+pub arg: uffd_msg__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union uffd_msg__bindgen_ty_1 {
+pub pagefault: uffd_msg__bindgen_ty_1__bindgen_ty_1,
+pub fork: uffd_msg__bindgen_ty_1__bindgen_ty_2,
+pub remap: uffd_msg__bindgen_ty_1__bindgen_ty_3,
+pub remove: uffd_msg__bindgen_ty_1__bindgen_ty_4,
+pub reserved: uffd_msg__bindgen_ty_1__bindgen_ty_5,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_1 {
+pub flags: __u64,
+pub address: __u64,
+pub feat: uffd_msg__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union uffd_msg__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1 {
+pub ptid: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_2 {
+pub ufd: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_3 {
+pub from: __u64,
+pub to: __u64,
+pub len: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_4 {
+pub start: __u64,
+pub end: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_5 {
+pub reserved1: __u64,
+pub reserved2: __u64,
+pub reserved3: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_api {
+pub api: __u64,
+pub features: __u64,
+pub ioctls: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_range {
+pub start: __u64,
+pub len: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_register {
+pub range: uffdio_range,
+pub mode: __u64,
+pub ioctls: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_copy {
+pub dst: __u64,
+pub src: __u64,
+pub len: __u64,
+pub mode: __u64,
+pub copy: __s64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_zeropage {
+pub range: uffdio_range,
+pub mode: __u64,
+pub zeropage: __s64,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
