@@ -321,3 +321,11 @@ struct mmsghdr {
     struct msghdr msg_hdr;
     unsigned int  msg_len;
 };
+
+// The macro expansion for these on powerpc64 is too complex for bindgen.
+#if defined(__powerpc64__)
+#define TIOCGWINSZ 0x40087468
+#define TCGETS     0x403c7413
+#define FIONREAD   0x4004667f
+#define FIONBIO    0x8004667e
+#endif
