@@ -54,6 +54,10 @@
 #include <linux/openat2.h>
 #endif
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,3,0)
+#include <linux/userfaultfd.h>
+#endif
+
 // Miscellaneous definitions which don't appear to be defined in Linux's public
 // headers, but which are nonetheless part of the ABI, and necessary for
 // interoperability.

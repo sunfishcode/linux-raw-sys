@@ -2001,6 +2001,17 @@ pub const P_PID: u32 = 1;
 pub const P_PGID: u32 = 2;
 pub const MFD_CLOEXEC: u32 = 1;
 pub const MFD_ALLOW_SEALING: u32 = 2;
+pub const UFFD_API_FEATURES: u32 = 0;
+pub const _UFFDIO_REGISTER: u32 = 0;
+pub const _UFFDIO_UNREGISTER: u32 = 1;
+pub const _UFFDIO_WAKE: u32 = 2;
+pub const _UFFDIO_COPY: u32 = 3;
+pub const _UFFDIO_ZEROPAGE: u32 = 4;
+pub const _UFFDIO_API: u32 = 63;
+pub const UFFDIO: u32 = 170;
+pub const UFFD_EVENT_PAGEFAULT: u32 = 18;
+pub const UFFD_PAGEFAULT_FLAG_WRITE: u32 = 1;
+pub const UFFD_PAGEFAULT_FLAG_WP: u32 = 2;
 pub const DT_UNKNOWN: u32 = 0;
 pub const DT_FIFO: u32 = 1;
 pub const DT_CHR: u32 = 2;
@@ -3448,6 +3459,70 @@ pub domainname: [crate::ctypes::c_char; 65usize],
 pub enum membarrier_cmd {
 MEMBARRIER_CMD_QUERY = 0,
 MEMBARRIER_CMD_SHARED = 1,
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct uffd_msg {
+pub event: __u8,
+pub reserved1: __u8,
+pub reserved2: __u16,
+pub reserved3: __u32,
+pub arg: uffd_msg__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union uffd_msg__bindgen_ty_1 {
+pub pagefault: uffd_msg__bindgen_ty_1__bindgen_ty_1,
+pub reserved: uffd_msg__bindgen_ty_1__bindgen_ty_2,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_1 {
+pub flags: __u64,
+pub address: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffd_msg__bindgen_ty_1__bindgen_ty_2 {
+pub reserved1: __u64,
+pub reserved2: __u64,
+pub reserved3: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_api {
+pub api: __u64,
+pub features: __u64,
+pub ioctls: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_range {
+pub start: __u64,
+pub len: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_register {
+pub range: uffdio_range,
+pub mode: __u64,
+pub ioctls: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_copy {
+pub dst: __u64,
+pub src: __u64,
+pub len: __u64,
+pub mode: __u64,
+pub copy: __s64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_zeropage {
+pub range: uffdio_range,
+pub mode: __u64,
+pub zeropage: __s64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
