@@ -12,7 +12,7 @@ set -ueo pipefail
 # to add new ioctl codes or a new architecture, and are unable to run it,
 # please file an issue in the issue tracker.
 
-cflags="-Wall"
+cflags="-Wall -I."
 out="../modules/ioctl.h"
 
 echo "// This file is generated from the ioctl/generate.sh script." > "$out"
