@@ -179,7 +179,7 @@ typedef __kernel_loff_t loff_t;
 #endif
 
 #define IOCTL_REQUEST(s) \
-    printf("#define " #s " %lxul\n", (unsigned long)(s));
+    printf("#define " #s " 0x%lxul\n", (unsigned long)(s));
 
 int main(void) {
 #if defined(__i386__)
