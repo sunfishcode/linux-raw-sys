@@ -41,9 +41,6 @@
 #define TIOCMIWAIT 545cul
 #define TCGETS 5401ul
 #define TCGETA 5405ul
-#define TCSADRAIN 1ul
-#define TCSAFLUSH 2ul
-#define TCSANOW 0ul
 #define TCSBRK 5409ul
 #define TCSBRKP 5425ul
 #define TCSETA 5406ul
@@ -273,9 +270,6 @@
 #define TIOCMIWAIT 545cul
 #define TCGETS 5401ul
 #define TCGETA 5405ul
-#define TCSADRAIN 1ul
-#define TCSAFLUSH 2ul
-#define TCSANOW 0ul
 #define TCSBRK 5409ul
 #define TCSBRKP 5425ul
 #define TCSETA 5406ul
@@ -505,9 +499,6 @@
 #define TIOCMIWAIT 545cul
 #define TCGETS 5401ul
 #define TCGETA 5405ul
-#define TCSADRAIN 1ul
-#define TCSAFLUSH 2ul
-#define TCSANOW 0ul
 #define TCSBRK 5409ul
 #define TCSBRKP 5425ul
 #define TCSETA 5406ul
@@ -737,9 +728,6 @@
 #define TIOCMIWAIT 545cul
 #define TCGETS 5401ul
 #define TCGETA 5405ul
-#define TCSADRAIN 1ul
-#define TCSAFLUSH 2ul
-#define TCSANOW 0ul
 #define TCSBRK 5409ul
 #define TCSBRKP 5425ul
 #define TCSETA 5406ul
@@ -969,9 +957,6 @@
 #define TIOCMIWAIT 545cul
 #define TCGETS 402c7413ul
 #define TCGETA 40147417ul
-#define TCSADRAIN 1ul
-#define TCSAFLUSH 2ul
-#define TCSANOW 0ul
 #define TCSBRK 2000741dul
 #define TCSBRKP 5425ul
 #define TCSETA 80147418ul
@@ -1196,9 +1181,6 @@
 #define TIOCMIWAIT 545cul
 #define TCGETS 5401ul
 #define TCGETA 5405ul
-#define TCSADRAIN 1ul
-#define TCSAFLUSH 2ul
-#define TCSANOW 0ul
 #define TCSBRK 5409ul
 #define TCSBRKP 5425ul
 #define TCSETA 5406ul
