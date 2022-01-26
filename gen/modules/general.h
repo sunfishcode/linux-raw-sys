@@ -317,3 +317,14 @@ struct mmsghdr {
     struct msghdr msg_hdr;
     unsigned int  msg_len;
 };
+
+#define UFFD_API 0xAA
+
+#define UFFDIO_REGISTER_MODE_MISSING  0x1
+#define UFFDIO_REGISTER_MODE_WP       0x2
+#define UFFDIO_REGISTER_MODE_MINOR    0x4
+
+#define UFFDIO_COPY_MODE_DONTWAKE     0x1
+#define UFFDIO_COPY_MODE_WP           0x2
+
+#define UFFDIO_ZEROPAGE_MODE_DONTWAKE 0x1
