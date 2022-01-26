@@ -286,14 +286,6 @@ struct user_desc {
 #define ARCH_SET_FS 0x1002
 #endif
 
-#if defined(__sparc__) || defined(__sparc64__) || defined(__mips__) || defined(__mips64__) || defined(__powerpc__) || defined(__powerpc64__)
-#define BLKSSZGET  0x20001268
-#define BLKPBSZGET 0x2000127B
-#else
-#define BLKSSZGET  0x1268
-#define BLKPBSZGET 0x127B
-#endif
-
 struct msghdr {
     void         *msg_name;
     int           msg_namelen;
@@ -325,11 +317,3 @@ struct mmsghdr {
     struct msghdr msg_hdr;
     unsigned int  msg_len;
 };
-
-// The macro expansion for these on powerpc64 is too complex for bindgen.
-#if defined(__powerpc64__)
-#define TIOCGWINSZ 0x40087468
-#define TCGETS     0x403c7413
-#define FIONREAD   0x4004667f
-#define FIONBIO    0x8004667e
-#endif
