@@ -1,6 +1,5 @@
 //! A program which generates a linux-headers installation and runs bindgen
-//! over each public header, for each supported architecture, for a selection
-//! of Linux kernel versions.
+//! over the headers, for each supported architecture.
 
 use bindgen::{builder, EnumVariation};
 use std::collections::HashSet;
