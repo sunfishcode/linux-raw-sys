@@ -23,17 +23,9 @@ jobs:
         rustup install ${{ matrix.rust }}
         rustup default ${{ matrix.rust }}
 
-        cargo check --features v2_6_32
-        cargo check --features v3_2
-        cargo check --features v3_10
-        cargo check --features v4_2
-        cargo check --features v4_4
-        cargo check --features v4_20
-        cargo check --features v5_4
-        cargo check --features v5_11
-        cargo check --features "v3_2 netlink"
-        cargo check --no-default-features --features "std v5_11 netlink"
-        cargo check --no-default-features --features "no_std v5_4 netlink"
+        cargo check --features "netlink"
+        cargo check --no-default-features --features "std netlink"
+        cargo check --no-default-features --features "no_std netlink"
         cargo check --no-default-features --features "no_std general errno"
 
   gen:
