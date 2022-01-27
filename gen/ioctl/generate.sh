@@ -12,22 +12,28 @@ set -ueo pipefail
 # to add new ioctl codes or a new architecture, and are unable to run it,
 # please file an issue in the issue tracker.
 
-cflags="-Wall -I."
+cflags="-Wall"
 out="../modules/ioctl.h"
 
 echo "// This file is generated from the ioctl/generate.sh script." > "$out"
 
-i686-linux-gnu-gcc main.c -o main.exe $cflags
+i686-linux-gnu-gcc -Iinclude -c list.c $cflags
+i686-linux-gnu-gcc main.c list.o -o main.exe $cflags
 ./main.exe >> "$out"
-x86_64-linux-gnu-gcc main.c -o main.exe $cflags
+x86_64-linux-gnu-gcc -Iinclude -c list.c $cflags
+x86_64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 ./main.exe >> "$out"
-aarch64-linux-gnu-gcc main.c -o main.exe $cflags
+aarch64-linux-gnu-gcc -Iinclude -c list.c $cflags
+aarch64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-aarch64 -L /usr/aarch64-linux-gnu ./main.exe >> "$out"
-arm-linux-gnueabihf-gcc main.c -o main.exe $cflags
+arm-linux-gnueabihf-gcc -Iinclude -c list.c $cflags
+arm-linux-gnueabihf-gcc main.c list.o -o main.exe $cflags
 qemu-arm -L /usr/arm-linux-gnueabihf ./main.exe >> "$out"
-powerpc64le-linux-gnu-gcc main.c -o main.exe $cflags
+powerpc64le-linux-gnu-gcc -Iinclude -c list.c $cflags
+powerpc64le-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-ppc64le -L /usr/powerpc64le-linux-gnu ./main.exe >> "$out"
-riscv64-linux-gnu-gcc main.c -o main.exe $cflags
+riscv64-linux-gnu-gcc -Iinclude -c list.c $cflags
+riscv64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-riscv64 -L /usr/riscv64-linux-gnu ./main.exe >> "$out"
 
-rm main.exe
+rm list.o main.exe

@@ -6,7 +6,7 @@ use std::collections::HashSet;
 use std::env;
 use std::fs;
 use std::fs::File;
-use std::io::{Read, Write};
+use std::io::{Read, Write, BufReader, BufRead};
 use std::path::Path;
 use std::process::Command;
 
@@ -293,7 +293,7 @@ fn run_bindgen(
         mod_name, linux_version, rust_arch
     );
 
-    let builder = builder()
+    let mut builder = builder()
         // The generated bindings are quite large, so use a few simple options
         // to keep the file sizes down.
         .rustfmt_configuration_file(Some(Path::new("bindgen-rustfmt.toml").to_owned()))
@@ -312,6 +312,13 @@ fn run_bindgen(
         .clang_arg("-I")
         .clang_arg("include")
         .blocklist_item("NULL");
+
+    // Avoid duplicating ioctl names in the `general` module.
+    if mod_name == "general" {
+        for ioctl in BufReader::new(File::open("ioctl/generated.txt").unwrap()).lines() {
+            builder = builder.blocklist_item(ioctl.unwrap());
+        }
+    }
 
     let bindings = builder
         .use_core()
