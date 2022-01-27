@@ -7570,7 +7570,7 @@
 #define ACRN_IOCTL_DESTROY_IOREQ_CLIENT 0x2000a234ul
 #define ACRN_IOCTL_VM_INTR_MONITOR 0x8008a224ul
 #endif
-#if defined(__riscv) && __WORDSIZE == 64
+#if defined(__riscv) && __riscv_xlen == 64
 #define FIONREAD 0x541bul
 #define FIONBIO 0x5421ul
 #define FIOCLEX 0x5451ul
