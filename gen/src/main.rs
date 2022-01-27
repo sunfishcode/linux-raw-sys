@@ -12,35 +12,7 @@ use std::path::Path;
 use std::process::Command;
 
 #[allow(unused_doc_comments)]
-const LINUX_VERSIONS: [&str; 8] = [
-    /// Base supported revisions for various architectures.
-    /// <https://doc.rust-lang.org/nightly/rustc/platform-support.html>
-    "v2.6.32",
-    "v3.2",
-    "v3.10",
-    "v4.2",
-    "v4.4",
-    "v4.20",
-    /// This is the oldest kernel version available on Github Actions.
-    /// <https://github.com/actions/virtual-environments#available-environments>
-    "v5.4",
-    /// Linux 5.6 has `openat2` so pick something newer than that.
-    "v5.11",
-];
-
-/// Base supported revisions for various architectures.
-/// <https://doc.rust-lang.org/nightly/rustc/platform-support.html>
-const DEFAULT_LINUX_VERSIONS: [(&str, &str); 9] = [
-    ("x86", "v2.6.32"),
-    ("x86_64", "v2.6.32"),
-    ("aarch64", "v4.2"),
-    ("mips", "v4.4"),
-    ("mips64", "v4.4"),
-    ("arm", "v3.2"),
-    ("powerpc", "v2.6.32"),
-    ("powerpc64", "v3.10"), // powerpc64 has 2.6.32, but powerpc64le has 3.10; go with the later for now.
-    ("riscv64", "v4.20"),
-];
+const LINUX_VERSION: &str = "v5.11";
 
 /// Some commonly used features.
 const DEFAULT_FEATURES: &str = "\"general\", \"errno\"";
@@ -112,131 +84,78 @@ fn main() {
 
     let mut features: HashSet<String> = HashSet::new();
 
-    for linux_version in &LINUX_VERSIONS {
-        let linux_version_mod = linux_version.replace('.', "_");
+    let linux_version = LINUX_VERSION;
+    // Checkout a specific version of Linux.
+    git_checkout(linux_version);
 
-        // Collect all unique feature names across all architectures.
-        if features.insert(linux_version_mod.clone()) {
-            writeln!(cargo_toml, "{} = []", linux_version_mod).unwrap();
+    let mut linux_archs = fs::read_dir(&format!("linux/arch"))
+        .unwrap()
+        .map(|entry| entry.unwrap())
+        .collect::<Vec<_>>();
+    // Sort archs list as filesystem iteration order is non-deterministic
+    linux_archs.sort_by_key(|entry| entry.file_name());
+    for linux_arch_entry in linux_archs {
+        if !linux_arch_entry.file_type().unwrap().is_dir() {
+            continue;
+        }
+        let linux_arch = linux_arch_entry.file_name().to_str().unwrap().to_owned();
+
+        let rust_arches = rust_arches(&linux_arch);
+        if rust_arches.is_empty() {
+            continue;
         }
 
-        // Define the module. If this isn't the default version, make it
-        // conditional.
-        let default_arch_versions = DEFAULT_LINUX_VERSIONS
-            .iter()
-            .filter(|default| &default.1 == linux_version)
-            .map(|default| default.0)
-            .collect::<Vec<_>>();
-        if !default_arch_versions.is_empty() {
-            let mut cfg_versions = vec![];
-            for arch in default_arch_versions {
-                cfg_versions.push(format!("target_arch = \"{}\"", arch));
-            }
-            writeln!(src_lib_rs, "{}", gen_cfg_any(&cfg_versions)).unwrap();
-            writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
+        fs::create_dir_all(&linux_headers).unwrap();
 
-            // If this is the default version for an architecture, make the
-            // contents available in the top-level namespace.
-            writeln!(src_lib_rs, "{}", gen_cfg_any(&cfg_versions)).unwrap();
-            writeln!(src_lib_rs, "pub use {}::*;", linux_version_mod).unwrap();
-        } else {
-            let cfg_version = format!("#[cfg(feature = \"{}\")]", linux_version_mod);
-            writeln!(src_lib_rs, "{}", cfg_version).unwrap();
-            writeln!(src_lib_rs, "pub mod {};", linux_version_mod).unwrap();
-        }
-
-        let src_vers = format!("../src/{}", linux_version_mod);
-        fs::create_dir_all(&src_vers).unwrap();
-        let mut src_vers_mod_rs = File::create(&format!("{}/mod.rs", src_vers)).unwrap();
-
-        // Checkout a specific version of Linux.
-        git_checkout(linux_version);
-
-        let mut linux_archs = fs::read_dir(&format!("linux/arch"))
-            .unwrap()
-            .map(|entry| entry.unwrap())
-            .collect::<Vec<_>>();
-        // Sort archs list as filesystem iteration order is non-deterministic
-        linux_archs.sort_by_key(|entry| entry.file_name());
-        for linux_arch_entry in linux_archs {
-            if !linux_arch_entry.file_type().unwrap().is_dir() {
-                continue;
-            }
-            let linux_arch = linux_arch_entry.file_name().to_str().unwrap().to_owned();
-
-            let rust_arches = rust_arches(&linux_arch);
-            if rust_arches.is_empty() {
-                continue;
+        let mut headers_made = false;
+        for rust_arch in rust_arches {
+            if !headers_made {
+                make_headers_install(&linux_arch, &linux_headers);
+                headers_made = true;
             }
 
-            fs::create_dir_all(&linux_headers).unwrap();
+            eprintln!(
+                "Generating all bindings for Linux {} architecture {}",
+                linux_version, rust_arch
+            );
 
-            let mut headers_made = false;
-            for rust_arch in rust_arches {
-                // Only build the default versions on their associated
-                // architectures.
-                if !DEFAULT_LINUX_VERSIONS
-                    .iter()
-                    .any(|default| rust_arch == &default.0 && linux_version == &default.1)
-                    && DEFAULT_LINUX_VERSIONS
-                        .iter()
-                        .any(|default| linux_version == &default.1)
-                {
-                    continue;
-                }
+            let src_arch = format!("../src/{}", rust_arch);
 
-                if !headers_made {
-                    make_headers_install(&linux_arch, &linux_headers);
-                    headers_made = true;
-                }
+            fs::create_dir_all(&src_arch).unwrap();
 
-                eprintln!(
-                    "Generating all bindings for Linux {} architecture {}",
-                    linux_version, rust_arch
+            let mut modules = fs::read_dir("modules")
+                .unwrap()
+                .map(|entry| entry.unwrap())
+                .collect::<Vec<_>>();
+            // Sort module list as filesystem iteration order is non-deterministic
+            modules.sort_by_key(|entry| entry.file_name());
+            for mod_entry in modules {
+                let header_name = mod_entry.path();
+                let mod_name = header_name.file_stem().unwrap().to_str().unwrap();
+                let mod_rs = format!("{}/{}.rs", src_arch, mod_name);
+
+                writeln!(src_lib_rs, "#[cfg(feature = \"{}\")]", mod_name).unwrap();
+                writeln!(src_lib_rs, "#[cfg(target_arch = \"{}\")]", rust_arch).unwrap();
+                writeln!(src_lib_rs, "#[path = \"{}/{}.rs\"]", rust_arch, mod_name).unwrap();
+                writeln!(src_lib_rs, "pub mod {};", mod_name).unwrap();
+
+                run_bindgen(
+                    linux_include.to_str().unwrap(),
+                    header_name.to_str().unwrap(),
+                    &mod_rs,
+                    mod_name,
+                    rust_arch,
+                    linux_version,
                 );
 
-                let src_arch = format!("{}/{}", src_vers, rust_arch);
-                fs::create_dir_all(&src_arch).unwrap();
-                let mut src_arch_mod_rs = File::create(&format!("{}/mod.rs", src_arch)).unwrap();
-
-                let cfg_arch = format!("#[cfg(target_arch = \"{}\")]", rust_arch);
-                writeln!(src_vers_mod_rs, "{}", cfg_arch).unwrap();
-                writeln!(src_vers_mod_rs, "mod {};", rust_arch).unwrap();
-                writeln!(src_vers_mod_rs, "{}", cfg_arch).unwrap();
-                writeln!(src_vers_mod_rs, "pub use {}::*;", rust_arch).unwrap();
-
-                let mut modules = fs::read_dir("modules")
-                    .unwrap()
-                    .map(|entry| entry.unwrap())
-                    .collect::<Vec<_>>();
-                // Sort module list as filesystem iteration order is non-deterministic
-                modules.sort_by_key(|entry| entry.file_name());
-                for mod_entry in modules {
-                    let header_name = mod_entry.path();
-                    let mod_name = header_name.file_stem().unwrap().to_str().unwrap();
-                    let mod_rs = format!("{}/{}.rs", src_arch, mod_name);
-
-                    run_bindgen(
-                        linux_include.to_str().unwrap(),
-                        header_name.to_str().unwrap(),
-                        &mod_rs,
-                        mod_name,
-                        rust_arch,
-                        linux_version,
-                    );
-
-                    writeln!(src_arch_mod_rs, "/// {}", header_name.to_str().unwrap()).unwrap();
-                    writeln!(src_arch_mod_rs, "#[cfg(feature = \"{}\")]", mod_name).unwrap();
-                    writeln!(src_arch_mod_rs, "pub mod r#{};", mod_name).unwrap();
-                    // Collect all unique feature names across all architectures.
-                    if features.insert(mod_name.to_owned()) {
-                        writeln!(cargo_toml, "{} = []", mod_name).unwrap();
-                    }
+                // Collect all unique feature names across all architectures.
+                if features.insert(mod_name.to_owned()) {
+                    writeln!(cargo_toml, "{} = []", mod_name).unwrap();
                 }
             }
-
-            fs::remove_dir_all(&linux_headers).unwrap();
         }
+
+        fs::remove_dir_all(&linux_headers).unwrap();
     }
 
     writeln!(cargo_toml, "default = [\"std\", {}]", DEFAULT_FEATURES).unwrap();
@@ -247,9 +166,6 @@ fn main() {
         "rustc-dep-of-std = [\"core\", \"compiler_builtins\", \"no_std\"]"
     )
     .unwrap();
-
-    // Reset the `linux` directory back to the original branch.
-    git_checkout(LINUX_VERSIONS[0]);
 
     eprintln!("All bindings generated!");
 }
@@ -414,13 +330,5 @@ fn compute_clang_arch(rust_arch: &str) -> &str {
         "i686"
     } else {
         rust_arch
-    }
-}
-
-fn gen_cfg_any(cfgs: &[String]) -> String {
-    match &cfgs[..] {
-        [] => String::new(),
-        [cfg] => format!("#[cfg({})]", cfg),
-        cfgs => format!("#[cfg(any({}))]", cfgs.join(", ")),
     }
 }

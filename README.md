@@ -24,25 +24,15 @@ The full bindings are quite large, so they've been split up into modules and
 cargo features. By default, `general` and `errno` are enabled, which provide
 most things needed by general-purpose code.
 
-The default bindings are generated from Linux 2.3.36, as it is the
-[oldest version supported by Rust]. Modules `v5_4` and `v5_11`, enabled by
-features `v5_4` and `v5_11` respectively, contain generated bindings for
-Linux 5.4 and Linux 5.11, which provide access to numerous new features, though
-they may not be available on all supported Linux versions.
-
 To regenerate the generated bindings, run `cargo update && cd gen && cargo run --release`.
 
 ## Similar crates
 
-This is similar to [linux-sys], but supports multiple Linux versions at once,
-including the oldest version of Linux that Rust supports, and also new
-versions, making it easy to selectively mix in new features. Also, the bindings
-are generated offline, rather than in a build.rs, making downstream builds
-simpler. And, this crate has bindings for more headers, as well as
-supplementary definitions not exported by Linux's headers but nonetheless
-needed by userspace.
+This is similar to [linux-sys], except the bindings are generated offline,
+rather than in a build.rs, making downstream builds simpler. And, this crate
+has bindings for more headers, as well as supplementary definitions not
+exported by Linux's headers but nonetheless needed by userspace.
 
 [linux-sys]: https://crates.io/crates/linux-sys
 
-[oldest version supported by Rust]: https://doc.rust-lang.org/nightly/rustc/platform-support.html
 [rustix crate]: https://github.com/bytecodealliance/rustix#linux-raw-syscall-support
