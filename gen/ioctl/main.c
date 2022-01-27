@@ -35,8 +35,8 @@ int main(void) {
     printf("#ifdef __powerpc__\n");
 #elif defined(__powerpc64__)
     printf("#ifdef __powerpc64__\n");
-#elif defined(__riscv) && __WORDSIZE == 64
-    printf("#if defined(__riscv) && __WORDSIZE == 64\n");
+#elif defined(__riscv) && __riscv_xlen == 64
+    printf("#if defined(__riscv) && __riscv_xlen == 64\n");
 #else
 #error "unimplemented architecture"
 #endif
