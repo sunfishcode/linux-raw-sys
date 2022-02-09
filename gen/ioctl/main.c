@@ -35,6 +35,10 @@ int main(void) {
     printf("#ifdef __powerpc__\n");
 #elif defined(__powerpc64__)
     printf("#ifdef __powerpc64__\n");
+#elif __mips == 32
+    printf("#if __mips == 32\n");
+#elif __mips == 64
+    printf("#if __mips == 64\n");
 #elif defined(__riscv) && __riscv_xlen == 64
     printf("#if defined(__riscv) && __riscv_xlen == 64\n");
 #else
