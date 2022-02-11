@@ -3,12 +3,11 @@
 
 use bindgen::{builder, EnumVariation};
 use std::collections::HashSet;
-use std::env;
-use std::fs;
 use std::fs::File;
-use std::io::{Read, Write, BufReader, BufRead};
+use std::io::{BufRead, BufReader, Read, Write};
 use std::path::Path;
 use std::process::Command;
+use std::{env, fs};
 
 #[allow(unused_doc_comments)]
 const LINUX_VERSION: &str = "v5.11";
@@ -170,14 +169,17 @@ fn main() {
 }
 
 fn git_init() {
-    // Clone the linux kernel source repo if necessary. Ignore exit code as it will be non-zero in
-    // case it was already cloned.
+    // Clone the linux kernel source repo if necessary. Ignore exit code as it will
+    // be non-zero in case it was already cloned.
+    //
     // Use a treeless partial clone to save disk space and clone time.
-    // See https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/ for
-    // more info on partial clones.
+    // See <https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/>
+    // for more info on partial clones.
+    //
     // Note: this is not using the official repo
-    // git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git but the github fork as the
-    // server of the official repo doesn't recognize filtering.
+    // <git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git> but
+    // the github fork as the server of the official repo doesn't recognize
+    // filtering.
     if !Path::new("linux/.git").exists() {
         assert!(Command::new("git")
             .arg("clone")
@@ -189,8 +191,8 @@ fn git_init() {
             .success());
     }
 
-    // Setup sparse checkout. This greatly reduces the amount of objects necessary to checkout the
-    // tree.
+    // Setup sparse checkout. This greatly reduces the amount of objects necessary
+    // to checkout the tree.
     assert!(Command::new("git")
         .arg("sparse-checkout")
         .arg("init")

@@ -289,7 +289,7 @@ struct user_desc {
 struct msghdr {
     void         *msg_name;
     int           msg_namelen;
-    struct iovec *msg_iov; 
+    struct iovec *msg_iov;
     size_t        msg_iovlen;
     void         *msg_control;
     size_t        msg_controllen;
