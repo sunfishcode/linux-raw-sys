@@ -328,3 +328,7 @@ struct mmsghdr {
 #define UFFDIO_COPY_MODE_WP           0x2
 
 #define UFFDIO_ZEROPAGE_MODE_DONTWAKE 0x1
+
+#if defined(__mips)
+#define POLLWRNORM 0x4
+#endif
