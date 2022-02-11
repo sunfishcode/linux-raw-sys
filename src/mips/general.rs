@@ -2456,6 +2456,7 @@ pub const UFFDIO_REGISTER_MODE_MINOR: u32 = 4;
 pub const UFFDIO_COPY_MODE_DONTWAKE: u32 = 1;
 pub const UFFDIO_COPY_MODE_WP: u32 = 2;
 pub const UFFDIO_ZEROPAGE_MODE_DONTWAKE: u32 = 1;
+pub const POLLWRNORM: u32 = 4;
 pub type size_t = crate::ctypes::c_uint;
 pub type ssize_t = crate::ctypes::c_int;
 pub type __s8 = crate::ctypes::c_schar;
