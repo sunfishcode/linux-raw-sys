@@ -41,6 +41,34 @@ pub mod ctypes {
     pub use core::ffi::c_void;
 }
 
+// Confirm that our type definitions above match the actual type definitions.
+#[cfg(test)]
+static_assertions::assert_eq_size!(ctypes::c_char, libc::c_char);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_schar, libc::c_schar);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_uchar, libc::c_uchar);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_short, libc::c_short);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_ushort, libc::c_ushort);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_int, libc::c_int);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_uint, libc::c_uint);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_long, libc::c_long);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_ulong, libc::c_ulong);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_longlong, libc::c_longlong);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_ulonglong, libc::c_ulonglong);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_float, libc::c_float);
+#[cfg(test)]
+static_assertions::assert_type_eq_all!(ctypes::c_double, libc::c_double);
+
 // The rest of this file is auto-generated!
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "arm")]

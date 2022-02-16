@@ -33,6 +33,12 @@ rather than in a build.rs, making downstream builds simpler. And, this crate
 has bindings for more headers, as well as supplementary definitions not
 exported by Linux's headers but nonetheless needed by userspace.
 
-[linux-sys]: https://crates.io/crates/linux-sys
+# Minimum Supported Rust Version (MSRV)
 
+This crate currently works on the version of [Rust on Debian stable], which is
+currently Rust 1.48. This policy may change in the future, in minor version
+releases, so users using a fixed version of Rust should pin to a specific
+version of this crate.
+
+[linux-sys]: https://crates.io/crates/linux-sys
 [rustix crate]: https://github.com/bytecodealliance/rustix#linux-raw-syscall-support
