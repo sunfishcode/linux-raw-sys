@@ -331,4 +331,11 @@ struct mmsghdr {
 
 #if defined(__mips)
 #define POLLWRNORM 0x4
+
+#undef TCSANOW
+#undef TCSADRAIN
+#undef TCSAFLUSH
+#define TCSANOW 0x540e
+#define TCSADRAIN 0x540f
+#define TCSAFLUSH 0x5410
 #endif
