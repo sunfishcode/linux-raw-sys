@@ -60,6 +60,24 @@ mod assertions {
     static_assertions::assert_type_eq_all!(ctypes::c_double, libc::c_double);
 }
 
+// We don't enable `derive_eq` in bindgen because adding `PartialEq`/`Eq` to
+// *all* structs noticeably increases compile times. But we can add a few
+// manual impls where they're especially useful.
+#[cfg(feature = "general")]
+impl PartialEq for general::__kernel_timespec {
+    fn eq(&self, other: &Self) -> bool {
+        ({
+            let Self { tv_sec, tv_nsec } = self;
+            (tv_sec, tv_nsec)
+        }) == ({
+            let Self { tv_sec, tv_nsec } = other;
+            (tv_sec, tv_nsec)
+        })
+    }
+}
+#[cfg(feature = "general")]
+impl Eq for general::__kernel_timespec {}
+
 // The rest of this file is auto-generated!
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "arm")]
