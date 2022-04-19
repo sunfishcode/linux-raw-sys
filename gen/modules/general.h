@@ -58,6 +58,10 @@
 #include <linux/userfaultfd.h>
 #endif
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,1,0)
+#include <linux/io_uring.h>
+#endif
+
 // Miscellaneous definitions which don't appear to be defined in Linux's public
 // headers, but which are nonetheless part of the ABI, and necessary for
 // interoperability.
