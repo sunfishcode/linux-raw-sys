@@ -2097,6 +2097,38 @@ pub const UFFD_FEATURE_EVENT_UNMAP: u32 = 64;
 pub const UFFD_FEATURE_SIGBUS: u32 = 128;
 pub const UFFD_FEATURE_THREAD_ID: u32 = 256;
 pub const UFFD_USER_MODE_ONLY: u32 = 1;
+pub const IORING_SETUP_IOPOLL: u32 = 1;
+pub const IORING_SETUP_SQPOLL: u32 = 2;
+pub const IORING_SETUP_SQ_AFF: u32 = 4;
+pub const IORING_SETUP_CQSIZE: u32 = 8;
+pub const IORING_SETUP_CLAMP: u32 = 16;
+pub const IORING_SETUP_ATTACH_WQ: u32 = 32;
+pub const IORING_SETUP_R_DISABLED: u32 = 64;
+pub const IORING_FSYNC_DATASYNC: u32 = 1;
+pub const IORING_TIMEOUT_ABS: u32 = 1;
+pub const IORING_TIMEOUT_UPDATE: u32 = 2;
+pub const SPLICE_F_FD_IN_FIXED: u32 = 2147483648;
+pub const IORING_CQE_F_BUFFER: u32 = 1;
+pub const IORING_OFF_SQ_RING: u32 = 0;
+pub const IORING_OFF_CQ_RING: u32 = 134217728;
+pub const IORING_OFF_SQES: u32 = 268435456;
+pub const IORING_SQ_NEED_WAKEUP: u32 = 1;
+pub const IORING_SQ_CQ_OVERFLOW: u32 = 2;
+pub const IORING_CQ_EVENTFD_DISABLED: u32 = 1;
+pub const IORING_ENTER_GETEVENTS: u32 = 1;
+pub const IORING_ENTER_SQ_WAKEUP: u32 = 2;
+pub const IORING_ENTER_SQ_WAIT: u32 = 4;
+pub const IORING_ENTER_EXT_ARG: u32 = 8;
+pub const IORING_FEAT_SINGLE_MMAP: u32 = 1;
+pub const IORING_FEAT_NODROP: u32 = 2;
+pub const IORING_FEAT_SUBMIT_STABLE: u32 = 4;
+pub const IORING_FEAT_RW_CUR_POS: u32 = 8;
+pub const IORING_FEAT_CUR_PERSONALITY: u32 = 16;
+pub const IORING_FEAT_FAST_POLL: u32 = 32;
+pub const IORING_FEAT_POLL_32BITS: u32 = 64;
+pub const IORING_FEAT_SQPOLL_NONFIXED: u32 = 128;
+pub const IORING_FEAT_EXT_ARG: u32 = 256;
+pub const IO_URING_OP_SUPPORTED: u32 = 1;
 pub const DT_UNKNOWN: u32 = 0;
 pub const DT_FIFO: u32 = 1;
 pub const DT_CHR: u32 = 2;
@@ -4064,6 +4096,317 @@ pub zeropage: __s64,
 pub struct uffdio_writeprotect {
 pub range: uffdio_range,
 pub mode: __u64,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct io_uring_sqe {
+pub opcode: __u8,
+pub flags: __u8,
+pub ioprio: __u16,
+pub fd: __s32,
+pub __bindgen_anon_1: io_uring_sqe__bindgen_ty_1,
+pub __bindgen_anon_2: io_uring_sqe__bindgen_ty_2,
+pub len: __u32,
+pub __bindgen_anon_3: io_uring_sqe__bindgen_ty_3,
+pub user_data: __u64,
+pub __bindgen_anon_4: io_uring_sqe__bindgen_ty_4,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union io_uring_sqe__bindgen_ty_1 {
+pub off: __u64,
+pub addr2: __u64,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union io_uring_sqe__bindgen_ty_2 {
+pub addr: __u64,
+pub splice_off_in: __u64,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union io_uring_sqe__bindgen_ty_3 {
+pub rw_flags: __kernel_rwf_t,
+pub fsync_flags: __u32,
+pub poll_events: __u16,
+pub poll32_events: __u32,
+pub sync_range_flags: __u32,
+pub msg_flags: __u32,
+pub timeout_flags: __u32,
+pub accept_flags: __u32,
+pub cancel_flags: __u32,
+pub open_flags: __u32,
+pub statx_flags: __u32,
+pub fadvise_advice: __u32,
+pub splice_flags: __u32,
+pub rename_flags: __u32,
+pub unlink_flags: __u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union io_uring_sqe__bindgen_ty_4 {
+pub __bindgen_anon_1: io_uring_sqe__bindgen_ty_4__bindgen_ty_1,
+pub __pad2: [__u64; 3usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct io_uring_sqe__bindgen_ty_4__bindgen_ty_1 {
+pub __bindgen_anon_1: io_uring_sqe__bindgen_ty_4__bindgen_ty_1__bindgen_ty_1,
+pub personality: __u16,
+pub splice_fd_in: __s32,
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub union io_uring_sqe__bindgen_ty_4__bindgen_ty_1__bindgen_ty_1 {
+pub buf_index: __u16,
+pub buf_group: __u16,
+}
+pub const IOSQE_FIXED_FILE_BIT: _bindgen_ty_7 = _bindgen_ty_7::IOSQE_FIXED_FILE_BIT;
+pub const IOSQE_IO_DRAIN_BIT: _bindgen_ty_7 = _bindgen_ty_7::IOSQE_IO_DRAIN_BIT;
+pub const IOSQE_IO_LINK_BIT: _bindgen_ty_7 = _bindgen_ty_7::IOSQE_IO_LINK_BIT;
+pub const IOSQE_IO_HARDLINK_BIT: _bindgen_ty_7 = _bindgen_ty_7::IOSQE_IO_HARDLINK_BIT;
+pub const IOSQE_ASYNC_BIT: _bindgen_ty_7 = _bindgen_ty_7::IOSQE_ASYNC_BIT;
+pub const IOSQE_BUFFER_SELECT_BIT: _bindgen_ty_7 = _bindgen_ty_7::IOSQE_BUFFER_SELECT_BIT;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_7 {
+IOSQE_FIXED_FILE_BIT = 0,
+IOSQE_IO_DRAIN_BIT = 1,
+IOSQE_IO_LINK_BIT = 2,
+IOSQE_IO_HARDLINK_BIT = 3,
+IOSQE_ASYNC_BIT = 4,
+IOSQE_BUFFER_SELECT_BIT = 5,
+}
+pub const IORING_OP_NOP: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_NOP;
+pub const IORING_OP_READV: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_READV;
+pub const IORING_OP_WRITEV: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_WRITEV;
+pub const IORING_OP_FSYNC: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_FSYNC;
+pub const IORING_OP_READ_FIXED: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_READ_FIXED;
+pub const IORING_OP_WRITE_FIXED: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_WRITE_FIXED;
+pub const IORING_OP_POLL_ADD: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_POLL_ADD;
+pub const IORING_OP_POLL_REMOVE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_POLL_REMOVE;
+pub const IORING_OP_SYNC_FILE_RANGE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_SYNC_FILE_RANGE;
+pub const IORING_OP_SENDMSG: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_SENDMSG;
+pub const IORING_OP_RECVMSG: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_RECVMSG;
+pub const IORING_OP_TIMEOUT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_TIMEOUT;
+pub const IORING_OP_TIMEOUT_REMOVE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_TIMEOUT_REMOVE;
+pub const IORING_OP_ACCEPT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_ACCEPT;
+pub const IORING_OP_ASYNC_CANCEL: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_ASYNC_CANCEL;
+pub const IORING_OP_LINK_TIMEOUT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_LINK_TIMEOUT;
+pub const IORING_OP_CONNECT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_CONNECT;
+pub const IORING_OP_FALLOCATE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_FALLOCATE;
+pub const IORING_OP_OPENAT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_OPENAT;
+pub const IORING_OP_CLOSE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_CLOSE;
+pub const IORING_OP_FILES_UPDATE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_FILES_UPDATE;
+pub const IORING_OP_STATX: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_STATX;
+pub const IORING_OP_READ: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_READ;
+pub const IORING_OP_WRITE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_WRITE;
+pub const IORING_OP_FADVISE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_FADVISE;
+pub const IORING_OP_MADVISE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_MADVISE;
+pub const IORING_OP_SEND: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_SEND;
+pub const IORING_OP_RECV: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_RECV;
+pub const IORING_OP_OPENAT2: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_OPENAT2;
+pub const IORING_OP_EPOLL_CTL: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_EPOLL_CTL;
+pub const IORING_OP_SPLICE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_SPLICE;
+pub const IORING_OP_PROVIDE_BUFFERS: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_PROVIDE_BUFFERS;
+pub const IORING_OP_REMOVE_BUFFERS: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_REMOVE_BUFFERS;
+pub const IORING_OP_TEE: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_TEE;
+pub const IORING_OP_SHUTDOWN: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_SHUTDOWN;
+pub const IORING_OP_RENAMEAT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_RENAMEAT;
+pub const IORING_OP_UNLINKAT: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_UNLINKAT;
+pub const IORING_OP_LAST: _bindgen_ty_8 = _bindgen_ty_8::IORING_OP_LAST;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_8 {
+IORING_OP_NOP = 0,
+IORING_OP_READV = 1,
+IORING_OP_WRITEV = 2,
+IORING_OP_FSYNC = 3,
+IORING_OP_READ_FIXED = 4,
+IORING_OP_WRITE_FIXED = 5,
+IORING_OP_POLL_ADD = 6,
+IORING_OP_POLL_REMOVE = 7,
+IORING_OP_SYNC_FILE_RANGE = 8,
+IORING_OP_SENDMSG = 9,
+IORING_OP_RECVMSG = 10,
+IORING_OP_TIMEOUT = 11,
+IORING_OP_TIMEOUT_REMOVE = 12,
+IORING_OP_ACCEPT = 13,
+IORING_OP_ASYNC_CANCEL = 14,
+IORING_OP_LINK_TIMEOUT = 15,
+IORING_OP_CONNECT = 16,
+IORING_OP_FALLOCATE = 17,
+IORING_OP_OPENAT = 18,
+IORING_OP_CLOSE = 19,
+IORING_OP_FILES_UPDATE = 20,
+IORING_OP_STATX = 21,
+IORING_OP_READ = 22,
+IORING_OP_WRITE = 23,
+IORING_OP_FADVISE = 24,
+IORING_OP_MADVISE = 25,
+IORING_OP_SEND = 26,
+IORING_OP_RECV = 27,
+IORING_OP_OPENAT2 = 28,
+IORING_OP_EPOLL_CTL = 29,
+IORING_OP_SPLICE = 30,
+IORING_OP_PROVIDE_BUFFERS = 31,
+IORING_OP_REMOVE_BUFFERS = 32,
+IORING_OP_TEE = 33,
+IORING_OP_SHUTDOWN = 34,
+IORING_OP_RENAMEAT = 35,
+IORING_OP_UNLINKAT = 36,
+IORING_OP_LAST = 37,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_cqe {
+pub user_data: __u64,
+pub res: __s32,
+pub flags: __u32,
+}
+pub const IORING_CQE_BUFFER_SHIFT: _bindgen_ty_9 = _bindgen_ty_9::IORING_CQE_BUFFER_SHIFT;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_9 {
+IORING_CQE_BUFFER_SHIFT = 16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_sqring_offsets {
+pub head: __u32,
+pub tail: __u32,
+pub ring_mask: __u32,
+pub ring_entries: __u32,
+pub flags: __u32,
+pub dropped: __u32,
+pub array: __u32,
+pub resv1: __u32,
+pub resv2: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_cqring_offsets {
+pub head: __u32,
+pub tail: __u32,
+pub ring_mask: __u32,
+pub ring_entries: __u32,
+pub overflow: __u32,
+pub cqes: __u32,
+pub flags: __u32,
+pub resv1: __u32,
+pub resv2: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_params {
+pub sq_entries: __u32,
+pub cq_entries: __u32,
+pub flags: __u32,
+pub sq_thread_cpu: __u32,
+pub sq_thread_idle: __u32,
+pub features: __u32,
+pub wq_fd: __u32,
+pub resv: [__u32; 3usize],
+pub sq_off: io_sqring_offsets,
+pub cq_off: io_cqring_offsets,
+}
+pub const IORING_REGISTER_BUFFERS: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_BUFFERS;
+pub const IORING_UNREGISTER_BUFFERS: _bindgen_ty_10 = _bindgen_ty_10::IORING_UNREGISTER_BUFFERS;
+pub const IORING_REGISTER_FILES: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_FILES;
+pub const IORING_UNREGISTER_FILES: _bindgen_ty_10 = _bindgen_ty_10::IORING_UNREGISTER_FILES;
+pub const IORING_REGISTER_EVENTFD: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_EVENTFD;
+pub const IORING_UNREGISTER_EVENTFD: _bindgen_ty_10 = _bindgen_ty_10::IORING_UNREGISTER_EVENTFD;
+pub const IORING_REGISTER_FILES_UPDATE: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_FILES_UPDATE;
+pub const IORING_REGISTER_EVENTFD_ASYNC: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_EVENTFD_ASYNC;
+pub const IORING_REGISTER_PROBE: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_PROBE;
+pub const IORING_REGISTER_PERSONALITY: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_PERSONALITY;
+pub const IORING_UNREGISTER_PERSONALITY: _bindgen_ty_10 = _bindgen_ty_10::IORING_UNREGISTER_PERSONALITY;
+pub const IORING_REGISTER_RESTRICTIONS: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_RESTRICTIONS;
+pub const IORING_REGISTER_ENABLE_RINGS: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_ENABLE_RINGS;
+pub const IORING_REGISTER_LAST: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_LAST;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_10 {
+IORING_REGISTER_BUFFERS = 0,
+IORING_UNREGISTER_BUFFERS = 1,
+IORING_REGISTER_FILES = 2,
+IORING_UNREGISTER_FILES = 3,
+IORING_REGISTER_EVENTFD = 4,
+IORING_UNREGISTER_EVENTFD = 5,
+IORING_REGISTER_FILES_UPDATE = 6,
+IORING_REGISTER_EVENTFD_ASYNC = 7,
+IORING_REGISTER_PROBE = 8,
+IORING_REGISTER_PERSONALITY = 9,
+IORING_UNREGISTER_PERSONALITY = 10,
+IORING_REGISTER_RESTRICTIONS = 11,
+IORING_REGISTER_ENABLE_RINGS = 12,
+IORING_REGISTER_LAST = 13,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_files_update {
+pub offset: __u32,
+pub resv: __u32,
+pub fds: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_probe_op {
+pub op: __u8,
+pub resv: __u8,
+pub flags: __u16,
+pub resv2: __u32,
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct io_uring_probe {
+pub last_op: __u8,
+pub ops_len: __u8,
+pub resv: __u16,
+pub resv2: [__u32; 3usize],
+pub ops: __IncompleteArrayField<io_uring_probe_op>,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct io_uring_restriction {
+pub opcode: __u16,
+pub __bindgen_anon_1: io_uring_restriction__bindgen_ty_1,
+pub resv: __u8,
+pub resv2: [__u32; 3usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union io_uring_restriction__bindgen_ty_1 {
+pub register_op: __u8,
+pub sqe_op: __u8,
+pub sqe_flags: __u8,
+}
+pub const IORING_RESTRICTION_REGISTER_OP: _bindgen_ty_11 = _bindgen_ty_11::IORING_RESTRICTION_REGISTER_OP;
+pub const IORING_RESTRICTION_SQE_OP: _bindgen_ty_11 = _bindgen_ty_11::IORING_RESTRICTION_SQE_OP;
+pub const IORING_RESTRICTION_SQE_FLAGS_ALLOWED: _bindgen_ty_11 = _bindgen_ty_11::IORING_RESTRICTION_SQE_FLAGS_ALLOWED;
+pub const IORING_RESTRICTION_SQE_FLAGS_REQUIRED: _bindgen_ty_11 = _bindgen_ty_11::IORING_RESTRICTION_SQE_FLAGS_REQUIRED;
+pub const IORING_RESTRICTION_LAST: _bindgen_ty_11 = _bindgen_ty_11::IORING_RESTRICTION_LAST;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_11 {
+IORING_RESTRICTION_REGISTER_OP = 0,
+IORING_RESTRICTION_SQE_OP = 1,
+IORING_RESTRICTION_SQE_FLAGS_ALLOWED = 2,
+IORING_RESTRICTION_SQE_FLAGS_REQUIRED = 3,
+IORING_RESTRICTION_LAST = 4,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_getevents_arg {
+pub sigmask: __u64,
+pub sigmask_sz: __u32,
+pub pad: __u32,
+pub ts: __u64,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
