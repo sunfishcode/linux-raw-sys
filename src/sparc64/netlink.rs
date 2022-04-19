@@ -30,8 +30,14 @@ fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
 fmt.write_str("__IncompleteArrayField")
 }
 }
-pub const LINUX_VERSION_CODE: u32 = 330496;
+pub const LINUX_VERSION_CODE: u32 = 332032;
+pub const LINUX_VERSION_MAJOR: u32 = 5;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 17;
+pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const _K_SS_MAXSIZE: u32 = 128;
+pub const SOCK_SNDBUF_LOCK: u32 = 1;
+pub const SOCK_RCVBUF_LOCK: u32 = 2;
+pub const SOCK_BUF_LOCK_MASK: u32 = 3;
 pub const __BITS_PER_LONG: u32 = 64;
 pub const __FD_SETSIZE: u32 = 1024;
 pub const NETLINK_ROUTE: u32 = 0;
@@ -100,6 +106,7 @@ pub const NLA_F_NET_BYTEORDER: u32 = 16384;
 pub const NLA_TYPE_MASK: i32 = -49153;
 pub const NLA_ALIGNTO: u32 = 4;
 pub const MACVLAN_FLAG_NOPROMISC: u32 = 1;
+pub const MACVLAN_FLAG_NODST: u32 = 2;
 pub const IPVLAN_F_PRIVATE: u32 = 1;
 pub const IPVLAN_F_VEPA: u32 = 2;
 pub const MAX_VLAN_LIST_LEN: u32 = 1;
@@ -117,6 +124,8 @@ pub const RMNET_FLAGS_INGRESS_DEAGGREGATION: u32 = 1;
 pub const RMNET_FLAGS_INGRESS_MAP_COMMANDS: u32 = 2;
 pub const RMNET_FLAGS_INGRESS_MAP_CKSUMV4: u32 = 4;
 pub const RMNET_FLAGS_EGRESS_MAP_CKSUMV4: u32 = 8;
+pub const RMNET_FLAGS_INGRESS_MAP_CKSUMV5: u32 = 16;
+pub const RMNET_FLAGS_EGRESS_MAP_CKSUMV5: u32 = 32;
 pub const IFA_F_SECONDARY: u32 = 1;
 pub const IFA_F_TEMPORARY: u32 = 1;
 pub const IFA_F_NODAD: u32 = 2;
@@ -138,6 +147,7 @@ pub const NTF_EXT_LEARNED: u32 = 16;
 pub const NTF_OFFLOADED: u32 = 32;
 pub const NTF_STICKY: u32 = 64;
 pub const NTF_ROUTER: u32 = 128;
+pub const NTF_EXT_MANAGED: u32 = 1;
 pub const NUD_INCOMPLETE: u32 = 1;
 pub const NUD_REACHABLE: u32 = 2;
 pub const NUD_STALE: u32 = 4;
@@ -168,6 +178,7 @@ pub const RTPROT_DHCP: u32 = 16;
 pub const RTPROT_MROUTED: u32 = 17;
 pub const RTPROT_KEEPALIVED: u32 = 18;
 pub const RTPROT_BABEL: u32 = 42;
+pub const RTPROT_OPENR: u32 = 99;
 pub const RTPROT_BGP: u32 = 186;
 pub const RTPROT_ISIS: u32 = 187;
 pub const RTPROT_OSPF: u32 = 188;
@@ -181,6 +192,7 @@ pub const RTM_F_LOOKUP_TABLE: u32 = 4096;
 pub const RTM_F_FIB_MATCH: u32 = 8192;
 pub const RTM_F_OFFLOAD: u32 = 16384;
 pub const RTM_F_TRAP: u32 = 32768;
+pub const RTM_F_OFFLOAD_FAILED: u32 = 536870912;
 pub const RTNH_F_DEAD: u32 = 1;
 pub const RTNH_F_PERVASIVE: u32 = 2;
 pub const RTNH_F_ONLINK: u32 = 4;
@@ -565,6 +577,9 @@ pub const IFLA_PROP_LIST: _bindgen_ty_2 = _bindgen_ty_2::IFLA_PROP_LIST;
 pub const IFLA_ALT_IFNAME: _bindgen_ty_2 = _bindgen_ty_2::IFLA_ALT_IFNAME;
 pub const IFLA_PERM_ADDRESS: _bindgen_ty_2 = _bindgen_ty_2::IFLA_PERM_ADDRESS;
 pub const IFLA_PROTO_DOWN_REASON: _bindgen_ty_2 = _bindgen_ty_2::IFLA_PROTO_DOWN_REASON;
+pub const IFLA_PARENT_DEV_NAME: _bindgen_ty_2 = _bindgen_ty_2::IFLA_PARENT_DEV_NAME;
+pub const IFLA_PARENT_DEV_BUS_NAME: _bindgen_ty_2 = _bindgen_ty_2::IFLA_PARENT_DEV_BUS_NAME;
+pub const IFLA_GRO_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GRO_MAX_SIZE;
 pub const __IFLA_MAX: _bindgen_ty_2 = _bindgen_ty_2::__IFLA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -626,7 +641,10 @@ IFLA_PROP_LIST = 52,
 IFLA_ALT_IFNAME = 53,
 IFLA_PERM_ADDRESS = 54,
 IFLA_PROTO_DOWN_REASON = 55,
-__IFLA_MAX = 56,
+IFLA_PARENT_DEV_NAME = 56,
+IFLA_PARENT_DEV_BUS_NAME = 57,
+IFLA_GRO_MAX_SIZE = 58,
+__IFLA_MAX = 59,
 }
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_MASK;
@@ -662,6 +680,7 @@ pub const IFLA_INET6_CACHEINFO: _bindgen_ty_5 = _bindgen_ty_5::IFLA_INET6_CACHEI
 pub const IFLA_INET6_ICMP6STATS: _bindgen_ty_5 = _bindgen_ty_5::IFLA_INET6_ICMP6STATS;
 pub const IFLA_INET6_TOKEN: _bindgen_ty_5 = _bindgen_ty_5::IFLA_INET6_TOKEN;
 pub const IFLA_INET6_ADDR_GEN_MODE: _bindgen_ty_5 = _bindgen_ty_5::IFLA_INET6_ADDR_GEN_MODE;
+pub const IFLA_INET6_RA_MTU: _bindgen_ty_5 = _bindgen_ty_5::IFLA_INET6_RA_MTU;
 pub const __IFLA_INET6_MAX: _bindgen_ty_5 = _bindgen_ty_5::__IFLA_INET6_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -676,7 +695,8 @@ IFLA_INET6_CACHEINFO = 5,
 IFLA_INET6_ICMP6STATS = 6,
 IFLA_INET6_TOKEN = 7,
 IFLA_INET6_ADDR_GEN_MODE = 8,
-__IFLA_INET6_MAX = 9,
+IFLA_INET6_RA_MTU = 9,
+__IFLA_INET6_MAX = 10,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -734,6 +754,7 @@ pub const IFLA_BR_MCAST_IGMP_VERSION: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_MCA
 pub const IFLA_BR_MCAST_MLD_VERSION: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_MCAST_MLD_VERSION;
 pub const IFLA_BR_VLAN_STATS_PER_PORT: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_VLAN_STATS_PER_PORT;
 pub const IFLA_BR_MULTI_BOOLOPT: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_MULTI_BOOLOPT;
+pub const IFLA_BR_MCAST_QUERIER_STATE: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_MCAST_QUERIER_STATE;
 pub const __IFLA_BR_MAX: _bindgen_ty_6 = _bindgen_ty_6::__IFLA_BR_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -786,7 +807,8 @@ IFLA_BR_MCAST_IGMP_VERSION = 43,
 IFLA_BR_MCAST_MLD_VERSION = 44,
 IFLA_BR_VLAN_STATS_PER_PORT = 45,
 IFLA_BR_MULTI_BOOLOPT = 46,
-__IFLA_BR_MAX = 47,
+IFLA_BR_MCAST_QUERIER_STATE = 47,
+__IFLA_BR_MAX = 48,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -840,6 +862,8 @@ pub const IFLA_BRPORT_ISOLATED: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_ISOLA
 pub const IFLA_BRPORT_BACKUP_PORT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_BACKUP_PORT;
 pub const IFLA_BRPORT_MRP_RING_OPEN: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MRP_RING_OPEN;
 pub const IFLA_BRPORT_MRP_IN_OPEN: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MRP_IN_OPEN;
+pub const IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT;
+pub const IFLA_BRPORT_MCAST_EHT_HOSTS_CNT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_EHT_HOSTS_CNT;
 pub const __IFLA_BRPORT_MAX: _bindgen_ty_8 = _bindgen_ty_8::__IFLA_BRPORT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -882,7 +906,9 @@ IFLA_BRPORT_ISOLATED = 33,
 IFLA_BRPORT_BACKUP_PORT = 34,
 IFLA_BRPORT_MRP_RING_OPEN = 35,
 IFLA_BRPORT_MRP_IN_OPEN = 36,
-__IFLA_BRPORT_MAX = 37,
+IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT = 37,
+IFLA_BRPORT_MCAST_EHT_HOSTS_CNT = 38,
+__IFLA_BRPORT_MAX = 39,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1330,6 +1356,8 @@ pub const IFLA_BOND_AD_USER_PORT_KEY: _bindgen_ty_23 = _bindgen_ty_23::IFLA_BOND
 pub const IFLA_BOND_AD_ACTOR_SYSTEM: _bindgen_ty_23 = _bindgen_ty_23::IFLA_BOND_AD_ACTOR_SYSTEM;
 pub const IFLA_BOND_TLB_DYNAMIC_LB: _bindgen_ty_23 = _bindgen_ty_23::IFLA_BOND_TLB_DYNAMIC_LB;
 pub const IFLA_BOND_PEER_NOTIF_DELAY: _bindgen_ty_23 = _bindgen_ty_23::IFLA_BOND_PEER_NOTIF_DELAY;
+pub const IFLA_BOND_AD_LACP_ACTIVE: _bindgen_ty_23 = _bindgen_ty_23::IFLA_BOND_AD_LACP_ACTIVE;
+pub const IFLA_BOND_MISSED_MAX: _bindgen_ty_23 = _bindgen_ty_23::IFLA_BOND_MISSED_MAX;
 pub const __IFLA_BOND_MAX: _bindgen_ty_23 = _bindgen_ty_23::__IFLA_BOND_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -1364,7 +1392,9 @@ IFLA_BOND_AD_USER_PORT_KEY = 25,
 IFLA_BOND_AD_ACTOR_SYSTEM = 26,
 IFLA_BOND_TLB_DYNAMIC_LB = 27,
 IFLA_BOND_PEER_NOTIF_DELAY = 28,
-__IFLA_BOND_MAX = 29,
+IFLA_BOND_AD_LACP_ACTIVE = 29,
+IFLA_BOND_MISSED_MAX = 30,
+__IFLA_BOND_MAX = 31,
 }
 pub const IFLA_BOND_AD_INFO_UNSPEC: _bindgen_ty_24 = _bindgen_ty_24::IFLA_BOND_AD_INFO_UNSPEC;
 pub const IFLA_BOND_AD_INFO_AGGREGATOR: _bindgen_ty_24 = _bindgen_ty_24::IFLA_BOND_AD_INFO_AGGREGATOR;
@@ -1875,6 +1905,17 @@ pub struct ifla_rmnet_flags {
 pub flags: __u32,
 pub mask: __u32,
 }
+pub const IFLA_MCTP_UNSPEC: _bindgen_ty_47 = _bindgen_ty_47::IFLA_MCTP_UNSPEC;
+pub const IFLA_MCTP_NET: _bindgen_ty_47 = _bindgen_ty_47::IFLA_MCTP_NET;
+pub const __IFLA_MCTP_MAX: _bindgen_ty_47 = _bindgen_ty_47::__IFLA_MCTP_MAX;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_47 {
+IFLA_MCTP_UNSPEC = 0,
+IFLA_MCTP_NET = 1,
+__IFLA_MCTP_MAX = 2,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ifaddrmsg {
@@ -1884,22 +1925,22 @@ pub ifa_flags: __u8,
 pub ifa_scope: __u8,
 pub ifa_index: __u32,
 }
-pub const IFA_UNSPEC: _bindgen_ty_47 = _bindgen_ty_47::IFA_UNSPEC;
-pub const IFA_ADDRESS: _bindgen_ty_47 = _bindgen_ty_47::IFA_ADDRESS;
-pub const IFA_LOCAL: _bindgen_ty_47 = _bindgen_ty_47::IFA_LOCAL;
-pub const IFA_LABEL: _bindgen_ty_47 = _bindgen_ty_47::IFA_LABEL;
-pub const IFA_BROADCAST: _bindgen_ty_47 = _bindgen_ty_47::IFA_BROADCAST;
-pub const IFA_ANYCAST: _bindgen_ty_47 = _bindgen_ty_47::IFA_ANYCAST;
-pub const IFA_CACHEINFO: _bindgen_ty_47 = _bindgen_ty_47::IFA_CACHEINFO;
-pub const IFA_MULTICAST: _bindgen_ty_47 = _bindgen_ty_47::IFA_MULTICAST;
-pub const IFA_FLAGS: _bindgen_ty_47 = _bindgen_ty_47::IFA_FLAGS;
-pub const IFA_RT_PRIORITY: _bindgen_ty_47 = _bindgen_ty_47::IFA_RT_PRIORITY;
-pub const IFA_TARGET_NETNSID: _bindgen_ty_47 = _bindgen_ty_47::IFA_TARGET_NETNSID;
-pub const __IFA_MAX: _bindgen_ty_47 = _bindgen_ty_47::__IFA_MAX;
+pub const IFA_UNSPEC: _bindgen_ty_48 = _bindgen_ty_48::IFA_UNSPEC;
+pub const IFA_ADDRESS: _bindgen_ty_48 = _bindgen_ty_48::IFA_ADDRESS;
+pub const IFA_LOCAL: _bindgen_ty_48 = _bindgen_ty_48::IFA_LOCAL;
+pub const IFA_LABEL: _bindgen_ty_48 = _bindgen_ty_48::IFA_LABEL;
+pub const IFA_BROADCAST: _bindgen_ty_48 = _bindgen_ty_48::IFA_BROADCAST;
+pub const IFA_ANYCAST: _bindgen_ty_48 = _bindgen_ty_48::IFA_ANYCAST;
+pub const IFA_CACHEINFO: _bindgen_ty_48 = _bindgen_ty_48::IFA_CACHEINFO;
+pub const IFA_MULTICAST: _bindgen_ty_48 = _bindgen_ty_48::IFA_MULTICAST;
+pub const IFA_FLAGS: _bindgen_ty_48 = _bindgen_ty_48::IFA_FLAGS;
+pub const IFA_RT_PRIORITY: _bindgen_ty_48 = _bindgen_ty_48::IFA_RT_PRIORITY;
+pub const IFA_TARGET_NETNSID: _bindgen_ty_48 = _bindgen_ty_48::IFA_TARGET_NETNSID;
+pub const __IFA_MAX: _bindgen_ty_48 = _bindgen_ty_48::__IFA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_47 {
+pub enum _bindgen_ty_48 {
 IFA_UNSPEC = 0,
 IFA_ADDRESS = 1,
 IFA_LOCAL = 2,
@@ -1932,26 +1973,27 @@ pub ndm_state: __u16,
 pub ndm_flags: __u8,
 pub ndm_type: __u8,
 }
-pub const NDA_UNSPEC: _bindgen_ty_48 = _bindgen_ty_48::NDA_UNSPEC;
-pub const NDA_DST: _bindgen_ty_48 = _bindgen_ty_48::NDA_DST;
-pub const NDA_LLADDR: _bindgen_ty_48 = _bindgen_ty_48::NDA_LLADDR;
-pub const NDA_CACHEINFO: _bindgen_ty_48 = _bindgen_ty_48::NDA_CACHEINFO;
-pub const NDA_PROBES: _bindgen_ty_48 = _bindgen_ty_48::NDA_PROBES;
-pub const NDA_VLAN: _bindgen_ty_48 = _bindgen_ty_48::NDA_VLAN;
-pub const NDA_PORT: _bindgen_ty_48 = _bindgen_ty_48::NDA_PORT;
-pub const NDA_VNI: _bindgen_ty_48 = _bindgen_ty_48::NDA_VNI;
-pub const NDA_IFINDEX: _bindgen_ty_48 = _bindgen_ty_48::NDA_IFINDEX;
-pub const NDA_MASTER: _bindgen_ty_48 = _bindgen_ty_48::NDA_MASTER;
-pub const NDA_LINK_NETNSID: _bindgen_ty_48 = _bindgen_ty_48::NDA_LINK_NETNSID;
-pub const NDA_SRC_VNI: _bindgen_ty_48 = _bindgen_ty_48::NDA_SRC_VNI;
-pub const NDA_PROTOCOL: _bindgen_ty_48 = _bindgen_ty_48::NDA_PROTOCOL;
-pub const NDA_NH_ID: _bindgen_ty_48 = _bindgen_ty_48::NDA_NH_ID;
-pub const NDA_FDB_EXT_ATTRS: _bindgen_ty_48 = _bindgen_ty_48::NDA_FDB_EXT_ATTRS;
-pub const __NDA_MAX: _bindgen_ty_48 = _bindgen_ty_48::__NDA_MAX;
+pub const NDA_UNSPEC: _bindgen_ty_49 = _bindgen_ty_49::NDA_UNSPEC;
+pub const NDA_DST: _bindgen_ty_49 = _bindgen_ty_49::NDA_DST;
+pub const NDA_LLADDR: _bindgen_ty_49 = _bindgen_ty_49::NDA_LLADDR;
+pub const NDA_CACHEINFO: _bindgen_ty_49 = _bindgen_ty_49::NDA_CACHEINFO;
+pub const NDA_PROBES: _bindgen_ty_49 = _bindgen_ty_49::NDA_PROBES;
+pub const NDA_VLAN: _bindgen_ty_49 = _bindgen_ty_49::NDA_VLAN;
+pub const NDA_PORT: _bindgen_ty_49 = _bindgen_ty_49::NDA_PORT;
+pub const NDA_VNI: _bindgen_ty_49 = _bindgen_ty_49::NDA_VNI;
+pub const NDA_IFINDEX: _bindgen_ty_49 = _bindgen_ty_49::NDA_IFINDEX;
+pub const NDA_MASTER: _bindgen_ty_49 = _bindgen_ty_49::NDA_MASTER;
+pub const NDA_LINK_NETNSID: _bindgen_ty_49 = _bindgen_ty_49::NDA_LINK_NETNSID;
+pub const NDA_SRC_VNI: _bindgen_ty_49 = _bindgen_ty_49::NDA_SRC_VNI;
+pub const NDA_PROTOCOL: _bindgen_ty_49 = _bindgen_ty_49::NDA_PROTOCOL;
+pub const NDA_NH_ID: _bindgen_ty_49 = _bindgen_ty_49::NDA_NH_ID;
+pub const NDA_FDB_EXT_ATTRS: _bindgen_ty_49 = _bindgen_ty_49::NDA_FDB_EXT_ATTRS;
+pub const NDA_FLAGS_EXT: _bindgen_ty_49 = _bindgen_ty_49::NDA_FLAGS_EXT;
+pub const __NDA_MAX: _bindgen_ty_49 = _bindgen_ty_49::__NDA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_48 {
+pub enum _bindgen_ty_49 {
 NDA_UNSPEC = 0,
 NDA_DST = 1,
 NDA_LLADDR = 2,
@@ -1967,7 +2009,8 @@ NDA_SRC_VNI = 11,
 NDA_PROTOCOL = 12,
 NDA_NH_ID = 13,
 NDA_FDB_EXT_ATTRS = 14,
-__NDA_MAX = 15,
+NDA_FLAGS_EXT = 15,
+__NDA_MAX = 16,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1992,30 +2035,30 @@ pub ndts_periodic_gc_runs: __u64,
 pub ndts_forced_gc_runs: __u64,
 pub ndts_table_fulls: __u64,
 }
-pub const NDTPA_UNSPEC: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_UNSPEC;
-pub const NDTPA_IFINDEX: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_IFINDEX;
-pub const NDTPA_REFCNT: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_REFCNT;
-pub const NDTPA_REACHABLE_TIME: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_REACHABLE_TIME;
-pub const NDTPA_BASE_REACHABLE_TIME: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_BASE_REACHABLE_TIME;
-pub const NDTPA_RETRANS_TIME: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_RETRANS_TIME;
-pub const NDTPA_GC_STALETIME: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_GC_STALETIME;
-pub const NDTPA_DELAY_PROBE_TIME: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_DELAY_PROBE_TIME;
-pub const NDTPA_QUEUE_LEN: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_QUEUE_LEN;
-pub const NDTPA_APP_PROBES: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_APP_PROBES;
-pub const NDTPA_UCAST_PROBES: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_UCAST_PROBES;
-pub const NDTPA_MCAST_PROBES: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_MCAST_PROBES;
-pub const NDTPA_ANYCAST_DELAY: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_ANYCAST_DELAY;
-pub const NDTPA_PROXY_DELAY: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_PROXY_DELAY;
-pub const NDTPA_PROXY_QLEN: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_PROXY_QLEN;
-pub const NDTPA_LOCKTIME: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_LOCKTIME;
-pub const NDTPA_QUEUE_LENBYTES: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_QUEUE_LENBYTES;
-pub const NDTPA_MCAST_REPROBES: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_MCAST_REPROBES;
-pub const NDTPA_PAD: _bindgen_ty_49 = _bindgen_ty_49::NDTPA_PAD;
-pub const __NDTPA_MAX: _bindgen_ty_49 = _bindgen_ty_49::__NDTPA_MAX;
+pub const NDTPA_UNSPEC: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_UNSPEC;
+pub const NDTPA_IFINDEX: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_IFINDEX;
+pub const NDTPA_REFCNT: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_REFCNT;
+pub const NDTPA_REACHABLE_TIME: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_REACHABLE_TIME;
+pub const NDTPA_BASE_REACHABLE_TIME: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_BASE_REACHABLE_TIME;
+pub const NDTPA_RETRANS_TIME: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_RETRANS_TIME;
+pub const NDTPA_GC_STALETIME: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_GC_STALETIME;
+pub const NDTPA_DELAY_PROBE_TIME: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_DELAY_PROBE_TIME;
+pub const NDTPA_QUEUE_LEN: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_QUEUE_LEN;
+pub const NDTPA_APP_PROBES: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_APP_PROBES;
+pub const NDTPA_UCAST_PROBES: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_UCAST_PROBES;
+pub const NDTPA_MCAST_PROBES: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_MCAST_PROBES;
+pub const NDTPA_ANYCAST_DELAY: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_ANYCAST_DELAY;
+pub const NDTPA_PROXY_DELAY: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_PROXY_DELAY;
+pub const NDTPA_PROXY_QLEN: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_PROXY_QLEN;
+pub const NDTPA_LOCKTIME: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_LOCKTIME;
+pub const NDTPA_QUEUE_LENBYTES: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_QUEUE_LENBYTES;
+pub const NDTPA_MCAST_REPROBES: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_MCAST_REPROBES;
+pub const NDTPA_PAD: _bindgen_ty_50 = _bindgen_ty_50::NDTPA_PAD;
+pub const __NDTPA_MAX: _bindgen_ty_50 = _bindgen_ty_50::__NDTPA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_49 {
+pub enum _bindgen_ty_50 {
 NDTPA_UNSPEC = 0,
 NDTPA_IFINDEX = 1,
 NDTPA_REFCNT = 2,
@@ -2057,21 +2100,21 @@ pub ndtc_hash_mask: __u32,
 pub ndtc_hash_chain_gc: __u32,
 pub ndtc_proxy_qlen: __u32,
 }
-pub const NDTA_UNSPEC: _bindgen_ty_50 = _bindgen_ty_50::NDTA_UNSPEC;
-pub const NDTA_NAME: _bindgen_ty_50 = _bindgen_ty_50::NDTA_NAME;
-pub const NDTA_THRESH1: _bindgen_ty_50 = _bindgen_ty_50::NDTA_THRESH1;
-pub const NDTA_THRESH2: _bindgen_ty_50 = _bindgen_ty_50::NDTA_THRESH2;
-pub const NDTA_THRESH3: _bindgen_ty_50 = _bindgen_ty_50::NDTA_THRESH3;
-pub const NDTA_CONFIG: _bindgen_ty_50 = _bindgen_ty_50::NDTA_CONFIG;
-pub const NDTA_PARMS: _bindgen_ty_50 = _bindgen_ty_50::NDTA_PARMS;
-pub const NDTA_STATS: _bindgen_ty_50 = _bindgen_ty_50::NDTA_STATS;
-pub const NDTA_GC_INTERVAL: _bindgen_ty_50 = _bindgen_ty_50::NDTA_GC_INTERVAL;
-pub const NDTA_PAD: _bindgen_ty_50 = _bindgen_ty_50::NDTA_PAD;
-pub const __NDTA_MAX: _bindgen_ty_50 = _bindgen_ty_50::__NDTA_MAX;
+pub const NDTA_UNSPEC: _bindgen_ty_51 = _bindgen_ty_51::NDTA_UNSPEC;
+pub const NDTA_NAME: _bindgen_ty_51 = _bindgen_ty_51::NDTA_NAME;
+pub const NDTA_THRESH1: _bindgen_ty_51 = _bindgen_ty_51::NDTA_THRESH1;
+pub const NDTA_THRESH2: _bindgen_ty_51 = _bindgen_ty_51::NDTA_THRESH2;
+pub const NDTA_THRESH3: _bindgen_ty_51 = _bindgen_ty_51::NDTA_THRESH3;
+pub const NDTA_CONFIG: _bindgen_ty_51 = _bindgen_ty_51::NDTA_CONFIG;
+pub const NDTA_PARMS: _bindgen_ty_51 = _bindgen_ty_51::NDTA_PARMS;
+pub const NDTA_STATS: _bindgen_ty_51 = _bindgen_ty_51::NDTA_STATS;
+pub const NDTA_GC_INTERVAL: _bindgen_ty_51 = _bindgen_ty_51::NDTA_GC_INTERVAL;
+pub const NDTA_PAD: _bindgen_ty_51 = _bindgen_ty_51::NDTA_PAD;
+pub const __NDTA_MAX: _bindgen_ty_51 = _bindgen_ty_51::__NDTA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_50 {
+pub enum _bindgen_ty_51 {
 NDTA_UNSPEC = 0,
 NDTA_NAME = 1,
 NDTA_THRESH1 = 2,
@@ -2084,98 +2127,101 @@ NDTA_GC_INTERVAL = 8,
 NDTA_PAD = 9,
 __NDTA_MAX = 10,
 }
-pub const FDB_NOTIFY_BIT: _bindgen_ty_51 = _bindgen_ty_51::FDB_NOTIFY_BIT;
-pub const FDB_NOTIFY_INACTIVE_BIT: _bindgen_ty_51 = _bindgen_ty_51::FDB_NOTIFY_INACTIVE_BIT;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_51 {
-FDB_NOTIFY_BIT = 1,
-FDB_NOTIFY_INACTIVE_BIT = 2,
-}
-pub const NFEA_UNSPEC: _bindgen_ty_52 = _bindgen_ty_52::NFEA_UNSPEC;
-pub const NFEA_ACTIVITY_NOTIFY: _bindgen_ty_52 = _bindgen_ty_52::NFEA_ACTIVITY_NOTIFY;
-pub const NFEA_DONT_REFRESH: _bindgen_ty_52 = _bindgen_ty_52::NFEA_DONT_REFRESH;
-pub const __NFEA_MAX: _bindgen_ty_52 = _bindgen_ty_52::__NFEA_MAX;
+pub const FDB_NOTIFY_BIT: _bindgen_ty_52 = _bindgen_ty_52::FDB_NOTIFY_BIT;
+pub const FDB_NOTIFY_INACTIVE_BIT: _bindgen_ty_52 = _bindgen_ty_52::FDB_NOTIFY_INACTIVE_BIT;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum _bindgen_ty_52 {
+FDB_NOTIFY_BIT = 1,
+FDB_NOTIFY_INACTIVE_BIT = 2,
+}
+pub const NFEA_UNSPEC: _bindgen_ty_53 = _bindgen_ty_53::NFEA_UNSPEC;
+pub const NFEA_ACTIVITY_NOTIFY: _bindgen_ty_53 = _bindgen_ty_53::NFEA_ACTIVITY_NOTIFY;
+pub const NFEA_DONT_REFRESH: _bindgen_ty_53 = _bindgen_ty_53::NFEA_DONT_REFRESH;
+pub const __NFEA_MAX: _bindgen_ty_53 = _bindgen_ty_53::__NFEA_MAX;
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_53 {
 NFEA_UNSPEC = 0,
 NFEA_ACTIVITY_NOTIFY = 1,
 NFEA_DONT_REFRESH = 2,
 __NFEA_MAX = 3,
 }
-pub const RTM_BASE: _bindgen_ty_53 = _bindgen_ty_53::RTM_BASE;
-pub const RTM_NEWLINK: _bindgen_ty_53 = _bindgen_ty_53::RTM_BASE;
-pub const RTM_DELLINK: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELLINK;
-pub const RTM_GETLINK: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETLINK;
-pub const RTM_SETLINK: _bindgen_ty_53 = _bindgen_ty_53::RTM_SETLINK;
-pub const RTM_NEWADDR: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWADDR;
-pub const RTM_DELADDR: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELADDR;
-pub const RTM_GETADDR: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETADDR;
-pub const RTM_NEWROUTE: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWROUTE;
-pub const RTM_DELROUTE: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELROUTE;
-pub const RTM_GETROUTE: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETROUTE;
-pub const RTM_NEWNEIGH: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWNEIGH;
-pub const RTM_DELNEIGH: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELNEIGH;
-pub const RTM_GETNEIGH: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETNEIGH;
-pub const RTM_NEWRULE: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWRULE;
-pub const RTM_DELRULE: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELRULE;
-pub const RTM_GETRULE: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETRULE;
-pub const RTM_NEWQDISC: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWQDISC;
-pub const RTM_DELQDISC: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELQDISC;
-pub const RTM_GETQDISC: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETQDISC;
-pub const RTM_NEWTCLASS: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWTCLASS;
-pub const RTM_DELTCLASS: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELTCLASS;
-pub const RTM_GETTCLASS: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETTCLASS;
-pub const RTM_NEWTFILTER: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWTFILTER;
-pub const RTM_DELTFILTER: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELTFILTER;
-pub const RTM_GETTFILTER: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETTFILTER;
-pub const RTM_NEWACTION: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWACTION;
-pub const RTM_DELACTION: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELACTION;
-pub const RTM_GETACTION: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETACTION;
-pub const RTM_NEWPREFIX: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWPREFIX;
-pub const RTM_GETMULTICAST: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETMULTICAST;
-pub const RTM_GETANYCAST: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETANYCAST;
-pub const RTM_NEWNEIGHTBL: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWNEIGHTBL;
-pub const RTM_GETNEIGHTBL: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETNEIGHTBL;
-pub const RTM_SETNEIGHTBL: _bindgen_ty_53 = _bindgen_ty_53::RTM_SETNEIGHTBL;
-pub const RTM_NEWNDUSEROPT: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWNDUSEROPT;
-pub const RTM_NEWADDRLABEL: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWADDRLABEL;
-pub const RTM_DELADDRLABEL: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELADDRLABEL;
-pub const RTM_GETADDRLABEL: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETADDRLABEL;
-pub const RTM_GETDCB: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETDCB;
-pub const RTM_SETDCB: _bindgen_ty_53 = _bindgen_ty_53::RTM_SETDCB;
-pub const RTM_NEWNETCONF: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWNETCONF;
-pub const RTM_DELNETCONF: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELNETCONF;
-pub const RTM_GETNETCONF: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETNETCONF;
-pub const RTM_NEWMDB: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWMDB;
-pub const RTM_DELMDB: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELMDB;
-pub const RTM_GETMDB: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETMDB;
-pub const RTM_NEWNSID: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWNSID;
-pub const RTM_DELNSID: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELNSID;
-pub const RTM_GETNSID: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETNSID;
-pub const RTM_NEWSTATS: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWSTATS;
-pub const RTM_GETSTATS: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETSTATS;
-pub const RTM_NEWCACHEREPORT: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWCACHEREPORT;
-pub const RTM_NEWCHAIN: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWCHAIN;
-pub const RTM_DELCHAIN: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELCHAIN;
-pub const RTM_GETCHAIN: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETCHAIN;
-pub const RTM_NEWNEXTHOP: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWNEXTHOP;
-pub const RTM_DELNEXTHOP: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELNEXTHOP;
-pub const RTM_GETNEXTHOP: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETNEXTHOP;
-pub const RTM_NEWLINKPROP: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWLINKPROP;
-pub const RTM_DELLINKPROP: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELLINKPROP;
-pub const RTM_GETLINKPROP: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETLINKPROP;
-pub const RTM_NEWVLAN: _bindgen_ty_53 = _bindgen_ty_53::RTM_NEWVLAN;
-pub const RTM_DELVLAN: _bindgen_ty_53 = _bindgen_ty_53::RTM_DELVLAN;
-pub const RTM_GETVLAN: _bindgen_ty_53 = _bindgen_ty_53::RTM_GETVLAN;
-pub const __RTM_MAX: _bindgen_ty_53 = _bindgen_ty_53::__RTM_MAX;
+pub const RTM_BASE: _bindgen_ty_54 = _bindgen_ty_54::RTM_BASE;
+pub const RTM_NEWLINK: _bindgen_ty_54 = _bindgen_ty_54::RTM_BASE;
+pub const RTM_DELLINK: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELLINK;
+pub const RTM_GETLINK: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETLINK;
+pub const RTM_SETLINK: _bindgen_ty_54 = _bindgen_ty_54::RTM_SETLINK;
+pub const RTM_NEWADDR: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWADDR;
+pub const RTM_DELADDR: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELADDR;
+pub const RTM_GETADDR: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETADDR;
+pub const RTM_NEWROUTE: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWROUTE;
+pub const RTM_DELROUTE: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELROUTE;
+pub const RTM_GETROUTE: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETROUTE;
+pub const RTM_NEWNEIGH: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNEIGH;
+pub const RTM_DELNEIGH: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELNEIGH;
+pub const RTM_GETNEIGH: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETNEIGH;
+pub const RTM_NEWRULE: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWRULE;
+pub const RTM_DELRULE: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELRULE;
+pub const RTM_GETRULE: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETRULE;
+pub const RTM_NEWQDISC: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWQDISC;
+pub const RTM_DELQDISC: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELQDISC;
+pub const RTM_GETQDISC: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETQDISC;
+pub const RTM_NEWTCLASS: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWTCLASS;
+pub const RTM_DELTCLASS: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELTCLASS;
+pub const RTM_GETTCLASS: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETTCLASS;
+pub const RTM_NEWTFILTER: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWTFILTER;
+pub const RTM_DELTFILTER: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELTFILTER;
+pub const RTM_GETTFILTER: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETTFILTER;
+pub const RTM_NEWACTION: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWACTION;
+pub const RTM_DELACTION: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELACTION;
+pub const RTM_GETACTION: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETACTION;
+pub const RTM_NEWPREFIX: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWPREFIX;
+pub const RTM_GETMULTICAST: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETMULTICAST;
+pub const RTM_GETANYCAST: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETANYCAST;
+pub const RTM_NEWNEIGHTBL: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNEIGHTBL;
+pub const RTM_GETNEIGHTBL: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETNEIGHTBL;
+pub const RTM_SETNEIGHTBL: _bindgen_ty_54 = _bindgen_ty_54::RTM_SETNEIGHTBL;
+pub const RTM_NEWNDUSEROPT: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNDUSEROPT;
+pub const RTM_NEWADDRLABEL: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWADDRLABEL;
+pub const RTM_DELADDRLABEL: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELADDRLABEL;
+pub const RTM_GETADDRLABEL: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETADDRLABEL;
+pub const RTM_GETDCB: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETDCB;
+pub const RTM_SETDCB: _bindgen_ty_54 = _bindgen_ty_54::RTM_SETDCB;
+pub const RTM_NEWNETCONF: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNETCONF;
+pub const RTM_DELNETCONF: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELNETCONF;
+pub const RTM_GETNETCONF: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETNETCONF;
+pub const RTM_NEWMDB: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWMDB;
+pub const RTM_DELMDB: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELMDB;
+pub const RTM_GETMDB: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETMDB;
+pub const RTM_NEWNSID: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNSID;
+pub const RTM_DELNSID: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELNSID;
+pub const RTM_GETNSID: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETNSID;
+pub const RTM_NEWSTATS: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWSTATS;
+pub const RTM_GETSTATS: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETSTATS;
+pub const RTM_NEWCACHEREPORT: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWCACHEREPORT;
+pub const RTM_NEWCHAIN: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWCHAIN;
+pub const RTM_DELCHAIN: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELCHAIN;
+pub const RTM_GETCHAIN: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETCHAIN;
+pub const RTM_NEWNEXTHOP: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNEXTHOP;
+pub const RTM_DELNEXTHOP: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELNEXTHOP;
+pub const RTM_GETNEXTHOP: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETNEXTHOP;
+pub const RTM_NEWLINKPROP: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWLINKPROP;
+pub const RTM_DELLINKPROP: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELLINKPROP;
+pub const RTM_GETLINKPROP: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETLINKPROP;
+pub const RTM_NEWVLAN: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWVLAN;
+pub const RTM_DELVLAN: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELVLAN;
+pub const RTM_GETVLAN: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETVLAN;
+pub const RTM_NEWNEXTHOPBUCKET: _bindgen_ty_54 = _bindgen_ty_54::RTM_NEWNEXTHOPBUCKET;
+pub const RTM_DELNEXTHOPBUCKET: _bindgen_ty_54 = _bindgen_ty_54::RTM_DELNEXTHOPBUCKET;
+pub const RTM_GETNEXTHOPBUCKET: _bindgen_ty_54 = _bindgen_ty_54::RTM_GETNEXTHOPBUCKET;
+pub const __RTM_MAX: _bindgen_ty_54 = _bindgen_ty_54::__RTM_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_53 {
+pub enum _bindgen_ty_54 {
 RTM_BASE = 16,
 RTM_DELLINK = 17,
 RTM_GETLINK = 18,
@@ -2240,7 +2286,10 @@ RTM_GETLINKPROP = 110,
 RTM_NEWVLAN = 112,
 RTM_DELVLAN = 113,
 RTM_GETVLAN = 114,
-__RTM_MAX = 115,
+RTM_NEWNEXTHOPBUCKET = 116,
+RTM_DELNEXTHOPBUCKET = 117,
+RTM_GETNEXTHOPBUCKET = 118,
+__RTM_MAX = 119,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2261,23 +2310,23 @@ pub rtm_scope: crate::ctypes::c_uchar,
 pub rtm_type: crate::ctypes::c_uchar,
 pub rtm_flags: crate::ctypes::c_uint,
 }
-pub const RTN_UNSPEC: _bindgen_ty_54 = _bindgen_ty_54::RTN_UNSPEC;
-pub const RTN_UNICAST: _bindgen_ty_54 = _bindgen_ty_54::RTN_UNICAST;
-pub const RTN_LOCAL: _bindgen_ty_54 = _bindgen_ty_54::RTN_LOCAL;
-pub const RTN_BROADCAST: _bindgen_ty_54 = _bindgen_ty_54::RTN_BROADCAST;
-pub const RTN_ANYCAST: _bindgen_ty_54 = _bindgen_ty_54::RTN_ANYCAST;
-pub const RTN_MULTICAST: _bindgen_ty_54 = _bindgen_ty_54::RTN_MULTICAST;
-pub const RTN_BLACKHOLE: _bindgen_ty_54 = _bindgen_ty_54::RTN_BLACKHOLE;
-pub const RTN_UNREACHABLE: _bindgen_ty_54 = _bindgen_ty_54::RTN_UNREACHABLE;
-pub const RTN_PROHIBIT: _bindgen_ty_54 = _bindgen_ty_54::RTN_PROHIBIT;
-pub const RTN_THROW: _bindgen_ty_54 = _bindgen_ty_54::RTN_THROW;
-pub const RTN_NAT: _bindgen_ty_54 = _bindgen_ty_54::RTN_NAT;
-pub const RTN_XRESOLVE: _bindgen_ty_54 = _bindgen_ty_54::RTN_XRESOLVE;
-pub const __RTN_MAX: _bindgen_ty_54 = _bindgen_ty_54::__RTN_MAX;
+pub const RTN_UNSPEC: _bindgen_ty_55 = _bindgen_ty_55::RTN_UNSPEC;
+pub const RTN_UNICAST: _bindgen_ty_55 = _bindgen_ty_55::RTN_UNICAST;
+pub const RTN_LOCAL: _bindgen_ty_55 = _bindgen_ty_55::RTN_LOCAL;
+pub const RTN_BROADCAST: _bindgen_ty_55 = _bindgen_ty_55::RTN_BROADCAST;
+pub const RTN_ANYCAST: _bindgen_ty_55 = _bindgen_ty_55::RTN_ANYCAST;
+pub const RTN_MULTICAST: _bindgen_ty_55 = _bindgen_ty_55::RTN_MULTICAST;
+pub const RTN_BLACKHOLE: _bindgen_ty_55 = _bindgen_ty_55::RTN_BLACKHOLE;
+pub const RTN_UNREACHABLE: _bindgen_ty_55 = _bindgen_ty_55::RTN_UNREACHABLE;
+pub const RTN_PROHIBIT: _bindgen_ty_55 = _bindgen_ty_55::RTN_PROHIBIT;
+pub const RTN_THROW: _bindgen_ty_55 = _bindgen_ty_55::RTN_THROW;
+pub const RTN_NAT: _bindgen_ty_55 = _bindgen_ty_55::RTN_NAT;
+pub const RTN_XRESOLVE: _bindgen_ty_55 = _bindgen_ty_55::RTN_XRESOLVE;
+pub const __RTN_MAX: _bindgen_ty_55 = _bindgen_ty_55::__RTN_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_54 {
+pub enum _bindgen_ty_55 {
 RTN_UNSPEC = 0,
 RTN_UNICAST = 1,
 RTN_LOCAL = 2,
@@ -2376,29 +2425,29 @@ pub rta_id: __u32,
 pub rta_ts: __u32,
 pub rta_tsage: __u32,
 }
-pub const RTAX_UNSPEC: _bindgen_ty_55 = _bindgen_ty_55::RTAX_UNSPEC;
-pub const RTAX_LOCK: _bindgen_ty_55 = _bindgen_ty_55::RTAX_LOCK;
-pub const RTAX_MTU: _bindgen_ty_55 = _bindgen_ty_55::RTAX_MTU;
-pub const RTAX_WINDOW: _bindgen_ty_55 = _bindgen_ty_55::RTAX_WINDOW;
-pub const RTAX_RTT: _bindgen_ty_55 = _bindgen_ty_55::RTAX_RTT;
-pub const RTAX_RTTVAR: _bindgen_ty_55 = _bindgen_ty_55::RTAX_RTTVAR;
-pub const RTAX_SSTHRESH: _bindgen_ty_55 = _bindgen_ty_55::RTAX_SSTHRESH;
-pub const RTAX_CWND: _bindgen_ty_55 = _bindgen_ty_55::RTAX_CWND;
-pub const RTAX_ADVMSS: _bindgen_ty_55 = _bindgen_ty_55::RTAX_ADVMSS;
-pub const RTAX_REORDERING: _bindgen_ty_55 = _bindgen_ty_55::RTAX_REORDERING;
-pub const RTAX_HOPLIMIT: _bindgen_ty_55 = _bindgen_ty_55::RTAX_HOPLIMIT;
-pub const RTAX_INITCWND: _bindgen_ty_55 = _bindgen_ty_55::RTAX_INITCWND;
-pub const RTAX_FEATURES: _bindgen_ty_55 = _bindgen_ty_55::RTAX_FEATURES;
-pub const RTAX_RTO_MIN: _bindgen_ty_55 = _bindgen_ty_55::RTAX_RTO_MIN;
-pub const RTAX_INITRWND: _bindgen_ty_55 = _bindgen_ty_55::RTAX_INITRWND;
-pub const RTAX_QUICKACK: _bindgen_ty_55 = _bindgen_ty_55::RTAX_QUICKACK;
-pub const RTAX_CC_ALGO: _bindgen_ty_55 = _bindgen_ty_55::RTAX_CC_ALGO;
-pub const RTAX_FASTOPEN_NO_COOKIE: _bindgen_ty_55 = _bindgen_ty_55::RTAX_FASTOPEN_NO_COOKIE;
-pub const __RTAX_MAX: _bindgen_ty_55 = _bindgen_ty_55::__RTAX_MAX;
+pub const RTAX_UNSPEC: _bindgen_ty_56 = _bindgen_ty_56::RTAX_UNSPEC;
+pub const RTAX_LOCK: _bindgen_ty_56 = _bindgen_ty_56::RTAX_LOCK;
+pub const RTAX_MTU: _bindgen_ty_56 = _bindgen_ty_56::RTAX_MTU;
+pub const RTAX_WINDOW: _bindgen_ty_56 = _bindgen_ty_56::RTAX_WINDOW;
+pub const RTAX_RTT: _bindgen_ty_56 = _bindgen_ty_56::RTAX_RTT;
+pub const RTAX_RTTVAR: _bindgen_ty_56 = _bindgen_ty_56::RTAX_RTTVAR;
+pub const RTAX_SSTHRESH: _bindgen_ty_56 = _bindgen_ty_56::RTAX_SSTHRESH;
+pub const RTAX_CWND: _bindgen_ty_56 = _bindgen_ty_56::RTAX_CWND;
+pub const RTAX_ADVMSS: _bindgen_ty_56 = _bindgen_ty_56::RTAX_ADVMSS;
+pub const RTAX_REORDERING: _bindgen_ty_56 = _bindgen_ty_56::RTAX_REORDERING;
+pub const RTAX_HOPLIMIT: _bindgen_ty_56 = _bindgen_ty_56::RTAX_HOPLIMIT;
+pub const RTAX_INITCWND: _bindgen_ty_56 = _bindgen_ty_56::RTAX_INITCWND;
+pub const RTAX_FEATURES: _bindgen_ty_56 = _bindgen_ty_56::RTAX_FEATURES;
+pub const RTAX_RTO_MIN: _bindgen_ty_56 = _bindgen_ty_56::RTAX_RTO_MIN;
+pub const RTAX_INITRWND: _bindgen_ty_56 = _bindgen_ty_56::RTAX_INITRWND;
+pub const RTAX_QUICKACK: _bindgen_ty_56 = _bindgen_ty_56::RTAX_QUICKACK;
+pub const RTAX_CC_ALGO: _bindgen_ty_56 = _bindgen_ty_56::RTAX_CC_ALGO;
+pub const RTAX_FASTOPEN_NO_COOKIE: _bindgen_ty_56 = _bindgen_ty_56::RTAX_FASTOPEN_NO_COOKIE;
+pub const __RTAX_MAX: _bindgen_ty_56 = _bindgen_ty_56::__RTAX_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_55 {
+pub enum _bindgen_ty_56 {
 RTAX_UNSPEC = 0,
 RTAX_LOCK = 1,
 RTAX_MTU = 2,
@@ -2481,14 +2530,14 @@ pub prefix_len: crate::ctypes::c_uchar,
 pub prefix_flags: crate::ctypes::c_uchar,
 pub prefix_pad3: crate::ctypes::c_uchar,
 }
-pub const PREFIX_UNSPEC: _bindgen_ty_56 = _bindgen_ty_56::PREFIX_UNSPEC;
-pub const PREFIX_ADDRESS: _bindgen_ty_56 = _bindgen_ty_56::PREFIX_ADDRESS;
-pub const PREFIX_CACHEINFO: _bindgen_ty_56 = _bindgen_ty_56::PREFIX_CACHEINFO;
-pub const __PREFIX_MAX: _bindgen_ty_56 = _bindgen_ty_56::__PREFIX_MAX;
+pub const PREFIX_UNSPEC: _bindgen_ty_57 = _bindgen_ty_57::PREFIX_UNSPEC;
+pub const PREFIX_ADDRESS: _bindgen_ty_57 = _bindgen_ty_57::PREFIX_ADDRESS;
+pub const PREFIX_CACHEINFO: _bindgen_ty_57 = _bindgen_ty_57::PREFIX_CACHEINFO;
+pub const __PREFIX_MAX: _bindgen_ty_57 = _bindgen_ty_57::__PREFIX_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_56 {
+pub enum _bindgen_ty_57 {
 PREFIX_UNSPEC = 0,
 PREFIX_ADDRESS = 1,
 PREFIX_CACHEINFO = 2,
@@ -2511,27 +2560,27 @@ pub tcm_handle: __u32,
 pub tcm_parent: __u32,
 pub tcm_info: __u32,
 }
-pub const TCA_UNSPEC: _bindgen_ty_57 = _bindgen_ty_57::TCA_UNSPEC;
-pub const TCA_KIND: _bindgen_ty_57 = _bindgen_ty_57::TCA_KIND;
-pub const TCA_OPTIONS: _bindgen_ty_57 = _bindgen_ty_57::TCA_OPTIONS;
-pub const TCA_STATS: _bindgen_ty_57 = _bindgen_ty_57::TCA_STATS;
-pub const TCA_XSTATS: _bindgen_ty_57 = _bindgen_ty_57::TCA_XSTATS;
-pub const TCA_RATE: _bindgen_ty_57 = _bindgen_ty_57::TCA_RATE;
-pub const TCA_FCNT: _bindgen_ty_57 = _bindgen_ty_57::TCA_FCNT;
-pub const TCA_STATS2: _bindgen_ty_57 = _bindgen_ty_57::TCA_STATS2;
-pub const TCA_STAB: _bindgen_ty_57 = _bindgen_ty_57::TCA_STAB;
-pub const TCA_PAD: _bindgen_ty_57 = _bindgen_ty_57::TCA_PAD;
-pub const TCA_DUMP_INVISIBLE: _bindgen_ty_57 = _bindgen_ty_57::TCA_DUMP_INVISIBLE;
-pub const TCA_CHAIN: _bindgen_ty_57 = _bindgen_ty_57::TCA_CHAIN;
-pub const TCA_HW_OFFLOAD: _bindgen_ty_57 = _bindgen_ty_57::TCA_HW_OFFLOAD;
-pub const TCA_INGRESS_BLOCK: _bindgen_ty_57 = _bindgen_ty_57::TCA_INGRESS_BLOCK;
-pub const TCA_EGRESS_BLOCK: _bindgen_ty_57 = _bindgen_ty_57::TCA_EGRESS_BLOCK;
-pub const TCA_DUMP_FLAGS: _bindgen_ty_57 = _bindgen_ty_57::TCA_DUMP_FLAGS;
-pub const __TCA_MAX: _bindgen_ty_57 = _bindgen_ty_57::__TCA_MAX;
+pub const TCA_UNSPEC: _bindgen_ty_58 = _bindgen_ty_58::TCA_UNSPEC;
+pub const TCA_KIND: _bindgen_ty_58 = _bindgen_ty_58::TCA_KIND;
+pub const TCA_OPTIONS: _bindgen_ty_58 = _bindgen_ty_58::TCA_OPTIONS;
+pub const TCA_STATS: _bindgen_ty_58 = _bindgen_ty_58::TCA_STATS;
+pub const TCA_XSTATS: _bindgen_ty_58 = _bindgen_ty_58::TCA_XSTATS;
+pub const TCA_RATE: _bindgen_ty_58 = _bindgen_ty_58::TCA_RATE;
+pub const TCA_FCNT: _bindgen_ty_58 = _bindgen_ty_58::TCA_FCNT;
+pub const TCA_STATS2: _bindgen_ty_58 = _bindgen_ty_58::TCA_STATS2;
+pub const TCA_STAB: _bindgen_ty_58 = _bindgen_ty_58::TCA_STAB;
+pub const TCA_PAD: _bindgen_ty_58 = _bindgen_ty_58::TCA_PAD;
+pub const TCA_DUMP_INVISIBLE: _bindgen_ty_58 = _bindgen_ty_58::TCA_DUMP_INVISIBLE;
+pub const TCA_CHAIN: _bindgen_ty_58 = _bindgen_ty_58::TCA_CHAIN;
+pub const TCA_HW_OFFLOAD: _bindgen_ty_58 = _bindgen_ty_58::TCA_HW_OFFLOAD;
+pub const TCA_INGRESS_BLOCK: _bindgen_ty_58 = _bindgen_ty_58::TCA_INGRESS_BLOCK;
+pub const TCA_EGRESS_BLOCK: _bindgen_ty_58 = _bindgen_ty_58::TCA_EGRESS_BLOCK;
+pub const TCA_DUMP_FLAGS: _bindgen_ty_58 = _bindgen_ty_58::TCA_DUMP_FLAGS;
+pub const __TCA_MAX: _bindgen_ty_58 = _bindgen_ty_58::__TCA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_57 {
+pub enum _bindgen_ty_58 {
 TCA_UNSPEC = 0,
 TCA_KIND = 1,
 TCA_OPTIONS = 2,
@@ -2562,13 +2611,13 @@ pub nduseropt_icmp_code: __u8,
 pub nduseropt_pad2: crate::ctypes::c_ushort,
 pub nduseropt_pad3: crate::ctypes::c_uint,
 }
-pub const NDUSEROPT_UNSPEC: _bindgen_ty_58 = _bindgen_ty_58::NDUSEROPT_UNSPEC;
-pub const NDUSEROPT_SRCADDR: _bindgen_ty_58 = _bindgen_ty_58::NDUSEROPT_SRCADDR;
-pub const __NDUSEROPT_MAX: _bindgen_ty_58 = _bindgen_ty_58::__NDUSEROPT_MAX;
+pub const NDUSEROPT_UNSPEC: _bindgen_ty_59 = _bindgen_ty_59::NDUSEROPT_UNSPEC;
+pub const NDUSEROPT_SRCADDR: _bindgen_ty_59 = _bindgen_ty_59::NDUSEROPT_SRCADDR;
+pub const __NDUSEROPT_MAX: _bindgen_ty_59 = _bindgen_ty_59::__NDUSEROPT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_58 {
+pub enum _bindgen_ty_59 {
 NDUSEROPT_UNSPEC = 0,
 NDUSEROPT_SRCADDR = 1,
 __NDUSEROPT_MAX = 2,
@@ -2611,7 +2660,8 @@ RTNLGRP_IPV4_MROUTE_R = 30,
 RTNLGRP_IPV6_MROUTE_R = 31,
 RTNLGRP_NEXTHOP = 32,
 RTNLGRP_BRVLAN = 33,
-__RTNLGRP_MAX = 34,
+RTNLGRP_MCTP_IFADDR = 34,
+__RTNLGRP_MAX = 35,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2620,16 +2670,16 @@ pub tca_family: crate::ctypes::c_uchar,
 pub tca__pad1: crate::ctypes::c_uchar,
 pub tca__pad2: crate::ctypes::c_ushort,
 }
-pub const TCA_ROOT_UNSPEC: _bindgen_ty_59 = _bindgen_ty_59::TCA_ROOT_UNSPEC;
-pub const TCA_ROOT_TAB: _bindgen_ty_59 = _bindgen_ty_59::TCA_ROOT_TAB;
-pub const TCA_ROOT_FLAGS: _bindgen_ty_59 = _bindgen_ty_59::TCA_ROOT_FLAGS;
-pub const TCA_ROOT_COUNT: _bindgen_ty_59 = _bindgen_ty_59::TCA_ROOT_COUNT;
-pub const TCA_ROOT_TIME_DELTA: _bindgen_ty_59 = _bindgen_ty_59::TCA_ROOT_TIME_DELTA;
-pub const __TCA_ROOT_MAX: _bindgen_ty_59 = _bindgen_ty_59::__TCA_ROOT_MAX;
+pub const TCA_ROOT_UNSPEC: _bindgen_ty_60 = _bindgen_ty_60::TCA_ROOT_UNSPEC;
+pub const TCA_ROOT_TAB: _bindgen_ty_60 = _bindgen_ty_60::TCA_ROOT_TAB;
+pub const TCA_ROOT_FLAGS: _bindgen_ty_60 = _bindgen_ty_60::TCA_ROOT_FLAGS;
+pub const TCA_ROOT_COUNT: _bindgen_ty_60 = _bindgen_ty_60::TCA_ROOT_COUNT;
+pub const TCA_ROOT_TIME_DELTA: _bindgen_ty_60 = _bindgen_ty_60::TCA_ROOT_TIME_DELTA;
+pub const __TCA_ROOT_MAX: _bindgen_ty_60 = _bindgen_ty_60::__TCA_ROOT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_59 {
+pub enum _bindgen_ty_60 {
 TCA_ROOT_UNSPEC = 0,
 TCA_ROOT_TAB = 1,
 TCA_ROOT_FLAGS = 2,
