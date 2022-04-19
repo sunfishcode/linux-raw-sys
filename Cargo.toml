@@ -1,6 +1,6 @@
 [package]
 name = "linux-raw-sys"
-version = "0.0.44"
+version = "0.0.45"
 authors = ["Dan Gohman <dev@sunfishcode.online>"]
 description = "Generated bindings for Linux's userspace API"
 documentation = "https://docs.rs/linux-raw-sys"
