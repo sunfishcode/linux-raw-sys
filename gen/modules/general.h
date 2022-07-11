@@ -29,6 +29,7 @@
 #include <linux/signal.h>
 #include <linux/socket.h>
 #include <linux/stat.h>
+#include <linux/sysinfo.h>
 #include <linux/tcp.h>
 #include <linux/termios.h>
 #include <linux/time.h>
