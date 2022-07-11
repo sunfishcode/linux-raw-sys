@@ -13,6 +13,7 @@
 #include <linux/fs.h>
 #include <linux/futex.h>
 #include <linux/in.h>
+#include <linux/inotify.h>
 #include <linux/ip.h>
 #include <linux/in6.h>
 #include <linux/ipv6.h>
