@@ -684,6 +684,33 @@ pub const INADDR_ALLRTRS_GROUP: u32 = 3758096386;
 pub const INADDR_ALLSNOOPERS_GROUP: u32 = 3758096490;
 pub const INADDR_MAX_LOCAL_GROUP: u32 = 3758096639;
 pub const __BIG_ENDIAN: u32 = 4321;
+pub const IN_ACCESS: u32 = 1;
+pub const IN_MODIFY: u32 = 2;
+pub const IN_ATTRIB: u32 = 4;
+pub const IN_CLOSE_WRITE: u32 = 8;
+pub const IN_CLOSE_NOWRITE: u32 = 16;
+pub const IN_OPEN: u32 = 32;
+pub const IN_MOVED_FROM: u32 = 64;
+pub const IN_MOVED_TO: u32 = 128;
+pub const IN_CREATE: u32 = 256;
+pub const IN_DELETE: u32 = 512;
+pub const IN_DELETE_SELF: u32 = 1024;
+pub const IN_MOVE_SELF: u32 = 2048;
+pub const IN_UNMOUNT: u32 = 8192;
+pub const IN_Q_OVERFLOW: u32 = 16384;
+pub const IN_IGNORED: u32 = 32768;
+pub const IN_CLOSE: u32 = 24;
+pub const IN_MOVE: u32 = 192;
+pub const IN_ONLYDIR: u32 = 16777216;
+pub const IN_DONT_FOLLOW: u32 = 33554432;
+pub const IN_EXCL_UNLINK: u32 = 67108864;
+pub const IN_MASK_CREATE: u32 = 268435456;
+pub const IN_MASK_ADD: u32 = 536870912;
+pub const IN_ISDIR: u32 = 1073741824;
+pub const IN_ONESHOT: u32 = 2147483648;
+pub const IN_ALL_EVENTS: u32 = 4095;
+pub const IN_CLOEXEC: u32 = 524288;
+pub const IN_NONBLOCK: u32 = 128;
 pub const IPTOS_TOS_MASK: u32 = 30;
 pub const IPTOS_LOWDELAY: u32 = 16;
 pub const IPTOS_THROUGHPUT: u32 = 8;
@@ -3007,6 +3034,15 @@ pub sin_family: __kernel_sa_family_t,
 pub sin_port: __be16,
 pub sin_addr: in_addr,
 pub __pad: [crate::ctypes::c_uchar; 8usize],
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct inotify_event {
+pub wd: __s32,
+pub mask: __u32,
+pub cookie: __u32,
+pub len: __u32,
+pub name: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
