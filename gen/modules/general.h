@@ -345,3 +345,8 @@ struct mmsghdr {
 #define TCSADRAIN 0x540f
 #define TCSAFLUSH 0x5410
 #endif
+
+#define SPLICE_F_MOVE      1
+#define SPLICE_F_NONBLOCK  2
+#define SPLICE_F_MORE      4
+#define SPLICE_F_GIFT      8
