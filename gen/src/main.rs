@@ -133,7 +133,13 @@ fn main() {
                 let mod_rs = format!("{}/{}.rs", src_arch, mod_name);
 
                 writeln!(src_lib_rs, "#[cfg(feature = \"{}\")]", mod_name).unwrap();
-                writeln!(src_lib_rs, "#[cfg(target_arch = \"{}\")]", rust_arch).unwrap();
+                if *rust_arch == "x32" {
+                    writeln!(src_lib_rs, "#[cfg(all(target_arch = \"x86_64\", target_pointer_width = \"32\"))]").unwrap();
+                } else if *rust_arch == "x86_64" {
+                    writeln!(src_lib_rs, "#[cfg(all(target_arch = \"x86_64\", target_pointer_width = \"64\"))]").unwrap();
+                } else {
+                    writeln!(src_lib_rs, "#[cfg(target_arch = \"{}\")]", rust_arch).unwrap();
+                }
                 writeln!(src_lib_rs, "#[path = \"{}/{}.rs\"]", rust_arch, mod_name).unwrap();
                 writeln!(src_lib_rs, "pub mod {};", mod_name).unwrap();
 
@@ -271,7 +277,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         "riscv" => &["riscv32", "riscv64"],
         "s390" => &["s390x"],
         "sparc" => &["sparc", "sparc64"],
-        "x86" => &["x86", "x86_64"],
+        "x86" => &["x86", "x86_64", "x32"],
         "alpha" | "cris" | "h8300" | "m68k" | "microblaze" | "mn10300" | "score" | "blackfin"
         | "frv" | "ia64" | "m32r" | "m68knommu" | "parisc" | "sh" | "um" | "xtensa"
         | "unicore32" | "c6x" | "nios2" | "openrisc" | "csky" | "arc" | "nds32" | "metag"
@@ -288,7 +294,7 @@ fn run_bindgen(
     rust_arch: &str,
     linux_version: &str,
 ) {
-    let clang_arch = compute_clang_arch(rust_arch);
+    let clang_target = compute_clang_target(rust_arch);
 
     eprintln!(
         "Generating bindings for {} on Linux {} architecture {}",
@@ -306,7 +312,7 @@ fn run_bindgen(
         })
         .array_pointers_in_arguments(true)
         .derive_debug(true)
-        .clang_arg(&format!("--target={}-unknown-linux", clang_arch))
+        .clang_arg(&format!("--target={}", clang_target))
         .clang_arg("-DBITS_PER_LONG=(__SIZEOF_LONG__*__CHAR_BIT__)")
         .clang_arg("-nostdinc")
         .clang_arg("-I")
@@ -333,10 +339,12 @@ fn run_bindgen(
         .expect(&format!("write_to_file for {}", mod_name));
 }
 
-fn compute_clang_arch(rust_arch: &str) -> &str {
+fn compute_clang_target(rust_arch: &str) -> String {
     if rust_arch == "x86" {
-        "i686"
+        format!("i686-unknown-linux")
+    } else if rust_arch == "x32" {
+        format!("x86_64-unknown-linux-gnux32")
     } else {
-        rust_arch
+        format!("{}-unknown-linux", rust_arch)
     }
 }

@@ -272,18 +272,34 @@ pub mod ioctl;
 #[path = "x86/netlink.rs"]
 pub mod netlink;
 #[cfg(feature = "errno")]
-#[cfg(target_arch = "x86_64")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/errno.rs"]
 pub mod errno;
 #[cfg(feature = "general")]
-#[cfg(target_arch = "x86_64")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/general.rs"]
 pub mod general;
 #[cfg(feature = "ioctl")]
-#[cfg(target_arch = "x86_64")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/ioctl.rs"]
 pub mod ioctl;
 #[cfg(feature = "netlink")]
-#[cfg(target_arch = "x86_64")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/netlink.rs"]
+pub mod netlink;
+#[cfg(feature = "errno")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/errno.rs"]
+pub mod errno;
+#[cfg(feature = "general")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/general.rs"]
+pub mod general;
+#[cfg(feature = "ioctl")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/ioctl.rs"]
+pub mod ioctl;
+#[cfg(feature = "netlink")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/netlink.rs"]
 pub mod netlink;
