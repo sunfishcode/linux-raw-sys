@@ -131,6 +131,7 @@ mod cmsg_macros {
     }
 }
 
+#[cfg(feature = "general")]
 pub use cmsg_macros::*;
 
 // The rest of this file is auto-generated!
