@@ -111,7 +111,7 @@ mod cmsg_macros {
     }
 
     pub unsafe fn CMSG_NXTHDR(mhdr: *const msghdr, cmsg: *const cmsghdr) -> *mut cmsghdr {
-        // We convert between isize/raw pointers here, which may not be sound in a future version of Rust.
+        // We convert from raw pointers to isize here, which may not be sound in a future version of Rust.
         // Once the provenance rules are set in stone, it will be a good idea to give this function a once-over.
 
         let cmsg_len = (*cmsg).cmsg_len;
