@@ -79,7 +79,7 @@ impl PartialEq for general::__kernel_timespec {
 impl Eq for general::__kernel_timespec {}
 
 #[cfg(feature = "general")]
-mod cmsg_macros {
+pub mod cmsg_macros {
     use crate::ctypes::{c_long, c_uint, c_uchar};
     use crate::general::{cmsghdr, msghdr};
     use core::mem::size_of;
@@ -130,9 +130,6 @@ mod cmsg_macros {
         next_cmsg
     }
 }
-
-#[cfg(feature = "general")]
-pub use cmsg_macros::*;
 
 // The rest of this file is auto-generated!
 #[cfg(feature = "errno")]
