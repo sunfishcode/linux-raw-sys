@@ -78,6 +78,7 @@ impl PartialEq for general::__kernel_timespec {
 #[cfg(feature = "general")]
 impl Eq for general::__kernel_timespec {}
 
+#[cfg(feature = "general")]
 mod cmsg_macros {
     use crate::ctypes::{c_long, c_uint, c_uchar};
     use crate::general::{cmsghdr, msghdr};
@@ -110,7 +111,8 @@ mod cmsg_macros {
     }
 
     pub unsafe fn CMSG_NXTHDR(mhdr: *const msghdr, cmsg: *const cmsghdr) -> *mut cmsghdr {
-        // TODO: This function should observe Rust's provenance rules once they're set in stone.
+        // We convert between isize/raw pointers here, which may not be sound in a future version of Rust.
+        // Once the provenance rules are set in stone, it will be a good idea to give this function a once-over.
 
         let cmsg_len = (*cmsg).cmsg_len;
         let next_cmsg = (cmsg as *mut u8).offset(CMSG_ALIGN(cmsg_len as _) as isize) as *mut cmsghdr;
