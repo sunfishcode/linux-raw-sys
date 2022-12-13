@@ -10,6 +10,7 @@ edition = "2018"
 keywords = ["linux", "uapi", "ffi"]
 categories = ["external-ffi-bindings"]
 exclude = ["/gen", "/.*"]
+rust-version = "1.48"
 
 [dependencies]
 core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
