@@ -266,7 +266,6 @@ typedef __statfs_word __fsword_t;
 #define EPOLLET        0x80000000
 
 // Flags for timerfd
-#define TFD_TIMER_ABSTIME      1
 #define TFD_CLOEXEC            O_CLOEXEC
 #define TFD_NONBLOCK           O_NONBLOCK
 #define TFD_SHARED_FCNTL_FLAGS (TFD_CLOEXEC | TFD_NONBLOCK)

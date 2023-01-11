@@ -10,7 +10,7 @@ use std::process::Command;
 use std::{env, fs};
 
 #[allow(unused_doc_comments)]
-const LINUX_VERSION: &str = "v5.17";
+const LINUX_VERSION: &str = "v6.1";
 
 /// Some commonly used features.
 const DEFAULT_FEATURES: &str = "\"general\", \"errno\"";
@@ -134,9 +134,17 @@ fn main() {
 
                 writeln!(src_lib_rs, "#[cfg(feature = \"{}\")]", mod_name).unwrap();
                 if *rust_arch == "x32" {
-                    writeln!(src_lib_rs, "#[cfg(all(target_arch = \"x86_64\", target_pointer_width = \"32\"))]").unwrap();
+                    writeln!(
+                        src_lib_rs,
+                        "#[cfg(all(target_arch = \"x86_64\", target_pointer_width = \"32\"))]"
+                    )
+                    .unwrap();
                 } else if *rust_arch == "x86_64" {
-                    writeln!(src_lib_rs, "#[cfg(all(target_arch = \"x86_64\", target_pointer_width = \"64\"))]").unwrap();
+                    writeln!(
+                        src_lib_rs,
+                        "#[cfg(all(target_arch = \"x86_64\", target_pointer_width = \"64\"))]"
+                    )
+                    .unwrap();
                 } else {
                     writeln!(src_lib_rs, "#[cfg(target_arch = \"{}\")]", rust_arch).unwrap();
                 }
@@ -281,7 +289,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         "alpha" | "cris" | "h8300" | "m68k" | "microblaze" | "mn10300" | "score" | "blackfin"
         | "frv" | "ia64" | "m32r" | "m68knommu" | "parisc" | "sh" | "um" | "xtensa"
         | "unicore32" | "c6x" | "nios2" | "openrisc" | "csky" | "arc" | "nds32" | "metag"
-        | "tile" => &[],
+        | "loongarch" | "tile" => &[],
         _ => panic!("unrecognized arch: {}", linux_arch),
     }
 }
