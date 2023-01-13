@@ -350,3 +350,9 @@ struct mmsghdr {
 #define SPLICE_F_NONBLOCK  2
 #define SPLICE_F_MORE      4
 #define SPLICE_F_GIFT      8
+
+#define MNT_FORCE       0x1
+#define MNT_DETACH      0x2
+#define MNT_EXPIRE      0x4
+#define UMOUNT_NOFOLLOW 0x8
+#define UMOUNT_UNUSED   0x80000000
