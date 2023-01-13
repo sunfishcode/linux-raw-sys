@@ -170,6 +170,70 @@ pub const AT_RANDOM: u32 = 25;
 pub const AT_HWCAP2: u32 = 26;
 pub const AT_EXECFN: u32 = 31;
 pub const AT_MINSIGSTKSZ: u32 = 51;
+pub const __BITS_PER_LONG: u32 = 64;
+pub const __FD_SETSIZE: u32 = 1024;
+pub const _LINUX_CAPABILITY_VERSION_1: u32 = 429392688;
+pub const _LINUX_CAPABILITY_U32S_1: u32 = 1;
+pub const _LINUX_CAPABILITY_VERSION_2: u32 = 537333798;
+pub const _LINUX_CAPABILITY_U32S_2: u32 = 2;
+pub const _LINUX_CAPABILITY_VERSION_3: u32 = 537396514;
+pub const _LINUX_CAPABILITY_U32S_3: u32 = 2;
+pub const VFS_CAP_REVISION_MASK: u32 = 4278190080;
+pub const VFS_CAP_REVISION_SHIFT: u32 = 24;
+pub const VFS_CAP_FLAGS_MASK: i64 = -4278190081;
+pub const VFS_CAP_FLAGS_EFFECTIVE: u32 = 1;
+pub const VFS_CAP_REVISION_1: u32 = 16777216;
+pub const VFS_CAP_U32_1: u32 = 1;
+pub const VFS_CAP_REVISION_2: u32 = 33554432;
+pub const VFS_CAP_U32_2: u32 = 2;
+pub const VFS_CAP_REVISION_3: u32 = 50331648;
+pub const VFS_CAP_U32_3: u32 = 2;
+pub const VFS_CAP_U32: u32 = 2;
+pub const VFS_CAP_REVISION: u32 = 50331648;
+pub const _LINUX_CAPABILITY_VERSION: u32 = 429392688;
+pub const _LINUX_CAPABILITY_U32S: u32 = 1;
+pub const CAP_CHOWN: u32 = 0;
+pub const CAP_DAC_OVERRIDE: u32 = 1;
+pub const CAP_DAC_READ_SEARCH: u32 = 2;
+pub const CAP_FOWNER: u32 = 3;
+pub const CAP_FSETID: u32 = 4;
+pub const CAP_KILL: u32 = 5;
+pub const CAP_SETGID: u32 = 6;
+pub const CAP_SETUID: u32 = 7;
+pub const CAP_SETPCAP: u32 = 8;
+pub const CAP_LINUX_IMMUTABLE: u32 = 9;
+pub const CAP_NET_BIND_SERVICE: u32 = 10;
+pub const CAP_NET_BROADCAST: u32 = 11;
+pub const CAP_NET_ADMIN: u32 = 12;
+pub const CAP_NET_RAW: u32 = 13;
+pub const CAP_IPC_LOCK: u32 = 14;
+pub const CAP_IPC_OWNER: u32 = 15;
+pub const CAP_SYS_MODULE: u32 = 16;
+pub const CAP_SYS_RAWIO: u32 = 17;
+pub const CAP_SYS_CHROOT: u32 = 18;
+pub const CAP_SYS_PTRACE: u32 = 19;
+pub const CAP_SYS_PACCT: u32 = 20;
+pub const CAP_SYS_ADMIN: u32 = 21;
+pub const CAP_SYS_BOOT: u32 = 22;
+pub const CAP_SYS_NICE: u32 = 23;
+pub const CAP_SYS_RESOURCE: u32 = 24;
+pub const CAP_SYS_TIME: u32 = 25;
+pub const CAP_SYS_TTY_CONFIG: u32 = 26;
+pub const CAP_MKNOD: u32 = 27;
+pub const CAP_LEASE: u32 = 28;
+pub const CAP_AUDIT_WRITE: u32 = 29;
+pub const CAP_AUDIT_CONTROL: u32 = 30;
+pub const CAP_SETFCAP: u32 = 31;
+pub const CAP_MAC_OVERRIDE: u32 = 32;
+pub const CAP_MAC_ADMIN: u32 = 33;
+pub const CAP_SYSLOG: u32 = 34;
+pub const CAP_WAKE_ALARM: u32 = 35;
+pub const CAP_BLOCK_SUSPEND: u32 = 36;
+pub const CAP_AUDIT_READ: u32 = 37;
+pub const CAP_PERFMON: u32 = 38;
+pub const CAP_BPF: u32 = 39;
+pub const CAP_CHECKPOINT_RESTORE: u32 = 40;
+pub const CAP_LAST_CAP: u32 = 40;
 pub const O_APPEND: u32 = 8;
 pub const FASYNC: u32 = 64;
 pub const O_CREAT: u32 = 512;
@@ -195,8 +259,6 @@ pub const F_SETLKW: u32 = 9;
 pub const F_RDLCK: u32 = 1;
 pub const F_WRLCK: u32 = 2;
 pub const F_UNLCK: u32 = 3;
-pub const __BITS_PER_LONG: u32 = 64;
-pub const __FD_SETSIZE: u32 = 1024;
 pub const O_ACCMODE: u32 = 3;
 pub const O_RDONLY: u32 = 0;
 pub const O_WRONLY: u32 = 1;
@@ -2806,6 +2868,46 @@ pub type __be64 = __u64;
 pub type __sum16 = __u16;
 pub type __wsum = __u32;
 pub type __poll_t = crate::ctypes::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __user_cap_header_struct {
+pub version: __u32,
+pub pid: crate::ctypes::c_int,
+}
+pub type cap_user_header_t = *mut __user_cap_header_struct;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __user_cap_data_struct {
+pub effective: __u32,
+pub permitted: __u32,
+pub inheritable: __u32,
+}
+pub type cap_user_data_t = *mut __user_cap_data_struct;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vfs_cap_data {
+pub magic_etc: __le32,
+pub data: [vfs_cap_data__bindgen_ty_1; 2usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vfs_cap_data__bindgen_ty_1 {
+pub permitted: __le32,
+pub inheritable: __le32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vfs_ns_cap_data {
+pub magic_etc: __le32,
+pub data: [vfs_ns_cap_data__bindgen_ty_1; 2usize],
+pub rootid: __le32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vfs_ns_cap_data__bindgen_ty_1 {
+pub permitted: __le32,
+pub inheritable: __le32,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct f_owner_ex {
