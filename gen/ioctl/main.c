@@ -43,6 +43,8 @@ int main(void) {
     printf("#if defined(__riscv) && __riscv_xlen == 64\n");
 #elif defined(__s390x__)
     printf("#if defined(__s390x__)\n");
+#elif defined(__loongarch__)
+    printf("#ifdef __loongarch__\n");
 #else
 #error "unimplemented architecture"
 #endif
