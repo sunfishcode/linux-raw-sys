@@ -137,9 +137,9 @@ true
 }
 }
 impl<T> ::core::cmp::Eq for __BindgenUnionField<T> {}
-pub const LINUX_VERSION_CODE: u32 = 393472;
+pub const LINUX_VERSION_CODE: u32 = 393728;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 1;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 2;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 1;
@@ -416,6 +416,8 @@ pub const FSCRYPT_MODE_AES_256_XTS: u32 = 1;
 pub const FSCRYPT_MODE_AES_256_CTS: u32 = 4;
 pub const FSCRYPT_MODE_AES_128_CBC: u32 = 5;
 pub const FSCRYPT_MODE_AES_128_CTS: u32 = 6;
+pub const FSCRYPT_MODE_SM4_XTS: u32 = 7;
+pub const FSCRYPT_MODE_SM4_CTS: u32 = 8;
 pub const FSCRYPT_MODE_ADIANTUM: u32 = 9;
 pub const FSCRYPT_MODE_AES_256_HCTR2: u32 = 10;
 pub const FSCRYPT_POLICY_V1: u32 = 0;
@@ -448,8 +450,6 @@ pub const FS_ENCRYPTION_MODE_AES_256_CBC: u32 = 3;
 pub const FS_ENCRYPTION_MODE_AES_256_CTS: u32 = 4;
 pub const FS_ENCRYPTION_MODE_AES_128_CBC: u32 = 5;
 pub const FS_ENCRYPTION_MODE_AES_128_CTS: u32 = 6;
-pub const FS_ENCRYPTION_MODE_SPECK128_256_XTS: u32 = 7;
-pub const FS_ENCRYPTION_MODE_SPECK128_256_CTS: u32 = 8;
 pub const FS_ENCRYPTION_MODE_ADIANTUM: u32 = 9;
 pub const FS_KEY_DESC_PREFIX: &[u8; 9usize] = b"fscrypt:\0";
 pub const FS_KEY_DESC_PREFIX_SIZE: u32 = 8;
@@ -2576,6 +2576,8 @@ pub const IORING_ASYNC_CANCEL_FD_FIXED: u32 = 8;
 pub const IORING_RECVSEND_POLL_FIRST: u32 = 1;
 pub const IORING_RECV_MULTISHOT: u32 = 2;
 pub const IORING_RECVSEND_FIXED_BUF: u32 = 4;
+pub const IORING_SEND_ZC_REPORT_USAGE: u32 = 8;
+pub const IORING_NOTIF_USAGE_ZC_COPIED: u32 = 2147483648;
 pub const IORING_ACCEPT_MULTISHOT: u32 = 1;
 pub const IORING_MSG_RING_CQE_SKIP: u32 = 1;
 pub const IORING_CQE_F_BUFFER: u32 = 1;
@@ -4388,6 +4390,8 @@ pub tcpi_dsack_dups: __u32,
 pub tcpi_reord_seen: __u32,
 pub tcpi_rcv_ooopack: __u32,
 pub tcpi_snd_wnd: __u32,
+pub tcpi_rcv_wnd: __u32,
+pub tcpi_rehash: __u32,
 }
 impl tcp_info {
 #[inline]
@@ -4483,6 +4487,7 @@ pub const TCP_NLA_TIMEOUT_REHASH: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_TIMEOUT
 pub const TCP_NLA_BYTES_NOTSENT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_BYTES_NOTSENT;
 pub const TCP_NLA_EDT: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_EDT;
 pub const TCP_NLA_TTL: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_TTL;
+pub const TCP_NLA_REHASH: _bindgen_ty_6 = _bindgen_ty_6::TCP_NLA_REHASH;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -4514,6 +4519,7 @@ TCP_NLA_TIMEOUT_REHASH = 23,
 TCP_NLA_BYTES_NOTSENT = 24,
 TCP_NLA_EDT = 25,
 TCP_NLA_TTL = 26,
+TCP_NLA_REHASH = 27,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

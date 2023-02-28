@@ -30,9 +30,9 @@ fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
 fmt.write_str("__IncompleteArrayField")
 }
 }
-pub const LINUX_VERSION_CODE: u32 = 393472;
+pub const LINUX_VERSION_CODE: u32 = 393728;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 1;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 2;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
@@ -167,6 +167,7 @@ pub const NTF_OFFLOADED: u32 = 32;
 pub const NTF_STICKY: u32 = 64;
 pub const NTF_ROUTER: u32 = 128;
 pub const NTF_EXT_MANAGED: u32 = 1;
+pub const NTF_EXT_LOCKED: u32 = 2;
 pub const NUD_INCOMPLETE: u32 = 1;
 pub const NUD_REACHABLE: u32 = 2;
 pub const NUD_STALE: u32 = 4;
@@ -613,6 +614,7 @@ pub const IFLA_GRO_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GRO_MAX_SIZE;
 pub const IFLA_TSO_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_TSO_MAX_SIZE;
 pub const IFLA_TSO_MAX_SEGS: _bindgen_ty_2 = _bindgen_ty_2::IFLA_TSO_MAX_SEGS;
 pub const IFLA_ALLMULTI: _bindgen_ty_2 = _bindgen_ty_2::IFLA_ALLMULTI;
+pub const IFLA_DEVLINK_PORT: _bindgen_ty_2 = _bindgen_ty_2::IFLA_DEVLINK_PORT;
 pub const __IFLA_MAX: _bindgen_ty_2 = _bindgen_ty_2::__IFLA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -680,7 +682,8 @@ IFLA_GRO_MAX_SIZE = 58,
 IFLA_TSO_MAX_SIZE = 59,
 IFLA_TSO_MAX_SEGS = 60,
 IFLA_ALLMULTI = 61,
-__IFLA_MAX = 62,
+IFLA_DEVLINK_PORT = 62,
+__IFLA_MAX = 63,
 }
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_MASK;
@@ -901,6 +904,7 @@ pub const IFLA_BRPORT_MRP_IN_OPEN: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MR
 pub const IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT;
 pub const IFLA_BRPORT_MCAST_EHT_HOSTS_CNT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_EHT_HOSTS_CNT;
 pub const IFLA_BRPORT_LOCKED: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_LOCKED;
+pub const IFLA_BRPORT_MAB: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MAB;
 pub const __IFLA_BRPORT_MAX: _bindgen_ty_8 = _bindgen_ty_8::__IFLA_BRPORT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -946,7 +950,8 @@ IFLA_BRPORT_MRP_IN_OPEN = 36,
 IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT = 37,
 IFLA_BRPORT_MCAST_EHT_HOSTS_CNT = 38,
 IFLA_BRPORT_LOCKED = 39,
-__IFLA_BRPORT_MAX = 40,
+IFLA_BRPORT_MAB = 40,
+__IFLA_BRPORT_MAX = 41,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
