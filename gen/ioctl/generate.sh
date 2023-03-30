@@ -41,5 +41,8 @@ qemu-mipsel -L /usr/mipsel-linux-gnu ./main.exe >> "$out"
 riscv64-linux-gnu-gcc -Iinclude -c list.c $cflags
 riscv64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-riscv64 -L /usr/riscv64-linux-gnu ./main.exe >> "$out"
+s390x-linux-gnu-gcc -Iinclude -c list.c $cflags
+s390x-linux-gnu-gcc main.c list.o -o main.exe $cflags
+qemu-s390x -L /usr/s390x-linux-gnu ./main.exe >> "$out"
 
 rm list.o main.exe

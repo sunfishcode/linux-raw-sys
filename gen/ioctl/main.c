@@ -41,6 +41,8 @@ int main(void) {
     printf("#if __mips == 64\n");
 #elif defined(__riscv) && __riscv_xlen == 64
     printf("#if defined(__riscv) && __riscv_xlen == 64\n");
+#elif defined(__s390x__)
+    printf("#if defined(__s390x__)\n");
 #else
 #error "unimplemented architecture"
 #endif
