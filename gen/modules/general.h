@@ -40,6 +40,7 @@
 #include <linux/unistd.h>
 #include <linux/utsname.h>
 #include <linux/wait.h>
+#include <linux/xattr.h>
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,17,0)
 #include <linux/memfd.h>
