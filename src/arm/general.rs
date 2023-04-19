@@ -2614,6 +2614,7 @@ pub const MNT_DETACH: u32 = 2;
 pub const MNT_EXPIRE: u32 = 4;
 pub const UMOUNT_NOFOLLOW: u32 = 8;
 pub const UMOUNT_UNUSED: u32 = 2147483648;
+pub const _NSIG: u32 = 64;
 pub type size_t = crate::ctypes::c_uint;
 pub type ssize_t = crate::ctypes::c_int;
 pub type __s8 = crate::ctypes::c_schar;
@@ -5376,4 +5377,17 @@ pub gid: __u32,
 pub struct mmsghdr {
 pub msg_hdr: msghdr,
 pub msg_len: crate::ctypes::c_uint,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct kernel_sigset_t {
+pub sig: [crate::ctypes::c_ulong; 2usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct kernel_sigaction {
+pub sa_handler_kernel: __kernel_sighandler_t,
+pub sa_flags: crate::ctypes::c_ulong,
+pub sa_restorer: __sigrestore_t,
+pub sa_mask: kernel_sigset_t,
 }
