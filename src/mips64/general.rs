@@ -5467,3 +5467,16 @@ pub struct mmsghdr {
 pub msg_hdr: msghdr,
 pub msg_len: crate::ctypes::c_uint,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct kernel_sigset_t {
+pub sig: [crate::ctypes::c_ulong; 2usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct kernel_sigaction {
+pub sa_handler_kernel: __kernel_sighandler_t,
+pub sa_flags: crate::ctypes::c_ulong,
+pub sa_restorer: __sigrestore_t,
+pub sa_mask: kernel_sigset_t,
+}

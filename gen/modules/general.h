@@ -357,3 +357,25 @@ struct mmsghdr {
 #define MNT_EXPIRE      0x4
 #define UMOUNT_NOFOLLOW 0x8
 #define UMOUNT_UNUSED   0x80000000
+
+// Linux's public headers provide public `NSIG`, `sigset_t` and `sigaction`
+// definitions which "cater to libcs that poke about in kernel headers", but
+// they're not usable in libcs because, for example, `SYS_rt_sigaction` insists
+// that its fourth argument be the size of the kernel's internal `sigset_t`
+// type. So we define our own.
+
+#if defined(__i386__) || defined(__x86_64__) || defined(__s390x__) || defined(__arm__)
+#define _NSIG 64
+#endif
+
+typedef struct {
+    unsigned long sig[_NSIG / (sizeof(unsigned long) * __CHAR_BIT__)];
+} kernel_sigset_t;
+
+struct kernel_sigaction {
+    // Some platforms make `sa_handler` a macro, so use a different name.
+    __kernel_sighandler_t sa_handler_kernel;
+    unsigned long sa_flags;
+    __sigrestore_t sa_restorer;
+    kernel_sigset_t sa_mask;
+};
