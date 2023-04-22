@@ -376,6 +376,8 @@ struct kernel_sigaction {
     // Some platforms make `sa_handler` a macro, so use a different name.
     __kernel_sighandler_t sa_handler_kernel;
     unsigned long sa_flags;
+#ifdef SA_RESTORER
     __sigrestore_t sa_restorer;
+#endif
     kernel_sigset_t sa_mask;
 };
