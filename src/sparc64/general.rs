@@ -5612,6 +5612,5 @@ pub sig: __IncompleteArrayField<crate::ctypes::c_ulong>,
 pub struct kernel_sigaction {
 pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
-pub sa_restorer: __sigrestore_t,
 pub sa_mask: kernel_sigset_t,
 }
