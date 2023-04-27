@@ -2659,6 +2659,7 @@ pub const MNT_EXPIRE: u32 = 4;
 pub const UMOUNT_NOFOLLOW: u32 = 8;
 pub const UMOUNT_UNUSED: u32 = 2147483648;
 pub const _NSIG: u32 = 64;
+pub const O_TMPFILE_MASK: u32 = 4259904;
 pub type size_t = crate::ctypes::c_uint;
 pub type ssize_t = crate::ctypes::c_int;
 pub type __s8 = crate::ctypes::c_schar;

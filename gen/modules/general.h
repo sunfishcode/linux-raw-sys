@@ -381,3 +381,5 @@ struct kernel_sigaction {
 #endif
     kernel_sigset_t sa_mask;
 };
+
+#define O_TMPFILE_MASK (O_TMPFILE | O_DIRECTORY | O_CREAT)
