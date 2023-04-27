@@ -5273,4 +5273,5 @@ pub struct kernel_sigaction {
 pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
+pub padding: *mut crate::ctypes::c_void,
 }

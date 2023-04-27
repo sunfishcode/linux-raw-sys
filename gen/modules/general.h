@@ -380,4 +380,7 @@ struct kernel_sigaction {
     __sigrestore_t sa_restorer;
 #endif
     kernel_sigset_t sa_mask;
+#ifndef SA_RESTORER
+    void *padding;
+#endif
 };
