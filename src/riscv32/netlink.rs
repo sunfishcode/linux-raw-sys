@@ -30,9 +30,9 @@ fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
 fmt.write_str("__IncompleteArrayField")
 }
 }
-pub const LINUX_VERSION_CODE: u32 = 393728;
+pub const LINUX_VERSION_CODE: u32 = 393984;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 2;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 3;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
@@ -605,6 +605,8 @@ pub const IFLA_TSO_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_TSO_MAX_SIZE;
 pub const IFLA_TSO_MAX_SEGS: _bindgen_ty_2 = _bindgen_ty_2::IFLA_TSO_MAX_SEGS;
 pub const IFLA_ALLMULTI: _bindgen_ty_2 = _bindgen_ty_2::IFLA_ALLMULTI;
 pub const IFLA_DEVLINK_PORT: _bindgen_ty_2 = _bindgen_ty_2::IFLA_DEVLINK_PORT;
+pub const IFLA_GSO_IPV4_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GSO_IPV4_MAX_SIZE;
+pub const IFLA_GRO_IPV4_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GRO_IPV4_MAX_SIZE;
 pub const __IFLA_MAX: _bindgen_ty_2 = _bindgen_ty_2::__IFLA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -673,7 +675,9 @@ IFLA_TSO_MAX_SIZE = 59,
 IFLA_TSO_MAX_SEGS = 60,
 IFLA_ALLMULTI = 61,
 IFLA_DEVLINK_PORT = 62,
-__IFLA_MAX = 63,
+IFLA_GSO_IPV4_MAX_SIZE = 63,
+IFLA_GRO_IPV4_MAX_SIZE = 64,
+__IFLA_MAX = 65,
 }
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_MASK;
@@ -895,6 +899,8 @@ pub const IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT: _bindgen_ty_8 = _bindgen_ty_8::IFLA
 pub const IFLA_BRPORT_MCAST_EHT_HOSTS_CNT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_EHT_HOSTS_CNT;
 pub const IFLA_BRPORT_LOCKED: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_LOCKED;
 pub const IFLA_BRPORT_MAB: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MAB;
+pub const IFLA_BRPORT_MCAST_N_GROUPS: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_N_GROUPS;
+pub const IFLA_BRPORT_MCAST_MAX_GROUPS: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BRPORT_MCAST_MAX_GROUPS;
 pub const __IFLA_BRPORT_MAX: _bindgen_ty_8 = _bindgen_ty_8::__IFLA_BRPORT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -941,7 +947,9 @@ IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT = 37,
 IFLA_BRPORT_MCAST_EHT_HOSTS_CNT = 38,
 IFLA_BRPORT_LOCKED = 39,
 IFLA_BRPORT_MAB = 40,
-__IFLA_BRPORT_MAX = 41,
+IFLA_BRPORT_MCAST_N_GROUPS = 41,
+IFLA_BRPORT_MCAST_MAX_GROUPS = 42,
+__IFLA_BRPORT_MAX = 43,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2745,6 +2753,7 @@ pub const TCA_HW_OFFLOAD: _bindgen_ty_64 = _bindgen_ty_64::TCA_HW_OFFLOAD;
 pub const TCA_INGRESS_BLOCK: _bindgen_ty_64 = _bindgen_ty_64::TCA_INGRESS_BLOCK;
 pub const TCA_EGRESS_BLOCK: _bindgen_ty_64 = _bindgen_ty_64::TCA_EGRESS_BLOCK;
 pub const TCA_DUMP_FLAGS: _bindgen_ty_64 = _bindgen_ty_64::TCA_DUMP_FLAGS;
+pub const TCA_EXT_WARN_MSG: _bindgen_ty_64 = _bindgen_ty_64::TCA_EXT_WARN_MSG;
 pub const __TCA_MAX: _bindgen_ty_64 = _bindgen_ty_64::__TCA_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -2766,7 +2775,8 @@ TCA_HW_OFFLOAD = 12,
 TCA_INGRESS_BLOCK = 13,
 TCA_EGRESS_BLOCK = 14,
 TCA_DUMP_FLAGS = 15,
-__TCA_MAX = 16,
+TCA_EXT_WARN_MSG = 16,
+__TCA_MAX = 17,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2846,6 +2856,7 @@ pub const TCA_ROOT_TAB: _bindgen_ty_66 = _bindgen_ty_66::TCA_ROOT_TAB;
 pub const TCA_ROOT_FLAGS: _bindgen_ty_66 = _bindgen_ty_66::TCA_ROOT_FLAGS;
 pub const TCA_ROOT_COUNT: _bindgen_ty_66 = _bindgen_ty_66::TCA_ROOT_COUNT;
 pub const TCA_ROOT_TIME_DELTA: _bindgen_ty_66 = _bindgen_ty_66::TCA_ROOT_TIME_DELTA;
+pub const TCA_ROOT_EXT_WARN_MSG: _bindgen_ty_66 = _bindgen_ty_66::TCA_ROOT_EXT_WARN_MSG;
 pub const __TCA_ROOT_MAX: _bindgen_ty_66 = _bindgen_ty_66::__TCA_ROOT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
@@ -2856,5 +2867,6 @@ TCA_ROOT_TAB = 1,
 TCA_ROOT_FLAGS = 2,
 TCA_ROOT_COUNT = 3,
 TCA_ROOT_TIME_DELTA = 4,
-__TCA_ROOT_MAX = 5,
+TCA_ROOT_EXT_WARN_MSG = 5,
+__TCA_ROOT_MAX = 6,
 }
