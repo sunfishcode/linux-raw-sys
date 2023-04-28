@@ -62,7 +62,7 @@ struct sockaddr {
 #include <linux/dma-buf.h>
 #include <linux/dma-heap.h>
 #include <linux/dm-ioctl.h>
-#if 0 // Temporarily disable linux/ext4.h until after Linux 6.3.
+#if 0 // Temporarily disable linux/ext4.h until Linux 6.4.
 #include <linux/ext4.h>
 #endif
 #include <linux/fb.h>
@@ -177,7 +177,7 @@ struct sockaddr {
 typedef __kernel_loff_t loff_t;
 #endif
 
-// Temporarily define these ext4 ioctl codes manually until after Linux 6.3.
+// Temporarily define these ext4 ioctl codes manually until Linux 6.4.
 #define EXT4_IOC32_GETRSVSZ          _IOR('f', 5, int)
 #define EXT4_IOC32_GETVERSION        _IOR('f', 3, int)
 #define EXT4_IOC32_GETVERSION_OLD    FS_IOC32_GETVERSION
@@ -534,12 +534,12 @@ void list(void) {
     IOCTL_REQUEST(EXT4_IOC_GETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC_SETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC_GROUP_EXTEND);
-#if 0 // Temporarily disable until after Linux 6.3.
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC_GROUP_ADD);
 #endif
     IOCTL_REQUEST(EXT4_IOC_MIGRATE);
     IOCTL_REQUEST(EXT4_IOC_ALLOC_DA_BLKS);
-#if 0 // Temporarily disable until after Linux 6.3.
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC_MOVE_EXT);
 #endif
     IOCTL_REQUEST(EXT4_IOC_RESIZE_FS);
@@ -549,7 +549,7 @@ void list(void) {
     IOCTL_REQUEST(EXT4_IOC_GETSTATE);
     IOCTL_REQUEST(EXT4_IOC_GET_ES_CACHE);
     IOCTL_REQUEST(EXT4_IOC_CHECKPOINT);
-#if 0 // Temporarily disable until after Linux 6.3.
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC_GETFSUUID);
     IOCTL_REQUEST(EXT4_IOC_SETFSUUID);
 #endif
@@ -560,7 +560,7 @@ void list(void) {
     IOCTL_REQUEST(EXT4_IOC32_GETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC32_SETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC32_GROUP_EXTEND);
-#if 0 // Temporarily disable until after Linux 6.3.
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC32_GROUP_ADD);
 #endif
     IOCTL_REQUEST(EXT4_IOC32_GETVERSION_OLD);
