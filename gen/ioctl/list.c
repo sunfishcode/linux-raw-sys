@@ -62,7 +62,9 @@ struct sockaddr {
 #include <linux/dma-buf.h>
 #include <linux/dma-heap.h>
 #include <linux/dm-ioctl.h>
+#if 0 // Temporarily disable linux/ext4.h until Linux 6.4.
 #include <linux/ext4.h>
+#endif
 #include <linux/fb.h>
 #include <linux/f2fs.h>
 #include <linux/fiemap.h>
@@ -174,6 +176,37 @@ struct sockaddr {
 #ifdef __powerpc64__
 typedef __kernel_loff_t loff_t;
 #endif
+
+// Temporarily define these ext4 ioctl codes manually until Linux 6.4.
+#define EXT4_IOC32_GETRSVSZ          _IOR('f', 5, int)
+#define EXT4_IOC32_GETVERSION        _IOR('f', 3, int)
+#define EXT4_IOC32_GETVERSION_OLD    FS_IOC32_GETVERSION
+#define EXT4_IOC32_GROUP_ADD         _IOW('f', 8, struct compat_ext4_new_group_input)
+#define EXT4_IOC32_GROUP_EXTEND      _IOW('f', 7, unsigned int)
+#define EXT4_IOC32_SETRSVSZ          _IOW('f', 6, int)
+#define EXT4_IOC32_SETVERSION        _IOW('f', 4, int)
+#define EXT4_IOC32_SETVERSION_OLD    FS_IOC32_SETVERSION
+#define EXT4_IOC_ALLOC_DA_BLKS       _IO('f', 12)
+#define EXT4_IOC_CHECKPOINT          _IOW('f', 43, __u32)
+#define EXT4_IOC_CLEAR_ES_CACHE      _IO('f', 40)
+#define EXT4_IOC_GET_ES_CACHE        _IOWR('f', 42, struct fiemap)
+#define EXT4_IOC_GETFSUUID           _IOR('f', 44, struct fsuuid)
+#define EXT4_IOC_GETRSVSZ            _IOR('f', 5, long)
+#define EXT4_IOC_GETSTATE            _IOW('f', 41, __u32)
+#define EXT4_IOC_GETVERSION          _IOR('f', 3, long)
+#define EXT4_IOC_GETVERSION_OLD      FS_IOC_GETVERSION
+#define EXT4_IOC_GROUP_ADD           _IOW('f', 8, struct ext4_new_group_input)
+#define EXT4_IOC_GROUP_EXTEND        _IOW('f', 7, unsigned long)
+#define EXT4_IOC_MIGRATE             _IO('f', 9)
+#define EXT4_IOC_MOVE_EXT            _IOWR('f', 15, struct move_extent)
+#define EXT4_IOC_PRECACHE_EXTENTS    _IO('f', 18)
+#define EXT4_IOC_RESIZE_FS           _IOW('f', 16, __u64)
+#define EXT4_IOC_SETFSUUID           _IOW('f', 44, struct fsuuid)
+#define EXT4_IOC_SETRSVSZ            _IOW('f', 6, long)
+#define EXT4_IOC_SETVERSION          _IOW('f', 4, long)
+#define EXT4_IOC_SETVERSION_OLD      FS_IOC_SETVERSION
+#define EXT4_IOC_SHUTDOWN            _IOR('X', 125, __u32)
+#define EXT4_IOC_SWAP_BOOT           _IO('f', 17)
 
 void entry(const char *s);
 
@@ -501,10 +534,14 @@ void list(void) {
     IOCTL_REQUEST(EXT4_IOC_GETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC_SETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC_GROUP_EXTEND);
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC_GROUP_ADD);
+#endif
     IOCTL_REQUEST(EXT4_IOC_MIGRATE);
     IOCTL_REQUEST(EXT4_IOC_ALLOC_DA_BLKS);
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC_MOVE_EXT);
+#endif
     IOCTL_REQUEST(EXT4_IOC_RESIZE_FS);
     IOCTL_REQUEST(EXT4_IOC_SWAP_BOOT);
     IOCTL_REQUEST(EXT4_IOC_PRECACHE_EXTENTS);
@@ -512,8 +549,10 @@ void list(void) {
     IOCTL_REQUEST(EXT4_IOC_GETSTATE);
     IOCTL_REQUEST(EXT4_IOC_GET_ES_CACHE);
     IOCTL_REQUEST(EXT4_IOC_CHECKPOINT);
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC_GETFSUUID);
     IOCTL_REQUEST(EXT4_IOC_SETFSUUID);
+#endif
     IOCTL_REQUEST(EXT4_IOC_SHUTDOWN);
 
     IOCTL_REQUEST(EXT4_IOC32_GETVERSION);
@@ -521,7 +560,9 @@ void list(void) {
     IOCTL_REQUEST(EXT4_IOC32_GETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC32_SETRSVSZ);
     IOCTL_REQUEST(EXT4_IOC32_GROUP_EXTEND);
+#if 0 // Temporarily disable until Linux 6.4.
     IOCTL_REQUEST(EXT4_IOC32_GROUP_ADD);
+#endif
     IOCTL_REQUEST(EXT4_IOC32_GETVERSION_OLD);
     IOCTL_REQUEST(EXT4_IOC32_SETVERSION_OLD);
 
@@ -548,7 +589,6 @@ void list(void) {
     IOCTL_REQUEST(KVM_SET_BOOT_CPU_ID);
     IOCTL_REQUEST(KVM_SET_MP_STATE);
     IOCTL_REQUEST(KVM_GET_MP_STATE);
-    IOCTL_REQUEST(KVM_SET_MEMORY_REGION);
     IOCTL_REQUEST(KVM_GET_API_VERSION);
     IOCTL_REQUEST(KVM_S390_GET_SKEYS);
 #if 0 // needs `struct kvm_create_spapr_tce_64`
