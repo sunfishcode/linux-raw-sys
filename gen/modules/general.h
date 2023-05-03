@@ -364,7 +364,7 @@ struct mmsghdr {
 // that its fourth argument be the size of the kernel's internal `sigset_t`
 // type. So we define our own.
 
-#if defined(__i386__) || defined(__x86_64__) || defined(__s390x__) || defined(__arm__)
+#if defined(__i386__) || defined(__x86_64__) || defined(__s390x__) || defined(__arm__) || defined(__loongarch__)
 #define _NSIG 64
 #endif
 

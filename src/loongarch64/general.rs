@@ -137,9 +137,9 @@ true
 }
 }
 impl<T> ::core::cmp::Eq for __BindgenUnionField<T> {}
-pub const LINUX_VERSION_CODE: u32 = 393728;
+pub const LINUX_VERSION_CODE: u32 = 393984;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 2;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 3;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 1;
@@ -165,6 +165,8 @@ pub const AT_SECURE: u32 = 23;
 pub const AT_BASE_PLATFORM: u32 = 24;
 pub const AT_RANDOM: u32 = 25;
 pub const AT_HWCAP2: u32 = 26;
+pub const AT_RSEQ_FEATURE_SIZE: u32 = 27;
+pub const AT_RSEQ_ALIGN: u32 = 28;
 pub const AT_EXECFN: u32 = 31;
 pub const AT_MINSIGSTKSZ: u32 = 51;
 pub const __FD_SETSIZE: u32 = 1024;
@@ -311,6 +313,7 @@ pub const F_SEAL_SHRINK: u32 = 2;
 pub const F_SEAL_GROW: u32 = 4;
 pub const F_SEAL_WRITE: u32 = 8;
 pub const F_SEAL_FUTURE_WRITE: u32 = 16;
+pub const F_SEAL_EXEC: u32 = 32;
 pub const F_GET_RW_HINT: u32 = 1035;
 pub const F_SET_RW_HINT: u32 = 1036;
 pub const F_GET_FILE_RW_HINT: u32 = 1037;
@@ -710,6 +713,7 @@ pub const MCAST_LEAVE_SOURCE_GROUP: u32 = 47;
 pub const MCAST_MSFILTER: u32 = 48;
 pub const IP_MULTICAST_ALL: u32 = 49;
 pub const IP_UNICAST_IF: u32 = 50;
+pub const IP_LOCAL_PORT_RANGE: u32 = 51;
 pub const MCAST_EXCLUDE: u32 = 0;
 pub const MCAST_INCLUDE: u32 = 1;
 pub const IP_DEFAULT_MULTICAST_TTL: u32 = 1;
@@ -1384,6 +1388,9 @@ pub const PR_SME_SET_VL_ONEXEC: u32 = 262144;
 pub const PR_SME_GET_VL: u32 = 64;
 pub const PR_SME_VL_LEN_MASK: u32 = 65535;
 pub const PR_SME_VL_INHERIT: u32 = 131072;
+pub const PR_SET_MDWE: u32 = 65;
+pub const PR_MDWE_REFUSE_EXEC_GAIN: u32 = 1;
+pub const PR_GET_MDWE: u32 = 66;
 pub const PR_SET_VMA: u32 = 1398164801;
 pub const PR_SET_VMA_ANON_NAME: u32 = 0;
 pub const GRND_NONBLOCK: u32 = 1;
@@ -2227,9 +2234,47 @@ pub const P_ALL: u32 = 0;
 pub const P_PID: u32 = 1;
 pub const P_PGID: u32 = 2;
 pub const P_PIDFD: u32 = 3;
+pub const XATTR_CREATE: u32 = 1;
+pub const XATTR_REPLACE: u32 = 2;
+pub const XATTR_OS2_PREFIX: &[u8; 5usize] = b"os2.\0";
+pub const XATTR_MAC_OSX_PREFIX: &[u8; 5usize] = b"osx.\0";
+pub const XATTR_BTRFS_PREFIX: &[u8; 7usize] = b"btrfs.\0";
+pub const XATTR_HURD_PREFIX: &[u8; 5usize] = b"gnu.\0";
+pub const XATTR_SECURITY_PREFIX: &[u8; 10usize] = b"security.\0";
+pub const XATTR_SYSTEM_PREFIX: &[u8; 8usize] = b"system.\0";
+pub const XATTR_TRUSTED_PREFIX: &[u8; 9usize] = b"trusted.\0";
+pub const XATTR_USER_PREFIX: &[u8; 6usize] = b"user.\0";
+pub const XATTR_EVM_SUFFIX: &[u8; 4usize] = b"evm\0";
+pub const XATTR_NAME_EVM: &[u8; 13usize] = b"security.evm\0";
+pub const XATTR_IMA_SUFFIX: &[u8; 4usize] = b"ima\0";
+pub const XATTR_NAME_IMA: &[u8; 13usize] = b"security.ima\0";
+pub const XATTR_SELINUX_SUFFIX: &[u8; 8usize] = b"selinux\0";
+pub const XATTR_NAME_SELINUX: &[u8; 17usize] = b"security.selinux\0";
+pub const XATTR_SMACK_SUFFIX: &[u8; 8usize] = b"SMACK64\0";
+pub const XATTR_SMACK_IPIN: &[u8; 12usize] = b"SMACK64IPIN\0";
+pub const XATTR_SMACK_IPOUT: &[u8; 13usize] = b"SMACK64IPOUT\0";
+pub const XATTR_SMACK_EXEC: &[u8; 12usize] = b"SMACK64EXEC\0";
+pub const XATTR_SMACK_TRANSMUTE: &[u8; 17usize] = b"SMACK64TRANSMUTE\0";
+pub const XATTR_SMACK_MMAP: &[u8; 12usize] = b"SMACK64MMAP\0";
+pub const XATTR_NAME_SMACK: &[u8; 17usize] = b"security.SMACK64\0";
+pub const XATTR_NAME_SMACKIPIN: &[u8; 21usize] = b"security.SMACK64IPIN\0";
+pub const XATTR_NAME_SMACKIPOUT: &[u8; 22usize] = b"security.SMACK64IPOUT\0";
+pub const XATTR_NAME_SMACKEXEC: &[u8; 21usize] = b"security.SMACK64EXEC\0";
+pub const XATTR_NAME_SMACKTRANSMUTE: &[u8; 26usize] = b"security.SMACK64TRANSMUTE\0";
+pub const XATTR_NAME_SMACKMMAP: &[u8; 21usize] = b"security.SMACK64MMAP\0";
+pub const XATTR_APPARMOR_SUFFIX: &[u8; 9usize] = b"apparmor\0";
+pub const XATTR_NAME_APPARMOR: &[u8; 18usize] = b"security.apparmor\0";
+pub const XATTR_CAPS_SUFFIX: &[u8; 11usize] = b"capability\0";
+pub const XATTR_NAME_CAPS: &[u8; 20usize] = b"security.capability\0";
+pub const XATTR_POSIX_ACL_ACCESS: &[u8; 17usize] = b"posix_acl_access\0";
+pub const XATTR_NAME_POSIX_ACL_ACCESS: &[u8; 24usize] = b"system.posix_acl_access\0";
+pub const XATTR_POSIX_ACL_DEFAULT: &[u8; 18usize] = b"posix_acl_default\0";
+pub const XATTR_NAME_POSIX_ACL_DEFAULT: &[u8; 25usize] = b"system.posix_acl_default\0";
 pub const MFD_CLOEXEC: u32 = 1;
 pub const MFD_ALLOW_SEALING: u32 = 2;
 pub const MFD_HUGETLB: u32 = 4;
+pub const MFD_NOEXEC_SEAL: u32 = 8;
+pub const MFD_EXEC: u32 = 16;
 pub const MFD_HUGE_SHIFT: u32 = 26;
 pub const MFD_HUGE_MASK: u32 = 63;
 pub const MFD_HUGE_64KB: u32 = 1073741824;
@@ -2321,6 +2366,7 @@ pub const IORING_SEND_ZC_REPORT_USAGE: u32 = 8;
 pub const IORING_NOTIF_USAGE_ZC_COPIED: u32 = 2147483648;
 pub const IORING_ACCEPT_MULTISHOT: u32 = 1;
 pub const IORING_MSG_RING_CQE_SKIP: u32 = 1;
+pub const IORING_MSG_RING_FLAGS_PASS: u32 = 2;
 pub const IORING_CQE_F_BUFFER: u32 = 1;
 pub const IORING_CQE_F_MORE: u32 = 2;
 pub const IORING_CQE_F_SOCK_NONEMPTY: u32 = 4;
@@ -2350,6 +2396,7 @@ pub const IORING_FEAT_NATIVE_WORKERS: u32 = 512;
 pub const IORING_FEAT_RSRC_TAGS: u32 = 1024;
 pub const IORING_FEAT_CQE_SKIP: u32 = 2048;
 pub const IORING_FEAT_LINKED_FILE: u32 = 4096;
+pub const IORING_FEAT_REG_REG_RING: u32 = 8192;
 pub const IORING_RSRC_REGISTER_SPARSE: u32 = 1;
 pub const IORING_REGISTER_FILES_SKIP: i32 = -2;
 pub const IO_URING_OP_SUPPORTED: u32 = 1;
@@ -4403,6 +4450,7 @@ MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE = 32,
 MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE = 64,
 MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ = 128,
 MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ = 256,
+MEMBARRIER_CMD_GET_REGISTRATIONS = 512,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4768,6 +4816,7 @@ pub const IORING_UNREGISTER_PBUF_RING: _bindgen_ty_10 = _bindgen_ty_10::IORING_U
 pub const IORING_REGISTER_SYNC_CANCEL: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_SYNC_CANCEL;
 pub const IORING_REGISTER_FILE_ALLOC_RANGE: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_FILE_ALLOC_RANGE;
 pub const IORING_REGISTER_LAST: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_LAST;
+pub const IORING_REGISTER_USE_REGISTERED_RING: _bindgen_ty_10 = _bindgen_ty_10::IORING_REGISTER_USE_REGISTERED_RING;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -4799,6 +4848,7 @@ IORING_UNREGISTER_PBUF_RING = 23,
 IORING_REGISTER_SYNC_CANCEL = 24,
 IORING_REGISTER_FILE_ALLOC_RANGE = 25,
 IORING_REGISTER_LAST = 26,
+IORING_REGISTER_USE_REGISTERED_RING = 2147483648,
 }
 pub const IO_WQ_BOUND: _bindgen_ty_11 = _bindgen_ty_11::IO_WQ_BOUND;
 pub const IO_WQ_UNBOUND: _bindgen_ty_11 = _bindgen_ty_11::IO_WQ_UNBOUND;
@@ -4904,7 +4954,7 @@ pub __bindgen_anon_1: io_uring_buf_ring__bindgen_ty_1,
 #[repr(C)]
 pub struct io_uring_buf_ring__bindgen_ty_1 {
 pub __bindgen_anon_1: __BindgenUnionField<io_uring_buf_ring__bindgen_ty_1__bindgen_ty_1>,
-pub bufs: __BindgenUnionField<[io_uring_buf; 0usize]>,
+pub __bindgen_anon_2: __BindgenUnionField<io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2>,
 pub bindgen_union_field: [u64; 2usize],
 }
 #[repr(C)]
@@ -4915,6 +4965,15 @@ pub resv2: __u32,
 pub resv3: __u16,
 pub tail: __u16,
 }
+#[repr(C)]
+#[derive(Debug)]
+pub struct io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2 {
+pub __empty_bufs: io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2__bindgen_ty_1,
+pub bufs: __IncompleteArrayField<io_uring_buf>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2__bindgen_ty_1 {}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_buf_reg {
@@ -5202,4 +5261,16 @@ pub gid: __u32,
 pub struct mmsghdr {
 pub msg_hdr: msghdr,
 pub msg_len: crate::ctypes::c_uint,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct kernel_sigset_t {
+pub sig: [crate::ctypes::c_ulong; 1usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct kernel_sigaction {
+pub sa_handler_kernel: __kernel_sighandler_t,
+pub sa_flags: crate::ctypes::c_ulong,
+pub sa_mask: kernel_sigset_t,
 }
