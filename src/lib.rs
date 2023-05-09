@@ -85,23 +85,25 @@ pub mod cmsg_macros {
     use core::mem::size_of;
     use core::ptr;
 
-    pub unsafe fn CMSG_ALIGN(len: c_uint) -> c_uint {
+    pub const unsafe fn CMSG_ALIGN(len: c_uint) -> c_uint {
         let c_long_size = size_of::<c_long>() as c_uint;
         (len + c_long_size - 1) & !(c_long_size - 1)
     }
 
+    // TODO: In Rust 1.63 we can make this a `const fn`.
     pub unsafe fn CMSG_DATA(cmsg: *const cmsghdr) -> *mut c_uchar {
         (cmsg as *mut c_uchar).offset(size_of::<cmsghdr>() as isize)
     }
 
-    pub unsafe fn CMSG_SPACE(len: c_uint) -> c_uint {
+    pub const unsafe fn CMSG_SPACE(len: c_uint) -> c_uint {
         size_of::<cmsghdr>() as c_uint + CMSG_ALIGN(len)
     }
 
-    pub unsafe fn CMSG_LEN(len: c_uint) -> c_uint {
+    pub const unsafe fn CMSG_LEN(len: c_uint) -> c_uint {
         size_of::<cmsghdr>() as c_uint + len
     }
 
+    // TODO: In Rust 1.63 we can make this a `const fn`.
     pub unsafe fn CMSG_FIRSTHDR(mhdr: *const msghdr) -> *mut cmsghdr {
         if (*mhdr).msg_controllen < size_of::<cmsghdr>() as _ {
             return ptr::null_mut();
