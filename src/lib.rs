@@ -92,7 +92,7 @@ pub mod cmsg_macros {
 
     // TODO: In Rust 1.63 we can make this a `const fn`.
     pub unsafe fn CMSG_DATA(cmsg: *const cmsghdr) -> *mut c_uchar {
-        (cmsg as *mut c_uchar).offset(size_of::<cmsghdr>() as isize)
+        (cmsg as *mut c_uchar).add(size_of::<cmsghdr>())
     }
 
     pub const unsafe fn CMSG_SPACE(len: c_uint) -> c_uint {
@@ -113,19 +113,19 @@ pub mod cmsg_macros {
     }
 
     pub unsafe fn CMSG_NXTHDR(mhdr: *const msghdr, cmsg: *const cmsghdr) -> *mut cmsghdr {
-        // We convert from raw pointers to isize here, which may not be sound in a future version of Rust.
-        // Once the provenance rules are set in stone, it will be a good idea to give this function a once-over.
+        // We convert from raw pointers to usize here, which may not be sound in a
+        // future version of Rust. Once the provenance rules are set in stone,
+        // it will be a good idea to give this function a once-over.
 
         let cmsg_len = (*cmsg).cmsg_len;
-        let next_cmsg =
-            (cmsg as *mut u8).offset(CMSG_ALIGN(cmsg_len as _) as isize) as *mut cmsghdr;
+        let next_cmsg = (cmsg as *mut u8).add(CMSG_ALIGN(cmsg_len as _) as usize) as *mut cmsghdr;
         let max = ((*mhdr).msg_control as usize) + ((*mhdr).msg_controllen as usize);
 
         if cmsg_len < size_of::<cmsghdr>() as _ {
             return ptr::null_mut();
         }
 
-        if next_cmsg.offset(1) as usize > max
+        if next_cmsg.add(1) as usize > max
             || next_cmsg as usize + CMSG_ALIGN(cmsg_len as _) as usize > max
         {
             return ptr::null_mut();
@@ -144,21 +144,21 @@ pub mod select_macros {
     pub unsafe fn FD_CLR(fd: c_int, set: *mut __kernel_fd_set) {
         let bytes = set as *mut u8;
         if fd >= 0 {
-            *bytes.offset((fd / 8) as isize) &= !(1 << (fd % 8));
+            *bytes.add((fd / 8) as usize) &= !(1 << (fd % 8));
         }
     }
 
     pub unsafe fn FD_SET(fd: c_int, set: *mut __kernel_fd_set) {
         let bytes = set as *mut u8;
         if fd >= 0 {
-            *bytes.offset((fd / 8) as isize) |= 1 << (fd % 8);
+            *bytes.add((fd / 8) as usize) |= 1 << (fd % 8);
         }
     }
 
     pub unsafe fn FD_ISSET(fd: c_int, set: *const __kernel_fd_set) -> bool {
         let bytes = set as *const u8;
         if fd >= 0 {
-            *bytes.offset((fd / 8) as isize) & (1 << (fd % 8)) != 0
+            *bytes.add((fd / 8) as usize) & (1 << (fd % 8)) != 0
         } else {
             false
         }
