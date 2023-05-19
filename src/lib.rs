@@ -80,7 +80,7 @@ impl Eq for general::__kernel_timespec {}
 
 #[cfg(feature = "general")]
 pub mod cmsg_macros {
-    use crate::ctypes::{c_long, c_uint, c_uchar};
+    use crate::ctypes::{c_long, c_uchar, c_uint};
     use crate::general::{cmsghdr, msghdr};
     use core::mem::size_of;
     use core::ptr;
@@ -117,14 +117,16 @@ pub mod cmsg_macros {
         // Once the provenance rules are set in stone, it will be a good idea to give this function a once-over.
 
         let cmsg_len = (*cmsg).cmsg_len;
-        let next_cmsg = (cmsg as *mut u8).offset(CMSG_ALIGN(cmsg_len as _) as isize) as *mut cmsghdr;
+        let next_cmsg =
+            (cmsg as *mut u8).offset(CMSG_ALIGN(cmsg_len as _) as isize) as *mut cmsghdr;
         let max = ((*mhdr).msg_control as usize) + ((*mhdr).msg_controllen as usize);
 
         if cmsg_len < size_of::<cmsghdr>() as _ {
             return ptr::null_mut();
         }
 
-        if next_cmsg.offset(1) as usize > max || next_cmsg as usize + CMSG_ALIGN(cmsg_len as _) as usize > max
+        if next_cmsg.offset(1) as usize > max
+            || next_cmsg as usize + CMSG_ALIGN(cmsg_len as _) as usize > max
         {
             return ptr::null_mut();
         }
@@ -165,6 +167,25 @@ pub mod select_macros {
     pub unsafe fn FD_ZERO(set: *mut __kernel_fd_set) {
         let bytes = set as *mut u8;
         core::ptr::write_bytes(bytes, 0, size_of::<__kernel_fd_set>());
+    }
+}
+
+#[cfg(feature = "general")]
+pub mod signal_macros {
+    pub const SIG_DFL: super::general::__kernel_sighandler_t = None;
+
+    /// Rust doesn't currently permit us to use `transmute` to convert the
+    /// `SIG_IGN` value into a function pointer in a `const` initializer, so
+    /// we make it a function instead.
+    ///
+    // TODO: In Rust 1.56 we can make this a `const fn`.
+    #[inline]
+    pub fn sig_ign() -> super::general::__kernel_sighandler_t {
+        // Safety: This creates an invalid pointer, but the pointer type
+        // includes `unsafe`, which covers the safety of calling it.
+        Some(unsafe {
+            core::mem::transmute::<usize, unsafe extern "C" fn(crate::ctypes::c_int)>(1)
+        })
     }
 }
 
