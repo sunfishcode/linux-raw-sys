@@ -6,11 +6,11 @@ description = "Generated bindings for Linux's userspace API"
 documentation = "https://docs.rs/linux-raw-sys"
 license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
 repository = "https://github.com/sunfishcode/linux-raw-sys"
-edition = "2018"
+edition = "2021"
 keywords = ["linux", "uapi", "ffi"]
 categories = ["external-ffi-bindings"]
 exclude = ["/gen", "/.*"]
-rust-version = "1.48"
+rust-version = "1.63"
 
 [dependencies]
 core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
