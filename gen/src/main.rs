@@ -336,6 +336,7 @@ fn run_bindgen(
         })
         .array_pointers_in_arguments(true)
         .derive_debug(true)
+        .size_t_is_usize(false)
         .clang_arg(&format!("--target={}", clang_target))
         .clang_arg("-DBITS_PER_LONG=(__SIZEOF_LONG__*__CHAR_BIT__)")
         .clang_arg("-nostdinc")
