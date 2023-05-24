@@ -90,8 +90,7 @@ pub mod cmsg_macros {
         (len + c_long_size - 1) & !(c_long_size - 1)
     }
 
-    // TODO: In Rust 1.63 we can make this a `const fn`.
-    pub unsafe fn CMSG_DATA(cmsg: *const cmsghdr) -> *mut c_uchar {
+    pub const unsafe fn CMSG_DATA(cmsg: *const cmsghdr) -> *mut c_uchar {
         (cmsg as *mut c_uchar).add(size_of::<cmsghdr>())
     }
 
@@ -103,8 +102,7 @@ pub mod cmsg_macros {
         size_of::<cmsghdr>() as c_uint + len
     }
 
-    // TODO: In Rust 1.63 we can make this a `const fn`.
-    pub unsafe fn CMSG_FIRSTHDR(mhdr: *const msghdr) -> *mut cmsghdr {
+    pub const unsafe fn CMSG_FIRSTHDR(mhdr: *const msghdr) -> *mut cmsghdr {
         if (*mhdr).msg_controllen < size_of::<cmsghdr>() as _ {
             return ptr::null_mut();
         }
@@ -178,9 +176,8 @@ pub mod signal_macros {
     /// `SIG_IGN` value into a function pointer in a `const` initializer, so
     /// we make it a function instead.
     ///
-    // TODO: In Rust 1.56 we can make this a `const fn`.
     #[inline]
-    pub fn sig_ign() -> super::general::__kernel_sighandler_t {
+    pub const fn sig_ign() -> super::general::__kernel_sighandler_t {
         // Safety: This creates an invalid pointer, but the pointer type
         // includes `unsafe`, which covers the safety of calling it.
         Some(unsafe {

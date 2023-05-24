@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable, nightly, 1.48]
+        rust: [stable, nightly, 1.63]
 
     env:
       RUSTFLAGS: -D warnings
