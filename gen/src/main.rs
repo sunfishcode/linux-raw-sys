@@ -336,6 +336,10 @@ fn run_bindgen(
         })
         .array_pointers_in_arguments(true)
         .derive_debug(true)
+        .sort_semantically(true)
+        .blocklist_item("^__UAPI_DEF_.*")
+        .blocklist_item("BITS_PER_LONG")
+        .blocklist_item("__BITS_PER_LONG")
         .clang_arg(&format!("--target={}", clang_target))
         .clang_arg("-DBITS_PER_LONG=(__SIZEOF_LONG__*__CHAR_BIT__)")
         .clang_arg("-nostdinc")
@@ -345,11 +349,23 @@ fn run_bindgen(
         .clang_arg("include")
         .blocklist_item("NULL");
 
-    // Avoid duplicating ioctl names in the `general` module.
-    if mod_name == "general" {
+    // Avoid duplicating things across multiple modules.
+    if mod_name != "ioctl" {
         for ioctl in BufReader::new(File::open("ioctl/generated.txt").unwrap()).lines() {
             builder = builder.blocklist_item(ioctl.unwrap());
         }
+    }
+    if mod_name != "general" {
+        builder = builder.blocklist_item("^LINUX_VERSION_.*");
+        builder = builder.blocklist_item("__kernel_fd_set");
+        builder = builder.blocklist_item("fds_bits");
+        builder = builder.blocklist_item("__FD_SETSIZE");
+        builder = builder.blocklist_item("__kernel_sighandler_t");
+        builder = builder.blocklist_item("^F_.*");
+        builder = builder.blocklist_item("^O_.*");
+        builder = builder.blocklist_item("__kernel_fsid_t");
+        builder = builder.blocklist_item("^HUGETLB_FLAG_ENCODE_.*");
+        builder = builder.blocklist_item("^RESOLVE_.*");
     }
 
     let bindings = builder
