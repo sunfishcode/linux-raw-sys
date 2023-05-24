@@ -256,8 +256,6 @@ pub const RTEXT_FILTER_MRP: u32 = 16;
 pub const RTEXT_FILTER_CFM_CONFIG: u32 = 32;
 pub const RTEXT_FILTER_CFM_STATUS: u32 = 64;
 pub const RTEXT_FILTER_MST: u32 = 128;
-pub type size_t = crate::ctypes::c_uint;
-pub type ssize_t = crate::ctypes::c_int;
 pub type __kernel_sa_family_t = crate::ctypes::c_ushort;
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -2584,8 +2584,6 @@ pub const MNT_EXPIRE: u32 = 4;
 pub const UMOUNT_NOFOLLOW: u32 = 8;
 pub const UMOUNT_UNUSED: u32 = 2147483648;
 pub const _NSIG: u32 = 64;
-pub type size_t = crate::ctypes::c_ulong;
-pub type ssize_t = crate::ctypes::c_long;
 pub type __s8 = crate::ctypes::c_schar;
 pub type __u8 = crate::ctypes::c_uchar;
 pub type __s16 = crate::ctypes::c_short;
@@ -5306,15 +5304,15 @@ pub struct msghdr {
 pub msg_name: *mut crate::ctypes::c_void,
 pub msg_namelen: crate::ctypes::c_int,
 pub msg_iov: *mut iovec,
-pub msg_iovlen: size_t,
+pub msg_iovlen: usize,
 pub msg_control: *mut crate::ctypes::c_void,
-pub msg_controllen: size_t,
+pub msg_controllen: usize,
 pub msg_flags: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct cmsghdr {
-pub cmsg_len: size_t,
+pub cmsg_len: usize,
 pub cmsg_level: crate::ctypes::c_int,
 pub cmsg_type: crate::ctypes::c_int,
 }
