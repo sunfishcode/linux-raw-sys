@@ -246,3 +246,9 @@ struct kernel_sigaction {
 #endif
     kernel_sigset_t sa_mask;
 };
+
+// On PowerPC, the kernel does not define a `termios2` or associated ioctls,
+// and the regular `termios` has the extra `termios2` fields.
+#if defined(__powerpc__) || defined(__powerpc64__)
+typedef struct termios termios2;
+#endif

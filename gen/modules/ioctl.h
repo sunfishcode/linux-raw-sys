@@ -15496,3 +15496,4 @@
 #define ACRN_IOCTL_DESTROY_IOREQ_CLIENT 0xa234ul
 #define ACRN_IOCTL_VM_INTR_MONITOR 0x4008a224ul
 #endif
+#include "ioctl-addendum.h"

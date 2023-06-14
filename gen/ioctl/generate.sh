@@ -48,4 +48,7 @@ qemu-s390x -L /usr/s390x-linux-gnu ./main.exe >> "$out"
 # pre-generated output is used for the time being
 cat loongarch-ioctls.txt >> "$out"
 
+# Add any extra custom definitions at the end.
+echo "#include \"ioctl-addendum.h\"" >> "$out"
+
 rm list.o main.exe
