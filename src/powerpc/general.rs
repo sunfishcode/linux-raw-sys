@@ -65,6 +65,7 @@ pub type cc_t = crate::ctypes::c_uchar;
 pub type speed_t = crate::ctypes::c_uint;
 pub type tcflag_t = crate::ctypes::c_uint;
 pub type __fsword_t = __u32;
+pub type termios2 = termios;
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct __BindgenBitfieldUnit<Storage> {
