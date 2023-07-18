@@ -289,7 +289,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         // hexagon gets build errors; disable it for now
         "hexagon" => &[],
         "loongarch" => &["loongarch64"],
-        "mips" => &["mips", "mips64"],
+        "mips" => &["mips", "mips64", "mips32r6", "mips64r6"],
         "powerpc" => &["powerpc", "powerpc64"],
         "riscv" => &["riscv32", "riscv64"],
         "s390" => &["s390x"],
@@ -384,6 +384,10 @@ fn compute_clang_target(rust_arch: &str) -> String {
         format!("i686-unknown-linux")
     } else if rust_arch == "x32" {
         format!("x86_64-unknown-linux-gnux32")
+    } else if rust_arch == "mips32r6" {
+        format!("mipsisa32r6-unknown-linux-gnu")
+    } else if rust_arch == "mips64r6" {
+        format!("mipsisa64r6-unknown-linux-gnuabi64")
     } else {
         format!("{}-unknown-linux", rust_arch)
     }
