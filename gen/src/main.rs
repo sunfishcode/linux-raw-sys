@@ -36,10 +36,7 @@ fn main() {
         let entry = entry.unwrap();
         assert!(!entry.path().to_str().unwrap().ends_with("."));
         if entry.file_type().unwrap().is_dir() {
-            let path = entry.path();
-            if !rust_arch_is_pre_gen(path.file_name().unwrap().to_str().unwrap()) {
-                fs::remove_dir_all(path).ok();
-            }
+            fs::remove_dir_all(entry.path()).ok();
         }
     }
 
@@ -110,22 +107,19 @@ fn main() {
 
         let mut headers_made = false;
         for rust_arch in rust_arches {
-            let pre_gen = rust_arch_is_pre_gen(rust_arch);
-            let src_arch = format!("../src/{}", rust_arch);
-
-            if !pre_gen {
-                if !headers_made {
-                    make_headers_install(&linux_arch, &linux_headers);
-                    headers_made = true;
-                }
-
-                fs::create_dir_all(&src_arch).unwrap();
+            if !headers_made {
+                make_headers_install(&linux_arch, &linux_headers);
+                headers_made = true;
             }
 
             eprintln!(
                 "Generating all bindings for Linux {} architecture {}",
                 linux_version, rust_arch
             );
+
+            let src_arch = format!("../src/{}", rust_arch);
+
+            fs::create_dir_all(&src_arch).unwrap();
 
             let mut modules = fs::read_dir("modules")
                 .unwrap()
@@ -157,16 +151,14 @@ fn main() {
                 writeln!(src_lib_rs, "#[path = \"{}/{}.rs\"]", rust_arch, mod_name).unwrap();
                 writeln!(src_lib_rs, "pub mod {};", mod_name).unwrap();
 
-                if !pre_gen {
-                    run_bindgen(
-                        linux_include.to_str().unwrap(),
-                        header_name.to_str().unwrap(),
-                        &mod_rs,
-                        mod_name,
-                        rust_arch,
-                        linux_version,
-                    );
-                }
+                run_bindgen(
+                    linux_include.to_str().unwrap(),
+                    header_name.to_str().unwrap(),
+                    &mod_rs,
+                    mod_name,
+                    rust_arch,
+                    linux_version,
+                );
 
                 // Collect all unique feature names across all architectures.
                 if features.insert(mod_name.to_owned()) {
@@ -300,13 +292,6 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         | "unicore32" | "c6x" | "nios2" | "openrisc" | "csky" | "arc" | "nds32" | "metag"
         | "tile" => &[],
         _ => panic!("unrecognized arch: {}", linux_arch),
-    }
-}
-
-fn rust_arch_is_pre_gen(rust_arch: &str) -> bool {
-    match rust_arch {
-        "loongarch64" => true,
-        _ => false,
     }
 }
 

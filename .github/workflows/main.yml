@@ -74,6 +74,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
+        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo add-apt-repository -y 'deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main'
         sudo apt install libclang-dev
         cd gen && cargo run --release
         git diff --exit-code
