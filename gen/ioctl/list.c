@@ -97,7 +97,7 @@ struct sockaddr {
 #include <linux/joystick.h>
 #include <linux/kd.h>
 #include <linux/kcov.h>
-#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) // various errors
+#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) && !defined(__csky__)// various errors
 #include <linux/kvm.h>
 #endif
 #include <linux/lirc.h>
@@ -582,7 +582,7 @@ void list(void) {
     IOCTL_REQUEST(ENI_SETMULT);
     IOCTL_REQUEST(RIO_GET_EVENT_MASK);
     IOCTL_REQUEST(LIRC_GET_MAX_TIMEOUT);
-#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv)
+#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) && !defined(__csky__)
 #if 0 // needs `struct kvm_cpuid2`
     IOCTL_REQUEST(KVM_GET_SUPPORTED_CPUID);
 #endif
