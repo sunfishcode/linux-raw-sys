@@ -6,11 +6,10 @@ pub type __s16 = crate::ctypes::c_short;
 pub type __u16 = crate::ctypes::c_ushort;
 pub type __s32 = crate::ctypes::c_int;
 pub type __u32 = crate::ctypes::c_uint;
-pub type __s64 = crate::ctypes::c_long;
-pub type __u64 = crate::ctypes::c_ulong;
+pub type __s64 = crate::ctypes::c_longlong;
+pub type __u64 = crate::ctypes::c_ulonglong;
 pub type __kernel_key_t = crate::ctypes::c_int;
 pub type __kernel_mqd_t = crate::ctypes::c_int;
-pub type __kernel_daddr_t = crate::ctypes::c_long;
 pub type __kernel_long_t = crate::ctypes::c_long;
 pub type __kernel_ulong_t = crate::ctypes::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
@@ -20,14 +19,15 @@ pub type __kernel_ipc_pid_t = crate::ctypes::c_int;
 pub type __kernel_uid_t = crate::ctypes::c_uint;
 pub type __kernel_gid_t = crate::ctypes::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
+pub type __kernel_daddr_t = crate::ctypes::c_int;
 pub type __kernel_uid32_t = crate::ctypes::c_uint;
 pub type __kernel_gid32_t = crate::ctypes::c_uint;
 pub type __kernel_old_uid_t = __kernel_uid_t;
 pub type __kernel_old_gid_t = __kernel_gid_t;
 pub type __kernel_old_dev_t = crate::ctypes::c_uint;
-pub type __kernel_size_t = __kernel_ulong_t;
-pub type __kernel_ssize_t = __kernel_long_t;
-pub type __kernel_ptrdiff_t = __kernel_long_t;
+pub type __kernel_size_t = crate::ctypes::c_uint;
+pub type __kernel_ssize_t = crate::ctypes::c_int;
+pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
 pub type __kernel_old_time_t = __kernel_long_t;
@@ -259,7 +259,7 @@ pub __pad3: [__u16; 1usize],
 pub struct io_uring_sqe__bindgen_ty_6 {
 pub __bindgen_anon_1: __BindgenUnionField<io_uring_sqe__bindgen_ty_6__bindgen_ty_1>,
 pub cmd: __BindgenUnionField<[__u8; 0usize]>,
-pub bindgen_union_field: [u64; 2usize],
+pub bindgen_union_field: [u32; 4usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -316,6 +316,7 @@ pub sq_off: io_sqring_offsets,
 pub cq_off: io_cqring_offsets,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_files_update {
 pub offset: __u32,
@@ -323,6 +324,7 @@ pub resv: __u32,
 pub fds: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_rsrc_register {
 pub nr: __u32,
@@ -332,6 +334,7 @@ pub data: __u64,
 pub tags: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_rsrc_update {
 pub offset: __u32,
@@ -339,6 +342,7 @@ pub resv: __u32,
 pub data: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_rsrc_update2 {
 pub offset: __u32,
@@ -404,7 +408,7 @@ pub __bindgen_anon_1: io_uring_buf_ring__bindgen_ty_1,
 pub struct io_uring_buf_ring__bindgen_ty_1 {
 pub __bindgen_anon_1: __BindgenUnionField<io_uring_buf_ring__bindgen_ty_1__bindgen_ty_1>,
 pub __bindgen_anon_2: __BindgenUnionField<io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2>,
-pub bindgen_union_field: [u64; 2usize],
+pub bindgen_union_field: [u32; 4usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -477,36 +481,26 @@ pub const XATTR_NAME_MAX: u32 = 255;
 pub const XATTR_SIZE_MAX: u32 = 65536;
 pub const XATTR_LIST_MAX: u32 = 65536;
 pub const RTSIG_MAX: u32 = 32;
-pub const _IOC_SIZEBITS: u32 = 13;
-pub const _IOC_DIRBITS: u32 = 3;
-pub const _IOC_NONE: u32 = 1;
-pub const _IOC_READ: u32 = 2;
-pub const _IOC_WRITE: u32 = 4;
 pub const _IOC_NRBITS: u32 = 8;
 pub const _IOC_TYPEBITS: u32 = 8;
+pub const _IOC_SIZEBITS: u32 = 14;
+pub const _IOC_DIRBITS: u32 = 2;
 pub const _IOC_NRMASK: u32 = 255;
 pub const _IOC_TYPEMASK: u32 = 255;
-pub const _IOC_SIZEMASK: u32 = 8191;
-pub const _IOC_DIRMASK: u32 = 7;
+pub const _IOC_SIZEMASK: u32 = 16383;
+pub const _IOC_DIRMASK: u32 = 3;
 pub const _IOC_NRSHIFT: u32 = 0;
 pub const _IOC_TYPESHIFT: u32 = 8;
 pub const _IOC_SIZESHIFT: u32 = 16;
-pub const _IOC_DIRSHIFT: u32 = 29;
-pub const IOC_IN: u32 = 2147483648;
-pub const IOC_OUT: u32 = 1073741824;
+pub const _IOC_DIRSHIFT: u32 = 30;
+pub const _IOC_NONE: u32 = 0;
+pub const _IOC_WRITE: u32 = 1;
+pub const _IOC_READ: u32 = 2;
+pub const IOC_IN: u32 = 1073741824;
+pub const IOC_OUT: u32 = 2147483648;
 pub const IOC_INOUT: u32 = 3221225472;
-pub const IOCSIZE_MASK: u32 = 536805376;
+pub const IOCSIZE_MASK: u32 = 1073676288;
 pub const IOCSIZE_SHIFT: u32 = 16;
-pub const _MIPS_ISA_MIPS1: u32 = 1;
-pub const _MIPS_ISA_MIPS2: u32 = 2;
-pub const _MIPS_ISA_MIPS3: u32 = 3;
-pub const _MIPS_ISA_MIPS4: u32 = 4;
-pub const _MIPS_ISA_MIPS5: u32 = 5;
-pub const _MIPS_ISA_MIPS32: u32 = 6;
-pub const _MIPS_ISA_MIPS64: u32 = 7;
-pub const _MIPS_SIM_ABI32: u32 = 1;
-pub const _MIPS_SIM_NABI32: u32 = 2;
-pub const _MIPS_SIM_ABI64: u32 = 3;
 pub const FSCRYPT_POLICY_FLAGS_PAD_4: u32 = 0;
 pub const FSCRYPT_POLICY_FLAGS_PAD_8: u32 = 1;
 pub const FSCRYPT_POLICY_FLAGS_PAD_16: u32 = 2;

@@ -10,7 +10,6 @@ pub type __s64 = crate::ctypes::c_longlong;
 pub type __u64 = crate::ctypes::c_ulonglong;
 pub type __kernel_key_t = crate::ctypes::c_int;
 pub type __kernel_mqd_t = crate::ctypes::c_int;
-pub type __kernel_daddr_t = crate::ctypes::c_long;
 pub type __kernel_long_t = crate::ctypes::c_long;
 pub type __kernel_ulong_t = crate::ctypes::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
@@ -20,6 +19,7 @@ pub type __kernel_ipc_pid_t = crate::ctypes::c_int;
 pub type __kernel_uid_t = crate::ctypes::c_uint;
 pub type __kernel_gid_t = crate::ctypes::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
+pub type __kernel_daddr_t = crate::ctypes::c_int;
 pub type __kernel_uid32_t = crate::ctypes::c_uint;
 pub type __kernel_gid32_t = crate::ctypes::c_uint;
 pub type __kernel_old_uid_t = __kernel_uid_t;
@@ -516,16 +516,6 @@ pub msg_len: crate::ctypes::c_uint,
 pub struct iovec {
 pub _address: u8,
 }
-pub const _MIPS_ISA_MIPS1: u32 = 1;
-pub const _MIPS_ISA_MIPS2: u32 = 2;
-pub const _MIPS_ISA_MIPS3: u32 = 3;
-pub const _MIPS_ISA_MIPS4: u32 = 4;
-pub const _MIPS_ISA_MIPS5: u32 = 5;
-pub const _MIPS_ISA_MIPS32: u32 = 6;
-pub const _MIPS_ISA_MIPS64: u32 = 7;
-pub const _MIPS_SIM_ABI32: u32 = 1;
-pub const _MIPS_SIM_NABI32: u32 = 2;
-pub const _MIPS_SIM_ABI64: u32 = 3;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;
@@ -613,7 +603,7 @@ pub const INADDR_ALLHOSTS_GROUP: u32 = 3758096385;
 pub const INADDR_ALLRTRS_GROUP: u32 = 3758096386;
 pub const INADDR_ALLSNOOPERS_GROUP: u32 = 3758096490;
 pub const INADDR_MAX_LOCAL_GROUP: u32 = 3758096639;
-pub const __BIG_ENDIAN: u32 = 4321;
+pub const __LITTLE_ENDIAN: u32 = 1234;
 pub const IPTOS_TOS_MASK: u32 = 30;
 pub const IPTOS_LOWDELAY: u32 = 16;
 pub const IPTOS_THROUGHPUT: u32 = 8;
@@ -781,54 +771,32 @@ pub const IPV6_SRCRT_TYPE_2: u32 = 2;
 pub const IPV6_SRCRT_TYPE_3: u32 = 3;
 pub const IPV6_SRCRT_TYPE_4: u32 = 4;
 pub const IPV6_OPT_ROUTERALERT_MLD: u32 = 0;
-pub const _IOC_SIZEBITS: u32 = 13;
-pub const _IOC_DIRBITS: u32 = 3;
-pub const _IOC_NONE: u32 = 1;
-pub const _IOC_READ: u32 = 2;
-pub const _IOC_WRITE: u32 = 4;
-pub const _IOC_NRBITS: u32 = 8;
-pub const _IOC_TYPEBITS: u32 = 8;
-pub const _IOC_NRMASK: u32 = 255;
-pub const _IOC_TYPEMASK: u32 = 255;
-pub const _IOC_SIZEMASK: u32 = 8191;
-pub const _IOC_DIRMASK: u32 = 7;
-pub const _IOC_NRSHIFT: u32 = 0;
-pub const _IOC_TYPESHIFT: u32 = 8;
-pub const _IOC_SIZESHIFT: u32 = 16;
-pub const _IOC_DIRSHIFT: u32 = 29;
-pub const IOC_IN: u32 = 2147483648;
-pub const IOC_OUT: u32 = 1073741824;
-pub const IOC_INOUT: u32 = 3221225472;
-pub const IOCSIZE_MASK: u32 = 536805376;
-pub const IOCSIZE_SHIFT: u32 = 16;
 pub const SIOCGSTAMP_OLD: u32 = 35078;
 pub const SIOCGSTAMPNS_OLD: u32 = 35079;
-pub const SOL_SOCKET: u32 = 65535;
+pub const SOL_SOCKET: u32 = 1;
 pub const SO_DEBUG: u32 = 1;
-pub const SO_REUSEADDR: u32 = 4;
-pub const SO_KEEPALIVE: u32 = 8;
-pub const SO_DONTROUTE: u32 = 16;
-pub const SO_BROADCAST: u32 = 32;
-pub const SO_LINGER: u32 = 128;
-pub const SO_OOBINLINE: u32 = 256;
-pub const SO_REUSEPORT: u32 = 512;
-pub const SO_TYPE: u32 = 4104;
-pub const SO_STYLE: u32 = 4104;
-pub const SO_ERROR: u32 = 4103;
-pub const SO_SNDBUF: u32 = 4097;
-pub const SO_RCVBUF: u32 = 4098;
-pub const SO_SNDLOWAT: u32 = 4099;
-pub const SO_RCVLOWAT: u32 = 4100;
-pub const SO_SNDTIMEO_OLD: u32 = 4101;
-pub const SO_RCVTIMEO_OLD: u32 = 4102;
-pub const SO_ACCEPTCONN: u32 = 4105;
-pub const SO_PROTOCOL: u32 = 4136;
-pub const SO_DOMAIN: u32 = 4137;
+pub const SO_REUSEADDR: u32 = 2;
+pub const SO_TYPE: u32 = 3;
+pub const SO_ERROR: u32 = 4;
+pub const SO_DONTROUTE: u32 = 5;
+pub const SO_BROADCAST: u32 = 6;
+pub const SO_SNDBUF: u32 = 7;
+pub const SO_RCVBUF: u32 = 8;
+pub const SO_SNDBUFFORCE: u32 = 32;
+pub const SO_RCVBUFFORCE: u32 = 33;
+pub const SO_KEEPALIVE: u32 = 9;
+pub const SO_OOBINLINE: u32 = 10;
 pub const SO_NO_CHECK: u32 = 11;
 pub const SO_PRIORITY: u32 = 12;
+pub const SO_LINGER: u32 = 13;
 pub const SO_BSDCOMPAT: u32 = 14;
-pub const SO_PASSCRED: u32 = 17;
-pub const SO_PEERCRED: u32 = 18;
+pub const SO_REUSEPORT: u32 = 15;
+pub const SO_PASSCRED: u32 = 16;
+pub const SO_PEERCRED: u32 = 17;
+pub const SO_RCVLOWAT: u32 = 18;
+pub const SO_SNDLOWAT: u32 = 19;
+pub const SO_RCVTIMEO_OLD: u32 = 20;
+pub const SO_SNDTIMEO_OLD: u32 = 21;
 pub const SO_SECURITY_AUTHENTICATION: u32 = 22;
 pub const SO_SECURITY_ENCRYPTION_TRANSPORT: u32 = 23;
 pub const SO_SECURITY_ENCRYPTION_NETWORK: u32 = 24;
@@ -837,11 +805,12 @@ pub const SO_ATTACH_FILTER: u32 = 26;
 pub const SO_DETACH_FILTER: u32 = 27;
 pub const SO_GET_FILTER: u32 = 26;
 pub const SO_PEERNAME: u32 = 28;
-pub const SO_PEERSEC: u32 = 30;
-pub const SO_SNDBUFFORCE: u32 = 31;
-pub const SO_RCVBUFFORCE: u32 = 33;
+pub const SO_ACCEPTCONN: u32 = 30;
+pub const SO_PEERSEC: u32 = 31;
 pub const SO_PASSSEC: u32 = 34;
 pub const SO_MARK: u32 = 36;
+pub const SO_PROTOCOL: u32 = 38;
+pub const SO_DOMAIN: u32 = 39;
 pub const SO_RXQ_OVFL: u32 = 40;
 pub const SO_WIFI_STATUS: u32 = 41;
 pub const SCM_WIFI_STATUS: u32 = 41;
@@ -961,8 +930,8 @@ pub const UNIX_PATH_MAX: u32 = 108;
 pub const SHUT_RD: u32 = 0;
 pub const SHUT_WR: u32 = 1;
 pub const SHUT_RDWR: u32 = 2;
-pub const SOCK_STREAM: u32 = 2;
-pub const SOCK_DGRAM: u32 = 1;
+pub const SOCK_STREAM: u32 = 1;
+pub const SOCK_DGRAM: u32 = 2;
 pub const SOCK_RAW: u32 = 3;
 pub const SOCK_RDM: u32 = 4;
 pub const SOCK_SEQPACKET: u32 = 5;
@@ -1337,16 +1306,16 @@ SS_DISCONNECTING = 4,
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum _bindgen_ty_4 {
-TCP_FLAG_CWR = 8388608,
-TCP_FLAG_ECE = 4194304,
-TCP_FLAG_URG = 2097152,
-TCP_FLAG_ACK = 1048576,
-TCP_FLAG_PSH = 524288,
-TCP_FLAG_RST = 262144,
-TCP_FLAG_SYN = 131072,
-TCP_FLAG_FIN = 65536,
-TCP_RESERVED_BITS = 251658240,
-TCP_DATA_OFFSET = 4026531840,
+TCP_FLAG_CWR = 32768,
+TCP_FLAG_ECE = 16384,
+TCP_FLAG_URG = 8192,
+TCP_FLAG_ACK = 4096,
+TCP_FLAG_PSH = 2048,
+TCP_FLAG_RST = 1024,
+TCP_FLAG_SYN = 512,
+TCP_FLAG_FIN = 256,
+TCP_RESERVED_BITS = 15,
+TCP_DATA_OFFSET = 240,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -1569,231 +1538,231 @@ true
 impl<T> ::core::cmp::Eq for __BindgenUnionField<T> {}
 impl iphdr {
 #[inline]
-pub fn version(&self) -> __u8 {
+pub fn ihl(&self) -> __u8 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u8) }
 }
 #[inline]
-pub fn set_version(&mut self, val: __u8) {
+pub fn set_ihl(&mut self, val: __u8) {
 unsafe {
 let val: u8 = ::core::mem::transmute(val);
 self._bitfield_1.set(0usize, 4u8, val as u64)
 }
 }
 #[inline]
-pub fn ihl(&self) -> __u8 {
+pub fn version(&self) -> __u8 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u8) }
 }
 #[inline]
-pub fn set_ihl(&mut self, val: __u8) {
+pub fn set_version(&mut self, val: __u8) {
 unsafe {
 let val: u8 = ::core::mem::transmute(val);
 self._bitfield_1.set(4usize, 4u8, val as u64)
 }
 }
 #[inline]
-pub fn new_bitfield_1(version: __u8, ihl: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+pub fn new_bitfield_1(ihl: __u8, version: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
 let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
 __bindgen_bitfield_unit.set(0usize, 4u8, {
-let version: u8 = unsafe { ::core::mem::transmute(version) };
-version as u64
-});
-__bindgen_bitfield_unit.set(4usize, 4u8, {
 let ihl: u8 = unsafe { ::core::mem::transmute(ihl) };
 ihl as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let version: u8 = unsafe { ::core::mem::transmute(version) };
+version as u64
 });
 __bindgen_bitfield_unit
 }
 }
 impl ipv6hdr {
 #[inline]
-pub fn version(&self) -> __u8 {
+pub fn priority(&self) -> __u8 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u8) }
 }
 #[inline]
-pub fn set_version(&mut self, val: __u8) {
+pub fn set_priority(&mut self, val: __u8) {
 unsafe {
 let val: u8 = ::core::mem::transmute(val);
 self._bitfield_1.set(0usize, 4u8, val as u64)
 }
 }
 #[inline]
-pub fn priority(&self) -> __u8 {
+pub fn version(&self) -> __u8 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u8) }
 }
 #[inline]
-pub fn set_priority(&mut self, val: __u8) {
+pub fn set_version(&mut self, val: __u8) {
 unsafe {
 let val: u8 = ::core::mem::transmute(val);
 self._bitfield_1.set(4usize, 4u8, val as u64)
 }
 }
 #[inline]
-pub fn new_bitfield_1(version: __u8, priority: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+pub fn new_bitfield_1(priority: __u8, version: __u8) -> __BindgenBitfieldUnit<[u8; 1usize]> {
 let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
 __bindgen_bitfield_unit.set(0usize, 4u8, {
-let version: u8 = unsafe { ::core::mem::transmute(version) };
-version as u64
-});
-__bindgen_bitfield_unit.set(4usize, 4u8, {
 let priority: u8 = unsafe { ::core::mem::transmute(priority) };
 priority as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let version: u8 = unsafe { ::core::mem::transmute(version) };
+version as u64
 });
 __bindgen_bitfield_unit
 }
 }
 impl tcphdr {
 #[inline]
-pub fn doff(&self) -> __u16 {
+pub fn res1(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u16) }
 }
 #[inline]
-pub fn set_doff(&mut self, val: __u16) {
+pub fn set_res1(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(0usize, 4u8, val as u64)
 }
 }
 #[inline]
-pub fn res1(&self) -> __u16 {
+pub fn doff(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 4u8) as u16) }
 }
 #[inline]
-pub fn set_res1(&mut self, val: __u16) {
+pub fn set_doff(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(4usize, 4u8, val as u64)
 }
 }
 #[inline]
-pub fn cwr(&self) -> __u16 {
+pub fn fin(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(8usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_cwr(&mut self, val: __u16) {
+pub fn set_fin(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(8usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn ece(&self) -> __u16 {
+pub fn syn(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(9usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_ece(&mut self, val: __u16) {
+pub fn set_syn(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(9usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn urg(&self) -> __u16 {
+pub fn rst(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(10usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_urg(&mut self, val: __u16) {
+pub fn set_rst(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(10usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn ack(&self) -> __u16 {
+pub fn psh(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(11usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_ack(&mut self, val: __u16) {
+pub fn set_psh(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(11usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn psh(&self) -> __u16 {
+pub fn ack(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(12usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_psh(&mut self, val: __u16) {
+pub fn set_ack(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(12usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn rst(&self) -> __u16 {
+pub fn urg(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(13usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_rst(&mut self, val: __u16) {
+pub fn set_urg(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(13usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn syn(&self) -> __u16 {
+pub fn ece(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(14usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_syn(&mut self, val: __u16) {
+pub fn set_ece(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(14usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn fin(&self) -> __u16 {
+pub fn cwr(&self) -> __u16 {
 unsafe { ::core::mem::transmute(self._bitfield_1.get(15usize, 1u8) as u16) }
 }
 #[inline]
-pub fn set_fin(&mut self, val: __u16) {
+pub fn set_cwr(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
 self._bitfield_1.set(15usize, 1u8, val as u64)
 }
 }
 #[inline]
-pub fn new_bitfield_1(doff: __u16, res1: __u16, cwr: __u16, ece: __u16, urg: __u16, ack: __u16, psh: __u16, rst: __u16, syn: __u16, fin: __u16) -> __BindgenBitfieldUnit<[u8; 2usize]> {
+pub fn new_bitfield_1(res1: __u16, doff: __u16, fin: __u16, syn: __u16, rst: __u16, psh: __u16, ack: __u16, urg: __u16, ece: __u16, cwr: __u16) -> __BindgenBitfieldUnit<[u8; 2usize]> {
 let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 2usize]> = Default::default();
 __bindgen_bitfield_unit.set(0usize, 4u8, {
-let doff: u16 = unsafe { ::core::mem::transmute(doff) };
-doff as u64
-});
-__bindgen_bitfield_unit.set(4usize, 4u8, {
 let res1: u16 = unsafe { ::core::mem::transmute(res1) };
 res1 as u64
 });
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let doff: u16 = unsafe { ::core::mem::transmute(doff) };
+doff as u64
+});
 __bindgen_bitfield_unit.set(8usize, 1u8, {
-let cwr: u16 = unsafe { ::core::mem::transmute(cwr) };
-cwr as u64
+let fin: u16 = unsafe { ::core::mem::transmute(fin) };
+fin as u64
 });
 __bindgen_bitfield_unit.set(9usize, 1u8, {
-let ece: u16 = unsafe { ::core::mem::transmute(ece) };
-ece as u64
-});
-__bindgen_bitfield_unit.set(10usize, 1u8, {
-let urg: u16 = unsafe { ::core::mem::transmute(urg) };
-urg as u64
-});
-__bindgen_bitfield_unit.set(11usize, 1u8, {
-let ack: u16 = unsafe { ::core::mem::transmute(ack) };
-ack as u64
-});
-__bindgen_bitfield_unit.set(12usize, 1u8, {
-let psh: u16 = unsafe { ::core::mem::transmute(psh) };
-psh as u64
-});
-__bindgen_bitfield_unit.set(13usize, 1u8, {
-let rst: u16 = unsafe { ::core::mem::transmute(rst) };
-rst as u64
-});
-__bindgen_bitfield_unit.set(14usize, 1u8, {
 let syn: u16 = unsafe { ::core::mem::transmute(syn) };
 syn as u64
 });
+__bindgen_bitfield_unit.set(10usize, 1u8, {
+let rst: u16 = unsafe { ::core::mem::transmute(rst) };
+rst as u64
+});
+__bindgen_bitfield_unit.set(11usize, 1u8, {
+let psh: u16 = unsafe { ::core::mem::transmute(psh) };
+psh as u64
+});
+__bindgen_bitfield_unit.set(12usize, 1u8, {
+let ack: u16 = unsafe { ::core::mem::transmute(ack) };
+ack as u64
+});
+__bindgen_bitfield_unit.set(13usize, 1u8, {
+let urg: u16 = unsafe { ::core::mem::transmute(urg) };
+urg as u64
+});
+__bindgen_bitfield_unit.set(14usize, 1u8, {
+let ece: u16 = unsafe { ::core::mem::transmute(ece) };
+ece as u64
+});
 __bindgen_bitfield_unit.set(15usize, 1u8, {
-let fin: u16 = unsafe { ::core::mem::transmute(fin) };
-fin as u64
+let cwr: u16 = unsafe { ::core::mem::transmute(cwr) };
+cwr as u64
 });
 __bindgen_bitfield_unit
 }
