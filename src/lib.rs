@@ -186,6 +186,9 @@ pub mod signal_macros {
     }
 }
 
+#[cfg(feature = "elf")]
+pub mod elf;
+
 // The rest of this file is auto-generated!
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "arm")]
