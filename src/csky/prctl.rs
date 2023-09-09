@@ -10,7 +10,6 @@ pub type __s64 = crate::ctypes::c_longlong;
 pub type __u64 = crate::ctypes::c_ulonglong;
 pub type __kernel_key_t = crate::ctypes::c_int;
 pub type __kernel_mqd_t = crate::ctypes::c_int;
-pub type __kernel_daddr_t = crate::ctypes::c_long;
 pub type __kernel_long_t = crate::ctypes::c_long;
 pub type __kernel_ulong_t = crate::ctypes::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
@@ -20,6 +19,7 @@ pub type __kernel_ipc_pid_t = crate::ctypes::c_int;
 pub type __kernel_uid_t = crate::ctypes::c_uint;
 pub type __kernel_gid_t = crate::ctypes::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
+pub type __kernel_daddr_t = crate::ctypes::c_int;
 pub type __kernel_uid32_t = crate::ctypes::c_uint;
 pub type __kernel_gid32_t = crate::ctypes::c_uint;
 pub type __kernel_old_uid_t = __kernel_uid_t;
@@ -66,16 +66,6 @@ pub auxv: *mut __u64,
 pub auxv_size: __u32,
 pub exe_fd: __u32,
 }
-pub const _MIPS_ISA_MIPS1: u32 = 1;
-pub const _MIPS_ISA_MIPS2: u32 = 2;
-pub const _MIPS_ISA_MIPS3: u32 = 3;
-pub const _MIPS_ISA_MIPS4: u32 = 4;
-pub const _MIPS_ISA_MIPS5: u32 = 5;
-pub const _MIPS_ISA_MIPS32: u32 = 6;
-pub const _MIPS_ISA_MIPS64: u32 = 7;
-pub const _MIPS_SIM_ABI32: u32 = 1;
-pub const _MIPS_SIM_NABI32: u32 = 2;
-pub const _MIPS_SIM_ABI64: u32 = 3;
 pub const PR_SET_PDEATHSIG: u32 = 1;
 pub const PR_GET_PDEATHSIG: u32 = 2;
 pub const PR_GET_DUMPABLE: u32 = 3;

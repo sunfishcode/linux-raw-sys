@@ -6,12 +6,11 @@ pub type __s16 = crate::ctypes::c_short;
 pub type __u16 = crate::ctypes::c_ushort;
 pub type __s32 = crate::ctypes::c_int;
 pub type __u32 = crate::ctypes::c_uint;
-pub type __s64 = crate::ctypes::c_long;
-pub type __u64 = crate::ctypes::c_ulong;
+pub type __s64 = crate::ctypes::c_longlong;
+pub type __u64 = crate::ctypes::c_ulonglong;
 pub type __kernel_sighandler_t = ::core::option::Option<unsafe extern "C" fn(arg1: crate::ctypes::c_int)>;
 pub type __kernel_key_t = crate::ctypes::c_int;
 pub type __kernel_mqd_t = crate::ctypes::c_int;
-pub type __kernel_daddr_t = crate::ctypes::c_long;
 pub type __kernel_long_t = crate::ctypes::c_long;
 pub type __kernel_ulong_t = crate::ctypes::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
@@ -21,14 +20,15 @@ pub type __kernel_ipc_pid_t = crate::ctypes::c_int;
 pub type __kernel_uid_t = crate::ctypes::c_uint;
 pub type __kernel_gid_t = crate::ctypes::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
+pub type __kernel_daddr_t = crate::ctypes::c_int;
 pub type __kernel_uid32_t = crate::ctypes::c_uint;
 pub type __kernel_gid32_t = crate::ctypes::c_uint;
 pub type __kernel_old_uid_t = __kernel_uid_t;
 pub type __kernel_old_gid_t = __kernel_gid_t;
 pub type __kernel_old_dev_t = crate::ctypes::c_uint;
-pub type __kernel_size_t = __kernel_ulong_t;
-pub type __kernel_ssize_t = __kernel_long_t;
-pub type __kernel_ptrdiff_t = __kernel_long_t;
+pub type __kernel_size_t = crate::ctypes::c_uint;
+pub type __kernel_ssize_t = crate::ctypes::c_int;
+pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
 pub type __kernel_old_time_t = __kernel_long_t;
@@ -64,7 +64,6 @@ pub type sigevent_t = sigevent;
 pub type cc_t = crate::ctypes::c_uchar;
 pub type speed_t = crate::ctypes::c_uint;
 pub type tcflag_t = crate::ctypes::c_uint;
-pub type fsid_t = __kernel_fsid_t;
 pub type __fsword_t = __u32;
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -77,7 +76,7 @@ pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fd_set {
-pub fds_bits: [crate::ctypes::c_ulong; 16usize],
+pub fds_bits: [crate::ctypes::c_ulong; 32usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -438,6 +437,7 @@ pub rlim_cur: __u64,
 pub rlim_max: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct clone_args {
 pub flags: __u64,
@@ -460,16 +460,16 @@ pub sig: [crate::ctypes::c_ulong; 2usize],
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sigaction {
-pub sa_flags: crate::ctypes::c_uint,
 pub sa_handler: __sighandler_t,
+pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: sigset_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sigaltstack {
 pub ss_sp: *mut crate::ctypes::c_void,
-pub ss_size: __kernel_size_t,
 pub ss_flags: crate::ctypes::c_int,
+pub ss_size: __kernel_size_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -510,14 +510,14 @@ pub __bindgen_anon_1: __sifields__bindgen_ty_5__bindgen_ty_1,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1 {
-pub _dummy_bnd: [crate::ctypes::c_char; 8usize],
+pub _dummy_bnd: [crate::ctypes::c_char; 4usize],
 pub _lower: *mut crate::ctypes::c_void,
 pub _upper: *mut crate::ctypes::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2 {
-pub _dummy_pkey: [crate::ctypes::c_char; 8usize],
+pub _dummy_pkey: [crate::ctypes::c_char; 4usize],
 pub _pkey: __u32,
 }
 #[repr(C)]
@@ -549,8 +549,8 @@ pub __bindgen_anon_1: siginfo__bindgen_ty_1,
 #[derive(Copy, Clone)]
 pub struct siginfo__bindgen_ty_1__bindgen_ty_1 {
 pub si_signo: crate::ctypes::c_int,
-pub si_code: crate::ctypes::c_int,
 pub si_errno: crate::ctypes::c_int,
+pub si_code: crate::ctypes::c_int,
 pub _sifields: __sifields,
 }
 #[repr(C)]
@@ -610,7 +610,7 @@ pub c_oflag: tcflag_t,
 pub c_cflag: tcflag_t,
 pub c_lflag: tcflag_t,
 pub c_line: cc_t,
-pub c_cc: [cc_t; 23usize],
+pub c_cc: [cc_t; 19usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -620,7 +620,7 @@ pub c_oflag: tcflag_t,
 pub c_cflag: tcflag_t,
 pub c_lflag: tcflag_t,
 pub c_line: cc_t,
-pub c_cc: [cc_t; 23usize],
+pub c_cc: [cc_t; 19usize],
 pub c_ispeed: speed_t,
 pub c_ospeed: speed_t,
 }
@@ -632,38 +632,9 @@ pub c_oflag: tcflag_t,
 pub c_cflag: tcflag_t,
 pub c_lflag: tcflag_t,
 pub c_line: cc_t,
-pub c_cc: [cc_t; 23usize],
+pub c_cc: [cc_t; 19usize],
 pub c_ispeed: speed_t,
 pub c_ospeed: speed_t,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sgttyb {
-pub sg_ispeed: crate::ctypes::c_char,
-pub sg_ospeed: crate::ctypes::c_char,
-pub sg_erase: crate::ctypes::c_char,
-pub sg_kill: crate::ctypes::c_char,
-pub sg_flags: crate::ctypes::c_int,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct tchars {
-pub t_intrc: crate::ctypes::c_char,
-pub t_quitc: crate::ctypes::c_char,
-pub t_startc: crate::ctypes::c_char,
-pub t_stopc: crate::ctypes::c_char,
-pub t_eofc: crate::ctypes::c_char,
-pub t_brkc: crate::ctypes::c_char,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ltchars {
-pub t_suspc: crate::ctypes::c_char,
-pub t_dsuspc: crate::ctypes::c_char,
-pub t_rprntc: crate::ctypes::c_char,
-pub t_flushc: crate::ctypes::c_char,
-pub t_werasc: crate::ctypes::c_char,
-pub t_lnextc: crate::ctypes::c_char,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -680,8 +651,8 @@ pub c_iflag: crate::ctypes::c_ushort,
 pub c_oflag: crate::ctypes::c_ushort,
 pub c_cflag: crate::ctypes::c_ushort,
 pub c_lflag: crate::ctypes::c_ushort,
-pub c_line: crate::ctypes::c_char,
-pub c_cc: [crate::ctypes::c_uchar; 23usize],
+pub c_line: crate::ctypes::c_uchar,
+pub c_cc: [crate::ctypes::c_uchar; 8usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -782,8 +753,8 @@ pub mapped: __s64,
 #[repr(C)]
 #[derive(Debug)]
 pub struct linux_dirent64 {
-pub d_ino: crate::ctypes::c_ulong,
-pub d_off: crate::ctypes::c_long,
+pub d_ino: crate::ctypes::c_ulonglong,
+pub d_off: crate::ctypes::c_longlong,
 pub d_reclen: __u16,
 pub d_type: __u8,
 pub d_name: __IncompleteArrayField<crate::ctypes::c_char>,
@@ -791,74 +762,98 @@ pub d_name: __IncompleteArrayField<crate::ctypes::c_char>,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct stat {
-pub st_dev: crate::ctypes::c_uint,
-pub st_pad0: [crate::ctypes::c_uint; 3usize],
+pub st_dev: crate::ctypes::c_ulong,
 pub st_ino: crate::ctypes::c_ulong,
-pub st_mode: __kernel_mode_t,
-pub st_nlink: __u32,
-pub st_uid: __kernel_uid32_t,
-pub st_gid: __kernel_gid32_t,
-pub st_rdev: crate::ctypes::c_uint,
-pub st_pad1: [crate::ctypes::c_uint; 3usize],
+pub st_mode: crate::ctypes::c_uint,
+pub st_nlink: crate::ctypes::c_uint,
+pub st_uid: crate::ctypes::c_uint,
+pub st_gid: crate::ctypes::c_uint,
+pub st_rdev: crate::ctypes::c_ulong,
+pub __pad1: crate::ctypes::c_ulong,
 pub st_size: crate::ctypes::c_long,
-pub st_atime: crate::ctypes::c_uint,
+pub st_blksize: crate::ctypes::c_int,
+pub __pad2: crate::ctypes::c_int,
+pub st_blocks: crate::ctypes::c_long,
+pub st_atime: crate::ctypes::c_long,
+pub st_atime_nsec: crate::ctypes::c_ulong,
+pub st_mtime: crate::ctypes::c_long,
+pub st_mtime_nsec: crate::ctypes::c_ulong,
+pub st_ctime: crate::ctypes::c_long,
+pub st_ctime_nsec: crate::ctypes::c_ulong,
+pub __unused4: crate::ctypes::c_uint,
+pub __unused5: crate::ctypes::c_uint,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct stat64 {
+pub st_dev: crate::ctypes::c_ulonglong,
+pub st_ino: crate::ctypes::c_ulonglong,
+pub st_mode: crate::ctypes::c_uint,
+pub st_nlink: crate::ctypes::c_uint,
+pub st_uid: crate::ctypes::c_uint,
+pub st_gid: crate::ctypes::c_uint,
+pub st_rdev: crate::ctypes::c_ulonglong,
+pub __pad1: crate::ctypes::c_ulonglong,
+pub st_size: crate::ctypes::c_longlong,
+pub st_blksize: crate::ctypes::c_int,
+pub __pad2: crate::ctypes::c_int,
+pub st_blocks: crate::ctypes::c_longlong,
+pub st_atime: crate::ctypes::c_int,
 pub st_atime_nsec: crate::ctypes::c_uint,
-pub st_mtime: crate::ctypes::c_uint,
+pub st_mtime: crate::ctypes::c_int,
 pub st_mtime_nsec: crate::ctypes::c_uint,
-pub st_ctime: crate::ctypes::c_uint,
+pub st_ctime: crate::ctypes::c_int,
 pub st_ctime_nsec: crate::ctypes::c_uint,
-pub st_blksize: crate::ctypes::c_uint,
-pub st_pad2: crate::ctypes::c_uint,
-pub st_blocks: crate::ctypes::c_ulong,
+pub __unused4: crate::ctypes::c_uint,
+pub __unused5: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct statfs {
-pub f_type: crate::ctypes::c_long,
-pub f_bsize: crate::ctypes::c_long,
-pub f_frsize: crate::ctypes::c_long,
-pub f_blocks: crate::ctypes::c_long,
-pub f_bfree: crate::ctypes::c_long,
-pub f_files: crate::ctypes::c_long,
-pub f_ffree: crate::ctypes::c_long,
-pub f_bavail: crate::ctypes::c_long,
+pub f_type: __u32,
+pub f_bsize: __u32,
+pub f_blocks: __u32,
+pub f_bfree: __u32,
+pub f_bavail: __u32,
+pub f_files: __u32,
+pub f_ffree: __u32,
 pub f_fsid: __kernel_fsid_t,
-pub f_namelen: crate::ctypes::c_long,
-pub f_flags: crate::ctypes::c_long,
-pub f_spare: [crate::ctypes::c_long; 5usize],
+pub f_namelen: __u32,
+pub f_frsize: __u32,
+pub f_flags: __u32,
+pub f_spare: [__u32; 4usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct statfs64 {
-pub f_type: crate::ctypes::c_long,
-pub f_bsize: crate::ctypes::c_long,
-pub f_frsize: crate::ctypes::c_long,
-pub f_blocks: crate::ctypes::c_long,
-pub f_bfree: crate::ctypes::c_long,
-pub f_files: crate::ctypes::c_long,
-pub f_ffree: crate::ctypes::c_long,
-pub f_bavail: crate::ctypes::c_long,
+pub f_type: __u32,
+pub f_bsize: __u32,
+pub f_blocks: __u64,
+pub f_bfree: __u64,
+pub f_bavail: __u64,
+pub f_files: __u64,
+pub f_ffree: __u64,
 pub f_fsid: __kernel_fsid_t,
-pub f_namelen: crate::ctypes::c_long,
-pub f_flags: crate::ctypes::c_long,
-pub f_spare: [crate::ctypes::c_long; 5usize],
+pub f_namelen: __u32,
+pub f_frsize: __u32,
+pub f_flags: __u32,
+pub f_spare: [__u32; 4usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct compat_statfs64 {
 pub f_type: __u32,
 pub f_bsize: __u32,
-pub f_frsize: __u32,
-pub __pad: __u32,
 pub f_blocks: __u64,
 pub f_bfree: __u64,
+pub f_bavail: __u64,
 pub f_files: __u64,
 pub f_ffree: __u64,
-pub f_bavail: __u64,
 pub f_fsid: __kernel_fsid_t,
 pub f_namelen: __u32,
+pub f_frsize: __u32,
 pub f_flags: __u32,
-pub f_spare: [__u32; 5usize],
+pub f_spare: [__u32; 4usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -886,8 +881,6 @@ pub const LINUX_VERSION_CODE: u32 = 393984;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
 pub const LINUX_VERSION_PATCHLEVEL: u32 = 3;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
-pub const AT_SYSINFO_EHDR: u32 = 33;
-pub const AT_VECTOR_SIZE_ARCH: u32 = 1;
 pub const AT_NULL: u32 = 0;
 pub const AT_IGNORE: u32 = 1;
 pub const AT_EXECFD: u32 = 2;
@@ -915,16 +908,6 @@ pub const AT_RSEQ_ALIGN: u32 = 28;
 pub const AT_EXECFN: u32 = 31;
 pub const AT_MINSIGSTKSZ: u32 = 51;
 pub const __FD_SETSIZE: u32 = 1024;
-pub const _MIPS_ISA_MIPS1: u32 = 1;
-pub const _MIPS_ISA_MIPS2: u32 = 2;
-pub const _MIPS_ISA_MIPS3: u32 = 3;
-pub const _MIPS_ISA_MIPS4: u32 = 4;
-pub const _MIPS_ISA_MIPS5: u32 = 5;
-pub const _MIPS_ISA_MIPS32: u32 = 6;
-pub const _MIPS_ISA_MIPS64: u32 = 7;
-pub const _MIPS_SIM_ABI32: u32 = 1;
-pub const _MIPS_SIM_NABI32: u32 = 2;
-pub const _MIPS_SIM_ABI64: u32 = 3;
 pub const _LINUX_CAPABILITY_VERSION_1: u32 = 429392688;
 pub const _LINUX_CAPABILITY_U32S_1: u32 = 1;
 pub const _LINUX_CAPABILITY_VERSION_2: u32 = 537333798;
@@ -987,43 +970,46 @@ pub const CAP_PERFMON: u32 = 38;
 pub const CAP_BPF: u32 = 39;
 pub const CAP_CHECKPOINT_RESTORE: u32 = 40;
 pub const CAP_LAST_CAP: u32 = 40;
-pub const O_APPEND: u32 = 8;
-pub const O_DSYNC: u32 = 16;
-pub const O_NONBLOCK: u32 = 128;
-pub const O_CREAT: u32 = 256;
-pub const O_TRUNC: u32 = 512;
-pub const O_EXCL: u32 = 1024;
-pub const O_NOCTTY: u32 = 2048;
-pub const FASYNC: u32 = 4096;
-pub const O_LARGEFILE: u32 = 8192;
-pub const __O_SYNC: u32 = 16384;
-pub const O_SYNC: u32 = 16400;
-pub const O_DIRECT: u32 = 32768;
-pub const F_GETLK: u32 = 14;
-pub const F_SETLK: u32 = 6;
-pub const F_SETLKW: u32 = 7;
-pub const F_SETOWN: u32 = 24;
-pub const F_GETOWN: u32 = 23;
 pub const O_ACCMODE: u32 = 3;
 pub const O_RDONLY: u32 = 0;
 pub const O_WRONLY: u32 = 1;
 pub const O_RDWR: u32 = 2;
+pub const O_CREAT: u32 = 64;
+pub const O_EXCL: u32 = 128;
+pub const O_NOCTTY: u32 = 256;
+pub const O_TRUNC: u32 = 512;
+pub const O_APPEND: u32 = 1024;
+pub const O_NONBLOCK: u32 = 2048;
+pub const O_DSYNC: u32 = 4096;
+pub const FASYNC: u32 = 8192;
+pub const O_DIRECT: u32 = 16384;
+pub const O_LARGEFILE: u32 = 32768;
 pub const O_DIRECTORY: u32 = 65536;
 pub const O_NOFOLLOW: u32 = 131072;
 pub const O_NOATIME: u32 = 262144;
 pub const O_CLOEXEC: u32 = 524288;
+pub const __O_SYNC: u32 = 1048576;
+pub const O_SYNC: u32 = 1052672;
 pub const O_PATH: u32 = 2097152;
 pub const __O_TMPFILE: u32 = 4194304;
 pub const O_TMPFILE: u32 = 4259840;
-pub const O_TMPFILE_MASK: u32 = 4260096;
-pub const O_NDELAY: u32 = 128;
+pub const O_TMPFILE_MASK: u32 = 4259904;
+pub const O_NDELAY: u32 = 2048;
 pub const F_DUPFD: u32 = 0;
 pub const F_GETFD: u32 = 1;
 pub const F_SETFD: u32 = 2;
 pub const F_GETFL: u32 = 3;
 pub const F_SETFL: u32 = 4;
+pub const F_GETLK: u32 = 5;
+pub const F_SETLK: u32 = 6;
+pub const F_SETLKW: u32 = 7;
+pub const F_SETOWN: u32 = 8;
+pub const F_GETOWN: u32 = 9;
 pub const F_SETSIG: u32 = 10;
 pub const F_GETSIG: u32 = 11;
+pub const F_GETLK64: u32 = 12;
+pub const F_SETLK64: u32 = 13;
+pub const F_SETLKW64: u32 = 14;
 pub const F_SETOWN_EX: u32 = 15;
 pub const F_GETOWN_EX: u32 = 16;
 pub const F_GETOWNER_UIDS: u32 = 17;
@@ -1129,25 +1115,25 @@ pub const XATTR_NAME_MAX: u32 = 255;
 pub const XATTR_SIZE_MAX: u32 = 65536;
 pub const XATTR_LIST_MAX: u32 = 65536;
 pub const RTSIG_MAX: u32 = 32;
-pub const _IOC_SIZEBITS: u32 = 13;
-pub const _IOC_DIRBITS: u32 = 3;
-pub const _IOC_NONE: u32 = 1;
-pub const _IOC_READ: u32 = 2;
-pub const _IOC_WRITE: u32 = 4;
 pub const _IOC_NRBITS: u32 = 8;
 pub const _IOC_TYPEBITS: u32 = 8;
+pub const _IOC_SIZEBITS: u32 = 14;
+pub const _IOC_DIRBITS: u32 = 2;
 pub const _IOC_NRMASK: u32 = 255;
 pub const _IOC_TYPEMASK: u32 = 255;
-pub const _IOC_SIZEMASK: u32 = 8191;
-pub const _IOC_DIRMASK: u32 = 7;
+pub const _IOC_SIZEMASK: u32 = 16383;
+pub const _IOC_DIRMASK: u32 = 3;
 pub const _IOC_NRSHIFT: u32 = 0;
 pub const _IOC_TYPESHIFT: u32 = 8;
 pub const _IOC_SIZESHIFT: u32 = 16;
-pub const _IOC_DIRSHIFT: u32 = 29;
-pub const IOC_IN: u32 = 2147483648;
-pub const IOC_OUT: u32 = 1073741824;
+pub const _IOC_DIRSHIFT: u32 = 30;
+pub const _IOC_NONE: u32 = 0;
+pub const _IOC_WRITE: u32 = 1;
+pub const _IOC_READ: u32 = 2;
+pub const IOC_IN: u32 = 1073741824;
+pub const IOC_OUT: u32 = 2147483648;
 pub const IOC_INOUT: u32 = 3221225472;
-pub const IOCSIZE_MASK: u32 = 536805376;
+pub const IOCSIZE_MASK: u32 = 1073676288;
 pub const IOCSIZE_SHIFT: u32 = 16;
 pub const FSCRYPT_POLICY_FLAGS_PAD_4: u32 = 0;
 pub const FSCRYPT_POLICY_FLAGS_PAD_8: u32 = 1;
@@ -1408,7 +1394,7 @@ pub const IN_ISDIR: u32 = 1073741824;
 pub const IN_ONESHOT: u32 = 2147483648;
 pub const IN_ALL_EVENTS: u32 = 4095;
 pub const IN_CLOEXEC: u32 = 524288;
-pub const IN_NONBLOCK: u32 = 128;
+pub const IN_NONBLOCK: u32 = 2048;
 pub const ADFS_SUPER_MAGIC: u32 = 44533;
 pub const AFFS_SUPER_MAGIC: u32 = 44543;
 pub const AFS_SUPER_MAGIC: u32 = 1397113167;
@@ -1493,37 +1479,27 @@ pub const UDF_SUPER_MAGIC: u32 = 352400198;
 pub const DMA_BUF_MAGIC: u32 = 1145913666;
 pub const DEVMEM_MAGIC: u32 = 1162691661;
 pub const SECRETMEM_MAGIC: u32 = 1397048141;
-pub const PROT_NONE: u32 = 0;
 pub const PROT_READ: u32 = 1;
 pub const PROT_WRITE: u32 = 2;
 pub const PROT_EXEC: u32 = 4;
-pub const PROT_SEM: u32 = 16;
+pub const PROT_SEM: u32 = 8;
+pub const PROT_NONE: u32 = 0;
 pub const PROT_GROWSDOWN: u32 = 16777216;
 pub const PROT_GROWSUP: u32 = 33554432;
 pub const MAP_TYPE: u32 = 15;
 pub const MAP_FIXED: u32 = 16;
-pub const MAP_RENAME: u32 = 32;
-pub const MAP_AUTOGROW: u32 = 64;
-pub const MAP_LOCAL: u32 = 128;
-pub const MAP_AUTORSRV: u32 = 256;
-pub const MAP_NORESERVE: u32 = 1024;
-pub const MAP_ANONYMOUS: u32 = 2048;
-pub const MAP_GROWSDOWN: u32 = 4096;
-pub const MAP_DENYWRITE: u32 = 8192;
-pub const MAP_EXECUTABLE: u32 = 16384;
-pub const MAP_LOCKED: u32 = 32768;
-pub const MAP_POPULATE: u32 = 65536;
-pub const MAP_NONBLOCK: u32 = 131072;
-pub const MAP_STACK: u32 = 262144;
-pub const MAP_HUGETLB: u32 = 524288;
+pub const MAP_ANONYMOUS: u32 = 32;
+pub const MAP_POPULATE: u32 = 32768;
+pub const MAP_NONBLOCK: u32 = 65536;
+pub const MAP_STACK: u32 = 131072;
+pub const MAP_HUGETLB: u32 = 262144;
+pub const MAP_SYNC: u32 = 524288;
 pub const MAP_FIXED_NOREPLACE: u32 = 1048576;
+pub const MAP_UNINITIALIZED: u32 = 67108864;
+pub const MLOCK_ONFAULT: u32 = 1;
 pub const MS_ASYNC: u32 = 1;
 pub const MS_INVALIDATE: u32 = 2;
 pub const MS_SYNC: u32 = 4;
-pub const MCL_CURRENT: u32 = 1;
-pub const MCL_FUTURE: u32 = 2;
-pub const MCL_ONFAULT: u32 = 4;
-pub const MLOCK_ONFAULT: u32 = 1;
 pub const MADV_NORMAL: u32 = 0;
 pub const MADV_RANDOM: u32 = 1;
 pub const MADV_SEQUENTIAL: u32 = 2;
@@ -1533,9 +1509,10 @@ pub const MADV_FREE: u32 = 8;
 pub const MADV_REMOVE: u32 = 9;
 pub const MADV_DONTFORK: u32 = 10;
 pub const MADV_DOFORK: u32 = 11;
+pub const MADV_HWPOISON: u32 = 100;
+pub const MADV_SOFT_OFFLINE: u32 = 101;
 pub const MADV_MERGEABLE: u32 = 12;
 pub const MADV_UNMERGEABLE: u32 = 13;
-pub const MADV_HWPOISON: u32 = 100;
 pub const MADV_HUGEPAGE: u32 = 14;
 pub const MADV_NOHUGEPAGE: u32 = 15;
 pub const MADV_DONTDUMP: u32 = 16;
@@ -1552,6 +1529,14 @@ pub const MAP_FILE: u32 = 0;
 pub const PKEY_DISABLE_ACCESS: u32 = 1;
 pub const PKEY_DISABLE_WRITE: u32 = 2;
 pub const PKEY_ACCESS_MASK: u32 = 3;
+pub const MAP_GROWSDOWN: u32 = 256;
+pub const MAP_DENYWRITE: u32 = 2048;
+pub const MAP_EXECUTABLE: u32 = 4096;
+pub const MAP_LOCKED: u32 = 8192;
+pub const MAP_NORESERVE: u32 = 16384;
+pub const MCL_CURRENT: u32 = 1;
+pub const MCL_FUTURE: u32 = 2;
+pub const MCL_ONFAULT: u32 = 4;
 pub const HUGETLB_FLAG_ENCODE_SHIFT: u32 = 26;
 pub const HUGETLB_FLAG_ENCODE_MASK: u32 = 63;
 pub const HUGETLB_FLAG_ENCODE_16KB: u32 = 939524096;
@@ -1591,7 +1576,6 @@ pub const MAP_HUGE_512MB: u32 = 1946157056;
 pub const MAP_HUGE_1GB: u32 = 2013265920;
 pub const MAP_HUGE_2GB: u32 = 2080374784;
 pub const MAP_HUGE_16GB: u32 = 2281701376;
-pub const POLLWRBAND: u32 = 256;
 pub const POLLIN: u32 = 1;
 pub const POLLPRI: u32 = 2;
 pub const POLLOUT: u32 = 4;
@@ -1600,6 +1584,8 @@ pub const POLLHUP: u32 = 16;
 pub const POLLNVAL: u32 = 32;
 pub const POLLRDNORM: u32 = 64;
 pub const POLLRDBAND: u32 = 128;
+pub const POLLWRNORM: u32 = 256;
+pub const POLLWRBAND: u32 = 512;
 pub const POLLMSG: u32 = 1024;
 pub const POLLREMOVE: u32 = 4096;
 pub const POLLRDHUP: u32 = 8192;
@@ -1637,16 +1623,16 @@ pub const PRIO_PGRP: u32 = 1;
 pub const PRIO_USER: u32 = 2;
 pub const _STK_LIM: u32 = 8388608;
 pub const MLOCK_LIMIT: u32 = 8388608;
-pub const RLIMIT_NOFILE: u32 = 5;
-pub const RLIMIT_AS: u32 = 6;
-pub const RLIMIT_RSS: u32 = 7;
-pub const RLIMIT_NPROC: u32 = 8;
-pub const RLIMIT_MEMLOCK: u32 = 9;
 pub const RLIMIT_CPU: u32 = 0;
 pub const RLIMIT_FSIZE: u32 = 1;
 pub const RLIMIT_DATA: u32 = 2;
 pub const RLIMIT_STACK: u32 = 3;
 pub const RLIMIT_CORE: u32 = 4;
+pub const RLIMIT_RSS: u32 = 5;
+pub const RLIMIT_NPROC: u32 = 6;
+pub const RLIMIT_NOFILE: u32 = 7;
+pub const RLIMIT_MEMLOCK: u32 = 8;
+pub const RLIMIT_AS: u32 = 9;
 pub const RLIMIT_LOCKS: u32 = 10;
 pub const RLIMIT_SIGPENDING: u32 = 11;
 pub const RLIMIT_MSGQUEUE: u32 = 12;
@@ -1703,59 +1689,61 @@ pub const SCHED_FLAG_UTIL_CLAMP_MAX: u32 = 64;
 pub const SCHED_FLAG_KEEP_ALL: u32 = 24;
 pub const SCHED_FLAG_UTIL_CLAMP: u32 = 96;
 pub const SCHED_FLAG_ALL: u32 = 127;
-pub const _NSIG: u32 = 128;
+pub const _NSIG: u32 = 64;
+pub const _NSIG_BPW: u32 = 32;
+pub const _NSIG_WORDS: u32 = 2;
 pub const SIGHUP: u32 = 1;
 pub const SIGINT: u32 = 2;
 pub const SIGQUIT: u32 = 3;
 pub const SIGILL: u32 = 4;
 pub const SIGTRAP: u32 = 5;
-pub const SIGIOT: u32 = 6;
 pub const SIGABRT: u32 = 6;
-pub const SIGEMT: u32 = 7;
+pub const SIGIOT: u32 = 6;
+pub const SIGBUS: u32 = 7;
 pub const SIGFPE: u32 = 8;
 pub const SIGKILL: u32 = 9;
-pub const SIGBUS: u32 = 10;
+pub const SIGUSR1: u32 = 10;
 pub const SIGSEGV: u32 = 11;
-pub const SIGSYS: u32 = 12;
+pub const SIGUSR2: u32 = 12;
 pub const SIGPIPE: u32 = 13;
 pub const SIGALRM: u32 = 14;
 pub const SIGTERM: u32 = 15;
-pub const SIGUSR1: u32 = 16;
-pub const SIGUSR2: u32 = 17;
-pub const SIGCHLD: u32 = 18;
-pub const SIGCLD: u32 = 18;
-pub const SIGPWR: u32 = 19;
-pub const SIGWINCH: u32 = 20;
-pub const SIGURG: u32 = 21;
-pub const SIGIO: u32 = 22;
-pub const SIGPOLL: u32 = 22;
-pub const SIGSTOP: u32 = 23;
-pub const SIGTSTP: u32 = 24;
-pub const SIGCONT: u32 = 25;
-pub const SIGTTIN: u32 = 26;
-pub const SIGTTOU: u32 = 27;
-pub const SIGVTALRM: u32 = 28;
-pub const SIGPROF: u32 = 29;
-pub const SIGXCPU: u32 = 30;
-pub const SIGXFSZ: u32 = 31;
+pub const SIGSTKFLT: u32 = 16;
+pub const SIGCHLD: u32 = 17;
+pub const SIGCONT: u32 = 18;
+pub const SIGSTOP: u32 = 19;
+pub const SIGTSTP: u32 = 20;
+pub const SIGTTIN: u32 = 21;
+pub const SIGTTOU: u32 = 22;
+pub const SIGURG: u32 = 23;
+pub const SIGXCPU: u32 = 24;
+pub const SIGXFSZ: u32 = 25;
+pub const SIGVTALRM: u32 = 26;
+pub const SIGPROF: u32 = 27;
+pub const SIGWINCH: u32 = 28;
+pub const SIGIO: u32 = 29;
+pub const SIGPOLL: u32 = 29;
+pub const SIGPWR: u32 = 30;
+pub const SIGSYS: u32 = 31;
+pub const SIGUNUSED: u32 = 31;
 pub const SIGRTMIN: u32 = 32;
-pub const SIGRTMAX: u32 = 128;
-pub const SA_ONSTACK: u32 = 134217728;
-pub const SA_RESETHAND: u32 = 2147483648;
-pub const SA_RESTART: u32 = 268435456;
-pub const SA_SIGINFO: u32 = 8;
-pub const SA_NODEFER: u32 = 1073741824;
-pub const SA_NOCLDWAIT: u32 = 65536;
-pub const SA_NOCLDSTOP: u32 = 1;
-pub const SA_NOMASK: u32 = 1073741824;
-pub const SA_ONESHOT: u32 = 2147483648;
+pub const SIGRTMAX: u32 = 64;
 pub const MINSIGSTKSZ: u32 = 2048;
 pub const SIGSTKSZ: u32 = 8192;
-pub const SIG_BLOCK: u32 = 1;
-pub const SIG_UNBLOCK: u32 = 2;
-pub const SIG_SETMASK: u32 = 3;
+pub const SA_NOCLDSTOP: u32 = 1;
+pub const SA_NOCLDWAIT: u32 = 2;
+pub const SA_SIGINFO: u32 = 4;
 pub const SA_UNSUPPORTED: u32 = 1024;
 pub const SA_EXPOSE_TAGBITS: u32 = 2048;
+pub const SA_ONSTACK: u32 = 134217728;
+pub const SA_RESTART: u32 = 268435456;
+pub const SA_NODEFER: u32 = 1073741824;
+pub const SA_RESETHAND: u32 = 2147483648;
+pub const SA_NOMASK: u32 = 1073741824;
+pub const SA_ONESHOT: u32 = 2147483648;
+pub const SIG_BLOCK: u32 = 0;
+pub const SIG_UNBLOCK: u32 = 1;
+pub const SIG_SETMASK: u32 = 2;
 pub const SI_MAX_SIZE: u32 = 128;
 pub const SI_USER: u32 = 0;
 pub const SI_KERNEL: u32 = 128;
@@ -1896,141 +1884,6 @@ pub const STATX_ATTR_AUTOMOUNT: u32 = 4096;
 pub const STATX_ATTR_MOUNT_ROOT: u32 = 8192;
 pub const STATX_ATTR_VERITY: u32 = 1048576;
 pub const STATX_ATTR_DAX: u32 = 2097152;
-pub const EPERM: u32 = 1;
-pub const ENOENT: u32 = 2;
-pub const ESRCH: u32 = 3;
-pub const EINTR: u32 = 4;
-pub const EIO: u32 = 5;
-pub const ENXIO: u32 = 6;
-pub const E2BIG: u32 = 7;
-pub const ENOEXEC: u32 = 8;
-pub const EBADF: u32 = 9;
-pub const ECHILD: u32 = 10;
-pub const EAGAIN: u32 = 11;
-pub const ENOMEM: u32 = 12;
-pub const EACCES: u32 = 13;
-pub const EFAULT: u32 = 14;
-pub const ENOTBLK: u32 = 15;
-pub const EBUSY: u32 = 16;
-pub const EEXIST: u32 = 17;
-pub const EXDEV: u32 = 18;
-pub const ENODEV: u32 = 19;
-pub const ENOTDIR: u32 = 20;
-pub const EISDIR: u32 = 21;
-pub const EINVAL: u32 = 22;
-pub const ENFILE: u32 = 23;
-pub const EMFILE: u32 = 24;
-pub const ENOTTY: u32 = 25;
-pub const ETXTBSY: u32 = 26;
-pub const EFBIG: u32 = 27;
-pub const ENOSPC: u32 = 28;
-pub const ESPIPE: u32 = 29;
-pub const EROFS: u32 = 30;
-pub const EMLINK: u32 = 31;
-pub const EPIPE: u32 = 32;
-pub const EDOM: u32 = 33;
-pub const ERANGE: u32 = 34;
-pub const ENOMSG: u32 = 35;
-pub const EIDRM: u32 = 36;
-pub const ECHRNG: u32 = 37;
-pub const EL2NSYNC: u32 = 38;
-pub const EL3HLT: u32 = 39;
-pub const EL3RST: u32 = 40;
-pub const ELNRNG: u32 = 41;
-pub const EUNATCH: u32 = 42;
-pub const ENOCSI: u32 = 43;
-pub const EL2HLT: u32 = 44;
-pub const EDEADLK: u32 = 45;
-pub const ENOLCK: u32 = 46;
-pub const EBADE: u32 = 50;
-pub const EBADR: u32 = 51;
-pub const EXFULL: u32 = 52;
-pub const ENOANO: u32 = 53;
-pub const EBADRQC: u32 = 54;
-pub const EBADSLT: u32 = 55;
-pub const EDEADLOCK: u32 = 56;
-pub const EBFONT: u32 = 59;
-pub const ENOSTR: u32 = 60;
-pub const ENODATA: u32 = 61;
-pub const ETIME: u32 = 62;
-pub const ENOSR: u32 = 63;
-pub const ENONET: u32 = 64;
-pub const ENOPKG: u32 = 65;
-pub const EREMOTE: u32 = 66;
-pub const ENOLINK: u32 = 67;
-pub const EADV: u32 = 68;
-pub const ESRMNT: u32 = 69;
-pub const ECOMM: u32 = 70;
-pub const EPROTO: u32 = 71;
-pub const EDOTDOT: u32 = 73;
-pub const EMULTIHOP: u32 = 74;
-pub const EBADMSG: u32 = 77;
-pub const ENAMETOOLONG: u32 = 78;
-pub const EOVERFLOW: u32 = 79;
-pub const ENOTUNIQ: u32 = 80;
-pub const EBADFD: u32 = 81;
-pub const EREMCHG: u32 = 82;
-pub const ELIBACC: u32 = 83;
-pub const ELIBBAD: u32 = 84;
-pub const ELIBSCN: u32 = 85;
-pub const ELIBMAX: u32 = 86;
-pub const ELIBEXEC: u32 = 87;
-pub const EILSEQ: u32 = 88;
-pub const ENOSYS: u32 = 89;
-pub const ELOOP: u32 = 90;
-pub const ERESTART: u32 = 91;
-pub const ESTRPIPE: u32 = 92;
-pub const ENOTEMPTY: u32 = 93;
-pub const EUSERS: u32 = 94;
-pub const ENOTSOCK: u32 = 95;
-pub const EDESTADDRREQ: u32 = 96;
-pub const EMSGSIZE: u32 = 97;
-pub const EPROTOTYPE: u32 = 98;
-pub const ENOPROTOOPT: u32 = 99;
-pub const EPROTONOSUPPORT: u32 = 120;
-pub const ESOCKTNOSUPPORT: u32 = 121;
-pub const EOPNOTSUPP: u32 = 122;
-pub const EPFNOSUPPORT: u32 = 123;
-pub const EAFNOSUPPORT: u32 = 124;
-pub const EADDRINUSE: u32 = 125;
-pub const EADDRNOTAVAIL: u32 = 126;
-pub const ENETDOWN: u32 = 127;
-pub const ENETUNREACH: u32 = 128;
-pub const ENETRESET: u32 = 129;
-pub const ECONNABORTED: u32 = 130;
-pub const ECONNRESET: u32 = 131;
-pub const ENOBUFS: u32 = 132;
-pub const EISCONN: u32 = 133;
-pub const ENOTCONN: u32 = 134;
-pub const EUCLEAN: u32 = 135;
-pub const ENOTNAM: u32 = 137;
-pub const ENAVAIL: u32 = 138;
-pub const EISNAM: u32 = 139;
-pub const EREMOTEIO: u32 = 140;
-pub const EINIT: u32 = 141;
-pub const EREMDEV: u32 = 142;
-pub const ESHUTDOWN: u32 = 143;
-pub const ETOOMANYREFS: u32 = 144;
-pub const ETIMEDOUT: u32 = 145;
-pub const ECONNREFUSED: u32 = 146;
-pub const EHOSTDOWN: u32 = 147;
-pub const EHOSTUNREACH: u32 = 148;
-pub const EWOULDBLOCK: u32 = 11;
-pub const EALREADY: u32 = 149;
-pub const EINPROGRESS: u32 = 150;
-pub const ESTALE: u32 = 151;
-pub const ECANCELED: u32 = 158;
-pub const ENOMEDIUM: u32 = 159;
-pub const EMEDIUMTYPE: u32 = 160;
-pub const ENOKEY: u32 = 161;
-pub const EKEYEXPIRED: u32 = 162;
-pub const EKEYREVOKED: u32 = 163;
-pub const EKEYREJECTED: u32 = 164;
-pub const EOWNERDEAD: u32 = 165;
-pub const ENOTRECOVERABLE: u32 = 166;
-pub const ERFKILL: u32 = 167;
-pub const EHWPOISON: u32 = 168;
-pub const EDQUOT: u32 = 1133;
 pub const IGNBRK: u32 = 1;
 pub const BRKINT: u32 = 2;
 pub const IGNPAR: u32 = 4;
@@ -2076,25 +1929,24 @@ pub const TCION: u32 = 3;
 pub const TCIFLUSH: u32 = 0;
 pub const TCOFLUSH: u32 = 1;
 pub const TCIOFLUSH: u32 = 2;
-pub const NCCS: u32 = 23;
+pub const NCCS: u32 = 19;
 pub const VINTR: u32 = 0;
 pub const VQUIT: u32 = 1;
 pub const VERASE: u32 = 2;
 pub const VKILL: u32 = 3;
-pub const VMIN: u32 = 4;
+pub const VEOF: u32 = 4;
 pub const VTIME: u32 = 5;
-pub const VEOL2: u32 = 6;
+pub const VMIN: u32 = 6;
 pub const VSWTC: u32 = 7;
-pub const VSWTCH: u32 = 7;
 pub const VSTART: u32 = 8;
 pub const VSTOP: u32 = 9;
 pub const VSUSP: u32 = 10;
+pub const VEOL: u32 = 11;
 pub const VREPRINT: u32 = 12;
 pub const VDISCARD: u32 = 13;
 pub const VWERASE: u32 = 14;
 pub const VLNEXT: u32 = 15;
-pub const VEOF: u32 = 16;
-pub const VEOL: u32 = 17;
+pub const VEOL2: u32 = 16;
 pub const IUCLC: u32 = 512;
 pub const IXON: u32 = 1024;
 pub const IXOFF: u32 = 4096;
@@ -2163,16 +2015,17 @@ pub const ECHOE: u32 = 16;
 pub const ECHOK: u32 = 32;
 pub const ECHONL: u32 = 64;
 pub const NOFLSH: u32 = 128;
-pub const IEXTEN: u32 = 256;
+pub const TOSTOP: u32 = 256;
 pub const ECHOCTL: u32 = 512;
 pub const ECHOPRT: u32 = 1024;
 pub const ECHOKE: u32 = 2048;
-pub const FLUSHO: u32 = 8192;
+pub const FLUSHO: u32 = 4096;
 pub const PENDIN: u32 = 16384;
-pub const TOSTOP: u32 = 32768;
-pub const ITOSTOP: u32 = 32768;
+pub const IEXTEN: u32 = 32768;
 pub const EXTPROC: u32 = 65536;
-pub const TIOCSER_TEMT: u32 = 1;
+pub const TCSANOW: u32 = 0;
+pub const TCSADRAIN: u32 = 1;
+pub const TCSAFLUSH: u32 = 2;
 pub const TIOCPKT_DATA: u32 = 0;
 pub const TIOCPKT_FLUSHREAD: u32 = 1;
 pub const TIOCPKT_FLUSHWRITE: u32 = 2;
@@ -2181,383 +2034,363 @@ pub const TIOCPKT_START: u32 = 8;
 pub const TIOCPKT_NOSTOP: u32 = 16;
 pub const TIOCPKT_DOSTOP: u32 = 32;
 pub const TIOCPKT_IOCTL: u32 = 64;
-pub const TIOCGLTC: u32 = 29812;
-pub const TIOCSLTC: u32 = 29813;
-pub const TIOCGETP: u32 = 29704;
-pub const TIOCSETP: u32 = 29705;
-pub const TIOCSETN: u32 = 29706;
+pub const TIOCSER_TEMT: u32 = 1;
 pub const NCC: u32 = 8;
 pub const TIOCM_LE: u32 = 1;
 pub const TIOCM_DTR: u32 = 2;
 pub const TIOCM_RTS: u32 = 4;
-pub const TIOCM_ST: u32 = 16;
-pub const TIOCM_SR: u32 = 32;
-pub const TIOCM_CTS: u32 = 64;
-pub const TIOCM_CAR: u32 = 256;
-pub const TIOCM_CD: u32 = 256;
-pub const TIOCM_RNG: u32 = 512;
-pub const TIOCM_RI: u32 = 512;
-pub const TIOCM_DSR: u32 = 1024;
+pub const TIOCM_ST: u32 = 8;
+pub const TIOCM_SR: u32 = 16;
+pub const TIOCM_CTS: u32 = 32;
+pub const TIOCM_CAR: u32 = 64;
+pub const TIOCM_RNG: u32 = 128;
+pub const TIOCM_DSR: u32 = 256;
+pub const TIOCM_CD: u32 = 64;
+pub const TIOCM_RI: u32 = 128;
 pub const TIOCM_OUT1: u32 = 8192;
 pub const TIOCM_OUT2: u32 = 16384;
 pub const TIOCM_LOOP: u32 = 32768;
 pub const UIO_FASTIOV: u32 = 8;
 pub const UIO_MAXIOV: u32 = 1024;
-pub const __NR_Linux: u32 = 5000;
-pub const __NR_read: u32 = 5000;
-pub const __NR_write: u32 = 5001;
-pub const __NR_open: u32 = 5002;
-pub const __NR_close: u32 = 5003;
-pub const __NR_stat: u32 = 5004;
-pub const __NR_fstat: u32 = 5005;
-pub const __NR_lstat: u32 = 5006;
-pub const __NR_poll: u32 = 5007;
-pub const __NR_lseek: u32 = 5008;
-pub const __NR_mmap: u32 = 5009;
-pub const __NR_mprotect: u32 = 5010;
-pub const __NR_munmap: u32 = 5011;
-pub const __NR_brk: u32 = 5012;
-pub const __NR_rt_sigaction: u32 = 5013;
-pub const __NR_rt_sigprocmask: u32 = 5014;
-pub const __NR_ioctl: u32 = 5015;
-pub const __NR_pread64: u32 = 5016;
-pub const __NR_pwrite64: u32 = 5017;
-pub const __NR_readv: u32 = 5018;
-pub const __NR_writev: u32 = 5019;
-pub const __NR_access: u32 = 5020;
-pub const __NR_pipe: u32 = 5021;
-pub const __NR__newselect: u32 = 5022;
-pub const __NR_sched_yield: u32 = 5023;
-pub const __NR_mremap: u32 = 5024;
-pub const __NR_msync: u32 = 5025;
-pub const __NR_mincore: u32 = 5026;
-pub const __NR_madvise: u32 = 5027;
-pub const __NR_shmget: u32 = 5028;
-pub const __NR_shmat: u32 = 5029;
-pub const __NR_shmctl: u32 = 5030;
-pub const __NR_dup: u32 = 5031;
-pub const __NR_dup2: u32 = 5032;
-pub const __NR_pause: u32 = 5033;
-pub const __NR_nanosleep: u32 = 5034;
-pub const __NR_getitimer: u32 = 5035;
-pub const __NR_setitimer: u32 = 5036;
-pub const __NR_alarm: u32 = 5037;
-pub const __NR_getpid: u32 = 5038;
-pub const __NR_sendfile: u32 = 5039;
-pub const __NR_socket: u32 = 5040;
-pub const __NR_connect: u32 = 5041;
-pub const __NR_accept: u32 = 5042;
-pub const __NR_sendto: u32 = 5043;
-pub const __NR_recvfrom: u32 = 5044;
-pub const __NR_sendmsg: u32 = 5045;
-pub const __NR_recvmsg: u32 = 5046;
-pub const __NR_shutdown: u32 = 5047;
-pub const __NR_bind: u32 = 5048;
-pub const __NR_listen: u32 = 5049;
-pub const __NR_getsockname: u32 = 5050;
-pub const __NR_getpeername: u32 = 5051;
-pub const __NR_socketpair: u32 = 5052;
-pub const __NR_setsockopt: u32 = 5053;
-pub const __NR_getsockopt: u32 = 5054;
-pub const __NR_clone: u32 = 5055;
-pub const __NR_fork: u32 = 5056;
-pub const __NR_execve: u32 = 5057;
-pub const __NR_exit: u32 = 5058;
-pub const __NR_wait4: u32 = 5059;
-pub const __NR_kill: u32 = 5060;
-pub const __NR_uname: u32 = 5061;
-pub const __NR_semget: u32 = 5062;
-pub const __NR_semop: u32 = 5063;
-pub const __NR_semctl: u32 = 5064;
-pub const __NR_shmdt: u32 = 5065;
-pub const __NR_msgget: u32 = 5066;
-pub const __NR_msgsnd: u32 = 5067;
-pub const __NR_msgrcv: u32 = 5068;
-pub const __NR_msgctl: u32 = 5069;
-pub const __NR_fcntl: u32 = 5070;
-pub const __NR_flock: u32 = 5071;
-pub const __NR_fsync: u32 = 5072;
-pub const __NR_fdatasync: u32 = 5073;
-pub const __NR_truncate: u32 = 5074;
-pub const __NR_ftruncate: u32 = 5075;
-pub const __NR_getdents: u32 = 5076;
-pub const __NR_getcwd: u32 = 5077;
-pub const __NR_chdir: u32 = 5078;
-pub const __NR_fchdir: u32 = 5079;
-pub const __NR_rename: u32 = 5080;
-pub const __NR_mkdir: u32 = 5081;
-pub const __NR_rmdir: u32 = 5082;
-pub const __NR_creat: u32 = 5083;
-pub const __NR_link: u32 = 5084;
-pub const __NR_unlink: u32 = 5085;
-pub const __NR_symlink: u32 = 5086;
-pub const __NR_readlink: u32 = 5087;
-pub const __NR_chmod: u32 = 5088;
-pub const __NR_fchmod: u32 = 5089;
-pub const __NR_chown: u32 = 5090;
-pub const __NR_fchown: u32 = 5091;
-pub const __NR_lchown: u32 = 5092;
-pub const __NR_umask: u32 = 5093;
-pub const __NR_gettimeofday: u32 = 5094;
-pub const __NR_getrlimit: u32 = 5095;
-pub const __NR_getrusage: u32 = 5096;
-pub const __NR_sysinfo: u32 = 5097;
-pub const __NR_times: u32 = 5098;
-pub const __NR_ptrace: u32 = 5099;
-pub const __NR_getuid: u32 = 5100;
-pub const __NR_syslog: u32 = 5101;
-pub const __NR_getgid: u32 = 5102;
-pub const __NR_setuid: u32 = 5103;
-pub const __NR_setgid: u32 = 5104;
-pub const __NR_geteuid: u32 = 5105;
-pub const __NR_getegid: u32 = 5106;
-pub const __NR_setpgid: u32 = 5107;
-pub const __NR_getppid: u32 = 5108;
-pub const __NR_getpgrp: u32 = 5109;
-pub const __NR_setsid: u32 = 5110;
-pub const __NR_setreuid: u32 = 5111;
-pub const __NR_setregid: u32 = 5112;
-pub const __NR_getgroups: u32 = 5113;
-pub const __NR_setgroups: u32 = 5114;
-pub const __NR_setresuid: u32 = 5115;
-pub const __NR_getresuid: u32 = 5116;
-pub const __NR_setresgid: u32 = 5117;
-pub const __NR_getresgid: u32 = 5118;
-pub const __NR_getpgid: u32 = 5119;
-pub const __NR_setfsuid: u32 = 5120;
-pub const __NR_setfsgid: u32 = 5121;
-pub const __NR_getsid: u32 = 5122;
-pub const __NR_capget: u32 = 5123;
-pub const __NR_capset: u32 = 5124;
-pub const __NR_rt_sigpending: u32 = 5125;
-pub const __NR_rt_sigtimedwait: u32 = 5126;
-pub const __NR_rt_sigqueueinfo: u32 = 5127;
-pub const __NR_rt_sigsuspend: u32 = 5128;
-pub const __NR_sigaltstack: u32 = 5129;
-pub const __NR_utime: u32 = 5130;
-pub const __NR_mknod: u32 = 5131;
-pub const __NR_personality: u32 = 5132;
-pub const __NR_ustat: u32 = 5133;
-pub const __NR_statfs: u32 = 5134;
-pub const __NR_fstatfs: u32 = 5135;
-pub const __NR_sysfs: u32 = 5136;
-pub const __NR_getpriority: u32 = 5137;
-pub const __NR_setpriority: u32 = 5138;
-pub const __NR_sched_setparam: u32 = 5139;
-pub const __NR_sched_getparam: u32 = 5140;
-pub const __NR_sched_setscheduler: u32 = 5141;
-pub const __NR_sched_getscheduler: u32 = 5142;
-pub const __NR_sched_get_priority_max: u32 = 5143;
-pub const __NR_sched_get_priority_min: u32 = 5144;
-pub const __NR_sched_rr_get_interval: u32 = 5145;
-pub const __NR_mlock: u32 = 5146;
-pub const __NR_munlock: u32 = 5147;
-pub const __NR_mlockall: u32 = 5148;
-pub const __NR_munlockall: u32 = 5149;
-pub const __NR_vhangup: u32 = 5150;
-pub const __NR_pivot_root: u32 = 5151;
-pub const __NR__sysctl: u32 = 5152;
-pub const __NR_prctl: u32 = 5153;
-pub const __NR_adjtimex: u32 = 5154;
-pub const __NR_setrlimit: u32 = 5155;
-pub const __NR_chroot: u32 = 5156;
-pub const __NR_sync: u32 = 5157;
-pub const __NR_acct: u32 = 5158;
-pub const __NR_settimeofday: u32 = 5159;
-pub const __NR_mount: u32 = 5160;
-pub const __NR_umount2: u32 = 5161;
-pub const __NR_swapon: u32 = 5162;
-pub const __NR_swapoff: u32 = 5163;
-pub const __NR_reboot: u32 = 5164;
-pub const __NR_sethostname: u32 = 5165;
-pub const __NR_setdomainname: u32 = 5166;
-pub const __NR_create_module: u32 = 5167;
-pub const __NR_init_module: u32 = 5168;
-pub const __NR_delete_module: u32 = 5169;
-pub const __NR_get_kernel_syms: u32 = 5170;
-pub const __NR_query_module: u32 = 5171;
-pub const __NR_quotactl: u32 = 5172;
-pub const __NR_nfsservctl: u32 = 5173;
-pub const __NR_getpmsg: u32 = 5174;
-pub const __NR_putpmsg: u32 = 5175;
-pub const __NR_afs_syscall: u32 = 5176;
-pub const __NR_reserved177: u32 = 5177;
-pub const __NR_gettid: u32 = 5178;
-pub const __NR_readahead: u32 = 5179;
-pub const __NR_setxattr: u32 = 5180;
-pub const __NR_lsetxattr: u32 = 5181;
-pub const __NR_fsetxattr: u32 = 5182;
-pub const __NR_getxattr: u32 = 5183;
-pub const __NR_lgetxattr: u32 = 5184;
-pub const __NR_fgetxattr: u32 = 5185;
-pub const __NR_listxattr: u32 = 5186;
-pub const __NR_llistxattr: u32 = 5187;
-pub const __NR_flistxattr: u32 = 5188;
-pub const __NR_removexattr: u32 = 5189;
-pub const __NR_lremovexattr: u32 = 5190;
-pub const __NR_fremovexattr: u32 = 5191;
-pub const __NR_tkill: u32 = 5192;
-pub const __NR_reserved193: u32 = 5193;
-pub const __NR_futex: u32 = 5194;
-pub const __NR_sched_setaffinity: u32 = 5195;
-pub const __NR_sched_getaffinity: u32 = 5196;
-pub const __NR_cacheflush: u32 = 5197;
-pub const __NR_cachectl: u32 = 5198;
-pub const __NR_sysmips: u32 = 5199;
-pub const __NR_io_setup: u32 = 5200;
-pub const __NR_io_destroy: u32 = 5201;
-pub const __NR_io_getevents: u32 = 5202;
-pub const __NR_io_submit: u32 = 5203;
-pub const __NR_io_cancel: u32 = 5204;
-pub const __NR_exit_group: u32 = 5205;
-pub const __NR_lookup_dcookie: u32 = 5206;
-pub const __NR_epoll_create: u32 = 5207;
-pub const __NR_epoll_ctl: u32 = 5208;
-pub const __NR_epoll_wait: u32 = 5209;
-pub const __NR_remap_file_pages: u32 = 5210;
-pub const __NR_rt_sigreturn: u32 = 5211;
-pub const __NR_set_tid_address: u32 = 5212;
-pub const __NR_restart_syscall: u32 = 5213;
-pub const __NR_semtimedop: u32 = 5214;
-pub const __NR_fadvise64: u32 = 5215;
-pub const __NR_timer_create: u32 = 5216;
-pub const __NR_timer_settime: u32 = 5217;
-pub const __NR_timer_gettime: u32 = 5218;
-pub const __NR_timer_getoverrun: u32 = 5219;
-pub const __NR_timer_delete: u32 = 5220;
-pub const __NR_clock_settime: u32 = 5221;
-pub const __NR_clock_gettime: u32 = 5222;
-pub const __NR_clock_getres: u32 = 5223;
-pub const __NR_clock_nanosleep: u32 = 5224;
-pub const __NR_tgkill: u32 = 5225;
-pub const __NR_utimes: u32 = 5226;
-pub const __NR_mbind: u32 = 5227;
-pub const __NR_get_mempolicy: u32 = 5228;
-pub const __NR_set_mempolicy: u32 = 5229;
-pub const __NR_mq_open: u32 = 5230;
-pub const __NR_mq_unlink: u32 = 5231;
-pub const __NR_mq_timedsend: u32 = 5232;
-pub const __NR_mq_timedreceive: u32 = 5233;
-pub const __NR_mq_notify: u32 = 5234;
-pub const __NR_mq_getsetattr: u32 = 5235;
-pub const __NR_vserver: u32 = 5236;
-pub const __NR_waitid: u32 = 5237;
-pub const __NR_add_key: u32 = 5239;
-pub const __NR_request_key: u32 = 5240;
-pub const __NR_keyctl: u32 = 5241;
-pub const __NR_set_thread_area: u32 = 5242;
-pub const __NR_inotify_init: u32 = 5243;
-pub const __NR_inotify_add_watch: u32 = 5244;
-pub const __NR_inotify_rm_watch: u32 = 5245;
-pub const __NR_migrate_pages: u32 = 5246;
-pub const __NR_openat: u32 = 5247;
-pub const __NR_mkdirat: u32 = 5248;
-pub const __NR_mknodat: u32 = 5249;
-pub const __NR_fchownat: u32 = 5250;
-pub const __NR_futimesat: u32 = 5251;
-pub const __NR_newfstatat: u32 = 5252;
-pub const __NR_unlinkat: u32 = 5253;
-pub const __NR_renameat: u32 = 5254;
-pub const __NR_linkat: u32 = 5255;
-pub const __NR_symlinkat: u32 = 5256;
-pub const __NR_readlinkat: u32 = 5257;
-pub const __NR_fchmodat: u32 = 5258;
-pub const __NR_faccessat: u32 = 5259;
-pub const __NR_pselect6: u32 = 5260;
-pub const __NR_ppoll: u32 = 5261;
-pub const __NR_unshare: u32 = 5262;
-pub const __NR_splice: u32 = 5263;
-pub const __NR_sync_file_range: u32 = 5264;
-pub const __NR_tee: u32 = 5265;
-pub const __NR_vmsplice: u32 = 5266;
-pub const __NR_move_pages: u32 = 5267;
-pub const __NR_set_robust_list: u32 = 5268;
-pub const __NR_get_robust_list: u32 = 5269;
-pub const __NR_kexec_load: u32 = 5270;
-pub const __NR_getcpu: u32 = 5271;
-pub const __NR_epoll_pwait: u32 = 5272;
-pub const __NR_ioprio_set: u32 = 5273;
-pub const __NR_ioprio_get: u32 = 5274;
-pub const __NR_utimensat: u32 = 5275;
-pub const __NR_signalfd: u32 = 5276;
-pub const __NR_timerfd: u32 = 5277;
-pub const __NR_eventfd: u32 = 5278;
-pub const __NR_fallocate: u32 = 5279;
-pub const __NR_timerfd_create: u32 = 5280;
-pub const __NR_timerfd_gettime: u32 = 5281;
-pub const __NR_timerfd_settime: u32 = 5282;
-pub const __NR_signalfd4: u32 = 5283;
-pub const __NR_eventfd2: u32 = 5284;
-pub const __NR_epoll_create1: u32 = 5285;
-pub const __NR_dup3: u32 = 5286;
-pub const __NR_pipe2: u32 = 5287;
-pub const __NR_inotify_init1: u32 = 5288;
-pub const __NR_preadv: u32 = 5289;
-pub const __NR_pwritev: u32 = 5290;
-pub const __NR_rt_tgsigqueueinfo: u32 = 5291;
-pub const __NR_perf_event_open: u32 = 5292;
-pub const __NR_accept4: u32 = 5293;
-pub const __NR_recvmmsg: u32 = 5294;
-pub const __NR_fanotify_init: u32 = 5295;
-pub const __NR_fanotify_mark: u32 = 5296;
-pub const __NR_prlimit64: u32 = 5297;
-pub const __NR_name_to_handle_at: u32 = 5298;
-pub const __NR_open_by_handle_at: u32 = 5299;
-pub const __NR_clock_adjtime: u32 = 5300;
-pub const __NR_syncfs: u32 = 5301;
-pub const __NR_sendmmsg: u32 = 5302;
-pub const __NR_setns: u32 = 5303;
-pub const __NR_process_vm_readv: u32 = 5304;
-pub const __NR_process_vm_writev: u32 = 5305;
-pub const __NR_kcmp: u32 = 5306;
-pub const __NR_finit_module: u32 = 5307;
-pub const __NR_getdents64: u32 = 5308;
-pub const __NR_sched_setattr: u32 = 5309;
-pub const __NR_sched_getattr: u32 = 5310;
-pub const __NR_renameat2: u32 = 5311;
-pub const __NR_seccomp: u32 = 5312;
-pub const __NR_getrandom: u32 = 5313;
-pub const __NR_memfd_create: u32 = 5314;
-pub const __NR_bpf: u32 = 5315;
-pub const __NR_execveat: u32 = 5316;
-pub const __NR_userfaultfd: u32 = 5317;
-pub const __NR_membarrier: u32 = 5318;
-pub const __NR_mlock2: u32 = 5319;
-pub const __NR_copy_file_range: u32 = 5320;
-pub const __NR_preadv2: u32 = 5321;
-pub const __NR_pwritev2: u32 = 5322;
-pub const __NR_pkey_mprotect: u32 = 5323;
-pub const __NR_pkey_alloc: u32 = 5324;
-pub const __NR_pkey_free: u32 = 5325;
-pub const __NR_statx: u32 = 5326;
-pub const __NR_rseq: u32 = 5327;
-pub const __NR_io_pgetevents: u32 = 5328;
-pub const __NR_pidfd_send_signal: u32 = 5424;
-pub const __NR_io_uring_setup: u32 = 5425;
-pub const __NR_io_uring_enter: u32 = 5426;
-pub const __NR_io_uring_register: u32 = 5427;
-pub const __NR_open_tree: u32 = 5428;
-pub const __NR_move_mount: u32 = 5429;
-pub const __NR_fsopen: u32 = 5430;
-pub const __NR_fsconfig: u32 = 5431;
-pub const __NR_fsmount: u32 = 5432;
-pub const __NR_fspick: u32 = 5433;
-pub const __NR_pidfd_open: u32 = 5434;
-pub const __NR_clone3: u32 = 5435;
-pub const __NR_close_range: u32 = 5436;
-pub const __NR_openat2: u32 = 5437;
-pub const __NR_pidfd_getfd: u32 = 5438;
-pub const __NR_faccessat2: u32 = 5439;
-pub const __NR_process_madvise: u32 = 5440;
-pub const __NR_epoll_pwait2: u32 = 5441;
-pub const __NR_mount_setattr: u32 = 5442;
-pub const __NR_quotactl_fd: u32 = 5443;
-pub const __NR_landlock_create_ruleset: u32 = 5444;
-pub const __NR_landlock_add_rule: u32 = 5445;
-pub const __NR_landlock_restrict_self: u32 = 5446;
-pub const __NR_process_mrelease: u32 = 5448;
-pub const __NR_futex_waitv: u32 = 5449;
-pub const __NR_set_mempolicy_home_node: u32 = 5450;
+pub const __NR_io_setup: u32 = 0;
+pub const __NR_io_destroy: u32 = 1;
+pub const __NR_io_submit: u32 = 2;
+pub const __NR_io_cancel: u32 = 3;
+pub const __NR_io_getevents: u32 = 4;
+pub const __NR_setxattr: u32 = 5;
+pub const __NR_lsetxattr: u32 = 6;
+pub const __NR_fsetxattr: u32 = 7;
+pub const __NR_getxattr: u32 = 8;
+pub const __NR_lgetxattr: u32 = 9;
+pub const __NR_fgetxattr: u32 = 10;
+pub const __NR_listxattr: u32 = 11;
+pub const __NR_llistxattr: u32 = 12;
+pub const __NR_flistxattr: u32 = 13;
+pub const __NR_removexattr: u32 = 14;
+pub const __NR_lremovexattr: u32 = 15;
+pub const __NR_fremovexattr: u32 = 16;
+pub const __NR_getcwd: u32 = 17;
+pub const __NR_lookup_dcookie: u32 = 18;
+pub const __NR_eventfd2: u32 = 19;
+pub const __NR_epoll_create1: u32 = 20;
+pub const __NR_epoll_ctl: u32 = 21;
+pub const __NR_epoll_pwait: u32 = 22;
+pub const __NR_dup: u32 = 23;
+pub const __NR_dup3: u32 = 24;
+pub const __NR3264_fcntl: u32 = 25;
+pub const __NR_inotify_init1: u32 = 26;
+pub const __NR_inotify_add_watch: u32 = 27;
+pub const __NR_inotify_rm_watch: u32 = 28;
+pub const __NR_ioctl: u32 = 29;
+pub const __NR_ioprio_set: u32 = 30;
+pub const __NR_ioprio_get: u32 = 31;
+pub const __NR_flock: u32 = 32;
+pub const __NR_mknodat: u32 = 33;
+pub const __NR_mkdirat: u32 = 34;
+pub const __NR_unlinkat: u32 = 35;
+pub const __NR_symlinkat: u32 = 36;
+pub const __NR_linkat: u32 = 37;
+pub const __NR_umount2: u32 = 39;
+pub const __NR_mount: u32 = 40;
+pub const __NR_pivot_root: u32 = 41;
+pub const __NR_nfsservctl: u32 = 42;
+pub const __NR3264_statfs: u32 = 43;
+pub const __NR3264_fstatfs: u32 = 44;
+pub const __NR3264_truncate: u32 = 45;
+pub const __NR3264_ftruncate: u32 = 46;
+pub const __NR_fallocate: u32 = 47;
+pub const __NR_faccessat: u32 = 48;
+pub const __NR_chdir: u32 = 49;
+pub const __NR_fchdir: u32 = 50;
+pub const __NR_chroot: u32 = 51;
+pub const __NR_fchmod: u32 = 52;
+pub const __NR_fchmodat: u32 = 53;
+pub const __NR_fchownat: u32 = 54;
+pub const __NR_fchown: u32 = 55;
+pub const __NR_openat: u32 = 56;
+pub const __NR_close: u32 = 57;
+pub const __NR_vhangup: u32 = 58;
+pub const __NR_pipe2: u32 = 59;
+pub const __NR_quotactl: u32 = 60;
+pub const __NR_getdents64: u32 = 61;
+pub const __NR3264_lseek: u32 = 62;
+pub const __NR_read: u32 = 63;
+pub const __NR_write: u32 = 64;
+pub const __NR_readv: u32 = 65;
+pub const __NR_writev: u32 = 66;
+pub const __NR_pread64: u32 = 67;
+pub const __NR_pwrite64: u32 = 68;
+pub const __NR_preadv: u32 = 69;
+pub const __NR_pwritev: u32 = 70;
+pub const __NR3264_sendfile: u32 = 71;
+pub const __NR_pselect6: u32 = 72;
+pub const __NR_ppoll: u32 = 73;
+pub const __NR_signalfd4: u32 = 74;
+pub const __NR_vmsplice: u32 = 75;
+pub const __NR_splice: u32 = 76;
+pub const __NR_tee: u32 = 77;
+pub const __NR_readlinkat: u32 = 78;
+pub const __NR3264_fstatat: u32 = 79;
+pub const __NR3264_fstat: u32 = 80;
+pub const __NR_sync: u32 = 81;
+pub const __NR_fsync: u32 = 82;
+pub const __NR_fdatasync: u32 = 83;
+pub const __NR_sync_file_range: u32 = 84;
+pub const __NR_timerfd_create: u32 = 85;
+pub const __NR_timerfd_settime: u32 = 86;
+pub const __NR_timerfd_gettime: u32 = 87;
+pub const __NR_utimensat: u32 = 88;
+pub const __NR_acct: u32 = 89;
+pub const __NR_capget: u32 = 90;
+pub const __NR_capset: u32 = 91;
+pub const __NR_personality: u32 = 92;
+pub const __NR_exit: u32 = 93;
+pub const __NR_exit_group: u32 = 94;
+pub const __NR_waitid: u32 = 95;
+pub const __NR_set_tid_address: u32 = 96;
+pub const __NR_unshare: u32 = 97;
+pub const __NR_futex: u32 = 98;
+pub const __NR_set_robust_list: u32 = 99;
+pub const __NR_get_robust_list: u32 = 100;
+pub const __NR_nanosleep: u32 = 101;
+pub const __NR_getitimer: u32 = 102;
+pub const __NR_setitimer: u32 = 103;
+pub const __NR_kexec_load: u32 = 104;
+pub const __NR_init_module: u32 = 105;
+pub const __NR_delete_module: u32 = 106;
+pub const __NR_timer_create: u32 = 107;
+pub const __NR_timer_gettime: u32 = 108;
+pub const __NR_timer_getoverrun: u32 = 109;
+pub const __NR_timer_settime: u32 = 110;
+pub const __NR_timer_delete: u32 = 111;
+pub const __NR_clock_settime: u32 = 112;
+pub const __NR_clock_gettime: u32 = 113;
+pub const __NR_clock_getres: u32 = 114;
+pub const __NR_clock_nanosleep: u32 = 115;
+pub const __NR_syslog: u32 = 116;
+pub const __NR_ptrace: u32 = 117;
+pub const __NR_sched_setparam: u32 = 118;
+pub const __NR_sched_setscheduler: u32 = 119;
+pub const __NR_sched_getscheduler: u32 = 120;
+pub const __NR_sched_getparam: u32 = 121;
+pub const __NR_sched_setaffinity: u32 = 122;
+pub const __NR_sched_getaffinity: u32 = 123;
+pub const __NR_sched_yield: u32 = 124;
+pub const __NR_sched_get_priority_max: u32 = 125;
+pub const __NR_sched_get_priority_min: u32 = 126;
+pub const __NR_sched_rr_get_interval: u32 = 127;
+pub const __NR_restart_syscall: u32 = 128;
+pub const __NR_kill: u32 = 129;
+pub const __NR_tkill: u32 = 130;
+pub const __NR_tgkill: u32 = 131;
+pub const __NR_sigaltstack: u32 = 132;
+pub const __NR_rt_sigsuspend: u32 = 133;
+pub const __NR_rt_sigaction: u32 = 134;
+pub const __NR_rt_sigprocmask: u32 = 135;
+pub const __NR_rt_sigpending: u32 = 136;
+pub const __NR_rt_sigtimedwait: u32 = 137;
+pub const __NR_rt_sigqueueinfo: u32 = 138;
+pub const __NR_rt_sigreturn: u32 = 139;
+pub const __NR_setpriority: u32 = 140;
+pub const __NR_getpriority: u32 = 141;
+pub const __NR_reboot: u32 = 142;
+pub const __NR_setregid: u32 = 143;
+pub const __NR_setgid: u32 = 144;
+pub const __NR_setreuid: u32 = 145;
+pub const __NR_setuid: u32 = 146;
+pub const __NR_setresuid: u32 = 147;
+pub const __NR_getresuid: u32 = 148;
+pub const __NR_setresgid: u32 = 149;
+pub const __NR_getresgid: u32 = 150;
+pub const __NR_setfsuid: u32 = 151;
+pub const __NR_setfsgid: u32 = 152;
+pub const __NR_times: u32 = 153;
+pub const __NR_setpgid: u32 = 154;
+pub const __NR_getpgid: u32 = 155;
+pub const __NR_getsid: u32 = 156;
+pub const __NR_setsid: u32 = 157;
+pub const __NR_getgroups: u32 = 158;
+pub const __NR_setgroups: u32 = 159;
+pub const __NR_uname: u32 = 160;
+pub const __NR_sethostname: u32 = 161;
+pub const __NR_setdomainname: u32 = 162;
+pub const __NR_getrlimit: u32 = 163;
+pub const __NR_setrlimit: u32 = 164;
+pub const __NR_getrusage: u32 = 165;
+pub const __NR_umask: u32 = 166;
+pub const __NR_prctl: u32 = 167;
+pub const __NR_getcpu: u32 = 168;
+pub const __NR_gettimeofday: u32 = 169;
+pub const __NR_settimeofday: u32 = 170;
+pub const __NR_adjtimex: u32 = 171;
+pub const __NR_getpid: u32 = 172;
+pub const __NR_getppid: u32 = 173;
+pub const __NR_getuid: u32 = 174;
+pub const __NR_geteuid: u32 = 175;
+pub const __NR_getgid: u32 = 176;
+pub const __NR_getegid: u32 = 177;
+pub const __NR_gettid: u32 = 178;
+pub const __NR_sysinfo: u32 = 179;
+pub const __NR_mq_open: u32 = 180;
+pub const __NR_mq_unlink: u32 = 181;
+pub const __NR_mq_timedsend: u32 = 182;
+pub const __NR_mq_timedreceive: u32 = 183;
+pub const __NR_mq_notify: u32 = 184;
+pub const __NR_mq_getsetattr: u32 = 185;
+pub const __NR_msgget: u32 = 186;
+pub const __NR_msgctl: u32 = 187;
+pub const __NR_msgrcv: u32 = 188;
+pub const __NR_msgsnd: u32 = 189;
+pub const __NR_semget: u32 = 190;
+pub const __NR_semctl: u32 = 191;
+pub const __NR_semtimedop: u32 = 192;
+pub const __NR_semop: u32 = 193;
+pub const __NR_shmget: u32 = 194;
+pub const __NR_shmctl: u32 = 195;
+pub const __NR_shmat: u32 = 196;
+pub const __NR_shmdt: u32 = 197;
+pub const __NR_socket: u32 = 198;
+pub const __NR_socketpair: u32 = 199;
+pub const __NR_bind: u32 = 200;
+pub const __NR_listen: u32 = 201;
+pub const __NR_accept: u32 = 202;
+pub const __NR_connect: u32 = 203;
+pub const __NR_getsockname: u32 = 204;
+pub const __NR_getpeername: u32 = 205;
+pub const __NR_sendto: u32 = 206;
+pub const __NR_recvfrom: u32 = 207;
+pub const __NR_setsockopt: u32 = 208;
+pub const __NR_getsockopt: u32 = 209;
+pub const __NR_shutdown: u32 = 210;
+pub const __NR_sendmsg: u32 = 211;
+pub const __NR_recvmsg: u32 = 212;
+pub const __NR_readahead: u32 = 213;
+pub const __NR_brk: u32 = 214;
+pub const __NR_munmap: u32 = 215;
+pub const __NR_mremap: u32 = 216;
+pub const __NR_add_key: u32 = 217;
+pub const __NR_request_key: u32 = 218;
+pub const __NR_keyctl: u32 = 219;
+pub const __NR_clone: u32 = 220;
+pub const __NR_execve: u32 = 221;
+pub const __NR3264_mmap: u32 = 222;
+pub const __NR3264_fadvise64: u32 = 223;
+pub const __NR_swapon: u32 = 224;
+pub const __NR_swapoff: u32 = 225;
+pub const __NR_mprotect: u32 = 226;
+pub const __NR_msync: u32 = 227;
+pub const __NR_mlock: u32 = 228;
+pub const __NR_munlock: u32 = 229;
+pub const __NR_mlockall: u32 = 230;
+pub const __NR_munlockall: u32 = 231;
+pub const __NR_mincore: u32 = 232;
+pub const __NR_madvise: u32 = 233;
+pub const __NR_remap_file_pages: u32 = 234;
+pub const __NR_mbind: u32 = 235;
+pub const __NR_get_mempolicy: u32 = 236;
+pub const __NR_set_mempolicy: u32 = 237;
+pub const __NR_migrate_pages: u32 = 238;
+pub const __NR_move_pages: u32 = 239;
+pub const __NR_rt_tgsigqueueinfo: u32 = 240;
+pub const __NR_perf_event_open: u32 = 241;
+pub const __NR_accept4: u32 = 242;
+pub const __NR_recvmmsg: u32 = 243;
+pub const __NR_arch_specific_syscall: u32 = 244;
+pub const __NR_wait4: u32 = 260;
+pub const __NR_prlimit64: u32 = 261;
+pub const __NR_fanotify_init: u32 = 262;
+pub const __NR_fanotify_mark: u32 = 263;
+pub const __NR_name_to_handle_at: u32 = 264;
+pub const __NR_open_by_handle_at: u32 = 265;
+pub const __NR_clock_adjtime: u32 = 266;
+pub const __NR_syncfs: u32 = 267;
+pub const __NR_setns: u32 = 268;
+pub const __NR_sendmmsg: u32 = 269;
+pub const __NR_process_vm_readv: u32 = 270;
+pub const __NR_process_vm_writev: u32 = 271;
+pub const __NR_kcmp: u32 = 272;
+pub const __NR_finit_module: u32 = 273;
+pub const __NR_sched_setattr: u32 = 274;
+pub const __NR_sched_getattr: u32 = 275;
+pub const __NR_renameat2: u32 = 276;
+pub const __NR_seccomp: u32 = 277;
+pub const __NR_getrandom: u32 = 278;
+pub const __NR_memfd_create: u32 = 279;
+pub const __NR_bpf: u32 = 280;
+pub const __NR_execveat: u32 = 281;
+pub const __NR_userfaultfd: u32 = 282;
+pub const __NR_membarrier: u32 = 283;
+pub const __NR_mlock2: u32 = 284;
+pub const __NR_copy_file_range: u32 = 285;
+pub const __NR_preadv2: u32 = 286;
+pub const __NR_pwritev2: u32 = 287;
+pub const __NR_pkey_mprotect: u32 = 288;
+pub const __NR_pkey_alloc: u32 = 289;
+pub const __NR_pkey_free: u32 = 290;
+pub const __NR_statx: u32 = 291;
+pub const __NR_io_pgetevents: u32 = 292;
+pub const __NR_rseq: u32 = 293;
+pub const __NR_kexec_file_load: u32 = 294;
+pub const __NR_clock_gettime64: u32 = 403;
+pub const __NR_clock_settime64: u32 = 404;
+pub const __NR_clock_adjtime64: u32 = 405;
+pub const __NR_clock_getres_time64: u32 = 406;
+pub const __NR_clock_nanosleep_time64: u32 = 407;
+pub const __NR_timer_gettime64: u32 = 408;
+pub const __NR_timer_settime64: u32 = 409;
+pub const __NR_timerfd_gettime64: u32 = 410;
+pub const __NR_timerfd_settime64: u32 = 411;
+pub const __NR_utimensat_time64: u32 = 412;
+pub const __NR_pselect6_time64: u32 = 413;
+pub const __NR_ppoll_time64: u32 = 414;
+pub const __NR_io_pgetevents_time64: u32 = 416;
+pub const __NR_recvmmsg_time64: u32 = 417;
+pub const __NR_mq_timedsend_time64: u32 = 418;
+pub const __NR_mq_timedreceive_time64: u32 = 419;
+pub const __NR_semtimedop_time64: u32 = 420;
+pub const __NR_rt_sigtimedwait_time64: u32 = 421;
+pub const __NR_futex_time64: u32 = 422;
+pub const __NR_sched_rr_get_interval_time64: u32 = 423;
+pub const __NR_pidfd_send_signal: u32 = 424;
+pub const __NR_io_uring_setup: u32 = 425;
+pub const __NR_io_uring_enter: u32 = 426;
+pub const __NR_io_uring_register: u32 = 427;
+pub const __NR_open_tree: u32 = 428;
+pub const __NR_move_mount: u32 = 429;
+pub const __NR_fsopen: u32 = 430;
+pub const __NR_fsconfig: u32 = 431;
+pub const __NR_fsmount: u32 = 432;
+pub const __NR_fspick: u32 = 433;
+pub const __NR_pidfd_open: u32 = 434;
+pub const __NR_clone3: u32 = 435;
+pub const __NR_close_range: u32 = 436;
+pub const __NR_openat2: u32 = 437;
+pub const __NR_pidfd_getfd: u32 = 438;
+pub const __NR_faccessat2: u32 = 439;
+pub const __NR_process_madvise: u32 = 440;
+pub const __NR_epoll_pwait2: u32 = 441;
+pub const __NR_mount_setattr: u32 = 442;
+pub const __NR_quotactl_fd: u32 = 443;
+pub const __NR_landlock_create_ruleset: u32 = 444;
+pub const __NR_landlock_add_rule: u32 = 445;
+pub const __NR_landlock_restrict_self: u32 = 446;
+pub const __NR_process_mrelease: u32 = 448;
+pub const __NR_futex_waitv: u32 = 449;
+pub const __NR_set_mempolicy_home_node: u32 = 450;
+pub const __NR_syscalls: u32 = 451;
+pub const __NR_fcntl64: u32 = 25;
+pub const __NR_statfs64: u32 = 43;
+pub const __NR_fstatfs64: u32 = 44;
+pub const __NR_truncate64: u32 = 45;
+pub const __NR_ftruncate64: u32 = 46;
+pub const __NR_llseek: u32 = 62;
+pub const __NR_sendfile64: u32 = 71;
+pub const __NR_fstatat64: u32 = 79;
+pub const __NR_fstat64: u32 = 80;
+pub const __NR_mmap2: u32 = 222;
+pub const __NR_fadvise64_64: u32 = 223;
+pub const __NR_set_thread_area: u32 = 244;
+pub const __NR_cacheflush: u32 = 245;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
@@ -2629,7 +2462,7 @@ pub const MFD_HUGE_16GB: u32 = 2281701376;
 pub const TFD_TIMER_ABSTIME: u32 = 1;
 pub const TFD_TIMER_CANCEL_ON_SET: u32 = 2;
 pub const TFD_CLOEXEC: u32 = 524288;
-pub const TFD_NONBLOCK: u32 = 128;
+pub const TFD_NONBLOCK: u32 = 2048;
 pub const USERFAULTFD_IOC: u32 = 170;
 pub const _UFFDIO_REGISTER: u32 = 0;
 pub const _UFFDIO_UNREGISTER: u32 = 1;
@@ -2692,7 +2525,7 @@ pub const RWF_NOWAIT: u32 = 8;
 pub const RWF_APPEND: u32 = 16;
 pub const EFD_SEMAPHORE: u32 = 1;
 pub const EFD_CLOEXEC: u32 = 524288;
-pub const EFD_NONBLOCK: u32 = 128;
+pub const EFD_NONBLOCK: u32 = 2048;
 pub const EPOLLIN: u32 = 1;
 pub const EPOLLPRI: u32 = 2;
 pub const EPOLLOUT: u32 = 4;
@@ -2709,8 +2542,8 @@ pub const EPOLLEXCLUSIVE: u32 = 268435456;
 pub const EPOLLWAKEUP: u32 = 536870912;
 pub const EPOLLONESHOT: u32 = 1073741824;
 pub const EPOLLET: u32 = 2147483648;
-pub const TFD_SHARED_FCNTL_FLAGS: u32 = 524416;
-pub const TFD_CREATE_FLAGS: u32 = 524416;
+pub const TFD_SHARED_FCNTL_FLAGS: u32 = 526336;
+pub const TFD_CREATE_FLAGS: u32 = 526336;
 pub const TFD_SETTIME_FLAGS: u32 = 1;
 pub const UFFD_API: u32 = 170;
 pub const UFFDIO_REGISTER_MODE_MISSING: u32 = 1;
@@ -2719,10 +2552,6 @@ pub const UFFDIO_REGISTER_MODE_MINOR: u32 = 4;
 pub const UFFDIO_COPY_MODE_DONTWAKE: u32 = 1;
 pub const UFFDIO_COPY_MODE_WP: u32 = 2;
 pub const UFFDIO_ZEROPAGE_MODE_DONTWAKE: u32 = 1;
-pub const POLLWRNORM: u32 = 4;
-pub const TCSANOW: u32 = 21518;
-pub const TCSADRAIN: u32 = 21519;
-pub const TCSAFLUSH: u32 = 21520;
 pub const SPLICE_F_MOVE: u32 = 1;
 pub const SPLICE_F_NONBLOCK: u32 = 2;
 pub const SPLICE_F_MORE: u32 = 4;
@@ -2811,7 +2640,7 @@ pub _si_pad: [crate::ctypes::c_int; 32usize],
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union sigevent__bindgen_ty_1 {
-pub _pad: [crate::ctypes::c_int; 12usize],
+pub _pad: [crate::ctypes::c_int; 13usize],
 pub _tid: crate::ctypes::c_int,
 pub _sigev_thread: sigevent__bindgen_ty_1__bindgen_ty_1,
 }
