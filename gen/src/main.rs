@@ -173,6 +173,7 @@ fn main() {
     writeln!(cargo_toml, "default = [\"std\", {}]", DEFAULT_FEATURES).unwrap();
     writeln!(cargo_toml, "std = []").unwrap();
     writeln!(cargo_toml, "no_std = []").unwrap();
+    writeln!(cargo_toml, "elf = []").unwrap();
     writeln!(
         cargo_toml,
         "rustc-dep-of-std = [\"core\", \"compiler_builtins\", \"no_std\"]"
