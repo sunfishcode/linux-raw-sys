@@ -247,10 +247,10 @@ pub const R_RELATIVE: u32 = 23; // `R_ARM_RELATIVE`
 #[repr(C)]
 #[derive(Clone)]
 pub struct Elf_auxv_t {
-    a_type: usize,
+    pub a_type: usize,
 
     // Some of the values in the auxv array are pointers, so we make `a_val` a
     // pointer, in order to preserve their provenance. For the values which are
     // integers, we cast this to `usize`.
-    a_val: *mut crate::ctypes::c_void,
+    pub a_val: *mut crate::ctypes::c_void,
 }
