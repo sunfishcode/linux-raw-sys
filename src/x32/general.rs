@@ -40,6 +40,8 @@ pub type __kernel_clockid_t = crate::ctypes::c_int;
 pub type __kernel_caddr_t = *mut crate::ctypes::c_char;
 pub type __kernel_uid16_t = crate::ctypes::c_ushort;
 pub type __kernel_gid16_t = crate::ctypes::c_ushort;
+pub type __s128 = i128;
+pub type __u128 = u128;
 pub type __le16 = __u16;
 pub type __be16 = __u16;
 pub type __le32 = __u32;
@@ -324,6 +326,21 @@ pub mask: __u32,
 pub cookie: __u32,
 pub len: __u32,
 pub name: __IncompleteArrayField<crate::ctypes::c_char>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct cachestat_range {
+pub off: __u64,
+pub len: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct cachestat {
+pub nr_cache: __u64,
+pub nr_dirty: __u64,
+pub nr_writeback: __u64,
+pub nr_evicted: __u64,
+pub nr_recently_evicted: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -864,9 +881,9 @@ pub sa_flags: crate::ctypes::c_ulong,
 pub sa_restorer: __sigrestore_t,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 394240;
+pub const LINUX_VERSION_CODE: u32 = 394496;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 4;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 5;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 3;
@@ -1073,6 +1090,7 @@ pub const AT_STATX_SYNC_AS_STAT: u32 = 0;
 pub const AT_STATX_FORCE_SYNC: u32 = 8192;
 pub const AT_STATX_DONT_SYNC: u32 = 16384;
 pub const AT_RECURSIVE: u32 = 32768;
+pub const AT_HANDLE_FID: u32 = 512;
 pub const EPOLL_CLOEXEC: u32 = 524288;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
@@ -1217,7 +1235,8 @@ pub const MOVE_MOUNT_T_SYMLINKS: u32 = 16;
 pub const MOVE_MOUNT_T_AUTOMOUNTS: u32 = 32;
 pub const MOVE_MOUNT_T_EMPTY_PATH: u32 = 64;
 pub const MOVE_MOUNT_SET_GROUP: u32 = 256;
-pub const MOVE_MOUNT__MASK: u32 = 375;
+pub const MOVE_MOUNT_BENEATH: u32 = 512;
+pub const MOVE_MOUNT__MASK: u32 = 887;
 pub const FSOPEN_CLOEXEC: u32 = 1;
 pub const FSPICK_CLOEXEC: u32 = 1;
 pub const FSPICK_SYMLINK_NOFOLLOW: u32 = 2;
@@ -2368,6 +2387,7 @@ pub const __NR_memfd_secret: u32 = 1073742271;
 pub const __NR_process_mrelease: u32 = 1073742272;
 pub const __NR_futex_waitv: u32 = 1073742273;
 pub const __NR_set_mempolicy_home_node: u32 = 1073742274;
+pub const __NR_cachestat: u32 = 1073742275;
 pub const __NR_rt_sigaction: u32 = 1073742336;
 pub const __NR_rt_sigreturn: u32 = 1073742337;
 pub const __NR_ioctl: u32 = 1073742338;

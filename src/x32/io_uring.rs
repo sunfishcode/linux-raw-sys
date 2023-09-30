@@ -39,6 +39,8 @@ pub type __kernel_clockid_t = crate::ctypes::c_int;
 pub type __kernel_caddr_t = *mut crate::ctypes::c_char;
 pub type __kernel_uid16_t = crate::ctypes::c_ushort;
 pub type __kernel_gid16_t = crate::ctypes::c_ushort;
+pub type __s128 = i128;
+pub type __u128 = u128;
 pub type __le16 = __u16;
 pub type __be16 = __u16;
 pub type __le32 = __u32;
@@ -286,7 +288,7 @@ pub flags: __u32,
 pub dropped: __u32,
 pub array: __u32,
 pub resv1: __u32,
-pub resv2: __u64,
+pub user_addr: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -299,7 +301,7 @@ pub overflow: __u32,
 pub cqes: __u32,
 pub flags: __u32,
 pub resv1: __u32,
-pub resv2: __u64,
+pub user_addr: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -575,7 +577,8 @@ pub const MOVE_MOUNT_T_SYMLINKS: u32 = 16;
 pub const MOVE_MOUNT_T_AUTOMOUNTS: u32 = 32;
 pub const MOVE_MOUNT_T_EMPTY_PATH: u32 = 64;
 pub const MOVE_MOUNT_SET_GROUP: u32 = 256;
-pub const MOVE_MOUNT__MASK: u32 = 375;
+pub const MOVE_MOUNT_BENEATH: u32 = 512;
+pub const MOVE_MOUNT__MASK: u32 = 887;
 pub const FSOPEN_CLOEXEC: u32 = 1;
 pub const FSPICK_CLOEXEC: u32 = 1;
 pub const FSPICK_SYMLINK_NOFOLLOW: u32 = 2;
@@ -680,7 +683,10 @@ pub const IORING_SETUP_SQE128: u32 = 1024;
 pub const IORING_SETUP_CQE32: u32 = 2048;
 pub const IORING_SETUP_SINGLE_ISSUER: u32 = 4096;
 pub const IORING_SETUP_DEFER_TASKRUN: u32 = 8192;
+pub const IORING_SETUP_NO_MMAP: u32 = 16384;
+pub const IORING_SETUP_REGISTERED_FD_ONLY: u32 = 32768;
 pub const IORING_URING_CMD_FIXED: u32 = 1;
+pub const IORING_URING_CMD_POLLED: u32 = 2147483648;
 pub const IORING_FSYNC_DATASYNC: u32 = 1;
 pub const IORING_TIMEOUT_ABS: u32 = 1;
 pub const IORING_TIMEOUT_UPDATE: u32 = 2;

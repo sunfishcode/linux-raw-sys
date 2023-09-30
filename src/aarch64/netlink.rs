@@ -40,6 +40,8 @@ pub type __kernel_clockid_t = crate::ctypes::c_int;
 pub type __kernel_caddr_t = *mut crate::ctypes::c_char;
 pub type __kernel_uid16_t = crate::ctypes::c_ushort;
 pub type __kernel_gid16_t = crate::ctypes::c_ushort;
+pub type __s128 = i128;
+pub type __u128 = u128;
 pub type __le16 = __u16;
 pub type __be16 = __u16;
 pub type __le32 = __u32;
@@ -1047,6 +1049,7 @@ pub const IFLA_VXLAN_GPE: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_GPE;
 pub const IFLA_VXLAN_TTL_INHERIT: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_TTL_INHERIT;
 pub const IFLA_VXLAN_DF: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_DF;
 pub const IFLA_VXLAN_VNIFILTER: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_VNIFILTER;
+pub const IFLA_VXLAN_LOCALBYPASS: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_LOCALBYPASS;
 pub const __IFLA_VXLAN_MAX: _bindgen_ty_21 = _bindgen_ty_21::__IFLA_VXLAN_MAX;
 pub const IFLA_GENEVE_UNSPEC: _bindgen_ty_22 = _bindgen_ty_22::IFLA_GENEVE_UNSPEC;
 pub const IFLA_GENEVE_ID: _bindgen_ty_22 = _bindgen_ty_22::IFLA_GENEVE_ID;
@@ -2005,7 +2008,8 @@ IFLA_VXLAN_GPE = 27,
 IFLA_VXLAN_TTL_INHERIT = 28,
 IFLA_VXLAN_DF = 29,
 IFLA_VXLAN_VNIFILTER = 30,
-__IFLA_VXLAN_MAX = 31,
+IFLA_VXLAN_LOCALBYPASS = 31,
+__IFLA_VXLAN_MAX = 32,
 }
 #[repr(u32)]
 #[non_exhaustive]

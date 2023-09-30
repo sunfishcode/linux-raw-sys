@@ -326,6 +326,21 @@ pub name: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct cachestat_range {
+pub off: __u64,
+pub len: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct cachestat {
+pub nr_cache: __u64,
+pub nr_dirty: __u64,
+pub nr_writeback: __u64,
+pub nr_evicted: __u64,
+pub nr_recently_evicted: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct pollfd {
 pub fd: crate::ctypes::c_int,
 pub events: crate::ctypes::c_short,
@@ -876,9 +891,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 394240;
+pub const LINUX_VERSION_CODE: u32 = 394496;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 4;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 5;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_L1I_CACHESIZE: u32 = 40;
@@ -890,6 +905,7 @@ pub const AT_L2_CACHEGEOMETRY: u32 = 45;
 pub const AT_L3_CACHESIZE: u32 = 46;
 pub const AT_L3_CACHEGEOMETRY: u32 = 47;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 9;
+pub const AT_MINSIGSTKSZ: u32 = 51;
 pub const AT_NULL: u32 = 0;
 pub const AT_IGNORE: u32 = 1;
 pub const AT_EXECFD: u32 = 2;
@@ -915,7 +931,6 @@ pub const AT_HWCAP2: u32 = 26;
 pub const AT_RSEQ_FEATURE_SIZE: u32 = 27;
 pub const AT_RSEQ_ALIGN: u32 = 28;
 pub const AT_EXECFN: u32 = 31;
-pub const AT_MINSIGSTKSZ: u32 = 51;
 pub const __FD_SETSIZE: u32 = 1024;
 pub const _LINUX_CAPABILITY_VERSION_1: u32 = 429392688;
 pub const _LINUX_CAPABILITY_U32S_1: u32 = 1;
@@ -1093,6 +1108,7 @@ pub const AT_STATX_SYNC_AS_STAT: u32 = 0;
 pub const AT_STATX_FORCE_SYNC: u32 = 8192;
 pub const AT_STATX_DONT_SYNC: u32 = 16384;
 pub const AT_RECURSIVE: u32 = 32768;
+pub const AT_HANDLE_FID: u32 = 512;
 pub const EPOLL_CLOEXEC: u32 = 524288;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
@@ -1237,7 +1253,8 @@ pub const MOVE_MOUNT_T_SYMLINKS: u32 = 16;
 pub const MOVE_MOUNT_T_AUTOMOUNTS: u32 = 32;
 pub const MOVE_MOUNT_T_EMPTY_PATH: u32 = 64;
 pub const MOVE_MOUNT_SET_GROUP: u32 = 256;
-pub const MOVE_MOUNT__MASK: u32 = 375;
+pub const MOVE_MOUNT_BENEATH: u32 = 512;
+pub const MOVE_MOUNT__MASK: u32 = 887;
 pub const FSOPEN_CLOEXEC: u32 = 1;
 pub const FSPICK_CLOEXEC: u32 = 1;
 pub const FSPICK_SYMLINK_NOFOLLOW: u32 = 2;
@@ -2367,7 +2384,8 @@ pub const __NR_memfd_secret: u32 = 447;
 pub const __NR_process_mrelease: u32 = 448;
 pub const __NR_futex_waitv: u32 = 449;
 pub const __NR_set_mempolicy_home_node: u32 = 450;
-pub const __NR_syscalls: u32 = 451;
+pub const __NR_cachestat: u32 = 451;
+pub const __NR_syscalls: u32 = 452;
 pub const __NR_fcntl64: u32 = 25;
 pub const __NR_statfs64: u32 = 43;
 pub const __NR_fstatfs64: u32 = 44;
