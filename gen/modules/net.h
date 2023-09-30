@@ -13,6 +13,8 @@
 #include <linux/socket.h>
 #include <linux/tcp.h>
 #include <linux/un.h>
+#include <linux/netfilter_ipv6/ip6_tables.h>
+#include <linux/netfilter_ipv4.h>
 
 // Miscellaneous definitions which don't appear to be defined in Linux's public
 // headers, but which are nonetheless part of the ABI, and necessary for
@@ -30,13 +32,6 @@
 // crate as well) sometimes define types and constants with similar names but
 // which are ABI-incompatible with the Linux kernel ABI. This file should
 // only describe the kernel ABI.
-
-struct sockaddr {
-    struct __kernel_sockaddr_storage __storage;
-};
-#if LINUX_VERSION_CODE == KERNEL_VERSION(2,6,32)
-typedef uint16_t __kernel_sa_family_t;
-#endif
 
 struct linger {
     int l_onoff;
