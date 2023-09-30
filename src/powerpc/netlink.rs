@@ -1053,6 +1053,7 @@ pub const IFLA_VXLAN_GPE: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_GPE;
 pub const IFLA_VXLAN_TTL_INHERIT: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_TTL_INHERIT;
 pub const IFLA_VXLAN_DF: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_DF;
 pub const IFLA_VXLAN_VNIFILTER: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_VNIFILTER;
+pub const IFLA_VXLAN_LOCALBYPASS: _bindgen_ty_21 = _bindgen_ty_21::IFLA_VXLAN_LOCALBYPASS;
 pub const __IFLA_VXLAN_MAX: _bindgen_ty_21 = _bindgen_ty_21::__IFLA_VXLAN_MAX;
 pub const IFLA_GENEVE_UNSPEC: _bindgen_ty_22 = _bindgen_ty_22::IFLA_GENEVE_UNSPEC;
 pub const IFLA_GENEVE_ID: _bindgen_ty_22 = _bindgen_ty_22::IFLA_GENEVE_ID;
@@ -2011,7 +2012,8 @@ IFLA_VXLAN_GPE = 27,
 IFLA_VXLAN_TTL_INHERIT = 28,
 IFLA_VXLAN_DF = 29,
 IFLA_VXLAN_VNIFILTER = 30,
-__IFLA_VXLAN_MAX = 31,
+IFLA_VXLAN_LOCALBYPASS = 31,
+__IFLA_VXLAN_MAX = 32,
 }
 #[repr(u32)]
 #[non_exhaustive]
