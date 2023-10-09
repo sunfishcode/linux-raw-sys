@@ -12,6 +12,7 @@
 #include <linux/net.h>
 #include <linux/socket.h>
 #include <linux/tcp.h>
+#include <linux/uio.h>
 #include <linux/un.h>
 #include <linux/netfilter_ipv6/ip6_tables.h>
 #include <linux/netfilter_ipv4.h>

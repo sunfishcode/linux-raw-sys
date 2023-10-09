@@ -465,6 +465,12 @@ pub reserved: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct iovec {
+pub iov_base: *mut crate::ctypes::c_void,
+pub iov_len: __kernel_size_t,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct sockaddr_un {
 pub sun_family: __kernel_sa_family_t,
 pub sun_path: [crate::ctypes::c_char; 108usize],
@@ -768,11 +774,6 @@ pub _address: u8,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct xt_target {
-pub _address: u8,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct iovec {
 pub _address: u8,
 }
 pub const _K_SS_MAXSIZE: u32 = 128;
@@ -1188,6 +1189,8 @@ pub const TCP_MD5SIG_MAXKEYLEN: u32 = 80;
 pub const TCP_MD5SIG_FLAG_PREFIX: u32 = 1;
 pub const TCP_MD5SIG_FLAG_IFINDEX: u32 = 2;
 pub const TCP_RECEIVE_ZEROCOPY_FLAG_TLB_CLEAN_HINT: u32 = 1;
+pub const UIO_FASTIOV: u32 = 8;
+pub const UIO_MAXIOV: u32 = 1024;
 pub const UNIX_PATH_MAX: u32 = 108;
 pub const IFNAMSIZ: u32 = 16;
 pub const IFALIASZ: u32 = 256;
