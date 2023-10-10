@@ -6,11 +6,28 @@ pub use std::os::raw as ctypes;
 
 #[cfg(all(not(feature = "std"), feature = "no_std"))]
 pub mod ctypes {
-    // The signedness of `char` is platform-specific, however a consequence
-    // of it being platform-specific is that any code which depends on the
-    // signedness of `char` is already non-portable. So we can just use `u8`
-    // here and no portable code will notice.
-    pub type c_char = u8;
+    // The signedness of `char` is platform-specific, and we have to match
+    // what Rust's `CStr` uses.
+    #[cfg(any(
+        target_arch = "aarch64",
+        target_arch = "arm",
+        target_arch = "msp430",
+        target_arch = "powerpc",
+        target_arch = "powerpc64",
+        target_arch = "riscv32",
+        target_arch = "riscv64",
+        target_arch = "s390x",
+    ))]
+    pub type c_char = c_uchar;
+    #[cfg(any(
+        target_arch = "mips",
+        target_arch = "mips64",
+        target_arch = "sparc64",
+        target_arch = "x86",
+        target_arch = "x86_64",
+        target_arch = "xtensa",
+    ))]
+    pub type c_char = c_schar;
 
     // The following assumes that Linux is always either ILP32 or LP64,
     // and char is always 8-bit.
