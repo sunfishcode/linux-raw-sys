@@ -141,7 +141,7 @@ pub mod cmsg_macros {
         }
 
         if next_cmsg.add(1) as usize > max
-            || next_cmsg as usize + CMSG_ALIGN(cmsg_len as _) as usize > max
+            || next_cmsg as usize + CMSG_ALIGN((*next_cmsg).cmsg_len as _) as usize > max
         {
             return ptr::null_mut();
         }
