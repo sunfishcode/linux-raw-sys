@@ -92,7 +92,16 @@ typedef __UINT32_TYPE__ socklen_t;
 #define AF_ISDN       34
 #define AF_PHONET     35
 #define AF_IEEE802154 36
-#define AF_MAX        37
+#define AF_CAIF       37
+#define AF_ALG        38
+#define AF_NFC        39
+#define AF_VSOCK      40
+#define AF_KCM        41
+#define AF_QIPCRTR    42
+#define AF_SMC        43
+#define AF_XDP        44
+#define AF_MCTP       45
+#define AF_MAX        46
 
 #define MSG_OOB          0x1
 #define MSG_PEEK         0x2
