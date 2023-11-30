@@ -56,7 +56,6 @@ struct sockaddr {
 #include <linux/cciss_ioctl.h>
 #include <linux/cec.h>
 #include <linux/chio.h>
-#include <linux/cm4000_cs.h>
 #include <linux/coda.h>
 #include <linux/cxl_mem.h>
 #include <linux/dma-buf.h>
@@ -105,7 +104,6 @@ struct sockaddr {
 #include <linux/matroxfb.h>
 #include <linux/media.h>
 #include <linux/mei.h>
-#include <linux/meye.h>
 #include <linux/mmtimer.h>
 #include <linux/msdos_fs.h>
 #include <linux/mtio.h>
@@ -1491,7 +1489,6 @@ void list(void) {
     IOCTL_REQUEST(VIDIOC_G_DV_TIMINGS);
     IOCTL_REQUEST(TUNSETIFINDEX);
     IOCTL_REQUEST(CCISS_SETINTINFO);
-    IOCTL_REQUEST(CM_IOSDBGLVL);
     IOCTL_REQUEST(RTC_VL_CLR);
     IOCTL_REQUEST(VIDIOC_REQBUFS);
     IOCTL_REQUEST(USBDEVFS_REAPURBNDELAY32);
@@ -1627,7 +1624,6 @@ void list(void) {
     IOCTL_REQUEST(VFIO_SET_IOMMU);
     IOCTL_REQUEST(VIDIOC_S_MODULATOR);
     IOCTL_REQUEST(TUNGETFILTER);
-    IOCTL_REQUEST(MEYEIOC_SYNC);
     IOCTL_REQUEST(CCISS_SETNODENAME);
     IOCTL_REQUEST(FBIO_GETCONTROL2);
     IOCTL_REQUEST(TUNSETDEBUG);
@@ -1916,7 +1912,6 @@ void list(void) {
     IOCTL_REQUEST(VIDIOC_STREAMOFF);
     IOCTL_REQUEST(VDUSE_DESTROY_DEV);
     IOCTL_REQUEST(FDGETFDCSTAT);
-    IOCTL_REQUEST(CM_IOCGATR);
     IOCTL_REQUEST(VIDIOC_S_PRIORITY);
     IOCTL_REQUEST(SNAPSHOT_FREEZE);
     IOCTL_REQUEST(VIDIOC_ENUMINPUT);
