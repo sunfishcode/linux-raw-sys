@@ -16,6 +16,7 @@
 #include <linux/inotify.h>
 #include <linux/limits.h>
 #include <linux/magic.h>
+#include <linux/mempolicy.h>
 #include <linux/mman.h>
 #include <linux/poll.h>
 #include <linux/random.h>
