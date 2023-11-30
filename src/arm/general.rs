@@ -1488,6 +1488,25 @@ pub const UDF_SUPER_MAGIC: u32 = 352400198;
 pub const DMA_BUF_MAGIC: u32 = 1145913666;
 pub const DEVMEM_MAGIC: u32 = 1162691661;
 pub const SECRETMEM_MAGIC: u32 = 1397048141;
+pub const MPOL_F_STATIC_NODES: u32 = 32768;
+pub const MPOL_F_RELATIVE_NODES: u32 = 16384;
+pub const MPOL_F_NUMA_BALANCING: u32 = 8192;
+pub const MPOL_MODE_FLAGS: u32 = 57344;
+pub const MPOL_F_NODE: u32 = 1;
+pub const MPOL_F_ADDR: u32 = 2;
+pub const MPOL_F_MEMS_ALLOWED: u32 = 4;
+pub const MPOL_MF_STRICT: u32 = 1;
+pub const MPOL_MF_MOVE: u32 = 2;
+pub const MPOL_MF_MOVE_ALL: u32 = 4;
+pub const MPOL_MF_LAZY: u32 = 8;
+pub const MPOL_MF_INTERNAL: u32 = 16;
+pub const MPOL_MF_VALID: u32 = 7;
+pub const MPOL_F_SHARED: u32 = 1;
+pub const MPOL_F_MOF: u32 = 8;
+pub const MPOL_F_MORON: u32 = 16;
+pub const RECLAIM_ZONE: u32 = 1;
+pub const RECLAIM_WRITE: u32 = 2;
+pub const RECLAIM_UNMAP: u32 = 4;
 pub const PROT_READ: u32 = 1;
 pub const PROT_WRITE: u32 = 2;
 pub const PROT_EXEC: u32 = 4;
@@ -2654,6 +2673,13 @@ pub const SPLICE_F_NONBLOCK: u32 = 2;
 pub const SPLICE_F_MORE: u32 = 4;
 pub const SPLICE_F_GIFT: u32 = 8;
 pub const _NSIG: u32 = 64;
+pub const MPOL_DEFAULT: _bindgen_ty_1 = _bindgen_ty_1::MPOL_DEFAULT;
+pub const MPOL_PREFERRED: _bindgen_ty_1 = _bindgen_ty_1::MPOL_PREFERRED;
+pub const MPOL_BIND: _bindgen_ty_1 = _bindgen_ty_1::MPOL_BIND;
+pub const MPOL_INTERLEAVE: _bindgen_ty_1 = _bindgen_ty_1::MPOL_INTERLEAVE;
+pub const MPOL_LOCAL: _bindgen_ty_1 = _bindgen_ty_1::MPOL_LOCAL;
+pub const MPOL_PREFERRED_MANY: _bindgen_ty_1 = _bindgen_ty_1::MPOL_PREFERRED_MANY;
+pub const MPOL_MAX: _bindgen_ty_1 = _bindgen_ty_1::MPOL_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -2666,6 +2692,18 @@ FSCONFIG_SET_PATH_EMPTY = 4,
 FSCONFIG_SET_FD = 5,
 FSCONFIG_CMD_CREATE = 6,
 FSCONFIG_CMD_RECONFIGURE = 7,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_1 {
+MPOL_DEFAULT = 0,
+MPOL_PREFERRED = 1,
+MPOL_BIND = 2,
+MPOL_INTERLEAVE = 3,
+MPOL_LOCAL = 4,
+MPOL_PREFERRED_MANY = 5,
+MPOL_MAX = 6,
 }
 #[repr(u32)]
 #[non_exhaustive]
