@@ -44,9 +44,12 @@ qemu-riscv64 -L /usr/riscv64-linux-gnu ./main.exe >> "$out"
 s390x-linux-gnu-gcc -Iinclude -c list.c $cflags
 s390x-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-s390x -L /usr/s390x-linux-gnu ./main.exe >> "$out"
-# As LoongArch cross toolchain is not yet packaged in mainstream distros yet,
+# As LoongArch and CSKY cross toolchain is not yet packaged in mainstream distros yet,
 # pre-generated output is used for the time being
 cat loongarch-ioctls.txt >> "$out"
+# csky-linux-gnuabiv2-gcc -Iinclude -I../linux/usr/include/ -c list.c $cflags
+# csky-linux-gnuabiv2-gcc  main.c list.o -o main.exe $cflags
+# qemu-csky -L /usr/csky-linux-gnuabiv2 ./main.exe >> "$out"
 cat csky-ioctls.txt >> "$out"
 
 # Add any extra custom definitions at the end.
