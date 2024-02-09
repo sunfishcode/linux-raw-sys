@@ -38,6 +38,16 @@ qemu-mips64el -L /usr/mips64el-linux-gnuabi64 ./main.exe >> "$out"
 mipsel-linux-gnu-gcc -Iinclude -c list.c $cflags
 mipsel-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-mipsel -L /usr/mipsel-linux-gnu ./main.exe >> "$out"
+
+# RISCV32 tolchains are not yet packaged by major distributions e.g. debian etc.
+# Therefore download it from https://github.com/riscv-collab/riscv-gnu-toolchain/releases
+# e.g. riscv32-glibc-ubuntu-22.04-gcc-nightly-2024.02.02-nightly.tar.gz
+# install it into /opt and then running below commands will succeed
+# /opt/riscv/bin/riscv32-unknown-linux-gnu-gcc --sysroot=/opt/riscv/sysroot/ -Iinclude -c list.c $cflags
+# /opt/riscv/bin/riscv32-unknown-linux-gnu-gcc --sysroot=/opt/riscv/sysroot/ main.c list.o -o main.exe $cflags
+# /opt/riscv/bin/qemu-riscv32 -L /opt/riscv/sysroot/ ./main.exe >> "$out"
+cat riscv32-ioctls.txt >> "$out"
+
 riscv64-linux-gnu-gcc -Iinclude -c list.c $cflags
 riscv64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-riscv64 -L /usr/riscv64-linux-gnu ./main.exe >> "$out"
