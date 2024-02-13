@@ -198,6 +198,10 @@ pub mod errno;
 #[cfg(target_arch = "arm")]
 #[path = "arm/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/if_ether.rs"]
@@ -246,6 +250,10 @@ pub mod errno;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/if_ether.rs"]
@@ -294,6 +302,10 @@ pub mod errno;
 #[cfg(target_arch = "csky")]
 #[path = "csky/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/if_ether.rs"]
@@ -342,6 +354,10 @@ pub mod errno;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/if_ether.rs"]
@@ -390,6 +406,10 @@ pub mod errno;
 #[cfg(target_arch = "mips")]
 #[path = "mips/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/if_ether.rs"]
@@ -438,6 +458,10 @@ pub mod errno;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/if_ether.rs"]
@@ -486,6 +510,10 @@ pub mod errno;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/if_ether.rs"]
@@ -534,6 +562,10 @@ pub mod errno;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/if_ether.rs"]
@@ -582,6 +614,10 @@ pub mod errno;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/if_ether.rs"]
@@ -630,6 +666,10 @@ pub mod errno;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/if_ether.rs"]
@@ -678,6 +718,10 @@ pub mod errno;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/if_ether.rs"]
@@ -726,6 +770,10 @@ pub mod errno;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/if_ether.rs"]
@@ -774,6 +822,10 @@ pub mod errno;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/if_ether.rs"]
@@ -822,6 +874,10 @@ pub mod errno;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/if_ether.rs"]
@@ -870,6 +926,10 @@ pub mod errno;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/if_ether.rs"]
@@ -918,6 +978,10 @@ pub mod errno;
 #[cfg(target_arch = "x86")]
 #[path = "x86/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/if_ether.rs"]
@@ -966,6 +1030,10 @@ pub mod errno;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/if_ether.rs"]
@@ -1014,6 +1082,10 @@ pub mod errno;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/general.rs"]
 pub mod general;
+#[cfg(feature = "if_arp")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/if_arp.rs"]
+pub mod if_arp;
 #[cfg(feature = "if_ether")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/if_ether.rs"]
