@@ -166,6 +166,76 @@ pub failed: __u32,
 pub badblocks: __u32,
 pub bbtblocks: __u32,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_attach_req {
+pub ubi_num: __s32,
+pub mtd_num: __s32,
+pub vid_hdr_offset: __s32,
+pub max_beb_per1024: __s16,
+pub disable_fm: __s8,
+pub padding: [__s8; 9usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_mkvol_req {
+pub vol_id: __s32,
+pub alignment: __s32,
+pub bytes: __s64,
+pub vol_type: __s8,
+pub flags: __u8,
+pub name_len: __s16,
+pub padding2: [__s8; 4usize],
+pub name: [crate::ctypes::c_char; 128usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_rsvol_req {
+pub bytes: __s64,
+pub vol_id: __s32,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_rnvol_req {
+pub count: __s32,
+pub padding1: [__s8; 12usize],
+pub ents: [ubi_rnvol_req__bindgen_ty_1; 32usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_rnvol_req__bindgen_ty_1 {
+pub vol_id: __s32,
+pub name_len: __s16,
+pub padding2: [__s8; 2usize],
+pub name: [crate::ctypes::c_char; 128usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_leb_change_req {
+pub lnum: __s32,
+pub bytes: __s32,
+pub dtype: __s8,
+pub padding: [__s8; 7usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_map_req {
+pub lnum: __s32,
+pub dtype: __s8,
+pub padding: [__s8; 3usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_set_vol_prop_req {
+pub property: __u8,
+pub padding: [__u8; 7usize],
+pub value: __u64,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct ubi_blkcreate_req {
+pub padding: [__s8; 128usize],
+}
 pub const MTD_ABSENT: u32 = 0;
 pub const MTD_RAM: u32 = 1;
 pub const MTD_ROM: u32 = 2;
@@ -194,9 +264,21 @@ pub const MTD_OTP_FACTORY: u32 = 1;
 pub const MTD_OTP_USER: u32 = 2;
 pub const MTD_MAX_OOBFREE_ENTRIES: u32 = 8;
 pub const MTD_MAX_ECCPOS_ENTRIES: u32 = 64;
+pub const UBI_VOL_NUM_AUTO: i32 = -1;
+pub const UBI_DEV_NUM_AUTO: i32 = -1;
+pub const UBI_MAX_VOLUME_NAME: u32 = 127;
+pub const UBI_IOC_MAGIC: u8 = 111u8;
+pub const UBI_CTRL_IOC_MAGIC: u8 = 111u8;
+pub const UBI_VOL_IOC_MAGIC: u8 = 79u8;
+pub const MAX_UBI_MTD_NAME_LEN: u32 = 127;
+pub const UBI_MAX_RNVOL: u32 = 32;
 pub const MTD_OPS_PLACE_OOB: _bindgen_ty_1 = _bindgen_ty_1::MTD_OPS_PLACE_OOB;
 pub const MTD_OPS_AUTO_OOB: _bindgen_ty_1 = _bindgen_ty_1::MTD_OPS_AUTO_OOB;
 pub const MTD_OPS_RAW: _bindgen_ty_1 = _bindgen_ty_1::MTD_OPS_RAW;
+pub const UBI_DYNAMIC_VOLUME: _bindgen_ty_2 = _bindgen_ty_2::UBI_DYNAMIC_VOLUME;
+pub const UBI_STATIC_VOLUME: _bindgen_ty_2 = _bindgen_ty_2::UBI_STATIC_VOLUME;
+pub const UBI_VOL_PROP_DIRECT_WRITE: _bindgen_ty_3 = _bindgen_ty_3::UBI_VOL_PROP_DIRECT_WRITE;
+pub const UBI_VOL_SKIP_CRC_CHECK_FLG: _bindgen_ty_4 = _bindgen_ty_4::UBI_VOL_SKIP_CRC_CHECK_FLG;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -213,4 +295,23 @@ MTD_FILE_MODE_NORMAL = 0,
 MTD_FILE_MODE_OTP_FACTORY = 1,
 MTD_FILE_MODE_OTP_USER = 2,
 MTD_FILE_MODE_RAW = 3,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_2 {
+UBI_DYNAMIC_VOLUME = 3,
+UBI_STATIC_VOLUME = 4,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_3 {
+UBI_VOL_PROP_DIRECT_WRITE = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_4 {
+UBI_VOL_SKIP_CRC_CHECK_FLG = 1,
 }

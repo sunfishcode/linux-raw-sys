@@ -6,4 +6,5 @@
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,10,0)
 #include <mtd/mtd-user.h>
+#include <mtd/ubi-user.h>
 #endif
