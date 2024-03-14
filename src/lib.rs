@@ -239,6 +239,10 @@ pub mod ioctl;
 #[cfg(target_arch = "arm")]
 #[path = "arm/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/net.rs"]
@@ -291,6 +295,10 @@ pub mod ioctl;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/net.rs"]
@@ -343,6 +351,10 @@ pub mod ioctl;
 #[cfg(target_arch = "csky")]
 #[path = "csky/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/net.rs"]
@@ -395,6 +407,10 @@ pub mod ioctl;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/net.rs"]
@@ -447,6 +463,10 @@ pub mod ioctl;
 #[cfg(target_arch = "mips")]
 #[path = "mips/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/net.rs"]
@@ -499,6 +519,10 @@ pub mod ioctl;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/net.rs"]
@@ -551,6 +575,10 @@ pub mod ioctl;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/net.rs"]
@@ -603,6 +631,10 @@ pub mod ioctl;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/net.rs"]
@@ -655,6 +687,10 @@ pub mod ioctl;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/net.rs"]
@@ -707,6 +743,10 @@ pub mod ioctl;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/net.rs"]
@@ -759,6 +799,10 @@ pub mod ioctl;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/net.rs"]
@@ -811,6 +855,10 @@ pub mod ioctl;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/net.rs"]
@@ -863,6 +911,10 @@ pub mod ioctl;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/net.rs"]
@@ -915,6 +967,10 @@ pub mod ioctl;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/net.rs"]
@@ -967,6 +1023,10 @@ pub mod ioctl;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/net.rs"]
@@ -1019,6 +1079,10 @@ pub mod ioctl;
 #[cfg(target_arch = "x86")]
 #[path = "x86/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/net.rs"]
@@ -1071,6 +1135,10 @@ pub mod ioctl;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/net.rs"]
@@ -1123,6 +1191,10 @@ pub mod ioctl;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/mempolicy.rs"]
 pub mod mempolicy;
+#[cfg(feature = "mtd")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/mtd.rs"]
+pub mod mtd;
 #[cfg(feature = "net")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/net.rs"]
