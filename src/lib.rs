@@ -207,6 +207,10 @@ pub mod signal_macros {
 pub mod elf;
 
 // The rest of this file is auto-generated!
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/errno.rs"]
@@ -259,6 +263,10 @@ pub mod system;
 #[cfg(target_arch = "arm")]
 #[path = "arm/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/errno.rs"]
@@ -311,6 +319,10 @@ pub mod system;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/errno.rs"]
@@ -363,6 +375,10 @@ pub mod system;
 #[cfg(target_arch = "csky")]
 #[path = "csky/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/errno.rs"]
@@ -415,6 +431,10 @@ pub mod system;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/errno.rs"]
@@ -467,6 +487,10 @@ pub mod system;
 #[cfg(target_arch = "mips")]
 #[path = "mips/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/errno.rs"]
@@ -519,6 +543,10 @@ pub mod system;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/errno.rs"]
@@ -571,6 +599,10 @@ pub mod system;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/errno.rs"]
@@ -623,6 +655,10 @@ pub mod system;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/errno.rs"]
@@ -675,6 +711,10 @@ pub mod system;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/errno.rs"]
@@ -727,6 +767,10 @@ pub mod system;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/errno.rs"]
@@ -779,6 +823,10 @@ pub mod system;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/errno.rs"]
@@ -831,6 +879,10 @@ pub mod system;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/errno.rs"]
@@ -883,6 +935,10 @@ pub mod system;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/errno.rs"]
@@ -935,6 +991,10 @@ pub mod system;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/errno.rs"]
@@ -987,6 +1047,10 @@ pub mod system;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/errno.rs"]
@@ -1039,6 +1103,10 @@ pub mod system;
 #[cfg(target_arch = "x86")]
 #[path = "x86/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/errno.rs"]
@@ -1091,6 +1159,10 @@ pub mod system;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/xdp.rs"]
 pub mod xdp;
+#[cfg(feature = "bootparam")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/bootparam.rs"]
+pub mod bootparam;
 #[cfg(feature = "errno")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/errno.rs"]
