@@ -184,7 +184,8 @@ pub version: __u8,
 pub contents_encryption_mode: __u8,
 pub filenames_encryption_mode: __u8,
 pub flags: __u8,
-pub __reserved: [__u8; 4usize],
+pub log2_data_unit_size: __u8,
+pub __reserved: [__u8; 3usize],
 pub master_key_identifier: [__u8; 16usize],
 }
 #[repr(C)]
@@ -239,6 +240,39 @@ pub attr_set: __u64,
 pub attr_clr: __u64,
 pub propagation: __u64,
 pub userns_fd: __u64,
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct statmount {
+pub size: __u32,
+pub __spare1: __u32,
+pub mask: __u64,
+pub sb_dev_major: __u32,
+pub sb_dev_minor: __u32,
+pub sb_magic: __u64,
+pub sb_flags: __u32,
+pub fs_type: __u32,
+pub mnt_id: __u64,
+pub mnt_parent_id: __u64,
+pub mnt_id_old: __u32,
+pub mnt_parent_id_old: __u32,
+pub mnt_attr: __u64,
+pub mnt_propagation: __u64,
+pub mnt_peer_group: __u64,
+pub mnt_master: __u64,
+pub propagate_from: __u64,
+pub mnt_root: __u32,
+pub mnt_point: __u32,
+pub __spare2: [__u64; 50usize],
+pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct mnt_id_req {
+pub size: __u32,
+pub spare: __u32,
+pub mnt_id: __u64,
+pub param: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -297,6 +331,29 @@ pub fsx_nextents: __u32,
 pub fsx_projid: __u32,
 pub fsx_cowextsize: __u32,
 pub fsx_pad: [crate::ctypes::c_uchar; 8usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct page_region {
+pub start: __u64,
+pub end: __u64,
+pub categories: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct pm_scan_arg {
+pub size: __u64,
+pub flags: __u64,
+pub start: __u64,
+pub end: __u64,
+pub walk_end: __u64,
+pub vec: __u64,
+pub vec_len: __u64,
+pub max_pages: __u64,
+pub category_inverted: __u64,
+pub category_mask: __u64,
+pub category_anyof_mask: __u64,
+pub return_mask: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -391,36 +448,6 @@ pub it_value: __kernel_old_timeval,
 pub struct __kernel_sock_timeval {
 pub tv_sec: __s64,
 pub tv_usec: __s64,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct timespec {
-pub tv_sec: __kernel_old_time_t,
-pub tv_nsec: crate::ctypes::c_long,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct timeval {
-pub tv_sec: __kernel_old_time_t,
-pub tv_usec: __kernel_suseconds_t,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct itimerspec {
-pub it_interval: timespec,
-pub it_value: timespec,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct itimerval {
-pub it_interval: timeval,
-pub it_value: timeval,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct timezone {
-pub tz_minuteswest: crate::ctypes::c_int,
-pub tz_dsttime: crate::ctypes::c_int,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -702,6 +729,36 @@ pub c_cc: [crate::ctypes::c_uchar; 23usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct timespec {
+pub tv_sec: __kernel_old_time_t,
+pub tv_nsec: crate::ctypes::c_long,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timeval {
+pub tv_sec: __kernel_old_time_t,
+pub tv_usec: __kernel_suseconds_t,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct itimerspec {
+pub it_interval: timespec,
+pub it_value: timespec,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct itimerval {
+pub it_interval: timeval,
+pub it_value: timeval,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timezone {
+pub tz_minuteswest: crate::ctypes::c_int,
+pub tz_dsttime: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct iovec {
 pub iov_base: *mut crate::ctypes::c_void,
 pub iov_len: __kernel_size_t,
@@ -795,6 +852,22 @@ pub struct uffdio_continue {
 pub range: uffdio_range,
 pub mode: __u64,
 pub mapped: __s64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_poison {
+pub range: uffdio_range,
+pub mode: __u64,
+pub updated: __s64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct uffdio_move {
+pub dst: __u64,
+pub src: __u64,
+pub len: __u64,
+pub mode: __u64,
+pub move_: __s64,
 }
 #[repr(C)]
 #[derive(Debug)]
@@ -899,9 +972,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 394496;
+pub const LINUX_VERSION_CODE: u32 = 395264;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 5;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 8;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 1;
@@ -1280,6 +1353,14 @@ pub const MOUNT_ATTR_NODIRATIME: u32 = 128;
 pub const MOUNT_ATTR_IDMAP: u32 = 1048576;
 pub const MOUNT_ATTR_NOSYMFOLLOW: u32 = 2097152;
 pub const MOUNT_ATTR_SIZE_VER0: u32 = 32;
+pub const MNT_ID_REQ_SIZE_VER0: u32 = 24;
+pub const STATMOUNT_SB_BASIC: u32 = 1;
+pub const STATMOUNT_MNT_BASIC: u32 = 2;
+pub const STATMOUNT_PROPAGATE_FROM: u32 = 4;
+pub const STATMOUNT_MNT_ROOT: u32 = 8;
+pub const STATMOUNT_MNT_POINT: u32 = 16;
+pub const STATMOUNT_FS_TYPE: u32 = 32;
+pub const LSMT_ROOT: i32 = -1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
@@ -1351,6 +1432,16 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const PAGE_IS_WPALLOWED: u32 = 1;
+pub const PAGE_IS_WRITTEN: u32 = 2;
+pub const PAGE_IS_FILE: u32 = 4;
+pub const PAGE_IS_PRESENT: u32 = 8;
+pub const PAGE_IS_SWAPPED: u32 = 16;
+pub const PAGE_IS_PFNZERO: u32 = 32;
+pub const PAGE_IS_HUGE: u32 = 64;
+pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
+pub const PM_SCAN_WP_MATCHING: u32 = 1;
+pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
 pub const FUTEX_WAIT: u32 = 0;
 pub const FUTEX_WAKE: u32 = 1;
 pub const FUTEX_FD: u32 = 2;
@@ -1381,6 +1472,13 @@ pub const FUTEX_WAIT_BITSET_PRIVATE: u32 = 137;
 pub const FUTEX_WAKE_BITSET_PRIVATE: u32 = 138;
 pub const FUTEX_WAIT_REQUEUE_PI_PRIVATE: u32 = 139;
 pub const FUTEX_CMP_REQUEUE_PI_PRIVATE: u32 = 140;
+pub const FUTEX2_SIZE_U8: u32 = 0;
+pub const FUTEX2_SIZE_U16: u32 = 1;
+pub const FUTEX2_SIZE_U32: u32 = 2;
+pub const FUTEX2_SIZE_U64: u32 = 3;
+pub const FUTEX2_NUMA: u32 = 4;
+pub const FUTEX2_PRIVATE: u32 = 128;
+pub const FUTEX2_SIZE_MASK: u32 = 3;
 pub const FUTEX_32: u32 = 2;
 pub const FUTEX_WAITV_MAX: u32 = 128;
 pub const FUTEX_WAITERS: u32 = 2147483648;
@@ -1637,25 +1735,6 @@ pub const LINUX_REBOOT_CMD_POWER_OFF: u32 = 1126301404;
 pub const LINUX_REBOOT_CMD_RESTART2: u32 = 2712847316;
 pub const LINUX_REBOOT_CMD_SW_SUSPEND: u32 = 3489725666;
 pub const LINUX_REBOOT_CMD_KEXEC: u32 = 1163412803;
-pub const ITIMER_REAL: u32 = 0;
-pub const ITIMER_VIRTUAL: u32 = 1;
-pub const ITIMER_PROF: u32 = 2;
-pub const CLOCK_REALTIME: u32 = 0;
-pub const CLOCK_MONOTONIC: u32 = 1;
-pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
-pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
-pub const CLOCK_MONOTONIC_RAW: u32 = 4;
-pub const CLOCK_REALTIME_COARSE: u32 = 5;
-pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
-pub const CLOCK_BOOTTIME: u32 = 7;
-pub const CLOCK_REALTIME_ALARM: u32 = 8;
-pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
-pub const CLOCK_SGI_CYCLE: u32 = 10;
-pub const CLOCK_TAI: u32 = 11;
-pub const MAX_CLOCKS: u32 = 16;
-pub const CLOCKS_MASK: u32 = 1;
-pub const CLOCKS_MONO: u32 = 1;
-pub const TIMER_ABSTIME: u32 = 1;
 pub const RUSAGE_SELF: u32 = 0;
 pub const RUSAGE_CHILDREN: i32 = -1;
 pub const RUSAGE_BOTH: i32 = -2;
@@ -1835,7 +1914,8 @@ pub const SEGV_ADIDERR: u32 = 6;
 pub const SEGV_ADIPERR: u32 = 7;
 pub const SEGV_MTEAERR: u32 = 8;
 pub const SEGV_MTESERR: u32 = 9;
-pub const NSIGSEGV: u32 = 9;
+pub const SEGV_CPERR: u32 = 10;
+pub const NSIGSEGV: u32 = 10;
 pub const BUS_ADRALN: u32 = 1;
 pub const BUS_ADRERR: u32 = 2;
 pub const BUS_OBJERR: u32 = 3;
@@ -1916,6 +1996,7 @@ pub const STATX_BASIC_STATS: u32 = 2047;
 pub const STATX_BTIME: u32 = 2048;
 pub const STATX_MNT_ID: u32 = 4096;
 pub const STATX_DIOALIGN: u32 = 8192;
+pub const STATX_MNT_ID_UNIQUE: u32 = 16384;
 pub const STATX__RESERVED: u32 = 2147483648;
 pub const STATX_ALL: u32 = 4095;
 pub const STATX_ATTR_COMPRESSED: u32 = 4;
@@ -2232,6 +2313,25 @@ pub const TIOCM_DSR: u32 = 1024;
 pub const TIOCM_OUT1: u32 = 8192;
 pub const TIOCM_OUT2: u32 = 16384;
 pub const TIOCM_LOOP: u32 = 32768;
+pub const ITIMER_REAL: u32 = 0;
+pub const ITIMER_VIRTUAL: u32 = 1;
+pub const ITIMER_PROF: u32 = 2;
+pub const CLOCK_REALTIME: u32 = 0;
+pub const CLOCK_MONOTONIC: u32 = 1;
+pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
+pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
+pub const CLOCK_MONOTONIC_RAW: u32 = 4;
+pub const CLOCK_REALTIME_COARSE: u32 = 5;
+pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
+pub const CLOCK_BOOTTIME: u32 = 7;
+pub const CLOCK_REALTIME_ALARM: u32 = 8;
+pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
+pub const CLOCK_SGI_CYCLE: u32 = 10;
+pub const CLOCK_TAI: u32 = 11;
+pub const MAX_CLOCKS: u32 = 16;
+pub const CLOCKS_MASK: u32 = 1;
+pub const CLOCKS_MONO: u32 = 1;
+pub const TIMER_ABSTIME: u32 = 1;
 pub const UIO_FASTIOV: u32 = 8;
 pub const UIO_MAXIOV: u32 = 1024;
 pub const __NR_Linux: u32 = 5000;
@@ -2590,6 +2690,16 @@ pub const __NR_process_mrelease: u32 = 5448;
 pub const __NR_futex_waitv: u32 = 5449;
 pub const __NR_set_mempolicy_home_node: u32 = 5450;
 pub const __NR_cachestat: u32 = 5451;
+pub const __NR_fchmodat2: u32 = 5452;
+pub const __NR_map_shadow_stack: u32 = 5453;
+pub const __NR_futex_wake: u32 = 5454;
+pub const __NR_futex_wait: u32 = 5455;
+pub const __NR_futex_requeue: u32 = 5456;
+pub const __NR_statmount: u32 = 5457;
+pub const __NR_listmount: u32 = 5458;
+pub const __NR_lsm_get_self_attr: u32 = 5459;
+pub const __NR_lsm_set_self_attr: u32 = 5460;
+pub const __NR_lsm_list_modules: u32 = 5461;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
@@ -2668,8 +2778,10 @@ pub const _UFFDIO_UNREGISTER: u32 = 1;
 pub const _UFFDIO_WAKE: u32 = 2;
 pub const _UFFDIO_COPY: u32 = 3;
 pub const _UFFDIO_ZEROPAGE: u32 = 4;
+pub const _UFFDIO_MOVE: u32 = 5;
 pub const _UFFDIO_WRITEPROTECT: u32 = 6;
 pub const _UFFDIO_CONTINUE: u32 = 7;
+pub const _UFFDIO_POISON: u32 = 8;
 pub const _UFFDIO_API: u32 = 63;
 pub const UFFDIO: u32 = 170;
 pub const UFFD_EVENT_PAGEFAULT: u32 = 18;
@@ -2694,6 +2806,9 @@ pub const UFFD_FEATURE_MINOR_SHMEM: u32 = 1024;
 pub const UFFD_FEATURE_EXACT_ADDRESS: u32 = 2048;
 pub const UFFD_FEATURE_WP_HUGETLBFS_SHMEM: u32 = 4096;
 pub const UFFD_FEATURE_WP_UNPOPULATED: u32 = 8192;
+pub const UFFD_FEATURE_POISON: u32 = 16384;
+pub const UFFD_FEATURE_WP_ASYNC: u32 = 32768;
+pub const UFFD_FEATURE_MOVE: u32 = 65536;
 pub const UFFD_USER_MODE_ONLY: u32 = 1;
 pub const DT_UNKNOWN: u32 = 0;
 pub const DT_FIFO: u32 = 1;
@@ -2772,6 +2887,7 @@ FSCONFIG_SET_PATH_EMPTY = 4,
 FSCONFIG_SET_FD = 5,
 FSCONFIG_CMD_CREATE = 6,
 FSCONFIG_CMD_RECONFIGURE = 7,
+FSCONFIG_CMD_CREATE_EXCL = 8,
 }
 #[repr(u32)]
 #[non_exhaustive]

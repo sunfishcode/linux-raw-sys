@@ -443,6 +443,9 @@ pub tcpi_rcv_ooopack: __u32,
 pub tcpi_snd_wnd: __u32,
 pub tcpi_rcv_wnd: __u32,
 pub tcpi_rehash: __u32,
+pub tcpi_total_rto: __u16,
+pub tcpi_total_rto_recoveries: __u16,
+pub tcpi_total_rto_time: __u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -462,6 +465,80 @@ pub tcpm_prefixlen: __u8,
 pub tcpm_keylen: __u16,
 pub tcpm_addr: [__be32; 4usize],
 pub tcpm_key: [__u8; 80usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct tcp_ao_add {
+pub addr: __kernel_sockaddr_storage,
+pub alg_name: [crate::ctypes::c_char; 64usize],
+pub ifindex: __s32,
+pub _bitfield_align_1: [u32; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
+pub reserved2: __u16,
+pub prefix: __u8,
+pub sndid: __u8,
+pub rcvid: __u8,
+pub maclen: __u8,
+pub keyflags: __u8,
+pub keylen: __u8,
+pub key: [__u8; 80usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct tcp_ao_del {
+pub addr: __kernel_sockaddr_storage,
+pub ifindex: __s32,
+pub _bitfield_align_1: [u32; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
+pub reserved2: __u16,
+pub prefix: __u8,
+pub sndid: __u8,
+pub rcvid: __u8,
+pub current_key: __u8,
+pub rnext: __u8,
+pub keyflags: __u8,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct tcp_ao_info_opt {
+pub _bitfield_align_1: [u32; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
+pub reserved2: __u16,
+pub current_key: __u8,
+pub rnext: __u8,
+pub pkt_good: __u64,
+pub pkt_bad: __u64,
+pub pkt_key_not_found: __u64,
+pub pkt_ao_required: __u64,
+pub pkt_dropped_icmp: __u64,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct tcp_ao_getsockopt {
+pub addr: __kernel_sockaddr_storage,
+pub alg_name: [crate::ctypes::c_char; 64usize],
+pub key: [__u8; 80usize],
+pub nkeys: __u32,
+pub _bitfield_align_1: [u16; 0],
+pub _bitfield_1: __BindgenBitfieldUnit<[u8; 2usize]>,
+pub sndid: __u8,
+pub rcvid: __u8,
+pub prefix: __u8,
+pub maclen: __u8,
+pub keyflags: __u8,
+pub keylen: __u8,
+pub ifindex: __s32,
+pub pkt_good: __u64,
+pub pkt_bad: __u64,
+}
+#[repr(C)]
+#[repr(align(8))]
+#[derive(Debug, Copy, Clone)]
+pub struct tcp_ao_repair {
+pub snt_isn: __be32,
+pub rcv_isn: __be32,
+pub snd_sne: __u32,
+pub rcv_sne: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1199,6 +1276,11 @@ pub const TCP_ZEROCOPY_RECEIVE: u32 = 35;
 pub const TCP_INQ: u32 = 36;
 pub const TCP_CM_INQ: u32 = 36;
 pub const TCP_TX_DELAY: u32 = 37;
+pub const TCP_AO_ADD_KEY: u32 = 38;
+pub const TCP_AO_DEL_KEY: u32 = 39;
+pub const TCP_AO_INFO: u32 = 40;
+pub const TCP_AO_GET_KEYS: u32 = 41;
+pub const TCP_AO_REPAIR: u32 = 42;
 pub const TCP_REPAIR_ON: u32 = 1;
 pub const TCP_REPAIR_OFF: u32 = 0;
 pub const TCP_REPAIR_OFF_NO_WP: i32 = -1;
@@ -1208,9 +1290,13 @@ pub const TCPI_OPT_WSCALE: u32 = 4;
 pub const TCPI_OPT_ECN: u32 = 8;
 pub const TCPI_OPT_ECN_SEEN: u32 = 16;
 pub const TCPI_OPT_SYN_DATA: u32 = 32;
+pub const TCPI_OPT_USEC_TS: u32 = 64;
 pub const TCP_MD5SIG_MAXKEYLEN: u32 = 80;
 pub const TCP_MD5SIG_FLAG_PREFIX: u32 = 1;
 pub const TCP_MD5SIG_FLAG_IFINDEX: u32 = 2;
+pub const TCP_AO_MAXKEYLEN: u32 = 80;
+pub const TCP_AO_KEYF_IFINDEX: u32 = 1;
+pub const TCP_AO_KEYF_EXCLUDE_OPT: u32 = 2;
 pub const TCP_RECEIVE_ZEROCOPY_FLAG_TLB_CLEAN_HINT: u32 = 1;
 pub const UNIX_PATH_MAX: u32 = 108;
 pub const IFNAMSIZ: u32 = 16;
@@ -1575,6 +1661,7 @@ pub const DEVCONF_IOAM6_ID: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_IOAM6_ID;
 pub const DEVCONF_IOAM6_ID_WIDE: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_IOAM6_ID_WIDE;
 pub const DEVCONF_NDISC_EVICT_NOCARRIER: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_NDISC_EVICT_NOCARRIER;
 pub const DEVCONF_ACCEPT_UNTRACKED_NA: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_UNTRACKED_NA;
+pub const DEVCONF_ACCEPT_RA_MIN_LFT: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_MIN_LFT;
 pub const DEVCONF_MAX: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MAX;
 pub const TCP_FLAG_CWR: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_CWR;
 pub const TCP_FLAG_ECE: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_ECE;
@@ -1772,7 +1859,8 @@ DEVCONF_IOAM6_ID = 54,
 DEVCONF_IOAM6_ID_WIDE = 55,
 DEVCONF_NDISC_EVICT_NOCARRIER = 56,
 DEVCONF_ACCEPT_UNTRACKED_NA = 57,
-DEVCONF_MAX = 58,
+DEVCONF_ACCEPT_RA_MIN_LFT = 58,
+DEVCONF_MAX = 59,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2496,6 +2584,289 @@ tcpi_delivery_rate_app_limited as u64
 __bindgen_bitfield_unit.set(9usize, 2u8, {
 let tcpi_fastopen_client_fail: u8 = unsafe { ::core::mem::transmute(tcpi_fastopen_client_fail) };
 tcpi_fastopen_client_fail as u64
+});
+__bindgen_bitfield_unit
+}
+}
+impl tcp_ao_add {
+#[inline]
+pub fn set_current(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_current(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn set_rnext(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(1usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_rnext(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(1usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn reserved(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(2usize, 30u8) as u32) }
+}
+#[inline]
+pub fn set_reserved(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(2usize, 30u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(set_current: __u32, set_rnext: __u32, reserved: __u32) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 1u8, {
+let set_current: u32 = unsafe { ::core::mem::transmute(set_current) };
+set_current as u64
+});
+__bindgen_bitfield_unit.set(1usize, 1u8, {
+let set_rnext: u32 = unsafe { ::core::mem::transmute(set_rnext) };
+set_rnext as u64
+});
+__bindgen_bitfield_unit.set(2usize, 30u8, {
+let reserved: u32 = unsafe { ::core::mem::transmute(reserved) };
+reserved as u64
+});
+__bindgen_bitfield_unit
+}
+}
+impl tcp_ao_del {
+#[inline]
+pub fn set_current(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_current(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn set_rnext(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(1usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_rnext(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(1usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn del_async(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(2usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_del_async(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(2usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn reserved(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(3usize, 29u8) as u32) }
+}
+#[inline]
+pub fn set_reserved(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(3usize, 29u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(set_current: __u32, set_rnext: __u32, del_async: __u32, reserved: __u32) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 1u8, {
+let set_current: u32 = unsafe { ::core::mem::transmute(set_current) };
+set_current as u64
+});
+__bindgen_bitfield_unit.set(1usize, 1u8, {
+let set_rnext: u32 = unsafe { ::core::mem::transmute(set_rnext) };
+set_rnext as u64
+});
+__bindgen_bitfield_unit.set(2usize, 1u8, {
+let del_async: u32 = unsafe { ::core::mem::transmute(del_async) };
+del_async as u64
+});
+__bindgen_bitfield_unit.set(3usize, 29u8, {
+let reserved: u32 = unsafe { ::core::mem::transmute(reserved) };
+reserved as u64
+});
+__bindgen_bitfield_unit
+}
+}
+impl tcp_ao_info_opt {
+#[inline]
+pub fn set_current(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_current(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn set_rnext(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(1usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_rnext(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(1usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn ao_required(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(2usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_ao_required(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(2usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn set_counters(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(3usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_set_counters(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(3usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn accept_icmps(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 1u8) as u32) }
+}
+#[inline]
+pub fn set_accept_icmps(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(4usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn reserved(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(5usize, 27u8) as u32) }
+}
+#[inline]
+pub fn set_reserved(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_1.set(5usize, 27u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(set_current: __u32, set_rnext: __u32, ao_required: __u32, set_counters: __u32, accept_icmps: __u32, reserved: __u32) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 1u8, {
+let set_current: u32 = unsafe { ::core::mem::transmute(set_current) };
+set_current as u64
+});
+__bindgen_bitfield_unit.set(1usize, 1u8, {
+let set_rnext: u32 = unsafe { ::core::mem::transmute(set_rnext) };
+set_rnext as u64
+});
+__bindgen_bitfield_unit.set(2usize, 1u8, {
+let ao_required: u32 = unsafe { ::core::mem::transmute(ao_required) };
+ao_required as u64
+});
+__bindgen_bitfield_unit.set(3usize, 1u8, {
+let set_counters: u32 = unsafe { ::core::mem::transmute(set_counters) };
+set_counters as u64
+});
+__bindgen_bitfield_unit.set(4usize, 1u8, {
+let accept_icmps: u32 = unsafe { ::core::mem::transmute(accept_icmps) };
+accept_icmps as u64
+});
+__bindgen_bitfield_unit.set(5usize, 27u8, {
+let reserved: u32 = unsafe { ::core::mem::transmute(reserved) };
+reserved as u64
+});
+__bindgen_bitfield_unit
+}
+}
+impl tcp_ao_getsockopt {
+#[inline]
+pub fn is_current(&self) -> __u16 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u16) }
+}
+#[inline]
+pub fn set_is_current(&mut self, val: __u16) {
+unsafe {
+let val: u16 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn is_rnext(&self) -> __u16 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(1usize, 1u8) as u16) }
+}
+#[inline]
+pub fn set_is_rnext(&mut self, val: __u16) {
+unsafe {
+let val: u16 = ::core::mem::transmute(val);
+self._bitfield_1.set(1usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn get_all(&self) -> __u16 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(2usize, 1u8) as u16) }
+}
+#[inline]
+pub fn set_get_all(&mut self, val: __u16) {
+unsafe {
+let val: u16 = ::core::mem::transmute(val);
+self._bitfield_1.set(2usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub fn reserved(&self) -> __u16 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(3usize, 13u8) as u16) }
+}
+#[inline]
+pub fn set_reserved(&mut self, val: __u16) {
+unsafe {
+let val: u16 = ::core::mem::transmute(val);
+self._bitfield_1.set(3usize, 13u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_1(is_current: __u16, is_rnext: __u16, get_all: __u16, reserved: __u16) -> __BindgenBitfieldUnit<[u8; 2usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 2usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 1u8, {
+let is_current: u16 = unsafe { ::core::mem::transmute(is_current) };
+is_current as u64
+});
+__bindgen_bitfield_unit.set(1usize, 1u8, {
+let is_rnext: u16 = unsafe { ::core::mem::transmute(is_rnext) };
+is_rnext as u64
+});
+__bindgen_bitfield_unit.set(2usize, 1u8, {
+let get_all: u16 = unsafe { ::core::mem::transmute(get_all) };
+get_all as u64
+});
+__bindgen_bitfield_unit.set(3usize, 13u8, {
+let reserved: u16 = unsafe { ::core::mem::transmute(reserved) };
+reserved as u64
 });
 __bindgen_bitfield_unit
 }

@@ -49,11 +49,6 @@ pub type __sum16 = __u16;
 pub type __wsum = __u32;
 pub type __poll_t = crate::ctypes::c_uint;
 #[repr(C)]
-#[derive(Default)]
-pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
-#[repr(C)]
-pub struct __BindgenUnionField<T>(::core::marker::PhantomData<T>);
-#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr_pkt {
 pub spkt_family: crate::ctypes::c_ushort,
@@ -61,6 +56,7 @@ pub spkt_device: [crate::ctypes::c_uchar; 14usize],
 pub spkt_protocol: __be16,
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct sockaddr_ll {
 pub sll_family: crate::ctypes::c_ushort,
 pub sll_protocol: __be16,
@@ -68,23 +64,8 @@ pub sll_ifindex: crate::ctypes::c_int,
 pub sll_hatype: crate::ctypes::c_ushort,
 pub sll_pkttype: crate::ctypes::c_uchar,
 pub sll_halen: crate::ctypes::c_uchar,
-pub __bindgen_anon_1: sockaddr_ll__bindgen_ty_1,
+pub sll_addr: [crate::ctypes::c_uchar; 8usize],
 }
-#[repr(C)]
-pub struct sockaddr_ll__bindgen_ty_1 {
-pub sll_addr: __BindgenUnionField<[crate::ctypes::c_uchar; 8usize]>,
-pub __bindgen_anon_1: __BindgenUnionField<sockaddr_ll__bindgen_ty_1__bindgen_ty_1>,
-pub bindgen_union_field: [u8; 8usize],
-}
-#[repr(C)]
-#[derive(Debug)]
-pub struct sockaddr_ll__bindgen_ty_1__bindgen_ty_1 {
-pub __empty_sll_addr_flex: sockaddr_ll__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
-pub sll_addr_flex: __IncompleteArrayField<crate::ctypes::c_uchar>,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sockaddr_ll__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1 {}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct tpacket_stats {
@@ -327,71 +308,3 @@ pub union tpacket_req_u {
 pub req: tpacket_req,
 pub req3: tpacket_req3,
 }
-impl<T> __IncompleteArrayField<T> {
-#[inline]
-pub const fn new() -> Self {
-__IncompleteArrayField(::core::marker::PhantomData, [])
-}
-#[inline]
-pub fn as_ptr(&self) -> *const T {
-self as *const _ as *const T
-}
-#[inline]
-pub fn as_mut_ptr(&mut self) -> *mut T {
-self as *mut _ as *mut T
-}
-#[inline]
-pub unsafe fn as_slice(&self, len: usize) -> &[T] {
-::core::slice::from_raw_parts(self.as_ptr(), len)
-}
-#[inline]
-pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
-::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
-}
-}
-impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
-fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-fmt.write_str("__IncompleteArrayField")
-}
-}
-impl<T> __BindgenUnionField<T> {
-#[inline]
-pub const fn new() -> Self {
-__BindgenUnionField(::core::marker::PhantomData)
-}
-#[inline]
-pub unsafe fn as_ref(&self) -> &T {
-::core::mem::transmute(self)
-}
-#[inline]
-pub unsafe fn as_mut(&mut self) -> &mut T {
-::core::mem::transmute(self)
-}
-}
-impl<T> ::core::default::Default for __BindgenUnionField<T> {
-#[inline]
-fn default() -> Self {
-Self::new()
-}
-}
-impl<T> ::core::clone::Clone for __BindgenUnionField<T> {
-#[inline]
-fn clone(&self) -> Self {
-Self::new()
-}
-}
-impl<T> ::core::marker::Copy for __BindgenUnionField<T> {}
-impl<T> ::core::fmt::Debug for __BindgenUnionField<T> {
-fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-fmt.write_str("__BindgenUnionField")
-}
-}
-impl<T> ::core::hash::Hash for __BindgenUnionField<T> {
-fn hash<H: ::core::hash::Hasher>(&self, _state: &mut H) {}
-}
-impl<T> ::core::cmp::PartialEq for __BindgenUnionField<T> {
-fn eq(&self, _other: &__BindgenUnionField<T>) -> bool {
-true
-}
-}
-impl<T> ::core::cmp::Eq for __BindgenUnionField<T> {}
