@@ -21,11 +21,12 @@ static_assertions = "1.1.0"
 libc = "0.2.100"
 
 [package.metadata.docs.rs]
-features = ["default", "ioctl", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "prctl", "elf", "xdp", "mempolicy", "system", "loop_device"]
+features = ["default", "bootparam", "ioctl", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "prctl", "elf", "xdp", "mempolicy", "system", "loop_device"]
 targets = ["x86_64-unknown-linux-gnu", "i686-unknown-linux-gnu"]
 
 # The rest of this file is auto-generated!
 [features]
+bootparam = []
 errno = []
 general = []
 if_arp = []
