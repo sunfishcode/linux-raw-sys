@@ -235,6 +235,10 @@ pub mod io_uring;
 #[cfg(target_arch = "arm")]
 #[path = "arm/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/mempolicy.rs"]
@@ -287,6 +291,10 @@ pub mod io_uring;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/mempolicy.rs"]
@@ -339,6 +347,10 @@ pub mod io_uring;
 #[cfg(target_arch = "csky")]
 #[path = "csky/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/mempolicy.rs"]
@@ -391,6 +403,10 @@ pub mod io_uring;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/mempolicy.rs"]
@@ -443,6 +459,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips")]
 #[path = "mips/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/mempolicy.rs"]
@@ -495,6 +515,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/mempolicy.rs"]
@@ -547,6 +571,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/mempolicy.rs"]
@@ -599,6 +627,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/mempolicy.rs"]
@@ -651,6 +683,10 @@ pub mod io_uring;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/mempolicy.rs"]
@@ -703,6 +739,10 @@ pub mod io_uring;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/mempolicy.rs"]
@@ -755,6 +795,10 @@ pub mod io_uring;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/mempolicy.rs"]
@@ -807,6 +851,10 @@ pub mod io_uring;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/mempolicy.rs"]
@@ -859,6 +907,10 @@ pub mod io_uring;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/mempolicy.rs"]
@@ -911,6 +963,10 @@ pub mod io_uring;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/mempolicy.rs"]
@@ -963,6 +1019,10 @@ pub mod io_uring;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/mempolicy.rs"]
@@ -1015,6 +1075,10 @@ pub mod io_uring;
 #[cfg(target_arch = "x86")]
 #[path = "x86/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/mempolicy.rs"]
@@ -1067,6 +1131,10 @@ pub mod io_uring;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/mempolicy.rs"]
@@ -1119,6 +1187,10 @@ pub mod io_uring;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "loop_device")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/loop_device.rs"]
+pub mod loop_device;
 #[cfg(feature = "mempolicy")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/mempolicy.rs"]
