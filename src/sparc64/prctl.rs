@@ -224,6 +224,7 @@ pub const PR_SME_VL_LEN_MASK: u32 = 65535;
 pub const PR_SME_VL_INHERIT: u32 = 131072;
 pub const PR_SET_MDWE: u32 = 65;
 pub const PR_MDWE_REFUSE_EXEC_GAIN: u32 = 1;
+pub const PR_MDWE_NO_INHERIT: u32 = 2;
 pub const PR_GET_MDWE: u32 = 66;
 pub const PR_SET_VMA: u32 = 1398164801;
 pub const PR_SET_VMA_ANON_NAME: u32 = 0;
