@@ -272,6 +272,14 @@ fn make_headers_install(linux_arch: &str, linux_headers: &Path) {
         .status()
         .unwrap()
         .success());
+
+    if linux_arch == "arm64" {
+        fs::copy(
+            "linux/arch/arm64/include/asm/image.h",
+            linux_headers.join("include/asm/image.h"),
+        )
+        .expect("Missing headers");
+    }
 }
 
 fn rust_arches(linux_arch: &str) -> &[&str] {
@@ -291,8 +299,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         "x86" => &["x86", "x86_64", "x32"],
         "alpha" | "cris" | "h8300" | "m68k" | "microblaze" | "mn10300" | "score" | "blackfin"
         | "frv" | "ia64" | "m32r" | "m68knommu" | "parisc" | "sh" | "um" | "xtensa"
-        | "unicore32" | "c6x" | "nios2" | "openrisc" | "arc" | "nds32" | "metag"
-        | "tile" => &[],
+        | "unicore32" | "c6x" | "nios2" | "openrisc" | "arc" | "nds32" | "metag" | "tile" => &[],
         _ => panic!("unrecognized arch: {}", linux_arch),
     }
 }
