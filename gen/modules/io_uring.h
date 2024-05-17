@@ -25,3 +25,8 @@
 // crate as well) sometimes define types and constants with similar names but
 // which are ABI-incompatible with the Linux kernel ABI. This file should
 // only describe the kernel ABI.
+
+// Backport from newer Linux versions.
+#define IORING_SETUP_NO_MMAP		(1U << 14)
+#define IORING_SETUP_REGISTERED_FD_ONLY	(1U << 15)
+#define IORING_SETUP_NO_SQARRAY         (1U << 16)
