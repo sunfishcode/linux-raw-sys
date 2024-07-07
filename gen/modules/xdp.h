@@ -8,7 +8,7 @@
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
 #include <linux/if_xdp.h>
 
-// v1 versions of xdp structs. They are defined in linux/net/xdp/xsk.c and
+// Previous versions of xdp structs. They are defined in linux/net/xdp/xsk.c and
 // don't appear in header files, so they are defined here for backwards compatibility.
 
 // https://github.com/torvalds/linux/blob/v6.6/net/xdp/xsk.h#L14-L18
@@ -34,21 +34,21 @@ struct xdp_umem_reg_v1 {
     __u32 headroom;
 };
 
+// https://github.com/torvalds/linux/blob/v6.8/net/xdp/xsk.c#L1334-L1340
+struct xdp_umem_reg_v2 {
+	__u64 addr;
+	__u64 len;
+	__u32 chunk_size;
+	__u32 headroom;
+	__u32 flags;
+};
+
 // https://github.com/torvalds/linux/blob/v6.6/net/xdp/xsk.c#L1367-L1371
 struct xdp_statistics_v1 {
     __u64 rx_dropped;
     __u64 rx_invalid_descs;
     __u64 tx_invalid_descs;
 };
-
-// The following two definitions were added in kernel version 6.6 and can be removed
-// when the crate is updated to kernel version 6.6.
-
-// https://github.com/torvalds/linux/blob/master/include/uapi/linux/if_xdp.h#L33
-#define XDP_USE_SG	(1 << 4)
-
-// https://github.com/torvalds/linux/blob/master/include/uapi/linux/if_xdp.h#L122
-#define XDP_PKT_CONTD (1 << 0)
 
 #endif
 

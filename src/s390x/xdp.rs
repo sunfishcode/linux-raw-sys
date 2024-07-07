@@ -163,6 +163,15 @@ pub headroom: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct xdp_umem_reg_v2 {
+pub addr: __u64,
+pub len: __u64,
+pub chunk_size: __u32,
+pub headroom: __u32,
+pub flags: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct xdp_statistics_v1 {
 pub rx_dropped: __u64,
 pub rx_invalid_descs: __u64,
