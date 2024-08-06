@@ -20,6 +20,7 @@ pub mod ctypes {
     ))]
     pub type c_char = c_uchar;
     #[cfg(any(
+        target_arch = "loongarch64"
         target_arch = "mips",
         target_arch = "mips64",
         target_arch = "sparc",
