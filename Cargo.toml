@@ -46,3 +46,9 @@ std = []
 no_std = []
 elf = []
 rustc-dep-of-std = ["core", "compiler_builtins", "no_std"]
+
+[lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = [
+    'cfg(target_arch, values("xtensa"))',
+]
