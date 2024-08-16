@@ -24,6 +24,12 @@ libc = "0.2.100"
 features = ["default", "bootparam", "ioctl", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "prctl", "elf", "xdp", "mempolicy", "system", "loop_device"]
 targets = ["x86_64-unknown-linux-gnu", "i686-unknown-linux-gnu"]
 
+[lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = [
+    'cfg(target_arch, values("xtensa"))',
+]
+
 # The rest of this file is auto-generated!
 [features]
 bootparam = []
