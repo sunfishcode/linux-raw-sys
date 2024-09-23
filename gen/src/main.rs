@@ -26,7 +26,7 @@ fn main() {
 
     git_init();
 
-    let out = tempdir::TempDir::new("linux-raw-sys").unwrap();
+    let out = tempfile::TempDir::with_prefix("linux-raw-sys").unwrap();
     let out_dir = out.path();
     let linux_headers = out_dir.join("linux-headers");
     let linux_include = linux_headers.join("include");
@@ -291,8 +291,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         "x86" => &["x86", "x86_64", "x32"],
         "alpha" | "cris" | "h8300" | "m68k" | "microblaze" | "mn10300" | "score" | "blackfin"
         | "frv" | "ia64" | "m32r" | "m68knommu" | "parisc" | "sh" | "um" | "xtensa"
-        | "unicore32" | "c6x" | "nios2" | "openrisc" | "arc" | "nds32" | "metag"
-        | "tile" => &[],
+        | "unicore32" | "c6x" | "nios2" | "openrisc" | "arc" | "nds32" | "metag" | "tile" => &[],
         _ => panic!("unrecognized arch: {}", linux_arch),
     }
 }
