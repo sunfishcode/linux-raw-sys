@@ -160,6 +160,7 @@ pub rx_dropped: __u64,
 pub rx_invalid_descs: __u64,
 pub tx_invalid_descs: __u64,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const XDP_SHARED_UMEM: u32 = 1;
 pub const XDP_COPY: u32 = 2;
 pub const XDP_ZEROCOPY: u32 = 4;
@@ -167,6 +168,7 @@ pub const XDP_USE_NEED_WAKEUP: u32 = 8;
 pub const XDP_USE_SG: u32 = 16;
 pub const XDP_UMEM_UNALIGNED_CHUNK_FLAG: u32 = 1;
 pub const XDP_UMEM_TX_SW_CSUM: u32 = 2;
+pub const XDP_UMEM_TX_METADATA_LEN: u32 = 4;
 pub const XDP_RING_NEED_WAKEUP: u32 = 1;
 pub const XDP_MMAP_OFFSETS: u32 = 1;
 pub const XDP_RX_RING: u32 = 2;

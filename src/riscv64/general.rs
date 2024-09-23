@@ -162,6 +162,14 @@ pub data: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct epoll_params {
+pub busy_poll_usecs: __u32,
+pub busy_poll_budget: __u16,
+pub prefer_busy_poll: __u8,
+pub __pad: __u8,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct fscrypt_policy_v1 {
 pub version: __u8,
 pub contents_encryption_mode: __u8,
@@ -244,7 +252,7 @@ pub userns_fd: __u64,
 #[derive(Debug)]
 pub struct statmount {
 pub size: __u32,
-pub __spare1: __u32,
+pub mnt_opts: __u32,
 pub mask: __u64,
 pub sb_dev_major: __u32,
 pub sb_dev_minor: __u32,
@@ -262,7 +270,8 @@ pub mnt_master: __u64,
 pub propagate_from: __u64,
 pub mnt_root: __u32,
 pub mnt_point: __u32,
-pub __spare2: [__u64; 50usize],
+pub mnt_ns_id: __u64,
+pub __spare2: [__u64; 49usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
@@ -272,6 +281,7 @@ pub size: __u32,
 pub spare: __u32,
 pub mnt_id: __u64,
 pub param: __u64,
+pub mnt_ns_id: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -287,6 +297,18 @@ pub struct fstrim_range {
 pub start: __u64,
 pub len: __u64,
 pub minlen: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fsuuid2 {
+pub len: __u8,
+pub uuid: [__u8; 16usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fs_sysfs_path {
+pub len: __u8,
+pub name: [__u8; 128usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -356,6 +378,25 @@ pub return_mask: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct procmap_query {
+pub size: __u64,
+pub query_flags: __u64,
+pub query_addr: __u64,
+pub vma_start: __u64,
+pub vma_end: __u64,
+pub vma_flags: __u64,
+pub vma_page_size: __u64,
+pub vma_offset: __u64,
+pub inode: __u64,
+pub dev_major: __u32,
+pub dev_minor: __u32,
+pub vma_name_size: __u32,
+pub build_id_size: __u32,
+pub vma_name_addr: __u64,
+pub build_id_addr: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct futex_waitv {
 pub val: __u64,
 pub uaddr: __u64,
@@ -411,6 +452,14 @@ pub struct rand_pool_info {
 pub entropy_count: crate::ctypes::c_int,
 pub buf_size: crate::ctypes::c_int,
 pub buf: __IncompleteArrayField<__u32>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vgetrandom_opaque_params {
+pub size_of_opaque_state: __u32,
+pub mmap_prot: __u32,
+pub mmap_flags: __u32,
+pub reserved: [__u32; 13usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -643,7 +692,12 @@ pub stx_dev_minor: __u32,
 pub stx_mnt_id: __u64,
 pub stx_dio_mem_align: __u32,
 pub stx_dio_offset_align: __u32,
-pub __spare3: [__u64; 12usize],
+pub stx_subvol: __u64,
+pub stx_atomic_write_unit_min: __u32,
+pub stx_atomic_write_unit_max: __u32,
+pub stx_atomic_write_segments_max: __u32,
+pub __spare1: [__u32; 1usize],
+pub __spare3: [__u64; 9usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -942,9 +996,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 395264;
+pub const LINUX_VERSION_CODE: u32 = 396032;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 8;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 11;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_L1I_CACHESIZE: u32 = 40;
@@ -955,7 +1009,7 @@ pub const AT_L2_CACHESIZE: u32 = 44;
 pub const AT_L2_CACHEGEOMETRY: u32 = 45;
 pub const AT_L3_CACHESIZE: u32 = 46;
 pub const AT_L3_CACHEGEOMETRY: u32 = 47;
-pub const AT_VECTOR_SIZE_ARCH: u32 = 9;
+pub const AT_VECTOR_SIZE_ARCH: u32 = 10;
 pub const AT_MINSIGSTKSZ: u32 = 51;
 pub const AT_NULL: u32 = 0;
 pub const AT_IGNORE: u32 = 1;
@@ -981,7 +1035,10 @@ pub const AT_RANDOM: u32 = 25;
 pub const AT_HWCAP2: u32 = 26;
 pub const AT_RSEQ_FEATURE_SIZE: u32 = 27;
 pub const AT_RSEQ_ALIGN: u32 = 28;
+pub const AT_HWCAP3: u32 = 29;
+pub const AT_HWCAP4: u32 = 30;
 pub const AT_EXECFN: u32 = 31;
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const __FD_SETSIZE: u32 = 1024;
 pub const _LINUX_CAPABILITY_VERSION_1: u32 = 429392688;
 pub const _LINUX_CAPABILITY_U32S_1: u32 = 1;
@@ -1113,9 +1170,10 @@ pub const RESOLVE_IN_ROOT: u32 = 16;
 pub const RESOLVE_CACHED: u32 = 32;
 pub const F_SETLEASE: u32 = 1024;
 pub const F_GETLEASE: u32 = 1025;
+pub const F_NOTIFY: u32 = 1026;
+pub const F_DUPFD_QUERY: u32 = 1027;
 pub const F_CANCELLK: u32 = 1029;
 pub const F_DUPFD_CLOEXEC: u32 = 1030;
-pub const F_NOTIFY: u32 = 1026;
 pub const F_SETPIPE_SZ: u32 = 1031;
 pub const F_GETPIPE_SZ: u32 = 1032;
 pub const F_ADD_SEALS: u32 = 1033;
@@ -1161,6 +1219,7 @@ pub const EPOLL_CLOEXEC: u32 = 524288;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
 pub const EPOLL_CTL_MOD: u32 = 3;
+pub const EPOLL_IOC_TYPE: u32 = 138;
 pub const POSIX_FADV_NORMAL: u32 = 0;
 pub const POSIX_FADV_RANDOM: u32 = 1;
 pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
@@ -1322,13 +1381,17 @@ pub const MOUNT_ATTR_IDMAP: u32 = 1048576;
 pub const MOUNT_ATTR_NOSYMFOLLOW: u32 = 2097152;
 pub const MOUNT_ATTR_SIZE_VER0: u32 = 32;
 pub const MNT_ID_REQ_SIZE_VER0: u32 = 24;
+pub const MNT_ID_REQ_SIZE_VER1: u32 = 32;
 pub const STATMOUNT_SB_BASIC: u32 = 1;
 pub const STATMOUNT_MNT_BASIC: u32 = 2;
 pub const STATMOUNT_PROPAGATE_FROM: u32 = 4;
 pub const STATMOUNT_MNT_ROOT: u32 = 8;
 pub const STATMOUNT_MNT_POINT: u32 = 16;
 pub const STATMOUNT_FS_TYPE: u32 = 32;
+pub const STATMOUNT_MNT_NS_ID: u32 = 64;
+pub const STATMOUNT_MNT_OPTS: u32 = 128;
 pub const LSMT_ROOT: i32 = -1;
+pub const LISTMOUNT_REVERSE: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
@@ -1400,6 +1463,7 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const PROCFS_IOCTL_MAGIC: u8 = 102u8;
 pub const PAGE_IS_WPALLOWED: u32 = 1;
 pub const PAGE_IS_WRITTEN: u32 = 2;
 pub const PAGE_IS_FILE: u32 = 4;
@@ -1528,6 +1592,7 @@ pub const EFIVARFS_MAGIC: u32 = 3730735588;
 pub const HOSTFS_SUPER_MAGIC: u32 = 12648430;
 pub const OVERLAYFS_SUPER_MAGIC: u32 = 2035054128;
 pub const FUSE_SUPER_MAGIC: u32 = 1702057286;
+pub const BCACHEFS_SUPER_MAGIC: u32 = 3393526350;
 pub const MINIX_SUPER_MAGIC: u32 = 4991;
 pub const MINIX_SUPER_MAGIC2: u32 = 5007;
 pub const MINIX2_SUPER_MAGIC: u32 = 9320;
@@ -1577,6 +1642,7 @@ pub const UDF_SUPER_MAGIC: u32 = 352400198;
 pub const DMA_BUF_MAGIC: u32 = 1145913666;
 pub const DEVMEM_MAGIC: u32 = 1162691661;
 pub const SECRETMEM_MAGIC: u32 = 1397048141;
+pub const PID_FS_MAGIC: u32 = 1346978886;
 pub const PROT_READ: u32 = 1;
 pub const PROT_WRITE: u32 = 2;
 pub const PROT_EXEC: u32 = 4;
@@ -1659,6 +1725,7 @@ pub const OVERCOMMIT_NEVER: u32 = 2;
 pub const MAP_SHARED: u32 = 1;
 pub const MAP_PRIVATE: u32 = 2;
 pub const MAP_SHARED_VALIDATE: u32 = 3;
+pub const MAP_DROPPABLE: u32 = 8;
 pub const MAP_HUGE_SHIFT: u32 = 26;
 pub const MAP_HUGE_MASK: u32 = 63;
 pub const MAP_HUGE_16KB: u32 = 939524096;
@@ -1965,6 +2032,8 @@ pub const STATX_BTIME: u32 = 2048;
 pub const STATX_MNT_ID: u32 = 4096;
 pub const STATX_DIOALIGN: u32 = 8192;
 pub const STATX_MNT_ID_UNIQUE: u32 = 16384;
+pub const STATX_SUBVOL: u32 = 32768;
+pub const STATX_WRITE_ATOMIC: u32 = 65536;
 pub const STATX__RESERVED: u32 = 2147483648;
 pub const STATX_ALL: u32 = 4095;
 pub const STATX_ATTR_COMPRESSED: u32 = 4;
@@ -1976,6 +2045,7 @@ pub const STATX_ATTR_AUTOMOUNT: u32 = 4096;
 pub const STATX_ATTR_MOUNT_ROOT: u32 = 8192;
 pub const STATX_ATTR_VERITY: u32 = 1048576;
 pub const STATX_ATTR_DAX: u32 = 2097152;
+pub const STATX_ATTR_WRITE_ATOMIC: u32 = 4194304;
 pub const IGNBRK: u32 = 1;
 pub const BRKINT: u32 = 2;
 pub const IGNPAR: u32 = 4;
@@ -2188,7 +2258,7 @@ pub const __NR_epoll_ctl: u32 = 21;
 pub const __NR_epoll_pwait: u32 = 22;
 pub const __NR_dup: u32 = 23;
 pub const __NR_dup3: u32 = 24;
-pub const __NR3264_fcntl: u32 = 25;
+pub const __NR_fcntl: u32 = 25;
 pub const __NR_inotify_init1: u32 = 26;
 pub const __NR_inotify_add_watch: u32 = 27;
 pub const __NR_inotify_rm_watch: u32 = 28;
@@ -2205,10 +2275,10 @@ pub const __NR_umount2: u32 = 39;
 pub const __NR_mount: u32 = 40;
 pub const __NR_pivot_root: u32 = 41;
 pub const __NR_nfsservctl: u32 = 42;
-pub const __NR3264_statfs: u32 = 43;
-pub const __NR3264_fstatfs: u32 = 44;
-pub const __NR3264_truncate: u32 = 45;
-pub const __NR3264_ftruncate: u32 = 46;
+pub const __NR_statfs: u32 = 43;
+pub const __NR_fstatfs: u32 = 44;
+pub const __NR_truncate: u32 = 45;
+pub const __NR_ftruncate: u32 = 46;
 pub const __NR_fallocate: u32 = 47;
 pub const __NR_faccessat: u32 = 48;
 pub const __NR_chdir: u32 = 49;
@@ -2224,7 +2294,7 @@ pub const __NR_vhangup: u32 = 58;
 pub const __NR_pipe2: u32 = 59;
 pub const __NR_quotactl: u32 = 60;
 pub const __NR_getdents64: u32 = 61;
-pub const __NR3264_lseek: u32 = 62;
+pub const __NR_lseek: u32 = 62;
 pub const __NR_read: u32 = 63;
 pub const __NR_write: u32 = 64;
 pub const __NR_readv: u32 = 65;
@@ -2233,7 +2303,7 @@ pub const __NR_pread64: u32 = 67;
 pub const __NR_pwrite64: u32 = 68;
 pub const __NR_preadv: u32 = 69;
 pub const __NR_pwritev: u32 = 70;
-pub const __NR3264_sendfile: u32 = 71;
+pub const __NR_sendfile: u32 = 71;
 pub const __NR_pselect6: u32 = 72;
 pub const __NR_ppoll: u32 = 73;
 pub const __NR_signalfd4: u32 = 74;
@@ -2241,8 +2311,8 @@ pub const __NR_vmsplice: u32 = 75;
 pub const __NR_splice: u32 = 76;
 pub const __NR_tee: u32 = 77;
 pub const __NR_readlinkat: u32 = 78;
-pub const __NR3264_fstatat: u32 = 79;
-pub const __NR3264_fstat: u32 = 80;
+pub const __NR_newfstatat: u32 = 79;
+pub const __NR_fstat: u32 = 80;
 pub const __NR_sync: u32 = 81;
 pub const __NR_fsync: u32 = 82;
 pub const __NR_fdatasync: u32 = 83;
@@ -2384,8 +2454,8 @@ pub const __NR_request_key: u32 = 218;
 pub const __NR_keyctl: u32 = 219;
 pub const __NR_clone: u32 = 220;
 pub const __NR_execve: u32 = 221;
-pub const __NR3264_mmap: u32 = 222;
-pub const __NR3264_fadvise64: u32 = 223;
+pub const __NR_mmap: u32 = 222;
+pub const __NR_fadvise64: u32 = 223;
 pub const __NR_swapon: u32 = 224;
 pub const __NR_swapoff: u32 = 225;
 pub const __NR_mprotect: u32 = 226;
@@ -2406,7 +2476,8 @@ pub const __NR_rt_tgsigqueueinfo: u32 = 240;
 pub const __NR_perf_event_open: u32 = 241;
 pub const __NR_accept4: u32 = 242;
 pub const __NR_recvmmsg: u32 = 243;
-pub const __NR_arch_specific_syscall: u32 = 244;
+pub const __NR_riscv_hwprobe: u32 = 258;
+pub const __NR_riscv_flush_icache: u32 = 259;
 pub const __NR_wait4: u32 = 260;
 pub const __NR_prlimit64: u32 = 261;
 pub const __NR_fanotify_init: u32 = 262;
@@ -2480,20 +2551,7 @@ pub const __NR_listmount: u32 = 458;
 pub const __NR_lsm_get_self_attr: u32 = 459;
 pub const __NR_lsm_set_self_attr: u32 = 460;
 pub const __NR_lsm_list_modules: u32 = 461;
-pub const __NR_syscalls: u32 = 462;
-pub const __NR_fcntl: u32 = 25;
-pub const __NR_statfs: u32 = 43;
-pub const __NR_fstatfs: u32 = 44;
-pub const __NR_truncate: u32 = 45;
-pub const __NR_ftruncate: u32 = 46;
-pub const __NR_lseek: u32 = 62;
-pub const __NR_sendfile: u32 = 71;
-pub const __NR_newfstatat: u32 = 79;
-pub const __NR_fstat: u32 = 80;
-pub const __NR_mmap: u32 = 222;
-pub const __NR_fadvise64: u32 = 223;
-pub const __NR_riscv_flush_icache: u32 = 259;
-pub const __NR_riscv_hwprobe: u32 = 258;
+pub const __NR_mseal: u32 = 462;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
@@ -2678,6 +2736,17 @@ FSCONFIG_SET_FD = 5,
 FSCONFIG_CMD_CREATE = 6,
 FSCONFIG_CMD_RECONFIGURE = 7,
 FSCONFIG_CMD_CREATE_EXCL = 8,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum procmap_query_flags {
+PROCMAP_QUERY_VMA_READABLE = 1,
+PROCMAP_QUERY_VMA_WRITABLE = 2,
+PROCMAP_QUERY_VMA_EXECUTABLE = 4,
+PROCMAP_QUERY_VMA_SHARED = 8,
+PROCMAP_QUERY_COVERING_OR_NEXT_VMA = 16,
+PROCMAP_QUERY_FILE_BACKED_VMA = 32,
 }
 #[repr(u32)]
 #[non_exhaustive]

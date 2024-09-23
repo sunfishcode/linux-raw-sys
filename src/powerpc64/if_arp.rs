@@ -618,6 +618,7 @@ pub ar_hln: crate::ctypes::c_uchar,
 pub ar_pln: crate::ctypes::c_uchar,
 pub ar_op: __be16,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;
@@ -1387,6 +1388,8 @@ pub const IFLA_GTP_PDP_HASHSIZE: _bindgen_ty_28 = _bindgen_ty_28::IFLA_GTP_PDP_H
 pub const IFLA_GTP_ROLE: _bindgen_ty_28 = _bindgen_ty_28::IFLA_GTP_ROLE;
 pub const IFLA_GTP_CREATE_SOCKETS: _bindgen_ty_28 = _bindgen_ty_28::IFLA_GTP_CREATE_SOCKETS;
 pub const IFLA_GTP_RESTART_COUNT: _bindgen_ty_28 = _bindgen_ty_28::IFLA_GTP_RESTART_COUNT;
+pub const IFLA_GTP_LOCAL: _bindgen_ty_28 = _bindgen_ty_28::IFLA_GTP_LOCAL;
+pub const IFLA_GTP_LOCAL6: _bindgen_ty_28 = _bindgen_ty_28::IFLA_GTP_LOCAL6;
 pub const __IFLA_GTP_MAX: _bindgen_ty_28 = _bindgen_ty_28::__IFLA_GTP_MAX;
 pub const IFLA_BOND_UNSPEC: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_UNSPEC;
 pub const IFLA_BOND_MODE: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_MODE;
@@ -1420,6 +1423,7 @@ pub const IFLA_BOND_PEER_NOTIF_DELAY: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND
 pub const IFLA_BOND_AD_LACP_ACTIVE: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_AD_LACP_ACTIVE;
 pub const IFLA_BOND_MISSED_MAX: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_MISSED_MAX;
 pub const IFLA_BOND_NS_IP6_TARGET: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_NS_IP6_TARGET;
+pub const IFLA_BOND_COUPLED_CONTROL: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_COUPLED_CONTROL;
 pub const __IFLA_BOND_MAX: _bindgen_ty_29 = _bindgen_ty_29::__IFLA_BOND_MAX;
 pub const IFLA_BOND_AD_INFO_UNSPEC: _bindgen_ty_30 = _bindgen_ty_30::IFLA_BOND_AD_INFO_UNSPEC;
 pub const IFLA_BOND_AD_INFO_AGGREGATOR: _bindgen_ty_30 = _bindgen_ty_30::IFLA_BOND_AD_INFO_AGGREGATOR;
@@ -1521,6 +1525,7 @@ pub const IFLA_HSR_SUPERVISION_ADDR: _bindgen_ty_44 = _bindgen_ty_44::IFLA_HSR_S
 pub const IFLA_HSR_SEQ_NR: _bindgen_ty_44 = _bindgen_ty_44::IFLA_HSR_SEQ_NR;
 pub const IFLA_HSR_VERSION: _bindgen_ty_44 = _bindgen_ty_44::IFLA_HSR_VERSION;
 pub const IFLA_HSR_PROTOCOL: _bindgen_ty_44 = _bindgen_ty_44::IFLA_HSR_PROTOCOL;
+pub const IFLA_HSR_INTERLINK: _bindgen_ty_44 = _bindgen_ty_44::IFLA_HSR_INTERLINK;
 pub const __IFLA_HSR_MAX: _bindgen_ty_44 = _bindgen_ty_44::__IFLA_HSR_MAX;
 pub const IFLA_STATS_UNSPEC: _bindgen_ty_45 = _bindgen_ty_45::IFLA_STATS_UNSPEC;
 pub const IFLA_STATS_LINK_64: _bindgen_ty_45 = _bindgen_ty_45::IFLA_STATS_LINK_64;
@@ -2287,7 +2292,9 @@ IFLA_GTP_PDP_HASHSIZE = 3,
 IFLA_GTP_ROLE = 4,
 IFLA_GTP_CREATE_SOCKETS = 5,
 IFLA_GTP_RESTART_COUNT = 6,
-__IFLA_GTP_MAX = 7,
+IFLA_GTP_LOCAL = 7,
+IFLA_GTP_LOCAL6 = 8,
+__IFLA_GTP_MAX = 9,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2325,7 +2332,8 @@ IFLA_BOND_PEER_NOTIF_DELAY = 28,
 IFLA_BOND_AD_LACP_ACTIVE = 29,
 IFLA_BOND_MISSED_MAX = 30,
 IFLA_BOND_NS_IP6_TARGET = 31,
-__IFLA_BOND_MAX = 32,
+IFLA_BOND_COUPLED_CONTROL = 32,
+__IFLA_BOND_MAX = 33,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2501,7 +2509,8 @@ IFLA_HSR_SUPERVISION_ADDR = 4,
 IFLA_HSR_SEQ_NR = 5,
 IFLA_HSR_VERSION = 6,
 IFLA_HSR_PROTOCOL = 7,
-__IFLA_HSR_MAX = 8,
+IFLA_HSR_INTERLINK = 8,
+__IFLA_HSR_MAX = 9,
 }
 #[repr(u32)]
 #[non_exhaustive]

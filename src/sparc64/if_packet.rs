@@ -211,6 +211,7 @@ pub id: __u16,
 pub max_num_members: __u32,
 }
 pub const __BIG_ENDIAN: u32 = 4321;
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const ASI_NULL1: u32 = 0;
 pub const ASI_NULL2: u32 = 1;
 pub const ASI_CONTROL: u32 = 2;

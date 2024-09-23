@@ -860,6 +860,7 @@ pub _address: u8,
 pub struct iovec {
 pub _address: u8,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;
@@ -1273,6 +1274,7 @@ pub const TCP_AO_DEL_KEY: u32 = 39;
 pub const TCP_AO_INFO: u32 = 40;
 pub const TCP_AO_GET_KEYS: u32 = 41;
 pub const TCP_AO_REPAIR: u32 = 42;
+pub const TCP_IS_MPTCP: u32 = 43;
 pub const TCP_REPAIR_ON: u32 = 1;
 pub const TCP_REPAIR_OFF: u32 = 0;
 pub const TCP_REPAIR_OFF_NO_WP: i32 = -1;
@@ -1559,6 +1561,7 @@ pub const IPPROTO_UDPLITE: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_UDPLITE;
 pub const IPPROTO_MPLS: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MPLS;
 pub const IPPROTO_ETHERNET: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_ETHERNET;
 pub const IPPROTO_RAW: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_RAW;
+pub const IPPROTO_SMC: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_SMC;
 pub const IPPROTO_MPTCP: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MPTCP;
 pub const IPPROTO_MAX: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MAX;
 pub const IPV4_DEVCONF_FORWARDING: _bindgen_ty_2 = _bindgen_ty_2::IPV4_DEVCONF_FORWARDING;
@@ -1747,6 +1750,7 @@ IPPROTO_UDPLITE = 136,
 IPPROTO_MPLS = 137,
 IPPROTO_ETHERNET = 143,
 IPPROTO_RAW = 255,
+IPPROTO_SMC = 256,
 IPPROTO_MPTCP = 262,
 IPPROTO_MAX = 263,
 }

@@ -101,6 +101,7 @@ pub const _MIPS_ISA_MIPS64: u32 = 7;
 pub const _MIPS_SIM_ABI32: u32 = 1;
 pub const _MIPS_SIM_NABI32: u32 = 2;
 pub const _MIPS_SIM_ABI64: u32 = 3;
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const LO_CRYPT_NONE: u32 = 0;
 pub const LO_CRYPT_XOR: u32 = 1;
 pub const LO_CRYPT_DES: u32 = 2;

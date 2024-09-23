@@ -203,6 +203,7 @@ pub type_flags: __u16,
 pub max_num_members: __u32,
 }
 pub const __LITTLE_ENDIAN: u32 = 1234;
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const PACKET_HOST: u32 = 0;
 pub const PACKET_BROADCAST: u32 = 1;
 pub const PACKET_MULTICAST: u32 = 2;
