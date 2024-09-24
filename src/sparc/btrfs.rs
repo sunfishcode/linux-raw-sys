@@ -136,7 +136,7 @@ pub userns_fd: __u64,
 #[derive(Debug)]
 pub struct statmount {
 pub size: __u32,
-pub __spare1: __u32,
+pub mnt_opts: __u32,
 pub mask: __u64,
 pub sb_dev_major: __u32,
 pub sb_dev_minor: __u32,
@@ -154,7 +154,8 @@ pub mnt_master: __u64,
 pub propagate_from: __u64,
 pub mnt_root: __u32,
 pub mnt_point: __u32,
-pub __spare2: [__u64; 50usize],
+pub mnt_ns_id: __u64,
+pub __spare2: [__u64; 49usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
@@ -164,6 +165,7 @@ pub size: __u32,
 pub spare: __u32,
 pub mnt_id: __u64,
 pub param: __u64,
+pub mnt_ns_id: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -179,6 +181,18 @@ pub struct fstrim_range {
 pub start: __u64,
 pub len: __u64,
 pub minlen: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fsuuid2 {
+pub len: __u8,
+pub uuid: [__u8; 16usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fs_sysfs_path {
+pub len: __u8,
+pub name: [__u8; 128usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -245,6 +259,25 @@ pub category_inverted: __u64,
 pub category_mask: __u64,
 pub category_anyof_mask: __u64,
 pub return_mask: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct procmap_query {
+pub size: __u64,
+pub query_flags: __u64,
+pub query_addr: __u64,
+pub vma_start: __u64,
+pub vma_end: __u64,
+pub vma_flags: __u64,
+pub vma_page_size: __u64,
+pub vma_offset: __u64,
+pub inode: __u64,
+pub dev_major: __u32,
+pub dev_minor: __u32,
+pub vma_name_size: __u32,
+pub build_id_size: __u32,
+pub vma_name_addr: __u64,
+pub build_id_addr: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -855,10 +888,17 @@ pub physical: __le64,
 }
 #[repr(C, packed)]
 pub struct btrfs_stripe_extent {
-pub encoding: __u8,
-pub reserved: [__u8; 7usize],
+pub __bindgen_anon_1: btrfs_stripe_extent__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct btrfs_stripe_extent__bindgen_ty_1 {
+pub __empty_strides: btrfs_stripe_extent__bindgen_ty_1__bindgen_ty_1,
 pub strides: __IncompleteArrayField<btrfs_raid_stride>,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct btrfs_stripe_extent__bindgen_ty_1__bindgen_ty_1 {}
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_extent_item {
@@ -1127,6 +1167,7 @@ pub encryption: __u8,
 pub struct iovec {
 pub _address: u8,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const _IOC_NRBITS: u32 = 8;
 pub const _IOC_TYPEBITS: u32 = 8;
 pub const _IOC_SIZEBITS: u32 = 13;
@@ -1275,13 +1316,17 @@ pub const MOUNT_ATTR_IDMAP: u32 = 1048576;
 pub const MOUNT_ATTR_NOSYMFOLLOW: u32 = 2097152;
 pub const MOUNT_ATTR_SIZE_VER0: u32 = 32;
 pub const MNT_ID_REQ_SIZE_VER0: u32 = 24;
+pub const MNT_ID_REQ_SIZE_VER1: u32 = 32;
 pub const STATMOUNT_SB_BASIC: u32 = 1;
 pub const STATMOUNT_MNT_BASIC: u32 = 2;
 pub const STATMOUNT_PROPAGATE_FROM: u32 = 4;
 pub const STATMOUNT_MNT_ROOT: u32 = 8;
 pub const STATMOUNT_MNT_POINT: u32 = 16;
 pub const STATMOUNT_FS_TYPE: u32 = 32;
+pub const STATMOUNT_MNT_NS_ID: u32 = 64;
+pub const STATMOUNT_MNT_OPTS: u32 = 128;
 pub const LSMT_ROOT: i32 = -1;
+pub const LISTMOUNT_REVERSE: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
@@ -1353,6 +1398,7 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const PROCFS_IOCTL_MAGIC: u8 = 102u8;
 pub const PAGE_IS_WPALLOWED: u32 = 1;
 pub const PAGE_IS_WRITTEN: u32 = 2;
 pub const PAGE_IS_FILE: u32 = 4;
@@ -1385,6 +1431,7 @@ pub const BTRFS_QGROUP_LIMIT_RSV_EXCL: u32 = 8;
 pub const BTRFS_QGROUP_LIMIT_RFER_CMPR: u32 = 16;
 pub const BTRFS_QGROUP_LIMIT_EXCL_CMPR: u32 = 32;
 pub const BTRFS_QGROUP_INHERIT_SET_LIMITS: u32 = 1;
+pub const BTRFS_QGROUP_INHERIT_FLAGS_SUPP: u32 = 1;
 pub const BTRFS_DEVICE_REMOVE_ARGS_MASK: u32 = 8;
 pub const BTRFS_SUBVOL_CREATE_ARGS_MASK: u32 = 6;
 pub const BTRFS_SUBVOL_DELETE_ARGS_MASK: u32 = 16;
@@ -1590,14 +1637,6 @@ pub const BTRFS_SYSTEM_CHUNK_ARRAY_SIZE: u32 = 2048;
 pub const BTRFS_NUM_BACKUP_ROOTS: u32 = 4;
 pub const BTRFS_FREE_SPACE_EXTENT: u32 = 1;
 pub const BTRFS_FREE_SPACE_BITMAP: u32 = 2;
-pub const BTRFS_STRIPE_RAID0: u32 = 1;
-pub const BTRFS_STRIPE_RAID1: u32 = 2;
-pub const BTRFS_STRIPE_DUP: u32 = 3;
-pub const BTRFS_STRIPE_RAID10: u32 = 4;
-pub const BTRFS_STRIPE_RAID5: u32 = 5;
-pub const BTRFS_STRIPE_RAID6: u32 = 6;
-pub const BTRFS_STRIPE_RAID1C3: u32 = 7;
-pub const BTRFS_STRIPE_RAID1C4: u32 = 8;
 pub const BTRFS_HEADER_FLAG_WRITTEN: u32 = 1;
 pub const BTRFS_HEADER_FLAG_RELOC: u32 = 2;
 pub const BTRFS_SUPER_FLAG_ERROR: u32 = 4;
@@ -1606,6 +1645,9 @@ pub const BTRFS_SUPER_FLAG_METADUMP: u64 = 8589934592;
 pub const BTRFS_SUPER_FLAG_METADUMP_V2: u64 = 17179869184;
 pub const BTRFS_SUPER_FLAG_CHANGING_FSID: u64 = 34359738368;
 pub const BTRFS_SUPER_FLAG_CHANGING_FSID_V2: u64 = 68719476736;
+pub const BTRFS_SUPER_FLAG_CHANGING_BG_TREE: u64 = 274877906944;
+pub const BTRFS_SUPER_FLAG_CHANGING_DATA_CSUM: u64 = 549755813888;
+pub const BTRFS_SUPER_FLAG_CHANGING_META_CSUM: u64 = 1099511627776;
 pub const BTRFS_EXTENT_FLAG_DATA: u32 = 1;
 pub const BTRFS_EXTENT_FLAG_TREE_BLOCK: u32 = 2;
 pub const BTRFS_BLOCK_FLAG_FULL_BACKREF: u32 = 256;
@@ -1661,6 +1703,17 @@ FSCONFIG_SET_FD = 5,
 FSCONFIG_CMD_CREATE = 6,
 FSCONFIG_CMD_RECONFIGURE = 7,
 FSCONFIG_CMD_CREATE_EXCL = 8,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum procmap_query_flags {
+PROCMAP_QUERY_VMA_READABLE = 1,
+PROCMAP_QUERY_VMA_WRITABLE = 2,
+PROCMAP_QUERY_VMA_EXECUTABLE = 4,
+PROCMAP_QUERY_VMA_SHARED = 8,
+PROCMAP_QUERY_COVERING_OR_NEXT_VMA = 16,
+PROCMAP_QUERY_FILE_BACKED_VMA = 32,
 }
 #[repr(u32)]
 #[non_exhaustive]

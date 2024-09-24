@@ -57,6 +57,7 @@ pub h_dest: [crate::ctypes::c_uchar; 6usize],
 pub h_source: [crate::ctypes::c_uchar; 6usize],
 pub h_proto: __be16,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const ETH_ALEN: u32 = 6;
 pub const ETH_TLEN: u32 = 2;
 pub const ETH_HLEN: u32 = 14;
