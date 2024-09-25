@@ -441,24 +441,6 @@ pub name: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct landlock_ruleset_attr {
-pub handled_access_fs: __u64,
-pub handled_access_net: __u64,
-}
-#[repr(C, packed)]
-#[derive(Debug, Copy, Clone)]
-pub struct landlock_path_beneath_attr {
-pub allowed_access: __u64,
-pub parent_fd: __s32,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct landlock_net_port_attr {
-pub allowed_access: __u64,
-pub port: __u64,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct cachestat_range {
 pub off: __u64,
 pub len: __u64,
@@ -1566,25 +1548,6 @@ pub const IN_ONESHOT: u32 = 2147483648;
 pub const IN_ALL_EVENTS: u32 = 4095;
 pub const IN_CLOEXEC: u32 = 524288;
 pub const IN_NONBLOCK: u32 = 2048;
-pub const LANDLOCK_CREATE_RULESET_VERSION: u32 = 1;
-pub const LANDLOCK_ACCESS_FS_EXECUTE: u32 = 1;
-pub const LANDLOCK_ACCESS_FS_WRITE_FILE: u32 = 2;
-pub const LANDLOCK_ACCESS_FS_READ_FILE: u32 = 4;
-pub const LANDLOCK_ACCESS_FS_READ_DIR: u32 = 8;
-pub const LANDLOCK_ACCESS_FS_REMOVE_DIR: u32 = 16;
-pub const LANDLOCK_ACCESS_FS_REMOVE_FILE: u32 = 32;
-pub const LANDLOCK_ACCESS_FS_MAKE_CHAR: u32 = 64;
-pub const LANDLOCK_ACCESS_FS_MAKE_DIR: u32 = 128;
-pub const LANDLOCK_ACCESS_FS_MAKE_REG: u32 = 256;
-pub const LANDLOCK_ACCESS_FS_MAKE_SOCK: u32 = 512;
-pub const LANDLOCK_ACCESS_FS_MAKE_FIFO: u32 = 1024;
-pub const LANDLOCK_ACCESS_FS_MAKE_BLOCK: u32 = 2048;
-pub const LANDLOCK_ACCESS_FS_MAKE_SYM: u32 = 4096;
-pub const LANDLOCK_ACCESS_FS_REFER: u32 = 8192;
-pub const LANDLOCK_ACCESS_FS_TRUNCATE: u32 = 16384;
-pub const LANDLOCK_ACCESS_FS_IOCTL_DEV: u32 = 32768;
-pub const LANDLOCK_ACCESS_NET_BIND_TCP: u32 = 1;
-pub const LANDLOCK_ACCESS_NET_CONNECT_TCP: u32 = 2;
 pub const ADFS_SUPER_MAGIC: u32 = 44533;
 pub const AFFS_SUPER_MAGIC: u32 = 44543;
 pub const AFS_SUPER_MAGIC: u32 = 1397113167;
@@ -2838,13 +2801,6 @@ PROCMAP_QUERY_VMA_EXECUTABLE = 4,
 PROCMAP_QUERY_VMA_SHARED = 8,
 PROCMAP_QUERY_COVERING_OR_NEXT_VMA = 16,
 PROCMAP_QUERY_FILE_BACKED_VMA = 32,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum landlock_rule_type {
-LANDLOCK_RULE_PATH_BENEATH = 1,
-LANDLOCK_RULE_NET_PORT = 2,
 }
 #[repr(u32)]
 #[non_exhaustive]

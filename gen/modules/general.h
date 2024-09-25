@@ -14,7 +14,6 @@
 #include <linux/fs.h>
 #include <linux/futex.h>
 #include <linux/inotify.h>
-#include <linux/landlock.h>
 #include <linux/limits.h>
 #include <linux/magic.h>
 #include <linux/mman.h>
