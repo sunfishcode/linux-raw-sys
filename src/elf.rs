@@ -1,4 +1,11 @@
 //! The ELF ABI. 🧝
+//!
+//! This module is not as comprehensive as bindgened [`elf_uapi`] and provides only types for target
+//! pointer width: instead of [`elf32_phdr`] and [`elf64_phdr`] there's only [`Elf_Phdr`].
+//!
+//! [`elf_uapi`]: super::elf_uapi
+//! [`elf32_phdr`]: super::elf_uapi::elf32_phdr
+//! [`elf64_phdr`]: super::elf_uapi::elf64_phdr
 
 pub const SELFMAG: usize = 4;
 pub const ELFMAG: [u8; SELFMAG] = [0x7f, b'E', b'L', b'F'];
