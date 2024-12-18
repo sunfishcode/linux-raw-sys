@@ -250,6 +250,10 @@ pub mod netlink;
 #[cfg(target_arch = "arm")]
 #[path = "arm/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/system.rs"]
@@ -318,6 +322,10 @@ pub mod netlink;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/system.rs"]
@@ -386,6 +394,10 @@ pub mod netlink;
 #[cfg(target_arch = "csky")]
 #[path = "csky/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/system.rs"]
@@ -454,6 +466,10 @@ pub mod netlink;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/system.rs"]
@@ -522,6 +538,10 @@ pub mod netlink;
 #[cfg(target_arch = "mips")]
 #[path = "mips/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/system.rs"]
@@ -590,6 +610,10 @@ pub mod netlink;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/system.rs"]
@@ -658,6 +682,10 @@ pub mod netlink;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/system.rs"]
@@ -726,6 +754,10 @@ pub mod netlink;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/system.rs"]
@@ -794,6 +826,10 @@ pub mod netlink;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/system.rs"]
@@ -862,6 +898,10 @@ pub mod netlink;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/system.rs"]
@@ -930,6 +970,10 @@ pub mod netlink;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/system.rs"]
@@ -998,6 +1042,10 @@ pub mod netlink;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/system.rs"]
@@ -1066,6 +1114,10 @@ pub mod netlink;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/system.rs"]
@@ -1134,6 +1186,10 @@ pub mod netlink;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/system.rs"]
@@ -1202,6 +1258,10 @@ pub mod netlink;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/system.rs"]
@@ -1270,6 +1330,10 @@ pub mod netlink;
 #[cfg(target_arch = "x86")]
 #[path = "x86/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/system.rs"]
@@ -1338,6 +1402,10 @@ pub mod netlink;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/system.rs"]
@@ -1406,6 +1474,10 @@ pub mod netlink;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/prctl.rs"]
 pub mod prctl;
+#[cfg(feature = "ptrace")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/ptrace.rs"]
+pub mod ptrace;
 #[cfg(feature = "system")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/system.rs"]
