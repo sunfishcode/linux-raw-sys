@@ -273,6 +273,7 @@ fn make_headers_install(linux_arch: &str, linux_headers: &Path) {
         .unwrap()
         .success());
 
+    // HACK: Header missing from kernel installation - likely an upstream bug that needs to be reported
     if linux_arch == "arm64" {
         fs::copy(
             "linux/arch/arm64/include/asm/image.h",
