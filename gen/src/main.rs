@@ -272,6 +272,14 @@ fn make_headers_install(linux_arch: &str, linux_headers: &Path) {
         .status()
         .unwrap()
         .success());
+
+    if linux_arch == "arm64" {
+        fs::copy(
+            "linux/arch/arm64/include/asm/image.h",
+            linux_headers.join("include/asm/image.h"),
+        )
+        .expect("Missing headers");
+    }
 }
 
 fn rust_arches(linux_arch: &str) -> &[&str] {
