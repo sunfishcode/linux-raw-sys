@@ -53,6 +53,7 @@ pub const DT_REL: usize = 17;
 pub const DT_RELSZ: usize = 18;
 pub const DT_RELENT: usize = 19;
 pub const DT_SYMENT: usize = 11;
+pub const DT_GNU_HASH: usize = 0x6fff_fef5;
 pub const DT_VERSYM: usize = 0x6fff_fff0;
 pub const DT_VERDEF: usize = 0x6fff_fffc;
 pub const STB_WEAK: u8 = 2;
