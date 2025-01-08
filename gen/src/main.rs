@@ -10,7 +10,7 @@ use std::process::Command;
 use std::{env, fs};
 
 #[allow(unused_doc_comments)]
-const LINUX_VERSION: &str = "v6.11";
+const LINUX_VERSION: &str = "v6.12";
 
 /// Some commonly used features.
 const DEFAULT_FEATURES: &str = "\"general\", \"errno\"";

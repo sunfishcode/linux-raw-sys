@@ -472,6 +472,19 @@ pub resv2: [__u32; 3usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct io_uring_clock_register {
+pub clockid: __u32,
+pub __resv: [__u32; 3usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_clone_buffers {
+pub src_fd: __u32,
+pub flags: __u32,
+pub pad: [__u32; 6usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct io_uring_buf {
 pub addr: __u64,
 pub len: __u32,
@@ -534,7 +547,7 @@ pub resv: __u64,
 pub struct io_uring_getevents_arg {
 pub sigmask: __u64,
 pub sigmask_sz: __u32,
-pub pad: __u32,
+pub min_wait_usec: __u32,
 pub ts: __u64,
 }
 #[repr(C)]
@@ -872,6 +885,7 @@ pub const IORING_CQE_F_BUFFER: u32 = 1;
 pub const IORING_CQE_F_MORE: u32 = 2;
 pub const IORING_CQE_F_SOCK_NONEMPTY: u32 = 4;
 pub const IORING_CQE_F_NOTIF: u32 = 8;
+pub const IORING_CQE_F_BUF_MORE: u32 = 16;
 pub const IORING_CQE_BUFFER_SHIFT: u32 = 16;
 pub const IORING_OFF_SQ_RING: u32 = 0;
 pub const IORING_OFF_CQ_RING: u32 = 134217728;
@@ -888,6 +902,7 @@ pub const IORING_ENTER_SQ_WAKEUP: u32 = 2;
 pub const IORING_ENTER_SQ_WAIT: u32 = 4;
 pub const IORING_ENTER_EXT_ARG: u32 = 8;
 pub const IORING_ENTER_REGISTERED_RING: u32 = 16;
+pub const IORING_ENTER_ABS_TIMER: u32 = 32;
 pub const IORING_FEAT_SINGLE_MMAP: u32 = 1;
 pub const IORING_FEAT_NODROP: u32 = 2;
 pub const IORING_FEAT_SUBMIT_STABLE: u32 = 4;
@@ -903,9 +918,11 @@ pub const IORING_FEAT_CQE_SKIP: u32 = 2048;
 pub const IORING_FEAT_LINKED_FILE: u32 = 4096;
 pub const IORING_FEAT_REG_REG_RING: u32 = 8192;
 pub const IORING_FEAT_RECVSEND_BUNDLE: u32 = 16384;
+pub const IORING_FEAT_MIN_TIMEOUT: u32 = 32768;
 pub const IORING_RSRC_REGISTER_SPARSE: u32 = 1;
 pub const IORING_REGISTER_FILES_SKIP: i32 = -2;
 pub const IO_URING_OP_SUPPORTED: u32 = 1;
+pub const IORING_REGISTER_SRC_REGISTERED: _bindgen_ty_1 = _bindgen_ty_1::IORING_REGISTER_SRC_REGISTERED;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -1047,7 +1064,9 @@ IORING_REGISTER_FILE_ALLOC_RANGE = 25,
 IORING_REGISTER_PBUF_STATUS = 26,
 IORING_REGISTER_NAPI = 27,
 IORING_UNREGISTER_NAPI = 28,
-IORING_REGISTER_LAST = 29,
+IORING_REGISTER_CLOCK = 29,
+IORING_REGISTER_CLONE_BUFFERS = 30,
+IORING_REGISTER_LAST = 31,
 IORING_REGISTER_USE_REGISTERED_RING = 2147483648,
 }
 #[repr(u32)]
@@ -1060,8 +1079,15 @@ IO_WQ_UNBOUND = 1,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_1 {
+IORING_REGISTER_SRC_REGISTERED = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum io_uring_register_pbuf_ring_flags {
 IOU_PBUF_RING_MMAP = 1,
+IOU_PBUF_RING_INC = 2,
 }
 #[repr(u32)]
 #[non_exhaustive]

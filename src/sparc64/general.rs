@@ -804,6 +804,21 @@ pub struct iovec {
 pub iov_base: *mut crate::ctypes::c_void,
 pub iov_len: __kernel_size_t,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct dmabuf_cmsg {
+pub frag_offset: __u64,
+pub frag_size: __u32,
+pub frag_token: __u32,
+pub dmabuf_id: __u32,
+pub flags: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct dmabuf_token {
+pub token_start: __u32,
+pub token_count: __u32,
+}
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
 pub struct uffd_msg {
@@ -1029,9 +1044,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 396032;
+pub const LINUX_VERSION_CODE: u32 = 396288;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 11;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 12;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_ADI_BLKSZ: u32 = 48;
@@ -1200,6 +1215,7 @@ pub const F_SETLEASE: u32 = 1024;
 pub const F_GETLEASE: u32 = 1025;
 pub const F_NOTIFY: u32 = 1026;
 pub const F_DUPFD_QUERY: u32 = 1027;
+pub const F_CREATED_QUERY: u32 = 1028;
 pub const F_CANCELLK: u32 = 1029;
 pub const F_DUPFD_CLOEXEC: u32 = 1030;
 pub const F_SETPIPE_SZ: u32 = 1031;
@@ -1232,8 +1248,6 @@ pub const DN_ATTRIB: u32 = 32;
 pub const DN_MULTISHOT: u32 = 2147483648;
 pub const AT_FDCWD: i32 = -100;
 pub const AT_SYMLINK_NOFOLLOW: u32 = 256;
-pub const AT_EACCESS: u32 = 512;
-pub const AT_REMOVEDIR: u32 = 512;
 pub const AT_SYMLINK_FOLLOW: u32 = 1024;
 pub const AT_NO_AUTOMOUNT: u32 = 2048;
 pub const AT_EMPTY_PATH: u32 = 4096;
@@ -1242,7 +1256,13 @@ pub const AT_STATX_SYNC_AS_STAT: u32 = 0;
 pub const AT_STATX_FORCE_SYNC: u32 = 8192;
 pub const AT_STATX_DONT_SYNC: u32 = 16384;
 pub const AT_RECURSIVE: u32 = 32768;
+pub const AT_RENAME_NOREPLACE: u32 = 1;
+pub const AT_RENAME_EXCHANGE: u32 = 2;
+pub const AT_RENAME_WHITEOUT: u32 = 4;
+pub const AT_EACCESS: u32 = 512;
+pub const AT_REMOVEDIR: u32 = 512;
 pub const AT_HANDLE_FID: u32 = 512;
+pub const AT_HANDLE_MNT_ID_UNIQUE: u32 = 1;
 pub const EPOLL_CLOEXEC: u32 = 4194304;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
@@ -1254,6 +1274,7 @@ pub const POSIX_FADV_SEQUENTIAL: u32 = 2;
 pub const POSIX_FADV_WILLNEED: u32 = 3;
 pub const POSIX_FADV_DONTNEED: u32 = 4;
 pub const POSIX_FADV_NOREUSE: u32 = 5;
+pub const FALLOC_FL_ALLOCATE_RANGE: u32 = 0;
 pub const FALLOC_FL_KEEP_SIZE: u32 = 1;
 pub const FALLOC_FL_PUNCH_HOLE: u32 = 2;
 pub const FALLOC_FL_NO_HIDE_STALE: u32 = 4;
@@ -1869,6 +1890,7 @@ pub const SCHED_RR: u32 = 2;
 pub const SCHED_BATCH: u32 = 3;
 pub const SCHED_IDLE: u32 = 5;
 pub const SCHED_DEADLINE: u32 = 6;
+pub const SCHED_EXT: u32 = 7;
 pub const SCHED_RESET_ON_FORK: u32 = 1073741824;
 pub const SCHED_FLAG_RESET_ON_FORK: u32 = 1;
 pub const SCHED_FLAG_RECLAIM: u32 = 2;
