@@ -55,6 +55,7 @@ pub type __poll_t = crate::ctypes::c_uint;
 pub struct landlock_ruleset_attr {
 pub handled_access_fs: __u64,
 pub handled_access_net: __u64,
+pub scoped: __u64,
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
@@ -98,6 +99,8 @@ pub const LANDLOCK_ACCESS_FS_TRUNCATE: u32 = 16384;
 pub const LANDLOCK_ACCESS_FS_IOCTL_DEV: u32 = 32768;
 pub const LANDLOCK_ACCESS_NET_BIND_TCP: u32 = 1;
 pub const LANDLOCK_ACCESS_NET_CONNECT_TCP: u32 = 2;
+pub const LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET: u32 = 1;
+pub const LANDLOCK_SCOPE_SIGNAL: u32 = 2;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
