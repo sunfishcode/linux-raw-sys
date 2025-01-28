@@ -4,6 +4,8 @@
 #[cfg(feature = "std")]
 pub use std::os::raw as ctypes;
 
+pub mod syscall;
+
 #[cfg(all(not(feature = "std"), feature = "no_std"))]
 pub mod ctypes {
     // The signedness of `char` is platform-specific, and we have to match
