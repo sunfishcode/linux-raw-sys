@@ -1,5 +1,11 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![cfg_attr(not(feature = "std"), no_std)]
+/*
+Unsafe functions no longer implicitly create unsafe blocks (RFC 2585).
+While newer bindgen versions follow this convention, we support Rust 1.63 which warns about
+this behavior. We can simply silence these warnings.
+*/
+#![allow(unused_unsafe)]
 
 #[cfg(feature = "std")]
 pub use std::os::raw as ctypes;
