@@ -1422,6 +1422,7 @@ pub const SCM_DEVMEM_LINEAR: u32 = 87;
 pub const SO_DEVMEM_DMABUF: u32 = 88;
 pub const SCM_DEVMEM_DMABUF: u32 = 88;
 pub const SO_DEVMEM_DONTNEED: u32 = 89;
+pub const SCM_TS_OPT_ID: u32 = 90;
 pub const SO_TIMESTAMP: u32 = 29;
 pub const SO_TIMESTAMPNS: u32 = 33;
 pub const SO_TIMESTAMPING: u32 = 35;

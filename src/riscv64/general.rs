@@ -271,7 +271,13 @@ pub propagate_from: __u64,
 pub mnt_root: __u32,
 pub mnt_point: __u32,
 pub mnt_ns_id: __u64,
-pub __spare2: [__u64; 49usize],
+pub fs_subtype: __u32,
+pub sb_source: __u32,
+pub opt_num: __u32,
+pub opt_array: __u32,
+pub opt_sec_num: __u32,
+pub opt_sec_array: __u32,
+pub __spare2: [__u64; 46usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
@@ -802,6 +808,13 @@ pub struct dmabuf_token {
 pub token_start: __u32,
 pub token_count: __u32,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct xattr_args {
+pub value: __u64,
+pub size: __u32,
+pub flags: __u32,
+}
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
 pub struct uffd_msg {
@@ -1011,9 +1024,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 396288;
+pub const LINUX_VERSION_CODE: u32 = 396544;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 12;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 13;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_L1I_CACHESIZE: u32 = 40;
@@ -1235,6 +1248,7 @@ pub const AT_EACCESS: u32 = 512;
 pub const AT_REMOVEDIR: u32 = 512;
 pub const AT_HANDLE_FID: u32 = 512;
 pub const AT_HANDLE_MNT_ID_UNIQUE: u32 = 1;
+pub const AT_HANDLE_CONNECTABLE: u32 = 2;
 pub const EPOLL_CLOEXEC: u32 = 524288;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
@@ -1411,6 +1425,10 @@ pub const STATMOUNT_MNT_POINT: u32 = 16;
 pub const STATMOUNT_FS_TYPE: u32 = 32;
 pub const STATMOUNT_MNT_NS_ID: u32 = 64;
 pub const STATMOUNT_MNT_OPTS: u32 = 128;
+pub const STATMOUNT_FS_SUBTYPE: u32 = 256;
+pub const STATMOUNT_SB_SOURCE: u32 = 512;
+pub const STATMOUNT_OPT_ARRAY: u32 = 1024;
+pub const STATMOUNT_OPT_SEC_ARRAY: u32 = 2048;
 pub const LSMT_ROOT: i32 = -1;
 pub const LISTMOUNT_REVERSE: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
@@ -1710,6 +1728,8 @@ pub const MADV_POPULATE_READ: u32 = 22;
 pub const MADV_POPULATE_WRITE: u32 = 23;
 pub const MADV_DONTNEED_LOCKED: u32 = 24;
 pub const MADV_COLLAPSE: u32 = 25;
+pub const MADV_GUARD_INSTALL: u32 = 102;
+pub const MADV_GUARD_REMOVE: u32 = 103;
 pub const MAP_FILE: u32 = 0;
 pub const PKEY_DISABLE_ACCESS: u32 = 1;
 pub const PKEY_DISABLE_WRITE: u32 = 2;
@@ -1722,6 +1742,8 @@ pub const MAP_NORESERVE: u32 = 16384;
 pub const MCL_CURRENT: u32 = 1;
 pub const MCL_FUTURE: u32 = 2;
 pub const MCL_ONFAULT: u32 = 4;
+pub const SHADOW_STACK_SET_TOKEN: u32 = 1;
+pub const SHADOW_STACK_SET_MARKER: u32 = 2;
 pub const HUGETLB_FLAG_ENCODE_SHIFT: u32 = 26;
 pub const HUGETLB_FLAG_ENCODE_MASK: u32 = 63;
 pub const HUGETLB_FLAG_ENCODE_16KB: u32 = 939524096;
@@ -2574,6 +2596,10 @@ pub const __NR_lsm_get_self_attr: u32 = 459;
 pub const __NR_lsm_set_self_attr: u32 = 460;
 pub const __NR_lsm_list_modules: u32 = 461;
 pub const __NR_mseal: u32 = 462;
+pub const __NR_setxattrat: u32 = 463;
+pub const __NR_getxattrat: u32 = 464;
+pub const __NR_listxattrat: u32 = 465;
+pub const __NR_removexattrat: u32 = 466;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
