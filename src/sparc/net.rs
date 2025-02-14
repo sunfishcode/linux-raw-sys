@@ -1416,6 +1416,7 @@ pub const SCM_DEVMEM_LINEAR: u32 = 87;
 pub const SO_DEVMEM_DMABUF: u32 = 88;
 pub const SCM_DEVMEM_DMABUF: u32 = 88;
 pub const SO_DEVMEM_DONTNEED: u32 = 89;
+pub const SCM_TS_OPT_ID: u32 = 90;
 pub const SYS_SOCKET: u32 = 1;
 pub const SYS_BIND: u32 = 2;
 pub const SYS_CONNECT: u32 = 3;
