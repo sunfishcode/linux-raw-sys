@@ -52,7 +52,7 @@ pub type __poll_t = crate::ctypes::c_uint;
 pub type cap_user_header_t = *mut __user_cap_header_struct;
 pub type cap_user_data_t = *mut __user_cap_data_struct;
 pub type __kernel_rwf_t = crate::ctypes::c_int;
-pub type sigset_t = crate::ctypes::c_ulong;
+pub type old_sigset_t = crate::ctypes::c_ulong;
 pub type __signalfn_t = ::core::option::Option<unsafe extern "C" fn(arg1: crate::ctypes::c_int)>;
 pub type __sighandler_t = __signalfn_t;
 pub type __restorefn_t = ::core::option::Option<unsafe extern "C" fn()>;
@@ -552,7 +552,7 @@ pub cgroup: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct __new_sigset_t {
+pub struct sigset_t {
 pub sig: [crate::ctypes::c_ulong; 2usize],
 }
 #[repr(C)]
@@ -563,17 +563,17 @@ pub cur_status: crate::ctypes::c_int,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct __new_sigaction {
+pub struct sigaction {
 pub sa_handler: __sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_restorer: __sigrestore_t,
-pub sa_mask: __new_sigset_t,
+pub sa_mask: sigset_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct sigaction {
+pub struct old_sigaction {
 pub sa_handler: __sighandler_t,
-pub sa_mask: sigset_t,
+pub sa_mask: old_sigset_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_restorer: ::core::option::Option<unsafe extern "C" fn()>,
 }
@@ -1051,7 +1051,7 @@ pub __bindgen_padding_0: [u8; 3usize],
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct kernel_sigset_t {
-pub sig: [crate::ctypes::c_ulong; 1usize],
+pub sig: [crate::ctypes::c_ulong; 2usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1988,8 +1988,7 @@ pub const _NSIG_BPW: u32 = 32;
 pub const _NSIG_WORDS: u32 = 2;
 pub const SIGRTMIN: u32 = 32;
 pub const SIGRTMAX: u32 = 64;
-pub const _NSIG: u32 = 32;
-pub const NSIG: u32 = 32;
+pub const _NSIG: u32 = 64;
 pub const _SV_SSTACK: u32 = 1;
 pub const _SV_INTR: u32 = 2;
 pub const _SV_RESET: u32 = 4;

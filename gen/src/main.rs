@@ -337,6 +337,7 @@ fn run_bindgen(
         .blocklist_item("__BITS_PER_LONG")
         .clang_arg(&format!("--target={}", clang_target))
         .clang_arg("-DBITS_PER_LONG=(__SIZEOF_LONG__*__CHAR_BIT__)")
+        .clang_arg("-D__WANT_POSIX1B_SIGNALS__")
         .clang_arg("-nostdinc")
         .clang_arg("-I")
         .clang_arg(linux_include)
