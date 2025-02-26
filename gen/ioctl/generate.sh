@@ -32,6 +32,9 @@ qemu-arm -L /usr/arm-linux-gnueabihf ./main.exe >> "$out"
 powerpc64le-linux-gnu-gcc -Iinclude -c list.c $cflags
 powerpc64le-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-ppc64le -L /usr/powerpc64le-linux-gnu ./main.exe >> "$out"
+powerpc-linux-gnu-gcc -Iinclude -c list.c $cflags
+powerpc-linux-gnu-gcc main.c list.o -o main.exe $cflags
+qemu-ppc -L /usr/powerpc-linux-gnu ./main.exe >> "$out"
 mips64el-linux-gnuabi64-gcc -Iinclude -c list.c $cflags
 mips64el-linux-gnuabi64-gcc main.c list.o -o main.exe $cflags
 qemu-mips64el -L /usr/mips64el-linux-gnuabi64 ./main.exe >> "$out"
