@@ -31,10 +31,10 @@ int main(void) {
     printf("#ifdef __arm__\n");
 #elif defined(__aarch64__)
     printf("#ifdef __aarch64__\n");
-#elif defined(__powerpc__)
-    printf("#ifdef __powerpc__\n");
 #elif defined(__powerpc64__)
     printf("#ifdef __powerpc64__\n");
+#elif defined(__powerpc__) && !defined(__powerpc64__)
+    printf("#if defined(__powerpc__) && !defined(__powerpc64__)\n");
 #elif __mips == 32
     printf("#if __mips == 32\n");
 #elif __mips == 64
