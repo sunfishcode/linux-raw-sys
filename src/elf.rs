@@ -73,7 +73,7 @@ pub const EM_CURRENT: u16 = 20; // EM_PPC
 #[cfg(target_arch = "powerpc64")]
 pub const EM_CURRENT: u16 = 21; // EM_PPC64
 #[cfg(target_arch = "s390x")]
-const EM_CURRENT: u16 = 22; // EM_S390
+pub const EM_CURRENT: u16 = 22; // EM_S390
 #[cfg(any(
     target_arch = "mips",
     target_arch = "mips32r6",
