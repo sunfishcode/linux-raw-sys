@@ -16,6 +16,10 @@
 #include <linux/netfilter_ipv6/ip6_tables.h>
 #include <linux/netfilter_ipv4.h>
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,7,0)
+#include <linux/net_tstamp.h>
+#endif
+
 // Miscellaneous definitions which don't appear to be defined in Linux's public
 // headers, but which are nonetheless part of the ABI, and necessary for
 // interoperability.

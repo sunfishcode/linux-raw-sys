@@ -804,6 +804,32 @@ pub entrytable: __IncompleteArrayField<ip6t_entry>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct so_timestamping {
+pub flags: crate::ctypes::c_int,
+pub bind_phc: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct hwtstamp_config {
+pub flags: crate::ctypes::c_int,
+pub tx_type: crate::ctypes::c_int,
+pub rx_filter: crate::ctypes::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct scm_ts_pktinfo {
+pub if_index: __u32,
+pub pkt_length: __u32,
+pub reserved: [__u32; 2usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sock_txtime {
+pub clockid: __kernel_clockid_t,
+pub flags: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct linger {
 pub l_onoff: crate::ctypes::c_int,
 pub l_linger: crate::ctypes::c_int,
@@ -1711,6 +1737,26 @@ pub const NFPROTO_BRIDGE: _bindgen_ty_9 = _bindgen_ty_9::NFPROTO_BRIDGE;
 pub const NFPROTO_IPV6: _bindgen_ty_9 = _bindgen_ty_9::NFPROTO_IPV6;
 pub const NFPROTO_DECNET: _bindgen_ty_9 = _bindgen_ty_9::NFPROTO_DECNET;
 pub const NFPROTO_NUMPROTO: _bindgen_ty_9 = _bindgen_ty_9::NFPROTO_NUMPROTO;
+pub const SOF_TIMESTAMPING_TX_HARDWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_TX_HARDWARE;
+pub const SOF_TIMESTAMPING_TX_SOFTWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_TX_SOFTWARE;
+pub const SOF_TIMESTAMPING_RX_HARDWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_RX_HARDWARE;
+pub const SOF_TIMESTAMPING_RX_SOFTWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_RX_SOFTWARE;
+pub const SOF_TIMESTAMPING_SOFTWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_SOFTWARE;
+pub const SOF_TIMESTAMPING_SYS_HARDWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_SYS_HARDWARE;
+pub const SOF_TIMESTAMPING_RAW_HARDWARE: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_RAW_HARDWARE;
+pub const SOF_TIMESTAMPING_OPT_ID: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_ID;
+pub const SOF_TIMESTAMPING_TX_SCHED: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_TX_SCHED;
+pub const SOF_TIMESTAMPING_TX_ACK: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_TX_ACK;
+pub const SOF_TIMESTAMPING_OPT_CMSG: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_CMSG;
+pub const SOF_TIMESTAMPING_OPT_TSONLY: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_TSONLY;
+pub const SOF_TIMESTAMPING_OPT_STATS: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_STATS;
+pub const SOF_TIMESTAMPING_OPT_PKTINFO: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_PKTINFO;
+pub const SOF_TIMESTAMPING_OPT_TX_SWHW: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_TX_SWHW;
+pub const SOF_TIMESTAMPING_BIND_PHC: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_BIND_PHC;
+pub const SOF_TIMESTAMPING_OPT_ID_TCP: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_ID_TCP;
+pub const SOF_TIMESTAMPING_OPT_RX_FILTER: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_RX_FILTER;
+pub const SOF_TIMESTAMPING_LAST: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_RX_FILTER;
+pub const SOF_TIMESTAMPING_MASK: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_MASK;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -2050,6 +2096,76 @@ NF_IP_PRI_NAT_SRC = 100,
 NF_IP_PRI_SELINUX_LAST = 225,
 NF_IP_PRI_CONNTRACK_HELPER = 300,
 NF_IP_PRI_CONNTRACK_CONFIRM = 2147483647,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_10 {
+SOF_TIMESTAMPING_TX_HARDWARE = 1,
+SOF_TIMESTAMPING_TX_SOFTWARE = 2,
+SOF_TIMESTAMPING_RX_HARDWARE = 4,
+SOF_TIMESTAMPING_RX_SOFTWARE = 8,
+SOF_TIMESTAMPING_SOFTWARE = 16,
+SOF_TIMESTAMPING_SYS_HARDWARE = 32,
+SOF_TIMESTAMPING_RAW_HARDWARE = 64,
+SOF_TIMESTAMPING_OPT_ID = 128,
+SOF_TIMESTAMPING_TX_SCHED = 256,
+SOF_TIMESTAMPING_TX_ACK = 512,
+SOF_TIMESTAMPING_OPT_CMSG = 1024,
+SOF_TIMESTAMPING_OPT_TSONLY = 2048,
+SOF_TIMESTAMPING_OPT_STATS = 4096,
+SOF_TIMESTAMPING_OPT_PKTINFO = 8192,
+SOF_TIMESTAMPING_OPT_TX_SWHW = 16384,
+SOF_TIMESTAMPING_BIND_PHC = 32768,
+SOF_TIMESTAMPING_OPT_ID_TCP = 65536,
+SOF_TIMESTAMPING_OPT_RX_FILTER = 131072,
+SOF_TIMESTAMPING_MASK = 262143,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum hwtstamp_flags {
+HWTSTAMP_FLAG_BONDED_PHC_INDEX = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum hwtstamp_tx_types {
+HWTSTAMP_TX_OFF = 0,
+HWTSTAMP_TX_ON = 1,
+HWTSTAMP_TX_ONESTEP_SYNC = 2,
+HWTSTAMP_TX_ONESTEP_P2P = 3,
+__HWTSTAMP_TX_CNT = 4,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum hwtstamp_rx_filters {
+HWTSTAMP_FILTER_NONE = 0,
+HWTSTAMP_FILTER_ALL = 1,
+HWTSTAMP_FILTER_SOME = 2,
+HWTSTAMP_FILTER_PTP_V1_L4_EVENT = 3,
+HWTSTAMP_FILTER_PTP_V1_L4_SYNC = 4,
+HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ = 5,
+HWTSTAMP_FILTER_PTP_V2_L4_EVENT = 6,
+HWTSTAMP_FILTER_PTP_V2_L4_SYNC = 7,
+HWTSTAMP_FILTER_PTP_V2_L4_DELAY_REQ = 8,
+HWTSTAMP_FILTER_PTP_V2_L2_EVENT = 9,
+HWTSTAMP_FILTER_PTP_V2_L2_SYNC = 10,
+HWTSTAMP_FILTER_PTP_V2_L2_DELAY_REQ = 11,
+HWTSTAMP_FILTER_PTP_V2_EVENT = 12,
+HWTSTAMP_FILTER_PTP_V2_SYNC = 13,
+HWTSTAMP_FILTER_PTP_V2_DELAY_REQ = 14,
+HWTSTAMP_FILTER_NTP_ALL = 15,
+__HWTSTAMP_FILTER_CNT = 16,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum txtime_flags {
+SOF_TXTIME_DEADLINE_MODE = 1,
+SOF_TXTIME_REPORT_ERRORS = 2,
+SOF_TXTIME_FLAGS_MASK = 3,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3291,4 +3407,13 @@ pub const NF_INET_INGRESS: nf_inet_hooks = nf_inet_hooks::NF_INET_NUMHOOKS;
 }
 impl nf_ip_hook_priorities {
 pub const NF_IP_PRI_LAST: nf_ip_hook_priorities = nf_ip_hook_priorities::NF_IP_PRI_CONNTRACK_CONFIRM;
+}
+impl hwtstamp_flags {
+pub const HWTSTAMP_FLAG_LAST: hwtstamp_flags = hwtstamp_flags::HWTSTAMP_FLAG_BONDED_PHC_INDEX;
+}
+impl hwtstamp_flags {
+pub const HWTSTAMP_FLAG_MASK: hwtstamp_flags = hwtstamp_flags::HWTSTAMP_FLAG_BONDED_PHC_INDEX;
+}
+impl txtime_flags {
+pub const SOF_TXTIME_FLAGS_LAST: txtime_flags = txtime_flags::SOF_TXTIME_REPORT_ERRORS;
 }
