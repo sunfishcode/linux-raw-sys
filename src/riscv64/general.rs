@@ -702,7 +702,7 @@ pub stx_subvol: __u64,
 pub stx_atomic_write_unit_min: __u32,
 pub stx_atomic_write_unit_max: __u32,
 pub stx_atomic_write_segments_max: __u32,
-pub __spare1: [__u32; 1usize],
+pub stx_dio_read_offset_align: __u32,
 pub __spare3: [__u64; 9usize],
 }
 #[repr(C)]
@@ -1024,9 +1024,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 396544;
+pub const LINUX_VERSION_CODE: u32 = 396800;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 13;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 14;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_L1I_CACHESIZE: u32 = 40;
@@ -1249,6 +1249,7 @@ pub const AT_REMOVEDIR: u32 = 512;
 pub const AT_HANDLE_FID: u32 = 512;
 pub const AT_HANDLE_MNT_ID_UNIQUE: u32 = 1;
 pub const AT_HANDLE_CONNECTABLE: u32 = 2;
+pub const AT_EXECVE_CHECK: u32 = 65536;
 pub const EPOLL_CLOEXEC: u32 = 524288;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
@@ -1435,6 +1436,10 @@ pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
 pub const BLOCK_SIZE: u32 = 1024;
+pub const IO_INTEGRITY_CHK_GUARD: u32 = 1;
+pub const IO_INTEGRITY_CHK_REFTAG: u32 = 2;
+pub const IO_INTEGRITY_CHK_APPTAG: u32 = 4;
+pub const IO_INTEGRITY_VALID_FLAGS: u32 = 7;
 pub const SEEK_SET: u32 = 0;
 pub const SEEK_CUR: u32 = 1;
 pub const SEEK_END: u32 = 2;
@@ -2078,6 +2083,7 @@ pub const STATX_DIOALIGN: u32 = 8192;
 pub const STATX_MNT_ID_UNIQUE: u32 = 16384;
 pub const STATX_SUBVOL: u32 = 32768;
 pub const STATX_WRITE_ATOMIC: u32 = 65536;
+pub const STATX_DIO_READ_ALIGN: u32 = 131072;
 pub const STATX__RESERVED: u32 = 2147483648;
 pub const STATX_ALL: u32 = 4095;
 pub const STATX_ATTR_COMPRESSED: u32 = 4;
