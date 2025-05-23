@@ -235,6 +235,24 @@ pub padlen: __u8,
 pub reserved: __u8,
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_iptfs_hdr {
+pub subtype: __u8,
+pub flags: __u8,
+pub block_offset: __be16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_iptfs_cc_hdr {
+pub subtype: __u8,
+pub flags: __u8,
+pub block_offset: __be16,
+pub loss_rate: __be32,
+pub rtt_adelay_xdelay: __be64,
+pub tval: __be32,
+pub techo: __be32,
+}
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct in6_addr {
 pub in6_u: in6_addr__bindgen_ty_1,
@@ -1229,6 +1247,7 @@ pub const SO_DEVMEM_DMABUF: u32 = 79;
 pub const SCM_DEVMEM_DMABUF: u32 = 79;
 pub const SO_DEVMEM_DONTNEED: u32 = 80;
 pub const SCM_TS_OPT_ID: u32 = 81;
+pub const SO_RCVPRIORITY: u32 = 82;
 pub const SO_TIMESTAMP: u32 = 29;
 pub const SO_TIMESTAMPNS: u32 = 35;
 pub const SO_TIMESTAMPING: u32 = 37;
@@ -1588,6 +1607,7 @@ pub const IPPROTO_SCTP: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_SCTP;
 pub const IPPROTO_UDPLITE: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_UDPLITE;
 pub const IPPROTO_MPLS: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MPLS;
 pub const IPPROTO_ETHERNET: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_ETHERNET;
+pub const IPPROTO_AGGFRAG: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_AGGFRAG;
 pub const IPPROTO_RAW: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_RAW;
 pub const IPPROTO_SMC: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_SMC;
 pub const IPPROTO_MPTCP: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MPTCP;
@@ -1797,6 +1817,7 @@ IPPROTO_SCTP = 132,
 IPPROTO_UDPLITE = 136,
 IPPROTO_MPLS = 137,
 IPPROTO_ETHERNET = 143,
+IPPROTO_AGGFRAG = 144,
 IPPROTO_RAW = 255,
 IPPROTO_SMC = 256,
 IPPROTO_MPTCP = 262,
@@ -2106,6 +2127,14 @@ NF_IP_PRI_NAT_SRC = 100,
 NF_IP_PRI_SELINUX_LAST = 225,
 NF_IP_PRI_CONNTRACK_HELPER = 300,
 NF_IP_PRI_CONNTRACK_CONFIRM = 2147483647,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum hwtstamp_provider_qualifier {
+HWTSTAMP_PROVIDER_QUALIFIER_PRECISE = 0,
+HWTSTAMP_PROVIDER_QUALIFIER_APPROX = 1,
+HWTSTAMP_PROVIDER_QUALIFIER_CNT = 2,
 }
 #[repr(u32)]
 #[non_exhaustive]

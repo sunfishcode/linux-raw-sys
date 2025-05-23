@@ -217,6 +217,20 @@ pub pad: u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct user_watch_state_v2 {
+pub dbg_info: u64,
+pub dbg_regs: [user_watch_state_v2__bindgen_ty_1; 14usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct user_watch_state_v2__bindgen_ty_1 {
+pub addr: u64,
+pub mask: u64,
+pub ctrl: u32,
+pub pad: u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct seccomp_data {
 pub nr: crate::ctypes::c_int,
 pub arch: __u32,
@@ -409,6 +423,7 @@ pub const AUDIT_INTEGRITY_PCR: u32 = 1804;
 pub const AUDIT_INTEGRITY_RULE: u32 = 1805;
 pub const AUDIT_INTEGRITY_EVM_XATTR: u32 = 1806;
 pub const AUDIT_INTEGRITY_POLICY_RULE: u32 = 1807;
+pub const AUDIT_INTEGRITY_USERSPACE: u32 = 1808;
 pub const AUDIT_KERNEL: u32 = 2000;
 pub const AUDIT_FILTER_USER: u32 = 0;
 pub const AUDIT_FILTER_TASK: u32 = 1;

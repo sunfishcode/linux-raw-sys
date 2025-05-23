@@ -360,6 +360,7 @@ pub __pad3: [__u16; 1usize],
 #[repr(C)]
 pub struct io_uring_sqe__bindgen_ty_6 {
 pub __bindgen_anon_1: __BindgenUnionField<io_uring_sqe__bindgen_ty_6__bindgen_ty_1>,
+pub __bindgen_anon_2: __BindgenUnionField<io_uring_sqe__bindgen_ty_6__bindgen_ty_2>,
 pub optval: __BindgenUnionField<__u64>,
 pub cmd: __BindgenUnionField<[__u8; 0usize]>,
 pub bindgen_union_field: [u64; 2usize],
@@ -369,6 +370,22 @@ pub bindgen_union_field: [u64; 2usize],
 pub struct io_uring_sqe__bindgen_ty_6__bindgen_ty_1 {
 pub addr3: __u64,
 pub __pad2: [__u64; 1usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_sqe__bindgen_ty_6__bindgen_ty_2 {
+pub attr_ptr: __u64,
+pub attr_type_mask: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_attr_pi {
+pub flags: __u16,
+pub app_tag: __u16,
+pub len: __u32,
+pub addr: __u64,
+pub seed: __u64,
+pub rsvd: __u64,
 }
 #[repr(C)]
 #[derive(Debug)]
@@ -783,6 +800,10 @@ pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
 pub const BLOCK_SIZE: u32 = 1024;
+pub const IO_INTEGRITY_CHK_GUARD: u32 = 1;
+pub const IO_INTEGRITY_CHK_REFTAG: u32 = 2;
+pub const IO_INTEGRITY_CHK_APPTAG: u32 = 4;
+pub const IO_INTEGRITY_VALID_FLAGS: u32 = 7;
 pub const SEEK_SET: u32 = 0;
 pub const SEEK_CUR: u32 = 1;
 pub const SEEK_END: u32 = 2;
@@ -861,6 +882,7 @@ pub const PAGE_IS_HUGE: u32 = 64;
 pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
 pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
+pub const IORING_RW_ATTR_FLAG_PI: u32 = 1;
 pub const IORING_FILE_INDEX_ALLOC: i32 = -1;
 pub const IORING_SETUP_IOPOLL: u32 = 1;
 pub const IORING_SETUP_SQPOLL: u32 = 2;
@@ -958,6 +980,7 @@ pub const IORING_FEAT_LINKED_FILE: u32 = 4096;
 pub const IORING_FEAT_REG_REG_RING: u32 = 8192;
 pub const IORING_FEAT_RECVSEND_BUNDLE: u32 = 16384;
 pub const IORING_FEAT_MIN_TIMEOUT: u32 = 32768;
+pub const IORING_FEAT_RW_ATTR: u32 = 65536;
 pub const IORING_RSRC_REGISTER_SPARSE: u32 = 1;
 pub const IORING_REGISTER_FILES_SKIP: i32 = -2;
 pub const IO_URING_OP_SUPPORTED: u32 = 1;

@@ -1311,6 +1311,8 @@ pub const IFLA_NETKIT_PEER_POLICY: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_
 pub const IFLA_NETKIT_MODE: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_MODE;
 pub const IFLA_NETKIT_SCRUB: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_SCRUB;
 pub const IFLA_NETKIT_PEER_SCRUB: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_PEER_SCRUB;
+pub const IFLA_NETKIT_HEADROOM: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_HEADROOM;
+pub const IFLA_NETKIT_TAILROOM: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_TAILROOM;
 pub const __IFLA_NETKIT_MAX: _bindgen_ty_20 = _bindgen_ty_20::__IFLA_NETKIT_MAX;
 pub const VNIFILTER_ENTRY_STATS_UNSPEC: _bindgen_ty_21 = _bindgen_ty_21::VNIFILTER_ENTRY_STATS_UNSPEC;
 pub const VNIFILTER_ENTRY_STATS_RX_BYTES: _bindgen_ty_21 = _bindgen_ty_21::VNIFILTER_ENTRY_STATS_RX_BYTES;
@@ -1366,6 +1368,7 @@ pub const IFLA_VXLAN_DF: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_DF;
 pub const IFLA_VXLAN_VNIFILTER: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_VNIFILTER;
 pub const IFLA_VXLAN_LOCALBYPASS: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_LOCALBYPASS;
 pub const IFLA_VXLAN_LABEL_POLICY: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_LABEL_POLICY;
+pub const IFLA_VXLAN_RESERVED_BITS: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_RESERVED_BITS;
 pub const __IFLA_VXLAN_MAX: _bindgen_ty_24 = _bindgen_ty_24::__IFLA_VXLAN_MAX;
 pub const IFLA_GENEVE_UNSPEC: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_UNSPEC;
 pub const IFLA_GENEVE_ID: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_ID;
@@ -2153,7 +2156,9 @@ IFLA_NETKIT_PEER_POLICY = 4,
 IFLA_NETKIT_MODE = 5,
 IFLA_NETKIT_SCRUB = 6,
 IFLA_NETKIT_PEER_SCRUB = 7,
-__IFLA_NETKIT_MAX = 8,
+IFLA_NETKIT_HEADROOM = 8,
+IFLA_NETKIT_TAILROOM = 9,
+__IFLA_NETKIT_MAX = 10,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2228,7 +2233,8 @@ IFLA_VXLAN_DF = 29,
 IFLA_VXLAN_VNIFILTER = 30,
 IFLA_VXLAN_LOCALBYPASS = 31,
 IFLA_VXLAN_LABEL_POLICY = 32,
-__IFLA_VXLAN_MAX = 33,
+IFLA_VXLAN_RESERVED_BITS = 33,
+__IFLA_VXLAN_MAX = 34,
 }
 #[repr(u32)]
 #[non_exhaustive]
