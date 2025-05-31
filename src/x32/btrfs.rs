@@ -163,7 +163,12 @@ pub opt_num: __u32,
 pub opt_array: __u32,
 pub opt_sec_num: __u32,
 pub opt_sec_array: __u32,
-pub __spare2: [__u64; 46usize],
+pub supported_mask: __u64,
+pub mnt_uidmap_num: __u32,
+pub mnt_uidmap: __u32,
+pub mnt_gidmap_num: __u32,
+pub mnt_gidmap: __u32,
+pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
@@ -534,14 +539,20 @@ pub src_length: __u64,
 pub dest_offset: __u64,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct btrfs_ioctl_defrag_range_args {
 pub start: __u64,
 pub len: __u64,
 pub flags: __u64,
 pub extent_thresh: __u32,
-pub compress_type: __u32,
+pub __bindgen_anon_1: btrfs_ioctl_defrag_range_args__bindgen_ty_1,
 pub unused: [__u32; 4usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct btrfs_ioctl_defrag_range_args__bindgen_ty_1__bindgen_ty_1 {
+pub type_: __u8,
+pub level: __s8,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1343,12 +1354,19 @@ pub const STATMOUNT_FS_SUBTYPE: u32 = 256;
 pub const STATMOUNT_SB_SOURCE: u32 = 512;
 pub const STATMOUNT_OPT_ARRAY: u32 = 1024;
 pub const STATMOUNT_OPT_SEC_ARRAY: u32 = 2048;
+pub const STATMOUNT_SUPPORTED_MASK: u32 = 4096;
+pub const STATMOUNT_MNT_UIDMAP: u32 = 8192;
+pub const STATMOUNT_MNT_GIDMAP: u32 = 16384;
 pub const LSMT_ROOT: i32 = -1;
 pub const LISTMOUNT_REVERSE: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
 pub const BLOCK_SIZE: u32 = 1024;
+pub const IO_INTEGRITY_CHK_GUARD: u32 = 1;
+pub const IO_INTEGRITY_CHK_REFTAG: u32 = 2;
+pub const IO_INTEGRITY_CHK_APPTAG: u32 = 4;
+pub const IO_INTEGRITY_VALID_FLAGS: u32 = 7;
 pub const SEEK_SET: u32 = 0;
 pub const SEEK_CUR: u32 = 1;
 pub const SEEK_END: u32 = 2;
@@ -1519,7 +1537,8 @@ pub const BTRFS_INO_LOOKUP_PATH_MAX: u32 = 4080;
 pub const BTRFS_INO_LOOKUP_USER_PATH_MAX: u32 = 3824;
 pub const BTRFS_DEFRAG_RANGE_COMPRESS: u32 = 1;
 pub const BTRFS_DEFRAG_RANGE_START_IO: u32 = 2;
-pub const BTRFS_DEFRAG_RANGE_FLAGS_SUPP: u32 = 3;
+pub const BTRFS_DEFRAG_RANGE_COMPRESS_LEVEL: u32 = 4;
+pub const BTRFS_DEFRAG_RANGE_FLAGS_SUPP: u32 = 7;
 pub const BTRFS_SAME_DATA_DIFFERS: u32 = 1;
 pub const BTRFS_LOGICAL_INO_ARGS_IGNORE_OFFSET: u32 = 1;
 pub const BTRFS_DEV_STATS_RESET: u32 = 1;
@@ -1826,6 +1845,12 @@ pub __bindgen_anon_1: btrfs_balance_args__bindgen_ty_1__bindgen_ty_1,
 pub union btrfs_balance_args__bindgen_ty_2 {
 pub limit: __u64,
 pub __bindgen_anon_1: btrfs_balance_args__bindgen_ty_2__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union btrfs_ioctl_defrag_range_args__bindgen_ty_1 {
+pub compress_type: __u32,
+pub compress: btrfs_ioctl_defrag_range_args__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

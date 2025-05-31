@@ -235,6 +235,24 @@ pub padlen: __u8,
 pub reserved: __u8,
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_iptfs_hdr {
+pub subtype: __u8,
+pub flags: __u8,
+pub block_offset: __be16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ip_iptfs_cc_hdr {
+pub subtype: __u8,
+pub flags: __u8,
+pub block_offset: __be16,
+pub loss_rate: __be32,
+pub rtt_adelay_xdelay: __be64,
+pub tval: __be32,
+pub techo: __be32,
+}
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct in6_addr {
 pub in6_u: in6_addr__bindgen_ty_1,
@@ -1227,6 +1245,7 @@ pub const SO_DEVMEM_DMABUF: u32 = 79;
 pub const SCM_DEVMEM_DMABUF: u32 = 79;
 pub const SO_DEVMEM_DONTNEED: u32 = 80;
 pub const SCM_TS_OPT_ID: u32 = 81;
+pub const SO_RCVPRIORITY: u32 = 82;
 pub const SO_TIMESTAMP: u32 = 29;
 pub const SO_TIMESTAMPNS: u32 = 35;
 pub const SO_TIMESTAMPING: u32 = 37;
@@ -1301,6 +1320,9 @@ pub const TCP_AO_INFO: u32 = 40;
 pub const TCP_AO_GET_KEYS: u32 = 41;
 pub const TCP_AO_REPAIR: u32 = 42;
 pub const TCP_IS_MPTCP: u32 = 43;
+pub const TCP_RTO_MAX_MS: u32 = 44;
+pub const TCP_RTO_MIN_US: u32 = 45;
+pub const TCP_DELACK_MAX_US: u32 = 46;
 pub const TCP_REPAIR_ON: u32 = 1;
 pub const TCP_REPAIR_OFF: u32 = 0;
 pub const TCP_REPAIR_OFF_NO_WP: i32 = -1;
@@ -1586,6 +1608,7 @@ pub const IPPROTO_SCTP: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_SCTP;
 pub const IPPROTO_UDPLITE: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_UDPLITE;
 pub const IPPROTO_MPLS: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MPLS;
 pub const IPPROTO_ETHERNET: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_ETHERNET;
+pub const IPPROTO_AGGFRAG: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_AGGFRAG;
 pub const IPPROTO_RAW: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_RAW;
 pub const IPPROTO_SMC: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_SMC;
 pub const IPPROTO_MPTCP: _bindgen_ty_1 = _bindgen_ty_1::IPPROTO_MPTCP;
@@ -1684,6 +1707,7 @@ pub const DEVCONF_NDISC_EVICT_NOCARRIER: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_
 pub const DEVCONF_ACCEPT_UNTRACKED_NA: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_UNTRACKED_NA;
 pub const DEVCONF_ACCEPT_RA_MIN_LFT: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_ACCEPT_RA_MIN_LFT;
 pub const DEVCONF_MAX: _bindgen_ty_3 = _bindgen_ty_3::DEVCONF_MAX;
+pub const TCP_FLAG_AE: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_AE;
 pub const TCP_FLAG_CWR: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_CWR;
 pub const TCP_FLAG_ECE: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_ECE;
 pub const TCP_FLAG_URG: _bindgen_ty_4 = _bindgen_ty_4::TCP_FLAG_URG;
@@ -1763,7 +1787,8 @@ pub const SOF_TIMESTAMPING_OPT_TX_SWHW: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIM
 pub const SOF_TIMESTAMPING_BIND_PHC: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_BIND_PHC;
 pub const SOF_TIMESTAMPING_OPT_ID_TCP: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_ID_TCP;
 pub const SOF_TIMESTAMPING_OPT_RX_FILTER: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_RX_FILTER;
-pub const SOF_TIMESTAMPING_LAST: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_OPT_RX_FILTER;
+pub const SOF_TIMESTAMPING_TX_COMPLETION: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_TX_COMPLETION;
+pub const SOF_TIMESTAMPING_LAST: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_TX_COMPLETION;
 pub const SOF_TIMESTAMPING_MASK: _bindgen_ty_10 = _bindgen_ty_10::SOF_TIMESTAMPING_MASK;
 #[repr(u32)]
 #[non_exhaustive]
@@ -1795,6 +1820,7 @@ IPPROTO_SCTP = 132,
 IPPROTO_UDPLITE = 136,
 IPPROTO_MPLS = 137,
 IPPROTO_ETHERNET = 143,
+IPPROTO_AGGFRAG = 144,
 IPPROTO_RAW = 255,
 IPPROTO_SMC = 256,
 IPPROTO_MPTCP = 262,
@@ -1918,6 +1944,7 @@ SS_DISCONNECTING = 4,
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum _bindgen_ty_4 {
+TCP_FLAG_AE = 1,
 TCP_FLAG_CWR = 32768,
 TCP_FLAG_ECE = 16384,
 TCP_FLAG_URG = 8192,
@@ -1926,7 +1953,7 @@ TCP_FLAG_PSH = 2048,
 TCP_FLAG_RST = 1024,
 TCP_FLAG_SYN = 512,
 TCP_FLAG_FIN = 256,
-TCP_RESERVED_BITS = 15,
+TCP_RESERVED_BITS = 14,
 TCP_DATA_OFFSET = 240,
 }
 #[repr(u32)]
@@ -2108,6 +2135,14 @@ NF_IP_PRI_CONNTRACK_CONFIRM = 2147483647,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum hwtstamp_provider_qualifier {
+HWTSTAMP_PROVIDER_QUALIFIER_PRECISE = 0,
+HWTSTAMP_PROVIDER_QUALIFIER_APPROX = 1,
+HWTSTAMP_PROVIDER_QUALIFIER_CNT = 2,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum _bindgen_ty_10 {
 SOF_TIMESTAMPING_TX_HARDWARE = 1,
 SOF_TIMESTAMPING_TX_SOFTWARE = 2,
@@ -2127,7 +2162,8 @@ SOF_TIMESTAMPING_OPT_TX_SWHW = 16384,
 SOF_TIMESTAMPING_BIND_PHC = 32768,
 SOF_TIMESTAMPING_OPT_ID_TCP = 65536,
 SOF_TIMESTAMPING_OPT_RX_FILTER = 131072,
-SOF_TIMESTAMPING_MASK = 262143,
+SOF_TIMESTAMPING_TX_COMPLETION = 262144,
+SOF_TIMESTAMPING_MASK = 524287,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2564,25 +2600,47 @@ __bindgen_bitfield_unit
 }
 impl tcphdr {
 #[inline]
+pub fn ae(&self) -> __u16 {
+unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u16) }
+}
+#[inline]
+pub fn set_ae(&mut self, val: __u16) {
+unsafe {
+let val: u16 = ::core::mem::transmute(val);
+self._bitfield_1.set(0usize, 1u8, val as u64)
+}
+}
+#[inline]
+pub unsafe fn ae_raw(this: *const Self) -> __u16 {
+unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 2usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_1), 0usize, 1u8) as u16) }
+}
+#[inline]
+pub unsafe fn set_ae_raw(this: *mut Self, val: __u16) {
+unsafe {
+let val: u16 = ::core::mem::transmute(val);
+<__BindgenBitfieldUnit<[u8; 2usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_1), 0usize, 1u8, val as u64)
+}
+}
+#[inline]
 pub fn res1(&self) -> __u16 {
-unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 4u8) as u16) }
+unsafe { ::core::mem::transmute(self._bitfield_1.get(1usize, 3u8) as u16) }
 }
 #[inline]
 pub fn set_res1(&mut self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
-self._bitfield_1.set(0usize, 4u8, val as u64)
+self._bitfield_1.set(1usize, 3u8, val as u64)
 }
 }
 #[inline]
 pub unsafe fn res1_raw(this: *const Self) -> __u16 {
-unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 2usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_1), 0usize, 4u8) as u16) }
+unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 2usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_1), 1usize, 3u8) as u16) }
 }
 #[inline]
 pub unsafe fn set_res1_raw(this: *mut Self, val: __u16) {
 unsafe {
 let val: u16 = ::core::mem::transmute(val);
-<__BindgenBitfieldUnit<[u8; 2usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_1), 0usize, 4u8, val as u64)
+<__BindgenBitfieldUnit<[u8; 2usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_1), 1usize, 3u8, val as u64)
 }
 }
 #[inline]
@@ -2784,9 +2842,13 @@ let val: u16 = ::core::mem::transmute(val);
 }
 }
 #[inline]
-pub fn new_bitfield_1(res1: __u16, doff: __u16, fin: __u16, syn: __u16, rst: __u16, psh: __u16, ack: __u16, urg: __u16, ece: __u16, cwr: __u16) -> __BindgenBitfieldUnit<[u8; 2usize]> {
+pub fn new_bitfield_1(ae: __u16, res1: __u16, doff: __u16, fin: __u16, syn: __u16, rst: __u16, psh: __u16, ack: __u16, urg: __u16, ece: __u16, cwr: __u16) -> __BindgenBitfieldUnit<[u8; 2usize]> {
 let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 2usize]> = Default::default();
-__bindgen_bitfield_unit.set(0usize, 4u8, {
+__bindgen_bitfield_unit.set(0usize, 1u8, {
+let ae: u16 = unsafe { ::core::mem::transmute(ae) };
+ae as u64
+});
+__bindgen_bitfield_unit.set(1usize, 3u8, {
 let res1: u16 = unsafe { ::core::mem::transmute(res1) };
 res1 as u64
 });

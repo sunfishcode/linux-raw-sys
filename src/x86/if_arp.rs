@@ -496,6 +496,12 @@ pub high: __be16,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct ifla_geneve_port_range {
+pub low: __be16,
+pub high: __be16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct ifla_vf_mac {
 pub vf: __u32,
 pub mac: [__u8; 32usize],
@@ -1110,6 +1116,7 @@ pub const IFLA_GSO_IPV4_MAX_SIZE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_GSO_IPV4_M
 pub const IFLA_GRO_IPV4_MAX_SIZE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_GRO_IPV4_MAX_SIZE;
 pub const IFLA_DPLL_PIN: _bindgen_ty_4 = _bindgen_ty_4::IFLA_DPLL_PIN;
 pub const IFLA_MAX_PACING_OFFLOAD_HORIZON: _bindgen_ty_4 = _bindgen_ty_4::IFLA_MAX_PACING_OFFLOAD_HORIZON;
+pub const IFLA_NETNS_IMMUTABLE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_NETNS_IMMUTABLE;
 pub const __IFLA_MAX: _bindgen_ty_4 = _bindgen_ty_4::__IFLA_MAX;
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_5 = _bindgen_ty_5::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_5 = _bindgen_ty_5::IFLA_PROTO_DOWN_REASON_MASK;
@@ -1297,6 +1304,8 @@ pub const IFLA_NETKIT_PEER_POLICY: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_
 pub const IFLA_NETKIT_MODE: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_MODE;
 pub const IFLA_NETKIT_SCRUB: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_SCRUB;
 pub const IFLA_NETKIT_PEER_SCRUB: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_PEER_SCRUB;
+pub const IFLA_NETKIT_HEADROOM: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_HEADROOM;
+pub const IFLA_NETKIT_TAILROOM: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_TAILROOM;
 pub const __IFLA_NETKIT_MAX: _bindgen_ty_20 = _bindgen_ty_20::__IFLA_NETKIT_MAX;
 pub const VNIFILTER_ENTRY_STATS_UNSPEC: _bindgen_ty_21 = _bindgen_ty_21::VNIFILTER_ENTRY_STATS_UNSPEC;
 pub const VNIFILTER_ENTRY_STATS_RX_BYTES: _bindgen_ty_21 = _bindgen_ty_21::VNIFILTER_ENTRY_STATS_RX_BYTES;
@@ -1352,6 +1361,7 @@ pub const IFLA_VXLAN_DF: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_DF;
 pub const IFLA_VXLAN_VNIFILTER: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_VNIFILTER;
 pub const IFLA_VXLAN_LOCALBYPASS: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_LOCALBYPASS;
 pub const IFLA_VXLAN_LABEL_POLICY: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_LABEL_POLICY;
+pub const IFLA_VXLAN_RESERVED_BITS: _bindgen_ty_24 = _bindgen_ty_24::IFLA_VXLAN_RESERVED_BITS;
 pub const __IFLA_VXLAN_MAX: _bindgen_ty_24 = _bindgen_ty_24::__IFLA_VXLAN_MAX;
 pub const IFLA_GENEVE_UNSPEC: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_UNSPEC;
 pub const IFLA_GENEVE_ID: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_ID;
@@ -1368,6 +1378,7 @@ pub const IFLA_GENEVE_LABEL: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_LABEL;
 pub const IFLA_GENEVE_TTL_INHERIT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_TTL_INHERIT;
 pub const IFLA_GENEVE_DF: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_DF;
 pub const IFLA_GENEVE_INNER_PROTO_INHERIT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_INNER_PROTO_INHERIT;
+pub const IFLA_GENEVE_PORT_RANGE: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_PORT_RANGE;
 pub const __IFLA_GENEVE_MAX: _bindgen_ty_25 = _bindgen_ty_25::__IFLA_GENEVE_MAX;
 pub const IFLA_BAREUDP_UNSPEC: _bindgen_ty_26 = _bindgen_ty_26::IFLA_BAREUDP_UNSPEC;
 pub const IFLA_BAREUDP_PORT: _bindgen_ty_26 = _bindgen_ty_26::IFLA_BAREUDP_PORT;
@@ -1795,7 +1806,8 @@ IFLA_GSO_IPV4_MAX_SIZE = 63,
 IFLA_GRO_IPV4_MAX_SIZE = 64,
 IFLA_DPLL_PIN = 65,
 IFLA_MAX_PACING_OFFLOAD_HORIZON = 66,
-__IFLA_MAX = 67,
+IFLA_NETNS_IMMUTABLE = 67,
+__IFLA_MAX = 68,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2139,7 +2151,9 @@ IFLA_NETKIT_PEER_POLICY = 4,
 IFLA_NETKIT_MODE = 5,
 IFLA_NETKIT_SCRUB = 6,
 IFLA_NETKIT_PEER_SCRUB = 7,
-__IFLA_NETKIT_MAX = 8,
+IFLA_NETKIT_HEADROOM = 8,
+IFLA_NETKIT_TAILROOM = 9,
+__IFLA_NETKIT_MAX = 10,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2214,7 +2228,8 @@ IFLA_VXLAN_DF = 29,
 IFLA_VXLAN_VNIFILTER = 30,
 IFLA_VXLAN_LOCALBYPASS = 31,
 IFLA_VXLAN_LABEL_POLICY = 32,
-__IFLA_VXLAN_MAX = 33,
+IFLA_VXLAN_RESERVED_BITS = 33,
+__IFLA_VXLAN_MAX = 34,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2252,7 +2267,8 @@ IFLA_GENEVE_LABEL = 11,
 IFLA_GENEVE_TTL_INHERIT = 12,
 IFLA_GENEVE_DF = 13,
 IFLA_GENEVE_INNER_PROTO_INHERIT = 14,
-__IFLA_GENEVE_MAX = 15,
+IFLA_GENEVE_PORT_RANGE = 15,
+__IFLA_GENEVE_MAX = 16,
 }
 #[repr(u32)]
 #[non_exhaustive]
