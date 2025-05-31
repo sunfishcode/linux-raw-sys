@@ -111,6 +111,7 @@ pub __bindgen_anon_1: xsk_tx_metadata__bindgen_ty_1,
 pub struct xsk_tx_metadata__bindgen_ty_1__bindgen_ty_1 {
 pub csum_start: __u16,
 pub csum_offset: __u16,
+pub launch_time: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -191,6 +192,7 @@ pub const XSK_UNALIGNED_BUF_OFFSET_SHIFT: u32 = 48;
 pub const XSK_UNALIGNED_BUF_ADDR_MASK: u64 = 281474976710655;
 pub const XDP_TXMD_FLAGS_TIMESTAMP: u32 = 1;
 pub const XDP_TXMD_FLAGS_CHECKSUM: u32 = 2;
+pub const XDP_TXMD_FLAGS_LAUNCH_TIME: u32 = 4;
 pub const XDP_PKT_CONTD: u32 = 1;
 pub const XDP_TX_METADATA: u32 = 2;
 #[repr(C)]
