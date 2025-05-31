@@ -217,6 +217,20 @@ pub pad: u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct user_watch_state_v2 {
+pub dbg_info: u64,
+pub dbg_regs: [user_watch_state_v2__bindgen_ty_1; 14usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct user_watch_state_v2__bindgen_ty_1 {
+pub addr: u64,
+pub mask: u64,
+pub ctrl: u32,
+pub pad: u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct seccomp_data {
 pub nr: crate::ctypes::c_int,
 pub arch: __u32,
@@ -395,6 +409,8 @@ pub const AUDIT_MAC_CALIPSO_DEL: u32 = 1419;
 pub const AUDIT_IPE_ACCESS: u32 = 1420;
 pub const AUDIT_IPE_CONFIG_CHANGE: u32 = 1421;
 pub const AUDIT_IPE_POLICY_LOAD: u32 = 1422;
+pub const AUDIT_LANDLOCK_ACCESS: u32 = 1423;
+pub const AUDIT_LANDLOCK_DOMAIN: u32 = 1424;
 pub const AUDIT_FIRST_KERN_ANOM_MSG: u32 = 1700;
 pub const AUDIT_LAST_KERN_ANOM_MSG: u32 = 1799;
 pub const AUDIT_ANOM_PROMISCUOUS: u32 = 1700;
@@ -409,6 +425,7 @@ pub const AUDIT_INTEGRITY_PCR: u32 = 1804;
 pub const AUDIT_INTEGRITY_RULE: u32 = 1805;
 pub const AUDIT_INTEGRITY_EVM_XATTR: u32 = 1806;
 pub const AUDIT_INTEGRITY_POLICY_RULE: u32 = 1807;
+pub const AUDIT_INTEGRITY_USERSPACE: u32 = 1808;
 pub const AUDIT_KERNEL: u32 = 2000;
 pub const AUDIT_FILTER_USER: u32 = 0;
 pub const AUDIT_FILTER_TASK: u32 = 1;
