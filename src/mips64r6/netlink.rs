@@ -1022,6 +1022,8 @@ pub const IFLA_NETKIT_PEER_POLICY: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_
 pub const IFLA_NETKIT_MODE: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_MODE;
 pub const IFLA_NETKIT_SCRUB: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_SCRUB;
 pub const IFLA_NETKIT_PEER_SCRUB: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_PEER_SCRUB;
+pub const IFLA_NETKIT_HEADROOM: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_HEADROOM;
+pub const IFLA_NETKIT_TAILROOM: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_TAILROOM;
 pub const __IFLA_NETKIT_MAX: _bindgen_ty_18 = _bindgen_ty_18::__IFLA_NETKIT_MAX;
 pub const VNIFILTER_ENTRY_STATS_UNSPEC: _bindgen_ty_19 = _bindgen_ty_19::VNIFILTER_ENTRY_STATS_UNSPEC;
 pub const VNIFILTER_ENTRY_STATS_RX_BYTES: _bindgen_ty_19 = _bindgen_ty_19::VNIFILTER_ENTRY_STATS_RX_BYTES;
@@ -1077,6 +1079,7 @@ pub const IFLA_VXLAN_DF: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_DF;
 pub const IFLA_VXLAN_VNIFILTER: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_VNIFILTER;
 pub const IFLA_VXLAN_LOCALBYPASS: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_LOCALBYPASS;
 pub const IFLA_VXLAN_LABEL_POLICY: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_LABEL_POLICY;
+pub const IFLA_VXLAN_RESERVED_BITS: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_RESERVED_BITS;
 pub const __IFLA_VXLAN_MAX: _bindgen_ty_22 = _bindgen_ty_22::__IFLA_VXLAN_MAX;
 pub const IFLA_GENEVE_UNSPEC: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_UNSPEC;
 pub const IFLA_GENEVE_ID: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_ID;
@@ -1418,7 +1421,11 @@ pub const RTM_NEWACTION: _bindgen_ty_61 = _bindgen_ty_61::RTM_NEWACTION;
 pub const RTM_DELACTION: _bindgen_ty_61 = _bindgen_ty_61::RTM_DELACTION;
 pub const RTM_GETACTION: _bindgen_ty_61 = _bindgen_ty_61::RTM_GETACTION;
 pub const RTM_NEWPREFIX: _bindgen_ty_61 = _bindgen_ty_61::RTM_NEWPREFIX;
+pub const RTM_NEWMULTICAST: _bindgen_ty_61 = _bindgen_ty_61::RTM_NEWMULTICAST;
+pub const RTM_DELMULTICAST: _bindgen_ty_61 = _bindgen_ty_61::RTM_DELMULTICAST;
 pub const RTM_GETMULTICAST: _bindgen_ty_61 = _bindgen_ty_61::RTM_GETMULTICAST;
+pub const RTM_NEWANYCAST: _bindgen_ty_61 = _bindgen_ty_61::RTM_NEWANYCAST;
+pub const RTM_DELANYCAST: _bindgen_ty_61 = _bindgen_ty_61::RTM_DELANYCAST;
 pub const RTM_GETANYCAST: _bindgen_ty_61 = _bindgen_ty_61::RTM_GETANYCAST;
 pub const RTM_NEWNEIGHTBL: _bindgen_ty_61 = _bindgen_ty_61::RTM_NEWNEIGHTBL;
 pub const RTM_GETNEIGHTBL: _bindgen_ty_61 = _bindgen_ty_61::RTM_GETNEIGHTBL;
@@ -2012,7 +2019,9 @@ IFLA_NETKIT_PEER_POLICY = 4,
 IFLA_NETKIT_MODE = 5,
 IFLA_NETKIT_SCRUB = 6,
 IFLA_NETKIT_PEER_SCRUB = 7,
-__IFLA_NETKIT_MAX = 8,
+IFLA_NETKIT_HEADROOM = 8,
+IFLA_NETKIT_TAILROOM = 9,
+__IFLA_NETKIT_MAX = 10,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2087,7 +2096,8 @@ IFLA_VXLAN_DF = 29,
 IFLA_VXLAN_VNIFILTER = 30,
 IFLA_VXLAN_LOCALBYPASS = 31,
 IFLA_VXLAN_LABEL_POLICY = 32,
-__IFLA_VXLAN_MAX = 33,
+IFLA_VXLAN_RESERVED_BITS = 33,
+__IFLA_VXLAN_MAX = 34,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2654,7 +2664,11 @@ RTM_NEWACTION = 48,
 RTM_DELACTION = 49,
 RTM_GETACTION = 50,
 RTM_NEWPREFIX = 52,
+RTM_NEWMULTICAST = 56,
+RTM_DELMULTICAST = 57,
 RTM_GETMULTICAST = 58,
+RTM_NEWANYCAST = 60,
+RTM_DELANYCAST = 61,
 RTM_GETANYCAST = 62,
 RTM_NEWNEIGHTBL = 64,
 RTM_GETNEIGHTBL = 66,
@@ -2772,7 +2786,8 @@ RTA_IP_PROTO = 27,
 RTA_SPORT = 28,
 RTA_DPORT = 29,
 RTA_NH_ID = 30,
-__RTA_MAX = 31,
+RTA_FLOWLABEL = 31,
+__RTA_MAX = 32,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2879,7 +2894,10 @@ RTNLGRP_BRVLAN = 33,
 RTNLGRP_MCTP_IFADDR = 34,
 RTNLGRP_TUNNEL = 35,
 RTNLGRP_STATS = 36,
-__RTNLGRP_MAX = 37,
+RTNLGRP_IPV4_MCADDR = 37,
+RTNLGRP_IPV6_MCADDR = 38,
+RTNLGRP_IPV6_ACADDR = 39,
+__RTNLGRP_MAX = 40,
 }
 #[repr(u32)]
 #[non_exhaustive]
