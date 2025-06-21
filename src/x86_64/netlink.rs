@@ -245,6 +245,12 @@ pub high: __be16,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct ifla_geneve_port_range {
+pub low: __be16,
+pub high: __be16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct ifla_vf_mac {
 pub vf: __u32,
 pub mac: [__u8; 32usize],
@@ -696,6 +702,7 @@ pub const RTPROT_DHCP: u32 = 16;
 pub const RTPROT_MROUTED: u32 = 17;
 pub const RTPROT_KEEPALIVED: u32 = 18;
 pub const RTPROT_BABEL: u32 = 42;
+pub const RTPROT_OVN: u32 = 84;
 pub const RTPROT_OPENR: u32 = 99;
 pub const RTPROT_BGP: u32 = 186;
 pub const RTPROT_ISIS: u32 = 187;
@@ -825,6 +832,7 @@ pub const IFLA_GSO_IPV4_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GSO_IPV4_M
 pub const IFLA_GRO_IPV4_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GRO_IPV4_MAX_SIZE;
 pub const IFLA_DPLL_PIN: _bindgen_ty_2 = _bindgen_ty_2::IFLA_DPLL_PIN;
 pub const IFLA_MAX_PACING_OFFLOAD_HORIZON: _bindgen_ty_2 = _bindgen_ty_2::IFLA_MAX_PACING_OFFLOAD_HORIZON;
+pub const IFLA_NETNS_IMMUTABLE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_NETNS_IMMUTABLE;
 pub const __IFLA_MAX: _bindgen_ty_2 = _bindgen_ty_2::__IFLA_MAX;
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_MASK;
@@ -1086,6 +1094,7 @@ pub const IFLA_GENEVE_LABEL: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_LABEL;
 pub const IFLA_GENEVE_TTL_INHERIT: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_TTL_INHERIT;
 pub const IFLA_GENEVE_DF: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_DF;
 pub const IFLA_GENEVE_INNER_PROTO_INHERIT: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_INNER_PROTO_INHERIT;
+pub const IFLA_GENEVE_PORT_RANGE: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_PORT_RANGE;
 pub const __IFLA_GENEVE_MAX: _bindgen_ty_23 = _bindgen_ty_23::__IFLA_GENEVE_MAX;
 pub const IFLA_BAREUDP_UNSPEC: _bindgen_ty_24 = _bindgen_ty_24::IFLA_BAREUDP_UNSPEC;
 pub const IFLA_BAREUDP_PORT: _bindgen_ty_24 = _bindgen_ty_24::IFLA_BAREUDP_PORT;
@@ -1665,7 +1674,8 @@ IFLA_GSO_IPV4_MAX_SIZE = 63,
 IFLA_GRO_IPV4_MAX_SIZE = 64,
 IFLA_DPLL_PIN = 65,
 IFLA_MAX_PACING_OFFLOAD_HORIZON = 66,
-__IFLA_MAX = 67,
+IFLA_NETNS_IMMUTABLE = 67,
+__IFLA_MAX = 68,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2125,7 +2135,8 @@ IFLA_GENEVE_LABEL = 11,
 IFLA_GENEVE_TTL_INHERIT = 12,
 IFLA_GENEVE_DF = 13,
 IFLA_GENEVE_INNER_PROTO_INHERIT = 14,
-__IFLA_GENEVE_MAX = 15,
+IFLA_GENEVE_PORT_RANGE = 15,
+__IFLA_GENEVE_MAX = 16,
 }
 #[repr(u32)]
 #[non_exhaustive]
