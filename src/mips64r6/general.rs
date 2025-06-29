@@ -278,7 +278,12 @@ pub opt_num: __u32,
 pub opt_array: __u32,
 pub opt_sec_num: __u32,
 pub opt_sec_array: __u32,
-pub __spare2: [__u64; 46usize],
+pub supported_mask: __u64,
+pub mnt_uidmap_num: __u32,
+pub mnt_uidmap: __u32,
+pub mnt_gidmap_num: __u32,
+pub mnt_gidmap: __u32,
+pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
@@ -1054,9 +1059,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 396800;
+pub const LINUX_VERSION_CODE: u32 = 397056;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 14;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 15;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 1;
@@ -1462,6 +1467,9 @@ pub const STATMOUNT_FS_SUBTYPE: u32 = 256;
 pub const STATMOUNT_SB_SOURCE: u32 = 512;
 pub const STATMOUNT_OPT_ARRAY: u32 = 1024;
 pub const STATMOUNT_OPT_SEC_ARRAY: u32 = 2048;
+pub const STATMOUNT_SUPPORTED_MASK: u32 = 4096;
+pub const STATMOUNT_MNT_UIDMAP: u32 = 8192;
+pub const STATMOUNT_MNT_GIDMAP: u32 = 16384;
 pub const LSMT_ROOT: i32 = -1;
 pub const LISTMOUNT_REVERSE: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
@@ -2823,6 +2831,7 @@ pub const __NR_setxattrat: u32 = 5463;
 pub const __NR_getxattrat: u32 = 5464;
 pub const __NR_listxattrat: u32 = 5465;
 pub const __NR_removexattrat: u32 = 5466;
+pub const __NR_open_tree_attr: u32 = 5467;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
@@ -2868,6 +2877,8 @@ pub const XATTR_APPARMOR_SUFFIX: &[u8; 9] = b"apparmor\0";
 pub const XATTR_NAME_APPARMOR: &[u8; 18] = b"security.apparmor\0";
 pub const XATTR_CAPS_SUFFIX: &[u8; 11] = b"capability\0";
 pub const XATTR_NAME_CAPS: &[u8; 20] = b"security.capability\0";
+pub const XATTR_BPF_LSM_SUFFIX: &[u8; 5] = b"bpf.\0";
+pub const XATTR_NAME_BPF_LSM: &[u8; 14] = b"security.bpf.\0";
 pub const XATTR_POSIX_ACL_ACCESS: &[u8; 17] = b"posix_acl_access\0";
 pub const XATTR_NAME_POSIX_ACL_ACCESS: &[u8; 24] = b"system.posix_acl_access\0";
 pub const XATTR_POSIX_ACL_DEFAULT: &[u8; 18] = b"posix_acl_default\0";
