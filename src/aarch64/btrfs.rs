@@ -548,7 +548,6 @@ pub extent_thresh: __u32,
 pub __bindgen_anon_1: btrfs_ioctl_defrag_range_args__bindgen_ty_1,
 pub unused: [__u32; 4usize],
 }
-
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_defrag_range_args__bindgen_ty_1__bindgen_ty_1 {
