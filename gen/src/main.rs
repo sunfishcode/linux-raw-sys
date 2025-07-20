@@ -286,7 +286,7 @@ fn make_headers_install(linux_arch: &str, linux_headers: &Path) {
 fn rust_arches(linux_arch: &str) -> &[&str] {
     match linux_arch {
         "arm" => &["arm"],
-        "arm64" => &["aarch64"],
+        "arm64" => &["aarch64", "aarch64_be"],
         "avr32" => &["avr"],
         "csky" => &["csky"],
         // hexagon gets build errors; disable it for now
