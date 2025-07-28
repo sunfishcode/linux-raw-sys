@@ -1612,13 +1612,16 @@ pub const IFLA_DSA_UNSPEC: _bindgen_ty_56 = _bindgen_ty_56::IFLA_DSA_UNSPEC;
 pub const IFLA_DSA_CONDUIT: _bindgen_ty_56 = _bindgen_ty_56::IFLA_DSA_CONDUIT;
 pub const IFLA_DSA_MASTER: _bindgen_ty_56 = _bindgen_ty_56::IFLA_DSA_CONDUIT;
 pub const __IFLA_DSA_MAX: _bindgen_ty_56 = _bindgen_ty_56::__IFLA_DSA_MAX;
-pub const IF_PORT_UNKNOWN: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_UNKNOWN;
-pub const IF_PORT_10BASE2: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_10BASE2;
-pub const IF_PORT_10BASET: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_10BASET;
-pub const IF_PORT_AUI: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_AUI;
-pub const IF_PORT_100BASET: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_100BASET;
-pub const IF_PORT_100BASETX: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_100BASETX;
-pub const IF_PORT_100BASEFX: _bindgen_ty_57 = _bindgen_ty_57::IF_PORT_100BASEFX;
+pub const IFLA_OVPN_UNSPEC: _bindgen_ty_57 = _bindgen_ty_57::IFLA_OVPN_UNSPEC;
+pub const IFLA_OVPN_MODE: _bindgen_ty_57 = _bindgen_ty_57::IFLA_OVPN_MODE;
+pub const __IFLA_OVPN_MAX: _bindgen_ty_57 = _bindgen_ty_57::__IFLA_OVPN_MAX;
+pub const IF_PORT_UNKNOWN: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_UNKNOWN;
+pub const IF_PORT_10BASE2: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_10BASE2;
+pub const IF_PORT_10BASET: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_10BASET;
+pub const IF_PORT_AUI: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_AUI;
+pub const IF_PORT_100BASET: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_100BASET;
+pub const IF_PORT_100BASETX: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_100BASETX;
+pub const IF_PORT_100BASEFX: _bindgen_ty_58 = _bindgen_ty_58::IF_PORT_100BASEFX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -2675,7 +2678,22 @@ __IFLA_DSA_MAX = 2,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum ovpn_mode {
+OVPN_MODE_P2P = 0,
+OVPN_MODE_MP = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum _bindgen_ty_57 {
+IFLA_OVPN_UNSPEC = 0,
+IFLA_OVPN_MODE = 1,
+__IFLA_OVPN_MAX = 2,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_58 {
 IF_PORT_UNKNOWN = 0,
 IF_PORT_10BASE2 = 1,
 IF_PORT_10BASET = 2,

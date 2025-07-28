@@ -212,7 +212,7 @@ pub u: fscrypt_key_specifier__bindgen_ty_1,
 #[derive(Debug)]
 pub struct fscrypt_provisioning_key_payload {
 pub type_: __u32,
-pub __reserved: __u32,
+pub flags: __u32,
 pub raw: __IncompleteArrayField<__u8>,
 }
 #[repr(C)]
@@ -220,7 +220,8 @@ pub struct fscrypt_add_key_arg {
 pub key_spec: fscrypt_key_specifier,
 pub raw_size: __u32,
 pub key_id: __u32,
-pub __reserved: [__u32; 8usize],
+pub flags: __u32,
+pub __reserved: [__u32; 7usize],
 pub raw: __IncompleteArrayField<__u8>,
 }
 #[repr(C)]
@@ -704,7 +705,9 @@ pub stx_atomic_write_unit_min: __u32,
 pub stx_atomic_write_unit_max: __u32,
 pub stx_atomic_write_segments_max: __u32,
 pub stx_dio_read_offset_align: __u32,
-pub __spare3: [__u64; 9usize],
+pub stx_atomic_write_unit_max_opt: __u32,
+pub __spare2: [__u32; 1usize],
+pub __spare3: [__u64; 8usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1039,9 +1042,9 @@ pub sa_flags: crate::ctypes::c_ulong,
 pub sa_restorer: __sigrestore_t,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 397056;
+pub const LINUX_VERSION_CODE: u32 = 397312;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 15;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 16;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const AT_SYSINFO_EHDR: u32 = 33;
 pub const AT_VECTOR_SIZE_ARCH: u32 = 3;
@@ -1334,6 +1337,7 @@ pub const FSCRYPT_POLICY_V2: u32 = 2;
 pub const FSCRYPT_KEY_IDENTIFIER_SIZE: u32 = 16;
 pub const FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR: u32 = 1;
 pub const FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER: u32 = 2;
+pub const FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED: u32 = 1;
 pub const FSCRYPT_KEY_REMOVAL_STATUS_FLAG_FILES_BUSY: u32 = 1;
 pub const FSCRYPT_KEY_REMOVAL_STATUS_FLAG_OTHER_USERS: u32 = 2;
 pub const FSCRYPT_KEY_STATUS_ABSENT: u32 = 1;
@@ -1526,6 +1530,7 @@ pub const PAGE_IS_SWAPPED: u32 = 16;
 pub const PAGE_IS_PFNZERO: u32 = 32;
 pub const PAGE_IS_HUGE: u32 = 64;
 pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
+pub const PAGE_IS_GUARD: u32 = 256;
 pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
 pub const FUTEX_WAIT: u32 = 0;
@@ -1563,9 +1568,11 @@ pub const FUTEX2_SIZE_U16: u32 = 1;
 pub const FUTEX2_SIZE_U32: u32 = 2;
 pub const FUTEX2_SIZE_U64: u32 = 3;
 pub const FUTEX2_NUMA: u32 = 4;
+pub const FUTEX2_MPOL: u32 = 8;
 pub const FUTEX2_PRIVATE: u32 = 128;
 pub const FUTEX2_SIZE_MASK: u32 = 3;
 pub const FUTEX_32: u32 = 2;
+pub const FUTEX_NO_NODE: i32 = -1;
 pub const FUTEX_WAITV_MAX: u32 = 128;
 pub const FUTEX_WAITERS: u32 = 2147483648;
 pub const FUTEX_OWNER_DIED: u32 = 1073741824;

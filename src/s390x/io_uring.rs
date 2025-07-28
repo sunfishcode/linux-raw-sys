@@ -114,7 +114,7 @@ pub u: fscrypt_key_specifier__bindgen_ty_1,
 #[derive(Debug)]
 pub struct fscrypt_provisioning_key_payload {
 pub type_: __u32,
-pub __reserved: __u32,
+pub flags: __u32,
 pub raw: __IncompleteArrayField<__u8>,
 }
 #[repr(C)]
@@ -122,7 +122,8 @@ pub struct fscrypt_add_key_arg {
 pub key_spec: fscrypt_key_specifier,
 pub raw_size: __u32,
 pub key_id: __u32,
-pub __reserved: [__u32; 8usize],
+pub flags: __u32,
+pub __reserved: [__u32; 7usize],
 pub raw: __IncompleteArrayField<__u8>,
 }
 #[repr(C)]
@@ -377,6 +378,12 @@ pub optname: __u32,
 pub struct io_uring_sqe__bindgen_ty_5__bindgen_ty_1 {
 pub addr_len: __u16,
 pub __pad3: [__u16; 1usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_sqe__bindgen_ty_5__bindgen_ty_2 {
+pub write_stream: __u8,
+pub __pad4: [__u8; 3usize],
 }
 #[repr(C)]
 pub struct io_uring_sqe__bindgen_ty_6 {
@@ -682,7 +689,7 @@ pub addr: __u64,
 pub len: __u64,
 pub rq_area_token: __u64,
 pub flags: __u32,
-pub __resv1: __u32,
+pub dmabuf_fd: __u32,
 pub __resv2: [__u64; 2usize],
 }
 #[repr(C)]
@@ -758,6 +765,7 @@ pub const FSCRYPT_POLICY_V2: u32 = 2;
 pub const FSCRYPT_KEY_IDENTIFIER_SIZE: u32 = 16;
 pub const FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR: u32 = 1;
 pub const FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER: u32 = 2;
+pub const FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED: u32 = 1;
 pub const FSCRYPT_KEY_REMOVAL_STATUS_FLAG_FILES_BUSY: u32 = 1;
 pub const FSCRYPT_KEY_REMOVAL_STATUS_FLAG_OTHER_USERS: u32 = 2;
 pub const FSCRYPT_KEY_STATUS_ABSENT: u32 = 1;
@@ -949,6 +957,7 @@ pub const PAGE_IS_SWAPPED: u32 = 16;
 pub const PAGE_IS_PFNZERO: u32 = 32;
 pub const PAGE_IS_HUGE: u32 = 64;
 pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
+pub const PAGE_IS_GUARD: u32 = 256;
 pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
 pub const IORING_RW_ATTR_FLAG_PI: u32 = 1;
@@ -1164,7 +1173,8 @@ IORING_OP_RECV_ZC = 58,
 IORING_OP_EPOLL_WAIT = 59,
 IORING_OP_READV_FIXED = 60,
 IORING_OP_WRITEV_FIXED = 61,
-IORING_OP_LAST = 62,
+IORING_OP_PIPE = 62,
+IORING_OP_LAST = 63,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -1289,6 +1299,12 @@ SOCKET_URING_OP_SIOCOUTQ = 1,
 SOCKET_URING_OP_GETSOCKOPT = 2,
 SOCKET_URING_OP_SETSOCKOPT = 3,
 }
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum io_uring_zcrx_area_flags {
+IORING_ZCRX_AREA_DMABUF = 1,
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union __vector128__bindgen_ty_1 {
@@ -1349,6 +1365,7 @@ pub waitid_flags: __u32,
 pub futex_flags: __u32,
 pub install_fd_flags: __u32,
 pub nop_flags: __u32,
+pub pipe_flags: __u32,
 }
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
@@ -1364,6 +1381,7 @@ pub file_index: __u32,
 pub zcrx_ifq_idx: __u32,
 pub optlen: __u32,
 pub __bindgen_anon_1: io_uring_sqe__bindgen_ty_5__bindgen_ty_1,
+pub __bindgen_anon_2: io_uring_sqe__bindgen_ty_5__bindgen_ty_2,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

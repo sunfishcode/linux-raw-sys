@@ -132,7 +132,8 @@ pub flags: __u64,
 #[derive(Copy, Clone)]
 pub struct ptrace_syscall_info {
 pub op: __u8,
-pub pad: [__u8; 3usize],
+pub reserved: __u8,
+pub flags: __u16,
 pub arch: __u32,
 pub instruction_pointer: __u64,
 pub stack_pointer: __u64,
@@ -156,6 +157,7 @@ pub struct ptrace_syscall_info__bindgen_ty_1__bindgen_ty_3 {
 pub nr: __u64,
 pub args: [__u64; 6usize],
 pub ret_data: __u32,
+pub reserved2: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -702,6 +704,7 @@ pub const PTRACE_SETSIGMASK: u32 = 16907;
 pub const PTRACE_SECCOMP_GET_FILTER: u32 = 16908;
 pub const PTRACE_SECCOMP_GET_METADATA: u32 = 16909;
 pub const PTRACE_GET_SYSCALL_INFO: u32 = 16910;
+pub const PTRACE_SET_SYSCALL_INFO: u32 = 16914;
 pub const PTRACE_SYSCALL_INFO_NONE: u32 = 0;
 pub const PTRACE_SYSCALL_INFO_ENTRY: u32 = 1;
 pub const PTRACE_SYSCALL_INFO_EXIT: u32 = 2;

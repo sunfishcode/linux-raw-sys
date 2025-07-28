@@ -96,7 +96,7 @@ pub u: fscrypt_key_specifier__bindgen_ty_1,
 #[derive(Debug)]
 pub struct fscrypt_provisioning_key_payload {
 pub type_: __u32,
-pub __reserved: __u32,
+pub flags: __u32,
 pub raw: __IncompleteArrayField<__u8>,
 }
 #[repr(C)]
@@ -104,7 +104,8 @@ pub struct fscrypt_add_key_arg {
 pub key_spec: fscrypt_key_specifier,
 pub raw_size: __u32,
 pub key_id: __u32,
-pub __reserved: [__u32; 8usize],
+pub flags: __u32,
+pub __reserved: [__u32; 7usize],
 pub raw: __IncompleteArrayField<__u8>,
 }
 #[repr(C)]
@@ -1251,6 +1252,7 @@ pub const FSCRYPT_POLICY_V2: u32 = 2;
 pub const FSCRYPT_KEY_IDENTIFIER_SIZE: u32 = 16;
 pub const FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR: u32 = 1;
 pub const FSCRYPT_KEY_SPEC_TYPE_IDENTIFIER: u32 = 2;
+pub const FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED: u32 = 1;
 pub const FSCRYPT_KEY_REMOVAL_STATUS_FLAG_FILES_BUSY: u32 = 1;
 pub const FSCRYPT_KEY_REMOVAL_STATUS_FLAG_OTHER_USERS: u32 = 2;
 pub const FSCRYPT_KEY_STATUS_ABSENT: u32 = 1;
@@ -1442,6 +1444,7 @@ pub const PAGE_IS_SWAPPED: u32 = 16;
 pub const PAGE_IS_PFNZERO: u32 = 32;
 pub const PAGE_IS_HUGE: u32 = 64;
 pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
+pub const PAGE_IS_GUARD: u32 = 256;
 pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
 pub const BTRFS_IOCTL_MAGIC: u32 = 148;
