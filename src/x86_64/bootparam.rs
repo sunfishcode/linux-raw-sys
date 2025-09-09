@@ -115,6 +115,14 @@ pub size: __u64,
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
+pub struct kho_data {
+pub fdt_addr: __u64,
+pub fdt_size: __u64,
+pub scratch_addr: __u64,
+pub scratch_size: __u64,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
 pub struct screen_info {
 pub orig_x: __u8,
 pub orig_y: __u8,
@@ -447,9 +455,10 @@ pub const SETUP_JAILHOUSE: u32 = 6;
 pub const SETUP_CC_BLOB: u32 = 7;
 pub const SETUP_IMA: u32 = 8;
 pub const SETUP_RNG_SEED: u32 = 9;
-pub const SETUP_ENUM_MAX: u32 = 9;
+pub const SETUP_KEXEC_KHO: u32 = 10;
+pub const SETUP_ENUM_MAX: u32 = 10;
 pub const SETUP_INDIRECT: u32 = 2147483648;
-pub const SETUP_TYPE_MAX: u32 = 2147483657;
+pub const SETUP_TYPE_MAX: u32 = 2147483658;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const RAMDISK_IMAGE_START_MASK: u32 = 2047;
 pub const RAMDISK_PROMPT_FLAG: u32 = 32768;
