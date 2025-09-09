@@ -14,7 +14,6 @@ rust-version = "1.63"
 
 [dependencies]
 core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
-compiler_builtins = { version = '0.1.49', optional = true }
 
 [dev-dependencies]
 static_assertions = "1.1.0"
@@ -56,4 +55,4 @@ default = ["std", "general", "errno"]
 std = []
 no_std = []
 elf = []
-rustc-dep-of-std = ["core", "compiler_builtins", "no_std"]
+rustc-dep-of-std = ["core", "no_std"]
