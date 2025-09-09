@@ -31,6 +31,7 @@ check-cfg = [
 
 # The rest of this file is auto-generated!
 [features]
+auxvec = []
 bootparam = []
 btrfs = []
 elf_uapi = []
