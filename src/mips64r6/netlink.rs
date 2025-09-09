@@ -3829,7 +3829,8 @@ NL80211_MBSSID_CONFIG_ATTR_MAX_EMA_PROFILE_PERIODICITY = 2,
 NL80211_MBSSID_CONFIG_ATTR_INDEX = 3,
 NL80211_MBSSID_CONFIG_ATTR_TX_IFINDEX = 4,
 NL80211_MBSSID_CONFIG_ATTR_EMA = 5,
-__NL80211_MBSSID_CONFIG_ATTR_LAST = 6,
+NL80211_MBSSID_CONFIG_ATTR_TX_LINK_ID = 6,
+__NL80211_MBSSID_CONFIG_ATTR_LAST = 7,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -5445,7 +5446,7 @@ impl nl80211_sar_specs_attrs {
 pub const NL80211_SAR_ATTR_SPECS_MAX: nl80211_sar_specs_attrs = nl80211_sar_specs_attrs::NL80211_SAR_ATTR_SPECS_END_FREQ;
 }
 impl nl80211_mbssid_config_attributes {
-pub const NL80211_MBSSID_CONFIG_ATTR_MAX: nl80211_mbssid_config_attributes = nl80211_mbssid_config_attributes::NL80211_MBSSID_CONFIG_ATTR_EMA;
+pub const NL80211_MBSSID_CONFIG_ATTR_MAX: nl80211_mbssid_config_attributes = nl80211_mbssid_config_attributes::NL80211_MBSSID_CONFIG_ATTR_TX_LINK_ID;
 }
 impl nl80211_wiphy_radio_attrs {
 pub const NL80211_WIPHY_RADIO_ATTR_MAX: nl80211_wiphy_radio_attrs = nl80211_wiphy_radio_attrs::NL80211_WIPHY_RADIO_ATTR_ANTENNA_MASK;
