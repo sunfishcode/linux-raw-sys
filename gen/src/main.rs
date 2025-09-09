@@ -176,7 +176,7 @@ fn main() {
     writeln!(cargo_toml, "elf = []").unwrap();
     writeln!(
         cargo_toml,
-        "rustc-dep-of-std = [\"core\", \"compiler_builtins\", \"no_std\"]"
+        "rustc-dep-of-std = [\"core\", \"no_std\"]"
     )
     .unwrap();
 
