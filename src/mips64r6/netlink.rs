@@ -791,6 +791,7 @@ pub const NTF_STICKY: u32 = 64;
 pub const NTF_ROUTER: u32 = 128;
 pub const NTF_EXT_MANAGED: u32 = 1;
 pub const NTF_EXT_LOCKED: u32 = 2;
+pub const NTF_EXT_EXT_VALIDATED: u32 = 4;
 pub const NUD_INCOMPLETE: u32 = 1;
 pub const NUD_REACHABLE: u32 = 2;
 pub const NUD_STALE: u32 = 4;
@@ -1197,6 +1198,7 @@ pub const IFLA_VXLAN_VNIFILTER: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_VNIF
 pub const IFLA_VXLAN_LOCALBYPASS: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_LOCALBYPASS;
 pub const IFLA_VXLAN_LABEL_POLICY: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_LABEL_POLICY;
 pub const IFLA_VXLAN_RESERVED_BITS: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_RESERVED_BITS;
+pub const IFLA_VXLAN_MC_ROUTE: _bindgen_ty_22 = _bindgen_ty_22::IFLA_VXLAN_MC_ROUTE;
 pub const __IFLA_VXLAN_MAX: _bindgen_ty_22 = _bindgen_ty_22::__IFLA_VXLAN_MAX;
 pub const IFLA_GENEVE_UNSPEC: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_UNSPEC;
 pub const IFLA_GENEVE_ID: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_ID;
@@ -1267,6 +1269,7 @@ pub const IFLA_BOND_AD_LACP_ACTIVE: _bindgen_ty_27 = _bindgen_ty_27::IFLA_BOND_A
 pub const IFLA_BOND_MISSED_MAX: _bindgen_ty_27 = _bindgen_ty_27::IFLA_BOND_MISSED_MAX;
 pub const IFLA_BOND_NS_IP6_TARGET: _bindgen_ty_27 = _bindgen_ty_27::IFLA_BOND_NS_IP6_TARGET;
 pub const IFLA_BOND_COUPLED_CONTROL: _bindgen_ty_27 = _bindgen_ty_27::IFLA_BOND_COUPLED_CONTROL;
+pub const IFLA_BOND_BROADCAST_NEIGH: _bindgen_ty_27 = _bindgen_ty_27::IFLA_BOND_BROADCAST_NEIGH;
 pub const __IFLA_BOND_MAX: _bindgen_ty_27 = _bindgen_ty_27::__IFLA_BOND_MAX;
 pub const IFLA_BOND_AD_INFO_UNSPEC: _bindgen_ty_28 = _bindgen_ty_28::IFLA_BOND_AD_INFO_UNSPEC;
 pub const IFLA_BOND_AD_INFO_AGGREGATOR: _bindgen_ty_28 = _bindgen_ty_28::IFLA_BOND_AD_INFO_AGGREGATOR;
@@ -2231,7 +2234,10 @@ NL80211_ATTR_SUPPORTED_SELECTORS = 334,
 NL80211_ATTR_MLO_RECONF_REM_LINKS = 335,
 NL80211_ATTR_EPCS = 336,
 NL80211_ATTR_ASSOC_MLD_EXT_CAPA_OPS = 337,
-__NL80211_ATTR_AFTER_LAST = 338,
+NL80211_ATTR_WIPHY_RADIO_INDEX = 338,
+NL80211_ATTR_S1G_LONG_BEACON_PERIOD = 339,
+NL80211_ATTR_S1G_SHORT_BEACON = 340,
+__NL80211_ATTR_AFTER_LAST = 341,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3848,7 +3854,8 @@ NL80211_WIPHY_RADIO_ATTR_INDEX = 1,
 NL80211_WIPHY_RADIO_ATTR_FREQ_RANGE = 2,
 NL80211_WIPHY_RADIO_ATTR_INTERFACE_COMBINATION = 3,
 NL80211_WIPHY_RADIO_ATTR_ANTENNA_MASK = 4,
-__NL80211_WIPHY_RADIO_ATTR_LAST = 5,
+NL80211_WIPHY_RADIO_ATTR_RTS_THRESHOLD = 5,
+__NL80211_WIPHY_RADIO_ATTR_LAST = 6,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3858,6 +3865,15 @@ __NL80211_WIPHY_RADIO_FREQ_ATTR_INVALID = 0,
 NL80211_WIPHY_RADIO_FREQ_ATTR_START = 1,
 NL80211_WIPHY_RADIO_FREQ_ATTR_END = 2,
 __NL80211_WIPHY_RADIO_FREQ_ATTR_LAST = 3,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_s1g_short_beacon_attrs {
+__NL80211_S1G_SHORT_BEACON_ATTR_INVALID = 0,
+NL80211_S1G_SHORT_BEACON_ATTR_HEAD = 1,
+NL80211_S1G_SHORT_BEACON_ATTR_TAIL = 2,
+__NL80211_S1G_SHORT_BEACON_ATTR_LAST = 3,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4353,7 +4369,8 @@ IFLA_VXLAN_VNIFILTER = 30,
 IFLA_VXLAN_LOCALBYPASS = 31,
 IFLA_VXLAN_LABEL_POLICY = 32,
 IFLA_VXLAN_RESERVED_BITS = 33,
-__IFLA_VXLAN_MAX = 34,
+IFLA_VXLAN_MC_ROUTE = 34,
+__IFLA_VXLAN_MAX = 35,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4481,7 +4498,8 @@ IFLA_BOND_AD_LACP_ACTIVE = 29,
 IFLA_BOND_MISSED_MAX = 30,
 IFLA_BOND_NS_IP6_TARGET = 31,
 IFLA_BOND_COUPLED_CONTROL = 32,
-__IFLA_BOND_MAX = 33,
+IFLA_BOND_BROADCAST_NEIGH = 33,
+__IFLA_BOND_MAX = 34,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -5251,7 +5269,7 @@ impl nl80211_attrs {
 pub const NUM_NL80211_ATTR: nl80211_attrs = nl80211_attrs::__NL80211_ATTR_AFTER_LAST;
 }
 impl nl80211_attrs {
-pub const NL80211_ATTR_MAX: nl80211_attrs = nl80211_attrs::NL80211_ATTR_ASSOC_MLD_EXT_CAPA_OPS;
+pub const NL80211_ATTR_MAX: nl80211_attrs = nl80211_attrs::NL80211_ATTR_S1G_SHORT_BEACON;
 }
 impl nl80211_iftype {
 pub const NL80211_IFTYPE_MAX: nl80211_iftype = nl80211_iftype::NL80211_IFTYPE_NAN;
@@ -5449,10 +5467,13 @@ impl nl80211_mbssid_config_attributes {
 pub const NL80211_MBSSID_CONFIG_ATTR_MAX: nl80211_mbssid_config_attributes = nl80211_mbssid_config_attributes::NL80211_MBSSID_CONFIG_ATTR_TX_LINK_ID;
 }
 impl nl80211_wiphy_radio_attrs {
-pub const NL80211_WIPHY_RADIO_ATTR_MAX: nl80211_wiphy_radio_attrs = nl80211_wiphy_radio_attrs::NL80211_WIPHY_RADIO_ATTR_ANTENNA_MASK;
+pub const NL80211_WIPHY_RADIO_ATTR_MAX: nl80211_wiphy_radio_attrs = nl80211_wiphy_radio_attrs::NL80211_WIPHY_RADIO_ATTR_RTS_THRESHOLD;
 }
 impl nl80211_wiphy_radio_freq_range {
 pub const NL80211_WIPHY_RADIO_FREQ_ATTR_MAX: nl80211_wiphy_radio_freq_range = nl80211_wiphy_radio_freq_range::NL80211_WIPHY_RADIO_FREQ_ATTR_END;
+}
+impl nl80211_s1g_short_beacon_attrs {
+pub const NL80211_S1G_SHORT_BEACON_ATTR_MAX: nl80211_s1g_short_beacon_attrs = nl80211_s1g_short_beacon_attrs::NL80211_S1G_SHORT_BEACON_ATTR_TAIL;
 }
 impl macsec_validation_type {
 pub const MACSEC_VALIDATE_MAX: macsec_validation_type = macsec_validation_type::MACSEC_VALIDATE_STRICT;
