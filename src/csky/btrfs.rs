@@ -739,7 +739,7 @@ pub dirid: __u64,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_encoded_io_args {
-pub iov: *mut iovec,
+pub iov: *const iovec,
 pub iovcnt: crate::ctypes::c_ulong,
 pub offset: __s64,
 pub flags: __u64,
