@@ -41,14 +41,5 @@ struct xdp_statistics_v1 {
     __u64 tx_invalid_descs;
 };
 
-// The following two definitions were added in kernel version 6.6 and can be removed
-// when the crate is updated to kernel version 6.6.
-
-// https://github.com/torvalds/linux/blob/master/include/uapi/linux/if_xdp.h#L33
-#define XDP_USE_SG	(1 << 4)
-
-// https://github.com/torvalds/linux/blob/master/include/uapi/linux/if_xdp.h#L122
-#define XDP_PKT_CONTD (1 << 0)
-
 #endif
 
