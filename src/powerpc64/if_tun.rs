@@ -292,6 +292,8 @@ pub const TUN_F_TSO_ECN: u32 = 8;
 pub const TUN_F_UFO: u32 = 16;
 pub const TUN_F_USO4: u32 = 32;
 pub const TUN_F_USO6: u32 = 64;
+pub const TUN_F_UDP_TUNNEL_GSO: u32 = 128;
+pub const TUN_F_UDP_TUNNEL_GSO_CSUM: u32 = 256;
 pub const TUN_PKT_STRIP: u32 = 1;
 pub const TUN_FLT_ALLMULTI: u32 = 1;
 impl<T> __IncompleteArrayField<T> {
