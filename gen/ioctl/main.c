@@ -49,6 +49,8 @@ int main(void) {
     printf("#ifdef __loongarch__\n");
 #elif defined(__csky__)
     printf("#ifdef __csky__\n");
+#elif defined(__m68k__)
+    printf("#ifdef __m68k__\n");
 #else
 #error "unimplemented architecture"
 #endif

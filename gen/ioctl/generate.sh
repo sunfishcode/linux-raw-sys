@@ -105,5 +105,10 @@ cat loongarch-ioctls.txt >> "$out"
 # qemu-csky -L /usr/csky-linux-gnuabiv2 ./main.exe >> "$out"
 cat csky-ioctls.txt >> "$out"
 
+install_headers m68k
+m68k-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
+m68k-linux-gnu-gcc main.c list.o -o main.exe $cflags
+qemu-m68k -L /usr/m68k-linux-gnu ./main.exe >> "$out"
+
 # Add any extra custom definitions at the end.
 echo "#include \"ioctl-addendum.h\"" >> "$out"

@@ -10,8 +10,24 @@ typedef __INT8_TYPE__ int8_t;
 typedef __INT16_TYPE__ int16_t;
 typedef __INT32_TYPE__ int32_t;
 typedef __INT64_TYPE__ int64_t;
+#ifdef __m68k__
+// Hack: until the fix for [1] is released, lie to clang that `size_t` has
+// alignment 4 on m68k. This doesn't affect the correctness of bindings, since
+// the only structs that (transitively) contain a size_t are
+// `net::{msghdr, cmsghdr, mmsghdr}` and their definitions are the same
+// regardless of the alignment of `size_t`.
+//
+// [1]: https://github.com/rust-lang/rust-bindgen/issues/3312
+typedef struct __attribute__((aligned(4))) {
+  __SIZE_TYPE__ s;
+} size_t;
+typedef struct __attribute__((aligned(4))) {
+  __PTRDIFF_TYPE__ s;
+} ssize_t;
+#else
 typedef __SIZE_TYPE__ size_t;
 typedef __PTRDIFF_TYPE__ ssize_t;
+#endif
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
 typedef __INTPTR_TYPE__ intptr_t;
 typedef __UINTPTR_TYPE__ uintptr_t;

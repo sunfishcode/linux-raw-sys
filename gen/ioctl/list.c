@@ -100,7 +100,7 @@ struct sockaddr {
 #include <linux/joystick.h>
 #include <linux/kd.h>
 #include <linux/kcov.h>
-#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) && !defined(__csky__)// various errors
+#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) && !defined(__csky__) && !defined(__m68k__) // various errors
 #include <linux/kvm.h>
 #endif
 #include <linux/lirc.h>
