@@ -2,14 +2,18 @@
 // headers.
 int printf(const char *, ...);
 
-typedef __UINT32_TYPE__ u32;
-typedef __UINT64_TYPE__ u64;
 typedef __INT64_TYPE__ int64_t;
-typedef __UINT64_TYPE__ u_quad_t;
+typedef __UINT8_TYPE__ uint8_t;
+typedef __UINT16_TYPE__ uint16_t;
+typedef __UINT32_TYPE__ uint32_t;
+typedef __UINT64_TYPE__ uint64_t;
 typedef __SIZE_TYPE__ size_t;
+typedef __UINTPTR_TYPE__ uintptr_t;
 
 typedef unsigned short u_short;
 typedef unsigned long u_long;
+
+void *memset(void *, int, size_t);
 
 #include <linux/types.h>
 #include <linux/version.h>
@@ -96,7 +100,7 @@ struct sockaddr {
 #include <linux/joystick.h>
 #include <linux/kd.h>
 #include <linux/kcov.h>
-#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) && !defined(__csky__)// various errors
+#if !defined(__arm__) && !defined(__loongarch__) && !defined(__powerpc64__) && !defined(__riscv) && !defined(__csky__) && !defined(__m68k__) // various errors
 #include <linux/kvm.h>
 #endif
 #include <linux/lirc.h>
@@ -128,7 +132,6 @@ struct sockaddr {
 #include <linux/psp-sev.h>
 #include <linux/radeonfb.h>
 #include <linux/random.h>
-#include <linux/reiserfs_fs.h>
 #include <linux/remoteproc_cdev.h>
 #include <linux/rfkill.h>
 #include <linux/rio_cm_cdev.h>
@@ -1134,7 +1137,6 @@ void list(void) {
     IOCTL_REQUEST(FW_CDEV_IOC_SEND_PHY_PACKET);
     IOCTL_REQUEST(NBD_SET_FLAGS);
     IOCTL_REQUEST(VFIO_DEVICE_GET_REGION_INFO);
-    IOCTL_REQUEST(REISERFS_IOC_UNPACK);
     IOCTL_REQUEST(FW_CDEV_IOC_REMOVE_DESCRIPTOR);
     IOCTL_REQUEST(RIO_SET_EVENT_MASK);
     IOCTL_REQUEST(SNAPSHOT_ALLOC_SWAP_PAGE);

@@ -12,33 +12,71 @@ set -ueo pipefail
 # to add new ioctl codes or a new architecture, and are unable to run it,
 # please file an issue in the issue tracker.
 
+linux_version="$(sed -n 's/^const LINUX_VERSION: &str = "\(v.*\)";$/\1/p' ../src/main.rs)"
+
+pushd ../linux
+git clean -fd
+git checkout "$linux_version" -f
+git clean -fd
+popd
+
+tmp_dir="$(mktemp --tmpdir -d linux-raw-sys-ioctl.XXXXXXXXXX)"
+header_dir="$tmp_dir/linux-headers"
+mkdir "$header_dir"
+touch list.o main.exe
+
+cleanup() {
+  rm -r "$tmp_dir"
+  rm list.o main.exe
+}
+trap cleanup EXIT
+
+install_headers() {
+  arch="$1"
+  rm -r "$header_dir"
+  make -C ../linux headers_install ARCH="$arch" INSTALL_HDR_PATH="$header_dir"
+}
+
 cflags="-Wall"
+includes=(
+  -nostdinc
+  -Iinclude
+  "-I$header_dir/include"
+)
 out="../modules/ioctl.h"
 
 echo "// This file is generated from the ioctl/generate.sh script." > "$out"
 
-i686-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers x86
+i686-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 i686-linux-gnu-gcc main.c list.o -o main.exe $cflags
 ./main.exe >> "$out"
-x86_64-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers x86_64
+x86_64-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 x86_64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 ./main.exe >> "$out"
-aarch64-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers arm64
+aarch64-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 aarch64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-aarch64 -L /usr/aarch64-linux-gnu ./main.exe >> "$out"
-arm-linux-gnueabihf-gcc -Iinclude -c list.c $cflags
+install_headers arm
+arm-linux-gnueabihf-gcc "${includes[@]}" -c list.c $cflags
 arm-linux-gnueabihf-gcc main.c list.o -o main.exe $cflags
 qemu-arm -L /usr/arm-linux-gnueabihf ./main.exe >> "$out"
-powerpc64le-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers powerpc
+powerpc64le-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 powerpc64le-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-ppc64le -L /usr/powerpc64le-linux-gnu ./main.exe >> "$out"
-powerpc-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers powerpc
+powerpc-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 powerpc-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-ppc -L /usr/powerpc-linux-gnu ./main.exe >> "$out"
-mips64el-linux-gnuabi64-gcc -Iinclude -c list.c $cflags
+install_headers mips
+mips64el-linux-gnuabi64-gcc "${includes[@]}" -c list.c $cflags
 mips64el-linux-gnuabi64-gcc main.c list.o -o main.exe $cflags
 qemu-mips64el -L /usr/mips64el-linux-gnuabi64 ./main.exe >> "$out"
-mipsel-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers mips
+mipsel-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 mipsel-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-mipsel -L /usr/mipsel-linux-gnu ./main.exe >> "$out"
 
@@ -51,10 +89,12 @@ qemu-mipsel -L /usr/mipsel-linux-gnu ./main.exe >> "$out"
 # /opt/riscv/bin/qemu-riscv32 -L /opt/riscv/sysroot/ ./main.exe >> "$out"
 cat riscv32-ioctls.txt >> "$out"
 
-riscv64-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers riscv
+riscv64-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 riscv64-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-riscv64 -L /usr/riscv64-linux-gnu ./main.exe >> "$out"
-s390x-linux-gnu-gcc -Iinclude -c list.c $cflags
+install_headers s390
+s390x-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
 s390x-linux-gnu-gcc main.c list.o -o main.exe $cflags
 qemu-s390x -L /usr/s390x-linux-gnu ./main.exe >> "$out"
 # As LoongArch and CSKY cross toolchain is not yet packaged in mainstream distros yet,
@@ -65,7 +105,10 @@ cat loongarch-ioctls.txt >> "$out"
 # qemu-csky -L /usr/csky-linux-gnuabiv2 ./main.exe >> "$out"
 cat csky-ioctls.txt >> "$out"
 
+install_headers m68k
+m68k-linux-gnu-gcc "${includes[@]}" -c list.c $cflags
+m68k-linux-gnu-gcc main.c list.o -o main.exe $cflags
+qemu-m68k -L /usr/m68k-linux-gnu ./main.exe >> "$out"
+
 # Add any extra custom definitions at the end.
 echo "#include \"ioctl-addendum.h\"" >> "$out"
-
-rm list.o main.exe
