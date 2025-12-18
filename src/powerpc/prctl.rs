@@ -154,6 +154,7 @@ pub const PR_SET_NO_NEW_PRIVS: u32 = 38;
 pub const PR_GET_NO_NEW_PRIVS: u32 = 39;
 pub const PR_GET_TID_ADDRESS: u32 = 40;
 pub const PR_SET_THP_DISABLE: u32 = 41;
+pub const PR_THP_DISABLE_EXCEPT_ADVISED: u32 = 2;
 pub const PR_GET_THP_DISABLE: u32 = 42;
 pub const PR_MPX_ENABLE_MANAGEMENT: u32 = 43;
 pub const PR_MPX_DISABLE_MANAGEMENT: u32 = 44;

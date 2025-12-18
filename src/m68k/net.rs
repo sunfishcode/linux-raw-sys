@@ -448,6 +448,15 @@ pub tcpi_rehash: __u32,
 pub tcpi_total_rto: __u16,
 pub tcpi_total_rto_recoveries: __u16,
 pub tcpi_total_rto_time: __u32,
+pub tcpi_received_ce: __u32,
+pub tcpi_delivered_e1_bytes: __u32,
+pub tcpi_delivered_e0_bytes: __u32,
+pub tcpi_delivered_ce_bytes: __u32,
+pub tcpi_received_e1_bytes: __u32,
+pub tcpi_received_e0_bytes: __u32,
+pub tcpi_received_ce_bytes: __u32,
+pub tcpi_accecn_fail_mode: __u16,
+pub tcpi_accecn_opt_seen: __u16,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

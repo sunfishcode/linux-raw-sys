@@ -192,7 +192,7 @@ pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 #[derive(Debug, Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
-pub spare: __u32,
+pub mnt_ns_fd: __u32,
 pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
@@ -1020,8 +1020,10 @@ pub const IORING_SETUP_NO_MMAP: u32 = 16384;
 pub const IORING_SETUP_REGISTERED_FD_ONLY: u32 = 32768;
 pub const IORING_SETUP_NO_SQARRAY: u32 = 65536;
 pub const IORING_SETUP_HYBRID_IOPOLL: u32 = 131072;
+pub const IORING_SETUP_CQE_MIXED: u32 = 262144;
 pub const IORING_URING_CMD_FIXED: u32 = 1;
-pub const IORING_URING_CMD_MASK: u32 = 1;
+pub const IORING_URING_CMD_MULTISHOT: u32 = 2;
+pub const IORING_URING_CMD_MASK: u32 = 3;
 pub const IORING_FSYNC_DATASYNC: u32 = 1;
 pub const IORING_TIMEOUT_ABS: u32 = 1;
 pub const IORING_TIMEOUT_UPDATE: u32 = 2;
@@ -1061,11 +1063,14 @@ pub const IORING_NOP_FILE: u32 = 2;
 pub const IORING_NOP_FIXED_FILE: u32 = 4;
 pub const IORING_NOP_FIXED_BUFFER: u32 = 8;
 pub const IORING_NOP_TW: u32 = 16;
+pub const IORING_NOP_CQE32: u32 = 32;
 pub const IORING_CQE_F_BUFFER: u32 = 1;
 pub const IORING_CQE_F_MORE: u32 = 2;
 pub const IORING_CQE_F_SOCK_NONEMPTY: u32 = 4;
 pub const IORING_CQE_F_NOTIF: u32 = 8;
 pub const IORING_CQE_F_BUF_MORE: u32 = 16;
+pub const IORING_CQE_F_SKIP: u32 = 32;
+pub const IORING_CQE_F_32: u32 = 32768;
 pub const IORING_CQE_BUFFER_SHIFT: u32 = 16;
 pub const IORING_OFF_SQ_RING: u32 = 0;
 pub const IORING_OFF_CQ_RING: u32 = 134217728;
@@ -1272,7 +1277,8 @@ IORING_REGISTER_SEND_MSG_RING = 31,
 IORING_REGISTER_ZCRX_IFQ = 32,
 IORING_REGISTER_RESIZE_RINGS = 33,
 IORING_REGISTER_MEM_REGION = 34,
-IORING_REGISTER_LAST = 35,
+IORING_REGISTER_QUERY = 35,
+IORING_REGISTER_LAST = 36,
 IORING_REGISTER_USE_REGISTERED_RING = 2147483648,
 }
 #[repr(u32)]

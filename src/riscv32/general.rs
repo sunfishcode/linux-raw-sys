@@ -288,7 +288,7 @@ pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 #[derive(Debug, Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
-pub spare: __u32,
+pub mnt_ns_fd: __u32,
 pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
@@ -1079,9 +1079,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 397568;
+pub const LINUX_VERSION_CODE: u32 = 397824;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 17;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 18;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const __FD_SETSIZE: u32 = 1024;
@@ -1255,6 +1255,7 @@ pub const AT_FDCWD: i32 = -100;
 pub const PIDFD_SELF_THREAD: i32 = -10000;
 pub const PIDFD_SELF_THREAD_GROUP: i32 = -10001;
 pub const FD_PIDFS_ROOT: i32 = -10002;
+pub const FD_NSFS_ROOT: i32 = -10003;
 pub const FD_INVALID: i32 = -10009;
 pub const AT_SYMLINK_NOFOLLOW: u32 = 256;
 pub const AT_SYMLINK_FOLLOW: u32 = 1024;
