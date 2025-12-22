@@ -610,6 +610,31 @@ pub tca_family: crate::ctypes::c_uchar,
 pub tca__pad1: crate::ctypes::c_uchar,
 pub tca__pad2: crate::ctypes::c_ushort,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fib_rule_hdr {
+pub family: __u8,
+pub dst_len: __u8,
+pub src_len: __u8,
+pub tos: __u8,
+pub table: __u8,
+pub res1: __u8,
+pub res2: __u8,
+pub action: __u8,
+pub flags: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fib_rule_uid_range {
+pub start: __u32,
+pub end: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fib_rule_port_range {
+pub start: __u16,
+pub end: __u16,
+}
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;
@@ -870,6 +895,13 @@ pub const RTEXT_FILTER_MRP: u32 = 16;
 pub const RTEXT_FILTER_CFM_CONFIG: u32 = 32;
 pub const RTEXT_FILTER_CFM_STATUS: u32 = 64;
 pub const RTEXT_FILTER_MST: u32 = 128;
+pub const FIB_RULE_PERMANENT: u32 = 1;
+pub const FIB_RULE_INVERT: u32 = 2;
+pub const FIB_RULE_UNRESOLVED: u32 = 4;
+pub const FIB_RULE_IIF_DETACHED: u32 = 8;
+pub const FIB_RULE_DEV_DETACHED: u32 = 8;
+pub const FIB_RULE_OIF_DETACHED: u32 = 16;
+pub const FIB_RULE_FIND_SADDR: u32 = 65536;
 pub const NETLINK_UNCONNECTED: _bindgen_ty_1 = _bindgen_ty_1::NETLINK_UNCONNECTED;
 pub const NETLINK_CONNECTED: _bindgen_ty_1 = _bindgen_ty_1::NETLINK_CONNECTED;
 pub const IFLA_UNSPEC: _bindgen_ty_2 = _bindgen_ty_2::IFLA_UNSPEC;
@@ -1644,6 +1676,48 @@ pub const TCA_ROOT_COUNT: _bindgen_ty_68 = _bindgen_ty_68::TCA_ROOT_COUNT;
 pub const TCA_ROOT_TIME_DELTA: _bindgen_ty_68 = _bindgen_ty_68::TCA_ROOT_TIME_DELTA;
 pub const TCA_ROOT_EXT_WARN_MSG: _bindgen_ty_68 = _bindgen_ty_68::TCA_ROOT_EXT_WARN_MSG;
 pub const __TCA_ROOT_MAX: _bindgen_ty_68 = _bindgen_ty_68::__TCA_ROOT_MAX;
+pub const FRA_UNSPEC: _bindgen_ty_69 = _bindgen_ty_69::FRA_UNSPEC;
+pub const FRA_DST: _bindgen_ty_69 = _bindgen_ty_69::FRA_DST;
+pub const FRA_SRC: _bindgen_ty_69 = _bindgen_ty_69::FRA_SRC;
+pub const FRA_IIFNAME: _bindgen_ty_69 = _bindgen_ty_69::FRA_IIFNAME;
+pub const FRA_GOTO: _bindgen_ty_69 = _bindgen_ty_69::FRA_GOTO;
+pub const FRA_UNUSED2: _bindgen_ty_69 = _bindgen_ty_69::FRA_UNUSED2;
+pub const FRA_PRIORITY: _bindgen_ty_69 = _bindgen_ty_69::FRA_PRIORITY;
+pub const FRA_UNUSED3: _bindgen_ty_69 = _bindgen_ty_69::FRA_UNUSED3;
+pub const FRA_UNUSED4: _bindgen_ty_69 = _bindgen_ty_69::FRA_UNUSED4;
+pub const FRA_UNUSED5: _bindgen_ty_69 = _bindgen_ty_69::FRA_UNUSED5;
+pub const FRA_FWMARK: _bindgen_ty_69 = _bindgen_ty_69::FRA_FWMARK;
+pub const FRA_FLOW: _bindgen_ty_69 = _bindgen_ty_69::FRA_FLOW;
+pub const FRA_TUN_ID: _bindgen_ty_69 = _bindgen_ty_69::FRA_TUN_ID;
+pub const FRA_SUPPRESS_IFGROUP: _bindgen_ty_69 = _bindgen_ty_69::FRA_SUPPRESS_IFGROUP;
+pub const FRA_SUPPRESS_PREFIXLEN: _bindgen_ty_69 = _bindgen_ty_69::FRA_SUPPRESS_PREFIXLEN;
+pub const FRA_TABLE: _bindgen_ty_69 = _bindgen_ty_69::FRA_TABLE;
+pub const FRA_FWMASK: _bindgen_ty_69 = _bindgen_ty_69::FRA_FWMASK;
+pub const FRA_OIFNAME: _bindgen_ty_69 = _bindgen_ty_69::FRA_OIFNAME;
+pub const FRA_PAD: _bindgen_ty_69 = _bindgen_ty_69::FRA_PAD;
+pub const FRA_L3MDEV: _bindgen_ty_69 = _bindgen_ty_69::FRA_L3MDEV;
+pub const FRA_UID_RANGE: _bindgen_ty_69 = _bindgen_ty_69::FRA_UID_RANGE;
+pub const FRA_PROTOCOL: _bindgen_ty_69 = _bindgen_ty_69::FRA_PROTOCOL;
+pub const FRA_IP_PROTO: _bindgen_ty_69 = _bindgen_ty_69::FRA_IP_PROTO;
+pub const FRA_SPORT_RANGE: _bindgen_ty_69 = _bindgen_ty_69::FRA_SPORT_RANGE;
+pub const FRA_DPORT_RANGE: _bindgen_ty_69 = _bindgen_ty_69::FRA_DPORT_RANGE;
+pub const FRA_DSCP: _bindgen_ty_69 = _bindgen_ty_69::FRA_DSCP;
+pub const FRA_FLOWLABEL: _bindgen_ty_69 = _bindgen_ty_69::FRA_FLOWLABEL;
+pub const FRA_FLOWLABEL_MASK: _bindgen_ty_69 = _bindgen_ty_69::FRA_FLOWLABEL_MASK;
+pub const FRA_SPORT_MASK: _bindgen_ty_69 = _bindgen_ty_69::FRA_SPORT_MASK;
+pub const FRA_DPORT_MASK: _bindgen_ty_69 = _bindgen_ty_69::FRA_DPORT_MASK;
+pub const FRA_DSCP_MASK: _bindgen_ty_69 = _bindgen_ty_69::FRA_DSCP_MASK;
+pub const __FRA_MAX: _bindgen_ty_69 = _bindgen_ty_69::__FRA_MAX;
+pub const FR_ACT_UNSPEC: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_UNSPEC;
+pub const FR_ACT_TO_TBL: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_TO_TBL;
+pub const FR_ACT_GOTO: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_GOTO;
+pub const FR_ACT_NOP: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_NOP;
+pub const FR_ACT_RES3: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_RES3;
+pub const FR_ACT_RES4: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_RES4;
+pub const FR_ACT_BLACKHOLE: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_BLACKHOLE;
+pub const FR_ACT_UNREACHABLE: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_UNREACHABLE;
+pub const FR_ACT_PROHIBIT: _bindgen_ty_70 = _bindgen_ty_70::FR_ACT_PROHIBIT;
+pub const __FR_ACT_MAX: _bindgen_ty_70 = _bindgen_ty_70::__FR_ACT_MAX;
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -5188,6 +5262,58 @@ TCA_ROOT_COUNT = 3,
 TCA_ROOT_TIME_DELTA = 4,
 TCA_ROOT_EXT_WARN_MSG = 5,
 __TCA_ROOT_MAX = 6,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_69 {
+FRA_UNSPEC = 0,
+FRA_DST = 1,
+FRA_SRC = 2,
+FRA_IIFNAME = 3,
+FRA_GOTO = 4,
+FRA_UNUSED2 = 5,
+FRA_PRIORITY = 6,
+FRA_UNUSED3 = 7,
+FRA_UNUSED4 = 8,
+FRA_UNUSED5 = 9,
+FRA_FWMARK = 10,
+FRA_FLOW = 11,
+FRA_TUN_ID = 12,
+FRA_SUPPRESS_IFGROUP = 13,
+FRA_SUPPRESS_PREFIXLEN = 14,
+FRA_TABLE = 15,
+FRA_FWMASK = 16,
+FRA_OIFNAME = 17,
+FRA_PAD = 18,
+FRA_L3MDEV = 19,
+FRA_UID_RANGE = 20,
+FRA_PROTOCOL = 21,
+FRA_IP_PROTO = 22,
+FRA_SPORT_RANGE = 23,
+FRA_DPORT_RANGE = 24,
+FRA_DSCP = 25,
+FRA_FLOWLABEL = 26,
+FRA_FLOWLABEL_MASK = 27,
+FRA_SPORT_MASK = 28,
+FRA_DPORT_MASK = 29,
+FRA_DSCP_MASK = 30,
+__FRA_MAX = 31,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_70 {
+FR_ACT_UNSPEC = 0,
+FR_ACT_TO_TBL = 1,
+FR_ACT_GOTO = 2,
+FR_ACT_NOP = 3,
+FR_ACT_RES3 = 4,
+FR_ACT_RES4 = 5,
+FR_ACT_BLACKHOLE = 6,
+FR_ACT_UNREACHABLE = 7,
+FR_ACT_PROHIBIT = 8,
+__FR_ACT_MAX = 9,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

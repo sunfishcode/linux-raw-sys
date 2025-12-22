@@ -762,6 +762,10 @@ pub mod ptrace;
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/system.rs"]
 pub mod system;
+#[cfg(feature = "vm_sockets")]
+#[cfg(target_arch = "m68k")]
+#[path = "m68k/vm_sockets.rs"]
+pub mod vm_sockets;
 #[cfg(feature = "xdp")]
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/xdp.rs"]
