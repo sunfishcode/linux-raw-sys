@@ -30,6 +30,7 @@ pub type __kernel_ssize_t = crate::ctypes::c_int;
 pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -174,7 +175,7 @@ pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 #[derive(Debug, Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
-pub spare: __u32,
+pub mnt_ns_fd: __u32,
 pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
@@ -739,7 +740,7 @@ pub dirid: __u64,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_encoded_io_args {
-pub iov: *const iovec,
+pub iov: *mut iovec,
 pub iovcnt: crate::ctypes::c_ulong,
 pub offset: __s64,
 pub flags: __u64,
@@ -1615,6 +1616,10 @@ pub const BTRFS_SUBVOL_SYNC_WAIT_FOR_QUEUED: u32 = 1;
 pub const BTRFS_SUBVOL_SYNC_COUNT: u32 = 2;
 pub const BTRFS_SUBVOL_SYNC_PEEK_FIRST: u32 = 3;
 pub const BTRFS_SUBVOL_SYNC_PEEK_LAST: u32 = 4;
+pub const BTRFS_SHUTDOWN_FLAGS_DEFAULT: u32 = 0;
+pub const BTRFS_SHUTDOWN_FLAGS_LOGFLUSH: u32 = 1;
+pub const BTRFS_SHUTDOWN_FLAGS_NOLOGFLUSH: u32 = 2;
+pub const BTRFS_SHUTDOWN_FLAGS_LAST: u32 = 3;
 pub const BTRFS_MAGIC: u64 = 5575266562640200287;
 pub const BTRFS_MAX_LEVEL: u32 = 8;
 pub const BTRFS_NAME_LEN: u32 = 255;
