@@ -2,7 +2,7 @@
 
 pub const AT_SYSINFO: u32 = 32;
 pub const AT_SYSINFO_EHDR: u32 = 33;
-pub const AT_VECTOR_SIZE_ARCH: u32 = 3;
+pub const AT_VECTOR_SIZE_ARCH: u32 = 2;
 pub const AT_NULL: u32 = 0;
 pub const AT_IGNORE: u32 = 1;
 pub const AT_EXECFD: u32 = 2;

@@ -30,6 +30,7 @@ pub type __kernel_ssize_t = __kernel_long_t;
 pub type __kernel_ptrdiff_t = __kernel_long_t;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -737,6 +738,7 @@ pub const ETH_P_AOE: u32 = 34978;
 pub const ETH_P_ETHERCAT: u32 = 34980;
 pub const ETH_P_8021AD: u32 = 34984;
 pub const ETH_P_802_EX1: u32 = 34997;
+pub const ETH_P_MXLGSW: u32 = 35011;
 pub const ETH_P_PREAUTH: u32 = 35015;
 pub const ETH_P_TIPC: u32 = 35018;
 pub const ETH_P_LLDP: u32 = 35020;
@@ -759,6 +761,7 @@ pub const ETH_P_LOOPBACK: u32 = 36864;
 pub const ETH_P_QINQ1: u32 = 37120;
 pub const ETH_P_QINQ2: u32 = 37376;
 pub const ETH_P_QINQ3: u32 = 37632;
+pub const ETH_P_YT921X: u32 = 39304;
 pub const ETH_P_EDSA: u32 = 56026;
 pub const ETH_P_DSA_8021Q: u32 = 56027;
 pub const ETH_P_DSA_A5PSW: u32 = 57345;
@@ -1339,6 +1342,8 @@ pub const IFLA_GRO_IPV4_MAX_SIZE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_GRO_IPV4_M
 pub const IFLA_DPLL_PIN: _bindgen_ty_4 = _bindgen_ty_4::IFLA_DPLL_PIN;
 pub const IFLA_MAX_PACING_OFFLOAD_HORIZON: _bindgen_ty_4 = _bindgen_ty_4::IFLA_MAX_PACING_OFFLOAD_HORIZON;
 pub const IFLA_NETNS_IMMUTABLE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_NETNS_IMMUTABLE;
+pub const IFLA_HEADROOM: _bindgen_ty_4 = _bindgen_ty_4::IFLA_HEADROOM;
+pub const IFLA_TAILROOM: _bindgen_ty_4 = _bindgen_ty_4::IFLA_TAILROOM;
 pub const __IFLA_MAX: _bindgen_ty_4 = _bindgen_ty_4::__IFLA_MAX;
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_5 = _bindgen_ty_5::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_5 = _bindgen_ty_5::IFLA_PROTO_DOWN_REASON_MASK;
@@ -1602,6 +1607,7 @@ pub const IFLA_GENEVE_TTL_INHERIT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_
 pub const IFLA_GENEVE_DF: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_DF;
 pub const IFLA_GENEVE_INNER_PROTO_INHERIT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_INNER_PROTO_INHERIT;
 pub const IFLA_GENEVE_PORT_RANGE: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_PORT_RANGE;
+pub const IFLA_GENEVE_GRO_HINT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_GRO_HINT;
 pub const __IFLA_GENEVE_MAX: _bindgen_ty_25 = _bindgen_ty_25::__IFLA_GENEVE_MAX;
 pub const IFLA_BAREUDP_UNSPEC: _bindgen_ty_26 = _bindgen_ty_26::IFLA_BAREUDP_UNSPEC;
 pub const IFLA_BAREUDP_PORT: _bindgen_ty_26 = _bindgen_ty_26::IFLA_BAREUDP_PORT;
@@ -1674,6 +1680,7 @@ pub const IFLA_BOND_SLAVE_AD_AGGREGATOR_ID: _bindgen_ty_31 = _bindgen_ty_31::IFL
 pub const IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE;
 pub const IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE;
 pub const IFLA_BOND_SLAVE_PRIO: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_PRIO;
+pub const IFLA_BOND_SLAVE_ACTOR_PORT_PRIO: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_ACTOR_PORT_PRIO;
 pub const __IFLA_BOND_SLAVE_MAX: _bindgen_ty_31 = _bindgen_ty_31::__IFLA_BOND_SLAVE_MAX;
 pub const IFLA_VF_INFO_UNSPEC: _bindgen_ty_32 = _bindgen_ty_32::IFLA_VF_INFO_UNSPEC;
 pub const IFLA_VF_INFO: _bindgen_ty_32 = _bindgen_ty_32::IFLA_VF_INFO;
@@ -2034,7 +2041,9 @@ IFLA_GRO_IPV4_MAX_SIZE = 64,
 IFLA_DPLL_PIN = 65,
 IFLA_MAX_PACING_OFFLOAD_HORIZON = 66,
 IFLA_NETNS_IMMUTABLE = 67,
-__IFLA_MAX = 68,
+IFLA_HEADROOM = 68,
+IFLA_TAILROOM = 69,
+__IFLA_MAX = 70,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2496,7 +2505,8 @@ IFLA_GENEVE_TTL_INHERIT = 12,
 IFLA_GENEVE_DF = 13,
 IFLA_GENEVE_INNER_PROTO_INHERIT = 14,
 IFLA_GENEVE_PORT_RANGE = 15,
-__IFLA_GENEVE_MAX = 16,
+IFLA_GENEVE_GRO_HINT = 16,
+__IFLA_GENEVE_MAX = 17,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2614,7 +2624,8 @@ IFLA_BOND_SLAVE_AD_AGGREGATOR_ID = 6,
 IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE = 7,
 IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE = 8,
 IFLA_BOND_SLAVE_PRIO = 9,
-__IFLA_BOND_SLAVE_MAX = 10,
+IFLA_BOND_SLAVE_ACTOR_PORT_PRIO = 10,
+__IFLA_BOND_SLAVE_MAX = 11,
 }
 #[repr(u32)]
 #[non_exhaustive]

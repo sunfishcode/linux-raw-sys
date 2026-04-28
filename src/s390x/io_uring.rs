@@ -33,6 +33,7 @@ pub type __kernel_old_uid_t = __kernel_uid_t;
 pub type __kernel_old_gid_t = __kernel_gid_t;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -189,10 +190,10 @@ pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
-pub spare: __u32,
+pub __bindgen_anon_1: mnt_id_req__bindgen_ty_1,
 pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
@@ -564,6 +565,21 @@ pub resv: __u8,
 pub resv2: [__u32; 3usize],
 }
 #[repr(C)]
+pub struct io_uring_task_restriction {
+pub flags: __u16,
+pub nr_res: __u16,
+pub resv: [__u32; 3usize],
+pub __bindgen_anon_1: io_uring_task_restriction__bindgen_ty_1,
+}
+#[repr(C)]
+pub struct io_uring_task_restriction__bindgen_ty_1 {
+pub __empty_restrictions: io_uring_task_restriction__bindgen_ty_1__bindgen_ty_1,
+pub restrictions: __IncompleteArrayField<io_uring_restriction>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct io_uring_task_restriction__bindgen_ty_1__bindgen_ty_1 {}
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_clock_register {
 pub clockid: __u32,
@@ -734,8 +750,27 @@ pub area_ptr: __u64,
 pub region_ptr: __u64,
 pub offsets: io_uring_zcrx_offsets,
 pub zcrx_id: __u32,
-pub __resv2: __u32,
+pub rx_buf_len: __u32,
 pub __resv: [__u64; 3usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct zcrx_ctrl_flush_rq {
+pub __resv: [__u64; 6usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct zcrx_ctrl_export {
+pub zcrx_fd: __u32,
+pub __resv1: [__u32; 11usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct zcrx_ctrl {
+pub zcrx_id: __u32,
+pub op: __u32,
+pub __resv: [__u64; 2usize],
+pub __bindgen_anon_1: zcrx_ctrl__bindgen_ty_1,
 }
 pub const NR_OPEN: u32 = 1024;
 pub const NGROUPS_MAX: u32 = 65536;
@@ -858,6 +893,7 @@ pub const MS_RMT_MASK: u32 = 41943121;
 pub const MS_MGC_VAL: u32 = 3236757504;
 pub const MS_MGC_MSK: u32 = 4294901760;
 pub const OPEN_TREE_CLONE: u32 = 1;
+pub const OPEN_TREE_NAMESPACE: u32 = 2;
 pub const MOVE_MOUNT_F_SYMLINKS: u32 = 1;
 pub const MOVE_MOUNT_F_AUTOMOUNTS: u32 = 2;
 pub const MOVE_MOUNT_F_EMPTY_PATH: u32 = 4;
@@ -904,6 +940,7 @@ pub const STATMOUNT_MNT_UIDMAP: u32 = 8192;
 pub const STATMOUNT_MNT_GIDMAP: u32 = 16384;
 pub const LSMT_ROOT: i32 = -1;
 pub const LISTMOUNT_REVERSE: u32 = 1;
+pub const STATMOUNT_BY_FD: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
@@ -949,6 +986,7 @@ pub const FS_XFLAG_NODEFRAG: u32 = 8192;
 pub const FS_XFLAG_FILESTREAM: u32 = 16384;
 pub const FS_XFLAG_DAX: u32 = 32768;
 pub const FS_XFLAG_COWEXTSIZE: u32 = 65536;
+pub const FS_XFLAG_VERITY: u32 = 131072;
 pub const FS_XFLAG_HASATTR: u32 = 2147483648;
 pub const BMAP_IOCTL: u32 = 1;
 pub const FSLABEL_MAX: u32 = 256;
@@ -1020,8 +1058,12 @@ pub const IORING_SETUP_NO_MMAP: u32 = 16384;
 pub const IORING_SETUP_REGISTERED_FD_ONLY: u32 = 32768;
 pub const IORING_SETUP_NO_SQARRAY: u32 = 65536;
 pub const IORING_SETUP_HYBRID_IOPOLL: u32 = 131072;
+pub const IORING_SETUP_CQE_MIXED: u32 = 262144;
+pub const IORING_SETUP_SQE_MIXED: u32 = 524288;
+pub const IORING_SETUP_SQ_REWIND: u32 = 1048576;
 pub const IORING_URING_CMD_FIXED: u32 = 1;
-pub const IORING_URING_CMD_MASK: u32 = 1;
+pub const IORING_URING_CMD_MULTISHOT: u32 = 2;
+pub const IORING_URING_CMD_MASK: u32 = 3;
 pub const IORING_FSYNC_DATASYNC: u32 = 1;
 pub const IORING_TIMEOUT_ABS: u32 = 1;
 pub const IORING_TIMEOUT_UPDATE: u32 = 2;
@@ -1061,11 +1103,14 @@ pub const IORING_NOP_FILE: u32 = 2;
 pub const IORING_NOP_FIXED_FILE: u32 = 4;
 pub const IORING_NOP_FIXED_BUFFER: u32 = 8;
 pub const IORING_NOP_TW: u32 = 16;
+pub const IORING_NOP_CQE32: u32 = 32;
 pub const IORING_CQE_F_BUFFER: u32 = 1;
 pub const IORING_CQE_F_MORE: u32 = 2;
 pub const IORING_CQE_F_SOCK_NONEMPTY: u32 = 4;
 pub const IORING_CQE_F_NOTIF: u32 = 8;
 pub const IORING_CQE_F_BUF_MORE: u32 = 16;
+pub const IORING_CQE_F_SKIP: u32 = 32;
+pub const IORING_CQE_F_32: u32 = 32768;
 pub const IORING_CQE_BUFFER_SHIFT: u32 = 16;
 pub const IORING_OFF_SQ_RING: u32 = 0;
 pub const IORING_OFF_CQ_RING: u32 = 134217728;
@@ -1224,7 +1269,9 @@ IORING_OP_EPOLL_WAIT = 59,
 IORING_OP_READV_FIXED = 60,
 IORING_OP_WRITEV_FIXED = 61,
 IORING_OP_PIPE = 62,
-IORING_OP_LAST = 63,
+IORING_OP_NOP128 = 63,
+IORING_OP_URING_CMD128 = 64,
+IORING_OP_LAST = 65,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -1272,7 +1319,10 @@ IORING_REGISTER_SEND_MSG_RING = 31,
 IORING_REGISTER_ZCRX_IFQ = 32,
 IORING_REGISTER_RESIZE_RINGS = 33,
 IORING_REGISTER_MEM_REGION = 34,
-IORING_REGISTER_LAST = 35,
+IORING_REGISTER_QUERY = 35,
+IORING_REGISTER_ZCRX_CTRL = 36,
+IORING_REGISTER_BPF_FILTER = 37,
+IORING_REGISTER_LAST = 38,
 IORING_REGISTER_USE_REGISTERED_RING = 2147483648,
 }
 #[repr(u32)]
@@ -1349,12 +1399,33 @@ SOCKET_URING_OP_SIOCOUTQ = 1,
 SOCKET_URING_OP_GETSOCKOPT = 2,
 SOCKET_URING_OP_SETSOCKOPT = 3,
 SOCKET_URING_OP_TX_TIMESTAMP = 4,
+SOCKET_URING_OP_GETSOCKNAME = 5,
 }
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum io_uring_zcrx_area_flags {
 IORING_ZCRX_AREA_DMABUF = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum zcrx_reg_flags {
+ZCRX_REG_IMPORT = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum zcrx_features {
+ZCRX_FEATURE_RX_PAGE_SIZE = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum zcrx_ctrl_op {
+ZCRX_CTRL_FLUSH_RQ = 0,
+ZCRX_CTRL_EXPORT = 1,
+__ZCRX_CTRL_LAST = 2,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1375,6 +1446,12 @@ pub union fscrypt_key_specifier__bindgen_ty_1 {
 pub __reserved: [__u8; 32usize],
 pub descriptor: [__u8; 8usize],
 pub identifier: [__u8; 16usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union mnt_id_req__bindgen_ty_1 {
+pub mnt_ns_fd: __u32,
+pub mnt_fd: __u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1440,6 +1517,12 @@ pub union io_uring_restriction__bindgen_ty_1 {
 pub register_op: __u8,
 pub sqe_op: __u8,
 pub sqe_flags: __u8,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union zcrx_ctrl__bindgen_ty_1 {
+pub zc_export: zcrx_ctrl_export,
+pub zc_flush: zcrx_ctrl_flush_rq,
 }
 impl<T> __IncompleteArrayField<T> {
 #[inline]
