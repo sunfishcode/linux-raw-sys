@@ -177,6 +177,79 @@ pub __pad: __u8,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct fanotify_event_metadata {
+pub event_len: __u32,
+pub vers: __u8,
+pub reserved: __u8,
+pub metadata_len: __u16,
+pub mask: __u64,
+pub fd: __s32,
+pub pid: __s32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_event_info_header {
+pub info_type: __u8,
+pub pad: __u8,
+pub len: __u16,
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct fanotify_event_info_fid {
+pub hdr: fanotify_event_info_header,
+pub fsid: __kernel_fsid_t,
+pub handle: __IncompleteArrayField<crate::ctypes::c_uchar>,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_event_info_pidfd {
+pub hdr: fanotify_event_info_header,
+pub pidfd: __s32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_event_info_error {
+pub hdr: fanotify_event_info_header,
+pub error: __s32,
+pub error_count: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_event_info_range {
+pub hdr: fanotify_event_info_header,
+pub pad: __u32,
+pub offset: __u64,
+pub count: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_event_info_mnt {
+pub hdr: fanotify_event_info_header,
+pub mnt_id: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_response {
+pub fd: __s32,
+pub response: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_response_info_header {
+pub type_: __u8,
+pub pad: __u8,
+pub len: __u16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fanotify_response_info_audit_rule {
+pub hdr: fanotify_response_info_header,
+pub rule_number: __u32,
+pub subj_trust: __u32,
+pub obj_trust: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct fscrypt_policy_v1 {
 pub version: __u8,
 pub contents_encryption_mode: __u8,
@@ -1327,6 +1400,92 @@ pub const FALLOC_FL_ZERO_RANGE: u32 = 16;
 pub const FALLOC_FL_INSERT_RANGE: u32 = 32;
 pub const FALLOC_FL_UNSHARE_RANGE: u32 = 64;
 pub const FALLOC_FL_WRITE_ZEROES: u32 = 128;
+pub const FAN_ACCESS: u32 = 1;
+pub const FAN_MODIFY: u32 = 2;
+pub const FAN_ATTRIB: u32 = 4;
+pub const FAN_CLOSE_WRITE: u32 = 8;
+pub const FAN_CLOSE_NOWRITE: u32 = 16;
+pub const FAN_OPEN: u32 = 32;
+pub const FAN_MOVED_FROM: u32 = 64;
+pub const FAN_MOVED_TO: u32 = 128;
+pub const FAN_CREATE: u32 = 256;
+pub const FAN_DELETE: u32 = 512;
+pub const FAN_DELETE_SELF: u32 = 1024;
+pub const FAN_MOVE_SELF: u32 = 2048;
+pub const FAN_OPEN_EXEC: u32 = 4096;
+pub const FAN_Q_OVERFLOW: u32 = 16384;
+pub const FAN_FS_ERROR: u32 = 32768;
+pub const FAN_OPEN_PERM: u32 = 65536;
+pub const FAN_ACCESS_PERM: u32 = 131072;
+pub const FAN_OPEN_EXEC_PERM: u32 = 262144;
+pub const FAN_PRE_ACCESS: u32 = 1048576;
+pub const FAN_MNT_ATTACH: u32 = 16777216;
+pub const FAN_MNT_DETACH: u32 = 33554432;
+pub const FAN_EVENT_ON_CHILD: u32 = 134217728;
+pub const FAN_RENAME: u32 = 268435456;
+pub const FAN_ONDIR: u32 = 1073741824;
+pub const FAN_CLOSE: u32 = 24;
+pub const FAN_MOVE: u32 = 192;
+pub const FAN_CLOEXEC: u32 = 1;
+pub const FAN_NONBLOCK: u32 = 2;
+pub const FAN_CLASS_NOTIF: u32 = 0;
+pub const FAN_CLASS_CONTENT: u32 = 4;
+pub const FAN_CLASS_PRE_CONTENT: u32 = 8;
+pub const FAN_ALL_CLASS_BITS: u32 = 12;
+pub const FAN_UNLIMITED_QUEUE: u32 = 16;
+pub const FAN_UNLIMITED_MARKS: u32 = 32;
+pub const FAN_ENABLE_AUDIT: u32 = 64;
+pub const FAN_REPORT_PIDFD: u32 = 128;
+pub const FAN_REPORT_TID: u32 = 256;
+pub const FAN_REPORT_FID: u32 = 512;
+pub const FAN_REPORT_DIR_FID: u32 = 1024;
+pub const FAN_REPORT_NAME: u32 = 2048;
+pub const FAN_REPORT_TARGET_FID: u32 = 4096;
+pub const FAN_REPORT_FD_ERROR: u32 = 8192;
+pub const FAN_REPORT_MNT: u32 = 16384;
+pub const FAN_REPORT_DFID_NAME: u32 = 3072;
+pub const FAN_REPORT_DFID_NAME_TARGET: u32 = 7680;
+pub const FAN_ALL_INIT_FLAGS: u32 = 63;
+pub const FAN_MARK_ADD: u32 = 1;
+pub const FAN_MARK_REMOVE: u32 = 2;
+pub const FAN_MARK_DONT_FOLLOW: u32 = 4;
+pub const FAN_MARK_ONLYDIR: u32 = 8;
+pub const FAN_MARK_IGNORED_MASK: u32 = 32;
+pub const FAN_MARK_IGNORED_SURV_MODIFY: u32 = 64;
+pub const FAN_MARK_FLUSH: u32 = 128;
+pub const FAN_MARK_EVICTABLE: u32 = 512;
+pub const FAN_MARK_IGNORE: u32 = 1024;
+pub const FAN_MARK_INODE: u32 = 0;
+pub const FAN_MARK_MOUNT: u32 = 16;
+pub const FAN_MARK_FILESYSTEM: u32 = 256;
+pub const FAN_MARK_MNTNS: u32 = 272;
+pub const FAN_MARK_IGNORE_SURV: u32 = 1088;
+pub const FAN_ALL_MARK_FLAGS: u32 = 255;
+pub const FAN_ALL_EVENTS: u32 = 59;
+pub const FAN_ALL_PERM_EVENTS: u32 = 196608;
+pub const FAN_ALL_OUTGOING_EVENTS: u32 = 213051;
+pub const FANOTIFY_METADATA_VERSION: u32 = 3;
+pub const FAN_EVENT_INFO_TYPE_FID: u32 = 1;
+pub const FAN_EVENT_INFO_TYPE_DFID_NAME: u32 = 2;
+pub const FAN_EVENT_INFO_TYPE_DFID: u32 = 3;
+pub const FAN_EVENT_INFO_TYPE_PIDFD: u32 = 4;
+pub const FAN_EVENT_INFO_TYPE_ERROR: u32 = 5;
+pub const FAN_EVENT_INFO_TYPE_RANGE: u32 = 6;
+pub const FAN_EVENT_INFO_TYPE_MNT: u32 = 7;
+pub const FAN_EVENT_INFO_TYPE_OLD_DFID_NAME: u32 = 10;
+pub const FAN_EVENT_INFO_TYPE_NEW_DFID_NAME: u32 = 12;
+pub const FAN_RESPONSE_INFO_NONE: u32 = 0;
+pub const FAN_RESPONSE_INFO_AUDIT_RULE: u32 = 1;
+pub const FAN_ALLOW: u32 = 1;
+pub const FAN_DENY: u32 = 2;
+pub const FAN_ERRNO_BITS: u32 = 8;
+pub const FAN_ERRNO_SHIFT: u32 = 24;
+pub const FAN_ERRNO_MASK: u32 = 255;
+pub const FAN_AUDIT: u32 = 16;
+pub const FAN_INFO: u32 = 32;
+pub const FAN_NOFD: i32 = -1;
+pub const FAN_NOPIDFD: i32 = -1;
+pub const FAN_EPIDFD: i32 = -2;
 pub const NR_OPEN: u32 = 1024;
 pub const NGROUPS_MAX: u32 = 65536;
 pub const ARG_MAX: u32 = 131072;
