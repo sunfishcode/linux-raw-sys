@@ -9,6 +9,7 @@
 #include <linux/eventpoll.h>
 #include <linux/fadvise.h>
 #include <linux/falloc.h>
+#include <linux/fanotify.h>
 #include <linux/fcntl.h>
 #include <linux/fs.h>
 #include <linux/futex.h>
