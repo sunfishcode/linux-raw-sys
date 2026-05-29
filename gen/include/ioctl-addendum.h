@@ -8,3 +8,12 @@
 #define TCSETSF2 TCSETSF
 #define TCSETSW2 TCSETSW
 #endif
+
+// Ioctls from headers removed in recent kernels. Preserved for backward
+// compatibility.
+//
+// reiserfs_fs.h (removed), cm4000_cs.h (removed), meye.h (removed)
+#define REISERFS_IOC_UNPACK _IOW(0xCD, 1, long)
+#define CM_IOCGATR _IOWR('c', 1, unsigned long long)
+#define CM_IOSDBGLVL _IOW('c', 250, unsigned long long)
+#define MEYEIOC_SYNC _IOWR('v', 195, int)

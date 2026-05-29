@@ -1,5 +1,10 @@
-// Define `sockaddr` ourselves because the uapi headers don't define it but
-// some use it.
+#ifndef _SYS_SOCKET_H
+#define _SYS_SOCKET_H
+
+#include <linux/socket.h>
+
 struct sockaddr {
     struct __kernel_sockaddr_storage __storage;
 };
+
+#endif
