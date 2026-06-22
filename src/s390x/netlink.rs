@@ -34,6 +34,7 @@ pub type __kernel_old_uid_t = __kernel_uid_t;
 pub type __kernel_old_gid_t = __kernel_gid_t;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -152,6 +153,11 @@ pub mcs: [__u16; 8usize],
 #[derive(Debug, Copy, Clone)]
 pub struct nl80211_txrate_he {
 pub mcs: [__u16; 8usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct nl80211_txrate_eht {
+pub mcs: [__u16; 16usize],
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
@@ -758,6 +764,7 @@ pub const NL80211_SCAN_RSSI_THOLD_OFF: i32 = -300;
 pub const NL80211_CQM_TXE_MAX_INTVL: u32 = 1800;
 pub const NL80211_VHT_NSS_MAX: u32 = 8;
 pub const NL80211_HE_NSS_MAX: u32 = 8;
+pub const NL80211_EHT_NSS_MAX: u32 = 16;
 pub const NL80211_KCK_LEN: u32 = 16;
 pub const NL80211_KEK_LEN: u32 = 16;
 pub const NL80211_KCK_EXT_LEN: u32 = 24;
@@ -770,6 +777,7 @@ pub const NL80211_NAN_FUNC_SERVICE_ID_LEN: u32 = 6;
 pub const NL80211_NAN_FUNC_SERVICE_SPEC_INFO_MAX_LEN: u32 = 255;
 pub const NL80211_NAN_FUNC_SRF_MAX_LEN: u32 = 255;
 pub const NL80211_FILS_DISCOVERY_TMPL_MIN_LEN: u32 = 42;
+pub const NL80211_NAN_SCHED_NOT_AVAIL_SLOT: u32 = 255;
 pub const MACVLAN_FLAG_NOPROMISC: u32 = 1;
 pub const MACVLAN_FLAG_NODST: u32 = 2;
 pub const IPVLAN_F_PRIVATE: u32 = 1;
@@ -989,6 +997,8 @@ pub const IFLA_GRO_IPV4_MAX_SIZE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_GRO_IPV4_M
 pub const IFLA_DPLL_PIN: _bindgen_ty_2 = _bindgen_ty_2::IFLA_DPLL_PIN;
 pub const IFLA_MAX_PACING_OFFLOAD_HORIZON: _bindgen_ty_2 = _bindgen_ty_2::IFLA_MAX_PACING_OFFLOAD_HORIZON;
 pub const IFLA_NETNS_IMMUTABLE: _bindgen_ty_2 = _bindgen_ty_2::IFLA_NETNS_IMMUTABLE;
+pub const IFLA_HEADROOM: _bindgen_ty_2 = _bindgen_ty_2::IFLA_HEADROOM;
+pub const IFLA_TAILROOM: _bindgen_ty_2 = _bindgen_ty_2::IFLA_TAILROOM;
 pub const __IFLA_MAX: _bindgen_ty_2 = _bindgen_ty_2::__IFLA_MAX;
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_3 = _bindgen_ty_3::IFLA_PROTO_DOWN_REASON_MASK;
@@ -1059,6 +1069,7 @@ pub const IFLA_BR_MULTI_BOOLOPT: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_MULTI_BO
 pub const IFLA_BR_MCAST_QUERIER_STATE: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_MCAST_QUERIER_STATE;
 pub const IFLA_BR_FDB_N_LEARNED: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_FDB_N_LEARNED;
 pub const IFLA_BR_FDB_MAX_LEARNED: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_FDB_MAX_LEARNED;
+pub const IFLA_BR_STP_MODE: _bindgen_ty_6 = _bindgen_ty_6::IFLA_BR_STP_MODE;
 pub const __IFLA_BR_MAX: _bindgen_ty_6 = _bindgen_ty_6::__IFLA_BR_MAX;
 pub const BRIDGE_MODE_UNSPEC: _bindgen_ty_7 = _bindgen_ty_7::BRIDGE_MODE_UNSPEC;
 pub const BRIDGE_MODE_HAIRPIN: _bindgen_ty_7 = _bindgen_ty_7::BRIDGE_MODE_HAIRPIN;
@@ -1178,6 +1189,7 @@ pub const IFLA_NETKIT_SCRUB: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_SCRUB;
 pub const IFLA_NETKIT_PEER_SCRUB: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_PEER_SCRUB;
 pub const IFLA_NETKIT_HEADROOM: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_HEADROOM;
 pub const IFLA_NETKIT_TAILROOM: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_TAILROOM;
+pub const IFLA_NETKIT_PAIRING: _bindgen_ty_18 = _bindgen_ty_18::IFLA_NETKIT_PAIRING;
 pub const __IFLA_NETKIT_MAX: _bindgen_ty_18 = _bindgen_ty_18::__IFLA_NETKIT_MAX;
 pub const VNIFILTER_ENTRY_STATS_UNSPEC: _bindgen_ty_19 = _bindgen_ty_19::VNIFILTER_ENTRY_STATS_UNSPEC;
 pub const VNIFILTER_ENTRY_STATS_RX_BYTES: _bindgen_ty_19 = _bindgen_ty_19::VNIFILTER_ENTRY_STATS_RX_BYTES;
@@ -1252,6 +1264,7 @@ pub const IFLA_GENEVE_TTL_INHERIT: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_
 pub const IFLA_GENEVE_DF: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_DF;
 pub const IFLA_GENEVE_INNER_PROTO_INHERIT: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_INNER_PROTO_INHERIT;
 pub const IFLA_GENEVE_PORT_RANGE: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_PORT_RANGE;
+pub const IFLA_GENEVE_GRO_HINT: _bindgen_ty_23 = _bindgen_ty_23::IFLA_GENEVE_GRO_HINT;
 pub const __IFLA_GENEVE_MAX: _bindgen_ty_23 = _bindgen_ty_23::__IFLA_GENEVE_MAX;
 pub const IFLA_BAREUDP_UNSPEC: _bindgen_ty_24 = _bindgen_ty_24::IFLA_BAREUDP_UNSPEC;
 pub const IFLA_BAREUDP_PORT: _bindgen_ty_24 = _bindgen_ty_24::IFLA_BAREUDP_PORT;
@@ -1324,6 +1337,9 @@ pub const IFLA_BOND_SLAVE_AD_AGGREGATOR_ID: _bindgen_ty_29 = _bindgen_ty_29::IFL
 pub const IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE;
 pub const IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE;
 pub const IFLA_BOND_SLAVE_PRIO: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_SLAVE_PRIO;
+pub const IFLA_BOND_SLAVE_ACTOR_PORT_PRIO: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_SLAVE_ACTOR_PORT_PRIO;
+pub const IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE;
+pub const IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE: _bindgen_ty_29 = _bindgen_ty_29::IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE;
 pub const __IFLA_BOND_SLAVE_MAX: _bindgen_ty_29 = _bindgen_ty_29::__IFLA_BOND_SLAVE_MAX;
 pub const IFLA_VF_INFO_UNSPEC: _bindgen_ty_30 = _bindgen_ty_30::IFLA_VF_INFO_UNSPEC;
 pub const IFLA_VF_INFO: _bindgen_ty_30 = _bindgen_ty_30::IFLA_VF_INFO;
@@ -1968,7 +1984,15 @@ NL80211_CMD_LINKS_REMOVED = 154,
 NL80211_CMD_SET_TID_TO_LINK_MAPPING = 155,
 NL80211_CMD_ASSOC_MLO_RECONF = 156,
 NL80211_CMD_EPCS_CFG = 157,
-__NL80211_CMD_AFTER_LAST = 158,
+NL80211_CMD_NAN_NEXT_DW_NOTIFICATION = 158,
+NL80211_CMD_NAN_CLUSTER_JOINED = 159,
+NL80211_CMD_INCUMBENT_SIGNAL_DETECT = 160,
+NL80211_CMD_NAN_SET_LOCAL_SCHED = 161,
+NL80211_CMD_NAN_SCHED_UPDATE_DONE = 162,
+NL80211_CMD_NAN_SET_PEER_SCHED = 163,
+NL80211_CMD_NAN_ULW_UPDATE = 164,
+NL80211_CMD_NAN_CHANNEL_EVAC = 165,
+__NL80211_CMD_AFTER_LAST = 166,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2315,7 +2339,30 @@ NL80211_ATTR_ASSOC_MLD_EXT_CAPA_OPS = 337,
 NL80211_ATTR_WIPHY_RADIO_INDEX = 338,
 NL80211_ATTR_S1G_LONG_BEACON_PERIOD = 339,
 NL80211_ATTR_S1G_SHORT_BEACON = 340,
-__NL80211_ATTR_AFTER_LAST = 341,
+NL80211_ATTR_BSS_PARAM = 341,
+NL80211_ATTR_NAN_CONFIG = 342,
+NL80211_ATTR_NAN_NEW_CLUSTER = 343,
+NL80211_ATTR_NAN_CAPABILITIES = 344,
+NL80211_ATTR_S1G_PRIMARY_2MHZ = 345,
+NL80211_ATTR_EPP_PEER = 346,
+NL80211_ATTR_UHR_CAPABILITY = 347,
+NL80211_ATTR_DISABLE_UHR = 348,
+NL80211_ATTR_INCUMBENT_SIGNAL_INTERFERENCE_BITMAP = 349,
+NL80211_ATTR_UHR_OPERATION = 350,
+NL80211_ATTR_NAN_CHANNEL = 351,
+NL80211_ATTR_NAN_CHANNEL_ENTRY = 352,
+NL80211_ATTR_NAN_TIME_SLOTS = 353,
+NL80211_ATTR_NAN_RX_NSS = 354,
+NL80211_ATTR_NAN_AVAIL_BLOB = 355,
+NL80211_ATTR_NAN_SCHED_DEFERRED = 356,
+NL80211_ATTR_NAN_SCHED_UPDATE_SUCCESS = 357,
+NL80211_ATTR_NAN_NMI_MAC = 358,
+NL80211_ATTR_NAN_ULW = 359,
+NL80211_ATTR_NAN_COMMITTED_DW = 360,
+NL80211_ATTR_NAN_SEQ_ID = 361,
+NL80211_ATTR_NAN_MAX_CHAN_SWITCH_TIME = 362,
+NL80211_ATTR_NAN_PEER_MAPS = 363,
+__NL80211_ATTR_AFTER_LAST = 364,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2334,7 +2381,8 @@ NL80211_IFTYPE_P2P_GO = 9,
 NL80211_IFTYPE_P2P_DEVICE = 10,
 NL80211_IFTYPE_OCB = 11,
 NL80211_IFTYPE_NAN = 12,
-NUM_NL80211_IFTYPES = 13,
+NL80211_IFTYPE_NAN_DATA = 13,
+NUM_NL80211_IFTYPES = 14,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2398,6 +2446,16 @@ NL80211_RATE_INFO_EHT_GI_3_2 = 2,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_eht_ltf {
+NL80211_RATE_INFO_EHT_1XLTF = 0,
+NL80211_RATE_INFO_EHT_2XLTF = 1,
+NL80211_RATE_INFO_EHT_4XLTF = 2,
+NL80211_RATE_INFO_EHT_6XLTF = 3,
+NL80211_RATE_INFO_EHT_8XLTF = 4,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum nl80211_eht_ru_alloc {
 NL80211_RATE_INFO_EHT_RU_ALLOC_26 = 0,
 NL80211_RATE_INFO_EHT_RU_ALLOC_52 = 1,
@@ -2450,7 +2508,10 @@ NL80211_RATE_INFO_2_MHZ_WIDTH = 26,
 NL80211_RATE_INFO_4_MHZ_WIDTH = 27,
 NL80211_RATE_INFO_8_MHZ_WIDTH = 28,
 NL80211_RATE_INFO_16_MHZ_WIDTH = 29,
-__NL80211_RATE_INFO_AFTER_LAST = 30,
+NL80211_RATE_INFO_UHR_MCS = 30,
+NL80211_RATE_INFO_UHR_ELR = 31,
+NL80211_RATE_INFO_UHR_IM = 32,
+__NL80211_RATE_INFO_AFTER_LAST = 33,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2587,7 +2648,9 @@ NL80211_BAND_IFTYPE_ATTR_EHT_CAP_MAC = 8,
 NL80211_BAND_IFTYPE_ATTR_EHT_CAP_PHY = 9,
 NL80211_BAND_IFTYPE_ATTR_EHT_CAP_MCS_SET = 10,
 NL80211_BAND_IFTYPE_ATTR_EHT_CAP_PPE = 11,
-__NL80211_BAND_IFTYPE_ATTR_AFTER_LAST = 12,
+NL80211_BAND_IFTYPE_ATTR_UHR_CAP_MAC = 12,
+NL80211_BAND_IFTYPE_ATTR_UHR_CAP_PHY = 13,
+__NL80211_BAND_IFTYPE_ATTR_AFTER_LAST = 14,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2608,6 +2671,23 @@ NL80211_BAND_ATTR_EDMG_BW_CONFIG = 11,
 NL80211_BAND_ATTR_S1G_MCS_NSS_SET = 12,
 NL80211_BAND_ATTR_S1G_CAPA = 13,
 __NL80211_BAND_ATTR_AFTER_LAST = 14,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_nan_phy_cap_attr {
+__NL80211_NAN_PHY_CAP_ATTR_INVALID = 0,
+NL80211_NAN_PHY_CAP_ATTR_HT_MCS_SET = 1,
+NL80211_NAN_PHY_CAP_ATTR_HT_CAPA = 2,
+NL80211_NAN_PHY_CAP_ATTR_HT_AMPDU_FACTOR = 3,
+NL80211_NAN_PHY_CAP_ATTR_HT_AMPDU_DENSITY = 4,
+NL80211_NAN_PHY_CAP_ATTR_VHT_MCS_SET = 5,
+NL80211_NAN_PHY_CAP_ATTR_VHT_CAPA = 6,
+NL80211_NAN_PHY_CAP_ATTR_HE_MAC = 7,
+NL80211_NAN_PHY_CAP_ATTR_HE_PHY = 8,
+NL80211_NAN_PHY_CAP_ATTR_HE_MCS_SET = 9,
+NL80211_NAN_PHY_CAP_ATTR_HE_PPE = 10,
+__NL80211_NAN_PHY_CAP_ATTR_AFTER_LAST = 11,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2659,7 +2739,14 @@ NL80211_FREQUENCY_ATTR_NO_6GHZ_AFC_CLIENT = 31,
 NL80211_FREQUENCY_ATTR_CAN_MONITOR = 32,
 NL80211_FREQUENCY_ATTR_ALLOW_6GHZ_VLP_AP = 33,
 NL80211_FREQUENCY_ATTR_ALLOW_20MHZ_ACTIVITY = 34,
-__NL80211_FREQUENCY_ATTR_AFTER_LAST = 35,
+NL80211_FREQUENCY_ATTR_NO_4MHZ = 35,
+NL80211_FREQUENCY_ATTR_NO_8MHZ = 36,
+NL80211_FREQUENCY_ATTR_NO_16MHZ = 37,
+NL80211_FREQUENCY_ATTR_S1G_NO_PRIMARY = 38,
+NL80211_FREQUENCY_ATTR_NO_UHR = 39,
+NL80211_FREQUENCY_ATTR_CAC_START_TIME = 40,
+NL80211_FREQUENCY_ATTR_PAD = 41,
+__NL80211_FREQUENCY_ATTR_AFTER_LAST = 42,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2744,6 +2831,7 @@ NL80211_RRF_NO_6GHZ_VLP_CLIENT = 4194304,
 NL80211_RRF_NO_6GHZ_AFC_CLIENT = 8388608,
 NL80211_RRF_ALLOW_6GHZ_VLP_AP = 16777216,
 NL80211_RRF_ALLOW_20MHZ_ACTIVITY = 33554432,
+NL80211_RRF_NO_UHR = 67108864,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2991,7 +3079,9 @@ NL80211_AUTHTYPE_SAE = 4,
 NL80211_AUTHTYPE_FILS_SK = 5,
 NL80211_AUTHTYPE_FILS_SK_PFS = 6,
 NL80211_AUTHTYPE_FILS_PK = 7,
-__NL80211_AUTHTYPE_NUM = 8,
+NL80211_AUTHTYPE_EPPKE = 8,
+NL80211_AUTHTYPE_IEEE8021X = 9,
+__NL80211_AUTHTYPE_NUM = 10,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3056,7 +3146,10 @@ NL80211_TXRATE_GI = 4,
 NL80211_TXRATE_HE = 5,
 NL80211_TXRATE_HE_GI = 6,
 NL80211_TXRATE_HE_LTF = 7,
-__NL80211_TXRATE_AFTER_LAST = 8,
+NL80211_TXRATE_EHT = 8,
+NL80211_TXRATE_EHT_GI = 9,
+NL80211_TXRATE_EHT_LTF = 10,
+__NL80211_TXRATE_AFTER_LAST = 11,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3432,7 +3525,11 @@ NL80211_EXT_FEATURE_OWE_OFFLOAD = 65,
 NL80211_EXT_FEATURE_OWE_OFFLOAD_AP = 66,
 NL80211_EXT_FEATURE_DFS_CONCURRENT = 67,
 NL80211_EXT_FEATURE_SPP_AMSDU_SUPPORT = 68,
-NUM_NL80211_EXT_FEATURES = 69,
+NL80211_EXT_FEATURE_BEACON_RATE_EHT = 69,
+NL80211_EXT_FEATURE_EPPKE = 70,
+NL80211_EXT_FEATURE_ASSOC_FRAME_ENCRYPTION = 71,
+NL80211_EXT_FEATURE_IEEE8021X_AUTH = 72,
+NUM_NL80211_EXT_FEATURES = 73,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3635,6 +3732,34 @@ NUM_NL80211_NAN_MATCH_ATTR = 3,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_nan_band_conf_attributes {
+__NL80211_NAN_BAND_CONF_INVALID = 0,
+NL80211_NAN_BAND_CONF_BAND = 1,
+NL80211_NAN_BAND_CONF_FREQ = 2,
+NL80211_NAN_BAND_CONF_RSSI_CLOSE = 3,
+NL80211_NAN_BAND_CONF_RSSI_MIDDLE = 4,
+NL80211_NAN_BAND_CONF_WAKE_DW = 5,
+NL80211_NAN_BAND_CONF_DISABLE_SCAN = 6,
+NUM_NL80211_NAN_BAND_CONF_ATTR = 7,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_nan_conf_attributes {
+__NL80211_NAN_CONF_INVALID = 0,
+NL80211_NAN_CONF_CLUSTER_ID = 1,
+NL80211_NAN_CONF_EXTRA_ATTRS = 2,
+NL80211_NAN_CONF_VENDOR_ELEMS = 3,
+NL80211_NAN_CONF_BAND_CONFIGS = 4,
+NL80211_NAN_CONF_SCAN_PERIOD = 5,
+NL80211_NAN_CONF_SCAN_DWELL_TIME = 6,
+NL80211_NAN_CONF_DISCOVERY_BEACON_INTERVAL = 7,
+NL80211_NAN_CONF_NOTIFY_DW = 8,
+NUM_NL80211_NAN_CONF_ATTR = 9,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum nl80211_external_auth_action {
 NL80211_EXTERNAL_AUTH_START = 0,
 NL80211_EXTERNAL_AUTH_ABORT = 1,
@@ -3753,7 +3878,15 @@ NL80211_PMSR_FTM_CAPA_ATTR_MAX_BURSTS_EXPONENT = 7,
 NL80211_PMSR_FTM_CAPA_ATTR_MAX_FTMS_PER_BURST = 8,
 NL80211_PMSR_FTM_CAPA_ATTR_TRIGGER_BASED = 9,
 NL80211_PMSR_FTM_CAPA_ATTR_NON_TRIGGER_BASED = 10,
-NUM_NL80211_PMSR_FTM_CAPA_ATTR = 11,
+NL80211_PMSR_FTM_CAPA_ATTR_6GHZ_SUPPORT = 11,
+NL80211_PMSR_FTM_CAPA_ATTR_MAX_TX_LTF_REP = 12,
+NL80211_PMSR_FTM_CAPA_ATTR_MAX_RX_LTF_REP = 13,
+NL80211_PMSR_FTM_CAPA_ATTR_MAX_TX_STS = 14,
+NL80211_PMSR_FTM_CAPA_ATTR_MAX_RX_STS = 15,
+NL80211_PMSR_FTM_CAPA_ATTR_MAX_TOTAL_LTF_TX = 16,
+NL80211_PMSR_FTM_CAPA_ATTR_MAX_TOTAL_LTF_RX = 17,
+NL80211_PMSR_FTM_CAPA_ATTR_RSTA_SUPPORT = 18,
+NUM_NL80211_PMSR_FTM_CAPA_ATTR = 19,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3773,7 +3906,8 @@ NL80211_PMSR_FTM_REQ_ATTR_TRIGGER_BASED = 10,
 NL80211_PMSR_FTM_REQ_ATTR_NON_TRIGGER_BASED = 11,
 NL80211_PMSR_FTM_REQ_ATTR_LMR_FEEDBACK = 12,
 NL80211_PMSR_FTM_REQ_ATTR_BSS_COLOR = 13,
-NUM_NL80211_PMSR_FTM_REQ_ATTR = 14,
+NL80211_PMSR_FTM_REQ_ATTR_RSTA = 14,
+NUM_NL80211_PMSR_FTM_REQ_ATTR = 15,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3814,7 +3948,8 @@ NL80211_PMSR_FTM_RESP_ATTR_DIST_SPREAD = 18,
 NL80211_PMSR_FTM_RESP_ATTR_LCI = 19,
 NL80211_PMSR_FTM_RESP_ATTR_CIVICLOC = 20,
 NL80211_PMSR_FTM_RESP_ATTR_PAD = 21,
-NUM_NL80211_PMSR_FTM_RESP_ATTR = 22,
+NL80211_PMSR_FTM_RESP_ATTR_BURST_PERIOD = 22,
+NUM_NL80211_PMSR_FTM_RESP_ATTR = 23,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -3956,6 +4091,29 @@ __NL80211_S1G_SHORT_BEACON_ATTR_LAST = 3,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_nan_capabilities {
+__NL80211_NAN_CAPABILITIES_INVALID = 0,
+NL80211_NAN_CAPA_CONFIGURABLE_SYNC = 1,
+NL80211_NAN_CAPA_USERSPACE_DE = 2,
+NL80211_NAN_CAPA_OP_MODE = 3,
+NL80211_NAN_CAPA_NUM_ANTENNAS = 4,
+NL80211_NAN_CAPA_MAX_CHANNEL_SWITCH_TIME = 5,
+NL80211_NAN_CAPA_CAPABILITIES = 6,
+NL80211_NAN_CAPA_PHY = 7,
+__NL80211_NAN_CAPABILITIES_LAST = 8,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum nl80211_nan_peer_map_attrs {
+__NL80211_NAN_PEER_MAP_ATTR_INVALID = 0,
+NL80211_NAN_PEER_MAP_ATTR_MAP_ID = 1,
+NL80211_NAN_PEER_MAP_ATTR_TIME_SLOTS = 2,
+__NL80211_NAN_PEER_MAP_ATTR_LAST = 3,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum _bindgen_ty_2 {
 IFLA_UNSPEC = 0,
 IFLA_ADDRESS = 1,
@@ -4025,7 +4183,9 @@ IFLA_GRO_IPV4_MAX_SIZE = 64,
 IFLA_DPLL_PIN = 65,
 IFLA_MAX_PACING_OFFLOAD_HORIZON = 66,
 IFLA_NETNS_IMMUTABLE = 67,
-__IFLA_MAX = 68,
+IFLA_HEADROOM = 68,
+IFLA_TAILROOM = 69,
+__IFLA_MAX = 70,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4123,7 +4283,17 @@ IFLA_BR_MULTI_BOOLOPT = 46,
 IFLA_BR_MCAST_QUERIER_STATE = 47,
 IFLA_BR_FDB_N_LEARNED = 48,
 IFLA_BR_FDB_MAX_LEARNED = 49,
-__IFLA_BR_MAX = 50,
+IFLA_BR_STP_MODE = 50,
+__IFLA_BR_MAX = 51,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum br_stp_mode {
+BR_STP_MODE_AUTO = 0,
+BR_STP_MODE_USER = 1,
+BR_STP_MODE_KERNEL = 2,
+__BR_STP_MODE_MAX = 3,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4353,6 +4523,13 @@ NETKIT_L3 = 1,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum netkit_pairing {
+NETKIT_DEVICE_PAIR = 0,
+NETKIT_DEVICE_SINGLE = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum netkit_scrub {
 NETKIT_SCRUB_NONE = 0,
 NETKIT_SCRUB_DEFAULT = 1,
@@ -4371,7 +4548,8 @@ IFLA_NETKIT_SCRUB = 6,
 IFLA_NETKIT_PEER_SCRUB = 7,
 IFLA_NETKIT_HEADROOM = 8,
 IFLA_NETKIT_TAILROOM = 9,
-__IFLA_NETKIT_MAX = 10,
+IFLA_NETKIT_PAIRING = 10,
+__IFLA_NETKIT_MAX = 11,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4487,7 +4665,8 @@ IFLA_GENEVE_TTL_INHERIT = 12,
 IFLA_GENEVE_DF = 13,
 IFLA_GENEVE_INNER_PROTO_INHERIT = 14,
 IFLA_GENEVE_PORT_RANGE = 15,
-__IFLA_GENEVE_MAX = 16,
+IFLA_GENEVE_GRO_HINT = 16,
+__IFLA_GENEVE_MAX = 17,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -4605,7 +4784,10 @@ IFLA_BOND_SLAVE_AD_AGGREGATOR_ID = 6,
 IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE = 7,
 IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE = 8,
 IFLA_BOND_SLAVE_PRIO = 9,
-__IFLA_BOND_SLAVE_MAX = 10,
+IFLA_BOND_SLAVE_ACTOR_PORT_PRIO = 10,
+IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE = 11,
+IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE = 12,
+__IFLA_BOND_SLAVE_MAX = 13,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -5399,22 +5581,22 @@ impl nl80211_commands {
 pub const NL80211_CMD_ACTION_TX_STATUS: nl80211_commands = nl80211_commands::NL80211_CMD_FRAME_TX_STATUS;
 }
 impl nl80211_commands {
-pub const NL80211_CMD_MAX: nl80211_commands = nl80211_commands::NL80211_CMD_EPCS_CFG;
+pub const NL80211_CMD_MAX: nl80211_commands = nl80211_commands::NL80211_CMD_NAN_CHANNEL_EVAC;
 }
 impl nl80211_attrs {
 pub const NUM_NL80211_ATTR: nl80211_attrs = nl80211_attrs::__NL80211_ATTR_AFTER_LAST;
 }
 impl nl80211_attrs {
-pub const NL80211_ATTR_MAX: nl80211_attrs = nl80211_attrs::NL80211_ATTR_S1G_SHORT_BEACON;
+pub const NL80211_ATTR_MAX: nl80211_attrs = nl80211_attrs::NL80211_ATTR_NAN_PEER_MAPS;
 }
 impl nl80211_iftype {
-pub const NL80211_IFTYPE_MAX: nl80211_iftype = nl80211_iftype::NL80211_IFTYPE_NAN;
+pub const NL80211_IFTYPE_MAX: nl80211_iftype = nl80211_iftype::NL80211_IFTYPE_NAN_DATA;
 }
 impl nl80211_sta_flags {
 pub const NL80211_STA_FLAG_MAX: nl80211_sta_flags = nl80211_sta_flags::NL80211_STA_FLAG_SPP_AMSDU;
 }
 impl nl80211_rate_info {
-pub const NL80211_RATE_INFO_MAX: nl80211_rate_info = nl80211_rate_info::NL80211_RATE_INFO_16_MHZ_WIDTH;
+pub const NL80211_RATE_INFO_MAX: nl80211_rate_info = nl80211_rate_info::NL80211_RATE_INFO_UHR_IM;
 }
 impl nl80211_sta_bss_param {
 pub const NL80211_STA_BSS_PARAM_MAX: nl80211_sta_bss_param = nl80211_sta_bss_param::NL80211_STA_BSS_PARAM_BEACON_INTERVAL;
@@ -5432,16 +5614,19 @@ impl nl80211_mpath_info {
 pub const NL80211_MPATH_INFO_MAX: nl80211_mpath_info = nl80211_mpath_info::NL80211_MPATH_INFO_PATH_CHANGE;
 }
 impl nl80211_band_iftype_attr {
-pub const NL80211_BAND_IFTYPE_ATTR_MAX: nl80211_band_iftype_attr = nl80211_band_iftype_attr::NL80211_BAND_IFTYPE_ATTR_EHT_CAP_PPE;
+pub const NL80211_BAND_IFTYPE_ATTR_MAX: nl80211_band_iftype_attr = nl80211_band_iftype_attr::NL80211_BAND_IFTYPE_ATTR_UHR_CAP_PHY;
 }
 impl nl80211_band_attr {
 pub const NL80211_BAND_ATTR_MAX: nl80211_band_attr = nl80211_band_attr::NL80211_BAND_ATTR_S1G_CAPA;
+}
+impl nl80211_nan_phy_cap_attr {
+pub const NL80211_NAN_PHY_CAP_ATTR_MAX: nl80211_nan_phy_cap_attr = nl80211_nan_phy_cap_attr::NL80211_NAN_PHY_CAP_ATTR_HE_PPE;
 }
 impl nl80211_wmm_rule {
 pub const NL80211_WMMR_MAX: nl80211_wmm_rule = nl80211_wmm_rule::NL80211_WMMR_TXOP;
 }
 impl nl80211_frequency_attr {
-pub const NL80211_FREQUENCY_ATTR_MAX: nl80211_frequency_attr = nl80211_frequency_attr::NL80211_FREQUENCY_ATTR_ALLOW_20MHZ_ACTIVITY;
+pub const NL80211_FREQUENCY_ATTR_MAX: nl80211_frequency_attr = nl80211_frequency_attr::NL80211_FREQUENCY_ATTR_PAD;
 }
 impl nl80211_bitrate_attr {
 pub const NL80211_BITRATE_ATTR_MAX: nl80211_bitrate_attr = nl80211_bitrate_attr::NL80211_BITRATE_ATTR_2GHZ_SHORTPREAMBLE;
@@ -5474,7 +5659,7 @@ impl nl80211_bss {
 pub const NL80211_BSS_MAX: nl80211_bss = nl80211_bss::NL80211_BSS_CANNOT_USE_REASONS;
 }
 impl nl80211_auth_type {
-pub const NL80211_AUTHTYPE_MAX: nl80211_auth_type = nl80211_auth_type::NL80211_AUTHTYPE_FILS_PK;
+pub const NL80211_AUTHTYPE_MAX: nl80211_auth_type = nl80211_auth_type::NL80211_AUTHTYPE_IEEE8021X;
 }
 impl nl80211_auth_type {
 pub const NL80211_AUTHTYPE_AUTOMATIC: nl80211_auth_type = nl80211_auth_type::__NL80211_AUTHTYPE_NUM;
@@ -5483,7 +5668,7 @@ impl nl80211_key_attributes {
 pub const NL80211_KEY_MAX: nl80211_key_attributes = nl80211_key_attributes::NL80211_KEY_DEFAULT_BEACON;
 }
 impl nl80211_tx_rate_attributes {
-pub const NL80211_TXRATE_MAX: nl80211_tx_rate_attributes = nl80211_tx_rate_attributes::NL80211_TXRATE_HE_LTF;
+pub const NL80211_TXRATE_MAX: nl80211_tx_rate_attributes = nl80211_tx_rate_attributes::NL80211_TXRATE_EHT_LTF;
 }
 impl nl80211_attr_cqm {
 pub const NL80211_ATTR_CQM_MAX: nl80211_attr_cqm = nl80211_attr_cqm::NL80211_ATTR_CQM_RSSI_LEVEL;
@@ -5525,7 +5710,7 @@ impl nl80211_ext_feature_index {
 pub const NL80211_EXT_FEATURE_DATA_ACK_SIGNAL_SUPPORT: nl80211_ext_feature_index = nl80211_ext_feature_index::NL80211_EXT_FEATURE_ACK_SIGNAL_SUPPORT;
 }
 impl nl80211_ext_feature_index {
-pub const MAX_NL80211_EXT_FEATURES: nl80211_ext_feature_index = nl80211_ext_feature_index::NL80211_EXT_FEATURE_SPP_AMSDU_SUPPORT;
+pub const MAX_NL80211_EXT_FEATURES: nl80211_ext_feature_index = nl80211_ext_feature_index::NL80211_EXT_FEATURE_IEEE8021X_AUTH;
 }
 impl nl80211_smps_mode {
 pub const NL80211_SMPS_MAX: nl80211_smps_mode = nl80211_smps_mode::NL80211_SMPS_DYNAMIC;
@@ -5547,6 +5732,12 @@ pub const NL80211_NAN_SRF_ATTR_MAX: nl80211_nan_srf_attributes = nl80211_nan_srf
 }
 impl nl80211_nan_match_attributes {
 pub const NL80211_NAN_MATCH_ATTR_MAX: nl80211_nan_match_attributes = nl80211_nan_match_attributes::NL80211_NAN_MATCH_FUNC_PEER;
+}
+impl nl80211_nan_band_conf_attributes {
+pub const NL80211_NAN_BAND_CONF_ATTR_MAX: nl80211_nan_band_conf_attributes = nl80211_nan_band_conf_attributes::NL80211_NAN_BAND_CONF_DISABLE_SCAN;
+}
+impl nl80211_nan_conf_attributes {
+pub const NL80211_NAN_CONF_ATTR_MAX: nl80211_nan_conf_attributes = nl80211_nan_conf_attributes::NL80211_NAN_CONF_NOTIFY_DW;
 }
 impl nl80211_ftm_responder_attributes {
 pub const NL80211_FTM_RESP_ATTR_MAX: nl80211_ftm_responder_attributes = nl80211_ftm_responder_attributes::NL80211_FTM_RESP_ATTR_CIVICLOC;
@@ -5570,13 +5761,13 @@ impl nl80211_peer_measurement_attrs {
 pub const NL80211_PMSR_ATTR_MAX: nl80211_peer_measurement_attrs = nl80211_peer_measurement_attrs::NL80211_PMSR_ATTR_PEERS;
 }
 impl nl80211_peer_measurement_ftm_capa {
-pub const NL80211_PMSR_FTM_CAPA_ATTR_MAX: nl80211_peer_measurement_ftm_capa = nl80211_peer_measurement_ftm_capa::NL80211_PMSR_FTM_CAPA_ATTR_NON_TRIGGER_BASED;
+pub const NL80211_PMSR_FTM_CAPA_ATTR_MAX: nl80211_peer_measurement_ftm_capa = nl80211_peer_measurement_ftm_capa::NL80211_PMSR_FTM_CAPA_ATTR_RSTA_SUPPORT;
 }
 impl nl80211_peer_measurement_ftm_req {
-pub const NL80211_PMSR_FTM_REQ_ATTR_MAX: nl80211_peer_measurement_ftm_req = nl80211_peer_measurement_ftm_req::NL80211_PMSR_FTM_REQ_ATTR_BSS_COLOR;
+pub const NL80211_PMSR_FTM_REQ_ATTR_MAX: nl80211_peer_measurement_ftm_req = nl80211_peer_measurement_ftm_req::NL80211_PMSR_FTM_REQ_ATTR_RSTA;
 }
 impl nl80211_peer_measurement_ftm_resp {
-pub const NL80211_PMSR_FTM_RESP_ATTR_MAX: nl80211_peer_measurement_ftm_resp = nl80211_peer_measurement_ftm_resp::NL80211_PMSR_FTM_RESP_ATTR_PAD;
+pub const NL80211_PMSR_FTM_RESP_ATTR_MAX: nl80211_peer_measurement_ftm_resp = nl80211_peer_measurement_ftm_resp::NL80211_PMSR_FTM_RESP_ATTR_BURST_PERIOD;
 }
 impl nl80211_obss_pd_attributes {
 pub const NL80211_HE_OBSS_PD_ATTR_MAX: nl80211_obss_pd_attributes = nl80211_obss_pd_attributes::NL80211_HE_OBSS_PD_ATTR_SR_CTRL;
@@ -5610,6 +5801,12 @@ pub const NL80211_WIPHY_RADIO_FREQ_ATTR_MAX: nl80211_wiphy_radio_freq_range = nl
 }
 impl nl80211_s1g_short_beacon_attrs {
 pub const NL80211_S1G_SHORT_BEACON_ATTR_MAX: nl80211_s1g_short_beacon_attrs = nl80211_s1g_short_beacon_attrs::NL80211_S1G_SHORT_BEACON_ATTR_TAIL;
+}
+impl nl80211_nan_capabilities {
+pub const NL80211_NAN_CAPABILITIES_MAX: nl80211_nan_capabilities = nl80211_nan_capabilities::NL80211_NAN_CAPA_PHY;
+}
+impl nl80211_nan_peer_map_attrs {
+pub const NL80211_NAN_PEER_MAP_ATTR_MAX: nl80211_nan_peer_map_attrs = nl80211_nan_peer_map_attrs::NL80211_NAN_PEER_MAP_ATTR_TIME_SLOTS;
 }
 impl macsec_validation_type {
 pub const MACSEC_VALIDATE_MAX: macsec_validation_type = macsec_validation_type::MACSEC_VALIDATE_STRICT;

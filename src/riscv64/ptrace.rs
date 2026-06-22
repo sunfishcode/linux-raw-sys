@@ -30,6 +30,7 @@ pub type __kernel_ssize_t = __kernel_long_t;
 pub type __kernel_ptrdiff_t = __kernel_long_t;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -262,6 +263,22 @@ pub vreg: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct __sc_riscv_cfi_state {
+pub ss_ptr: crate::ctypes::c_ulong,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __cfi_status {
+pub cfi_state: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct user_cfi_state {
+pub cfi_status: __cfi_status,
+pub shstk_ptr: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct seccomp_data {
 pub nr: crate::ctypes::c_int,
 pub arch: __u32,
@@ -442,6 +459,8 @@ pub const AUDIT_IPE_CONFIG_CHANGE: u32 = 1421;
 pub const AUDIT_IPE_POLICY_LOAD: u32 = 1422;
 pub const AUDIT_LANDLOCK_ACCESS: u32 = 1423;
 pub const AUDIT_LANDLOCK_DOMAIN: u32 = 1424;
+pub const AUDIT_MAC_TASK_CONTEXTS: u32 = 1425;
+pub const AUDIT_MAC_OBJ_CONTEXTS: u32 = 1426;
 pub const AUDIT_FIRST_KERN_ANOM_MSG: u32 = 1700;
 pub const AUDIT_LAST_KERN_ANOM_MSG: u32 = 1799;
 pub const AUDIT_ANOM_PROMISCUOUS: u32 = 1700;
@@ -783,6 +802,12 @@ pub const PTRACE_GETFDPIC: u32 = 33;
 pub const PTRACE_GETFDPIC_EXEC: u32 = 0;
 pub const PTRACE_GETFDPIC_INTERP: u32 = 1;
 pub const RISCV_MAX_VLENB: u32 = 8192;
+pub const PTRACE_CFI_BRANCH_LANDING_PAD_EN_BIT: u32 = 0;
+pub const PTRACE_CFI_BRANCH_LANDING_PAD_LOCK_BIT: u32 = 1;
+pub const PTRACE_CFI_BRANCH_EXPECTED_LANDING_PAD_BIT: u32 = 2;
+pub const PTRACE_CFI_SHADOW_STACK_EN_BIT: u32 = 3;
+pub const PTRACE_CFI_SHADOW_STACK_LOCK_BIT: u32 = 4;
+pub const PTRACE_CFI_SHADOW_STACK_PTR_BIT: u32 = 5;
 pub const SECCOMP_MODE_DISABLED: u32 = 0;
 pub const SECCOMP_MODE_STRICT: u32 = 1;
 pub const SECCOMP_MODE_FILTER: u32 = 2;

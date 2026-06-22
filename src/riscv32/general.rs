@@ -31,6 +31,7 @@ pub type __kernel_ssize_t = crate::ctypes::c_int;
 pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -151,6 +152,13 @@ pub struct open_how {
 pub flags: __u64,
 pub mode: __u64,
 pub resolve: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct delegation {
+pub d_flags: __u32,
+pub d_type: __u16,
+pub __pad: __u16,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -285,10 +293,10 @@ pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
-pub spare: __u32,
+pub __bindgen_anon_1: mnt_id_req__bindgen_ty_1,
 pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
@@ -1079,9 +1087,9 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
-pub const LINUX_VERSION_CODE: u32 = 397568;
-pub const LINUX_VERSION_MAJOR: u32 = 6;
-pub const LINUX_VERSION_PATCHLEVEL: u32 = 17;
+pub const LINUX_VERSION_CODE: u32 = 459008;
+pub const LINUX_VERSION_MAJOR: u32 = 7;
+pub const LINUX_VERSION_PATCHLEVEL: u32 = 1;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const __FD_SETSIZE: u32 = 1024;
@@ -1244,6 +1252,8 @@ pub const RWH_WRITE_LIFE_MEDIUM: u32 = 3;
 pub const RWH_WRITE_LIFE_LONG: u32 = 4;
 pub const RWH_WRITE_LIFE_EXTREME: u32 = 5;
 pub const RWF_WRITE_LIFE_NOT_SET: u32 = 0;
+pub const F_GETDELEG: u32 = 1039;
+pub const F_SETDELEG: u32 = 1040;
 pub const DN_ACCESS: u32 = 1;
 pub const DN_MODIFY: u32 = 2;
 pub const DN_CREATE: u32 = 4;
@@ -1255,6 +1265,7 @@ pub const AT_FDCWD: i32 = -100;
 pub const PIDFD_SELF_THREAD: i32 = -10000;
 pub const PIDFD_SELF_THREAD_GROUP: i32 = -10001;
 pub const FD_PIDFS_ROOT: i32 = -10002;
+pub const FD_NSFS_ROOT: i32 = -10003;
 pub const FD_INVALID: i32 = -10009;
 pub const AT_SYMLINK_NOFOLLOW: u32 = 256;
 pub const AT_SYMLINK_FOLLOW: u32 = 1024;
@@ -1414,6 +1425,7 @@ pub const MS_RMT_MASK: u32 = 41943121;
 pub const MS_MGC_VAL: u32 = 3236757504;
 pub const MS_MGC_MSK: u32 = 4294901760;
 pub const OPEN_TREE_CLONE: u32 = 1;
+pub const OPEN_TREE_NAMESPACE: u32 = 2;
 pub const OPEN_TREE_CLOEXEC: u32 = 524288;
 pub const MOVE_MOUNT_F_SYMLINKS: u32 = 1;
 pub const MOVE_MOUNT_F_AUTOMOUNTS: u32 = 2;
@@ -1430,6 +1442,7 @@ pub const FSPICK_SYMLINK_NOFOLLOW: u32 = 2;
 pub const FSPICK_NO_AUTOMOUNT: u32 = 4;
 pub const FSPICK_EMPTY_PATH: u32 = 8;
 pub const FSMOUNT_CLOEXEC: u32 = 1;
+pub const FSMOUNT_NAMESPACE: u32 = 2;
 pub const MOUNT_ATTR_RDONLY: u32 = 1;
 pub const MOUNT_ATTR_NOSUID: u32 = 2;
 pub const MOUNT_ATTR_NODEV: u32 = 4;
@@ -1461,6 +1474,7 @@ pub const STATMOUNT_MNT_UIDMAP: u32 = 8192;
 pub const STATMOUNT_MNT_GIDMAP: u32 = 16384;
 pub const LSMT_ROOT: i32 = -1;
 pub const LISTMOUNT_REVERSE: u32 = 1;
+pub const STATMOUNT_BY_FD: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
@@ -1506,6 +1520,7 @@ pub const FS_XFLAG_NODEFRAG: u32 = 8192;
 pub const FS_XFLAG_FILESTREAM: u32 = 16384;
 pub const FS_XFLAG_DAX: u32 = 32768;
 pub const FS_XFLAG_COWEXTSIZE: u32 = 65536;
+pub const FS_XFLAG_VERITY: u32 = 131072;
 pub const FS_XFLAG_HASATTR: u32 = 2147483648;
 pub const BMAP_IOCTL: u32 = 1;
 pub const FSLABEL_MAX: u32 = 256;
@@ -1557,6 +1572,9 @@ pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
 pub const PAGE_IS_GUARD: u32 = 256;
 pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
+pub const FS_SHUTDOWN_FLAGS_DEFAULT: u32 = 0;
+pub const FS_SHUTDOWN_FLAGS_LOGFLUSH: u32 = 1;
+pub const FS_SHUTDOWN_FLAGS_NOLOGFLUSH: u32 = 2;
 pub const FUTEX_WAIT: u32 = 0;
 pub const FUTEX_WAKE: u32 = 1;
 pub const FUTEX_FD: u32 = 2;
@@ -1728,6 +1746,8 @@ pub const DMA_BUF_MAGIC: u32 = 1145913666;
 pub const DEVMEM_MAGIC: u32 = 1162691661;
 pub const SECRETMEM_MAGIC: u32 = 1397048141;
 pub const PID_FS_MAGIC: u32 = 1346978886;
+pub const GUEST_MEMFD_MAGIC: u32 = 1196246349;
+pub const NULL_FS_MAGIC: u32 = 1314212940;
 pub const PROT_READ: u32 = 1;
 pub const PROT_WRITE: u32 = 2;
 pub const PROT_EXEC: u32 = 4;
@@ -1917,7 +1937,12 @@ pub const CLONE_NEWNET: u32 = 1073741824;
 pub const CLONE_IO: u32 = 2147483648;
 pub const CLONE_CLEAR_SIGHAND: u64 = 4294967296;
 pub const CLONE_INTO_CGROUP: u64 = 8589934592;
+pub const CLONE_AUTOREAP: u64 = 17179869184;
+pub const CLONE_NNP: u64 = 34359738368;
+pub const CLONE_PIDFD_AUTOKILL: u64 = 68719476736;
+pub const CLONE_EMPTY_MNTNS: u64 = 137438953472;
 pub const CLONE_NEWTIME: u32 = 128;
+pub const UNSHARE_EMPTY_MNTNS: u32 = 1048576;
 pub const CLONE_ARGS_SIZE_VER0: u32 = 64;
 pub const CLONE_ARGS_SIZE_VER1: u32 = 80;
 pub const CLONE_ARGS_SIZE_VER2: u32 = 88;
@@ -1939,6 +1964,7 @@ pub const SCHED_FLAG_UTIL_CLAMP_MAX: u32 = 64;
 pub const SCHED_FLAG_KEEP_ALL: u32 = 24;
 pub const SCHED_FLAG_UTIL_CLAMP: u32 = 96;
 pub const SCHED_FLAG_ALL: u32 = 127;
+pub const SCHED_GETATTR_FLAG_DL_DYNAMIC: u32 = 1;
 pub const _NSIG: u32 = 64;
 pub const SIGHUP: u32 = 1;
 pub const SIGINT: u32 = 2;
@@ -2644,6 +2670,8 @@ pub const __NR_removexattrat: u32 = 466;
 pub const __NR_open_tree_attr: u32 = 467;
 pub const __NR_file_getattr: u32 = 468;
 pub const __NR_file_setattr: u32 = 469;
+pub const __NR_listns: u32 = 470;
+pub const __NR_rseq_slice_yield: u32 = 471;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WSTOPPED: u32 = 2;
@@ -2883,6 +2911,12 @@ pub union fscrypt_key_specifier__bindgen_ty_1 {
 pub __reserved: [__u8; 32usize],
 pub descriptor: [__u8; 8usize],
 pub identifier: [__u8; 16usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union mnt_id_req__bindgen_ty_1 {
+pub mnt_ns_fd: __u32,
+pub mnt_fd: __u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

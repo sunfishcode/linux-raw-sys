@@ -30,6 +30,7 @@ pub type __kernel_ssize_t = crate::ctypes::c_int;
 pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -739,6 +740,7 @@ pub const ETH_P_AOE: u32 = 34978;
 pub const ETH_P_ETHERCAT: u32 = 34980;
 pub const ETH_P_8021AD: u32 = 34984;
 pub const ETH_P_802_EX1: u32 = 34997;
+pub const ETH_P_MXLGSW: u32 = 35011;
 pub const ETH_P_PREAUTH: u32 = 35015;
 pub const ETH_P_TIPC: u32 = 35018;
 pub const ETH_P_LLDP: u32 = 35020;
@@ -761,6 +763,7 @@ pub const ETH_P_LOOPBACK: u32 = 36864;
 pub const ETH_P_QINQ1: u32 = 37120;
 pub const ETH_P_QINQ2: u32 = 37376;
 pub const ETH_P_QINQ3: u32 = 37632;
+pub const ETH_P_YT921X: u32 = 39304;
 pub const ETH_P_EDSA: u32 = 56026;
 pub const ETH_P_DSA_8021Q: u32 = 56027;
 pub const ETH_P_DSA_A5PSW: u32 = 57345;
@@ -1125,6 +1128,8 @@ pub const IFLA_GRO_IPV4_MAX_SIZE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_GRO_IPV4_M
 pub const IFLA_DPLL_PIN: _bindgen_ty_4 = _bindgen_ty_4::IFLA_DPLL_PIN;
 pub const IFLA_MAX_PACING_OFFLOAD_HORIZON: _bindgen_ty_4 = _bindgen_ty_4::IFLA_MAX_PACING_OFFLOAD_HORIZON;
 pub const IFLA_NETNS_IMMUTABLE: _bindgen_ty_4 = _bindgen_ty_4::IFLA_NETNS_IMMUTABLE;
+pub const IFLA_HEADROOM: _bindgen_ty_4 = _bindgen_ty_4::IFLA_HEADROOM;
+pub const IFLA_TAILROOM: _bindgen_ty_4 = _bindgen_ty_4::IFLA_TAILROOM;
 pub const __IFLA_MAX: _bindgen_ty_4 = _bindgen_ty_4::__IFLA_MAX;
 pub const IFLA_PROTO_DOWN_REASON_UNSPEC: _bindgen_ty_5 = _bindgen_ty_5::IFLA_PROTO_DOWN_REASON_UNSPEC;
 pub const IFLA_PROTO_DOWN_REASON_MASK: _bindgen_ty_5 = _bindgen_ty_5::IFLA_PROTO_DOWN_REASON_MASK;
@@ -1195,6 +1200,7 @@ pub const IFLA_BR_MULTI_BOOLOPT: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BR_MULTI_BO
 pub const IFLA_BR_MCAST_QUERIER_STATE: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BR_MCAST_QUERIER_STATE;
 pub const IFLA_BR_FDB_N_LEARNED: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BR_FDB_N_LEARNED;
 pub const IFLA_BR_FDB_MAX_LEARNED: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BR_FDB_MAX_LEARNED;
+pub const IFLA_BR_STP_MODE: _bindgen_ty_8 = _bindgen_ty_8::IFLA_BR_STP_MODE;
 pub const __IFLA_BR_MAX: _bindgen_ty_8 = _bindgen_ty_8::__IFLA_BR_MAX;
 pub const BRIDGE_MODE_UNSPEC: _bindgen_ty_9 = _bindgen_ty_9::BRIDGE_MODE_UNSPEC;
 pub const BRIDGE_MODE_HAIRPIN: _bindgen_ty_9 = _bindgen_ty_9::BRIDGE_MODE_HAIRPIN;
@@ -1314,6 +1320,7 @@ pub const IFLA_NETKIT_SCRUB: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_SCRUB;
 pub const IFLA_NETKIT_PEER_SCRUB: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_PEER_SCRUB;
 pub const IFLA_NETKIT_HEADROOM: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_HEADROOM;
 pub const IFLA_NETKIT_TAILROOM: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_TAILROOM;
+pub const IFLA_NETKIT_PAIRING: _bindgen_ty_20 = _bindgen_ty_20::IFLA_NETKIT_PAIRING;
 pub const __IFLA_NETKIT_MAX: _bindgen_ty_20 = _bindgen_ty_20::__IFLA_NETKIT_MAX;
 pub const VNIFILTER_ENTRY_STATS_UNSPEC: _bindgen_ty_21 = _bindgen_ty_21::VNIFILTER_ENTRY_STATS_UNSPEC;
 pub const VNIFILTER_ENTRY_STATS_RX_BYTES: _bindgen_ty_21 = _bindgen_ty_21::VNIFILTER_ENTRY_STATS_RX_BYTES;
@@ -1388,6 +1395,7 @@ pub const IFLA_GENEVE_TTL_INHERIT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_
 pub const IFLA_GENEVE_DF: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_DF;
 pub const IFLA_GENEVE_INNER_PROTO_INHERIT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_INNER_PROTO_INHERIT;
 pub const IFLA_GENEVE_PORT_RANGE: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_PORT_RANGE;
+pub const IFLA_GENEVE_GRO_HINT: _bindgen_ty_25 = _bindgen_ty_25::IFLA_GENEVE_GRO_HINT;
 pub const __IFLA_GENEVE_MAX: _bindgen_ty_25 = _bindgen_ty_25::__IFLA_GENEVE_MAX;
 pub const IFLA_BAREUDP_UNSPEC: _bindgen_ty_26 = _bindgen_ty_26::IFLA_BAREUDP_UNSPEC;
 pub const IFLA_BAREUDP_PORT: _bindgen_ty_26 = _bindgen_ty_26::IFLA_BAREUDP_PORT;
@@ -1460,6 +1468,9 @@ pub const IFLA_BOND_SLAVE_AD_AGGREGATOR_ID: _bindgen_ty_31 = _bindgen_ty_31::IFL
 pub const IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE;
 pub const IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE;
 pub const IFLA_BOND_SLAVE_PRIO: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_PRIO;
+pub const IFLA_BOND_SLAVE_ACTOR_PORT_PRIO: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_ACTOR_PORT_PRIO;
+pub const IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE;
+pub const IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE: _bindgen_ty_31 = _bindgen_ty_31::IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE;
 pub const __IFLA_BOND_SLAVE_MAX: _bindgen_ty_31 = _bindgen_ty_31::__IFLA_BOND_SLAVE_MAX;
 pub const IFLA_VF_INFO_UNSPEC: _bindgen_ty_32 = _bindgen_ty_32::IFLA_VF_INFO_UNSPEC;
 pub const IFLA_VF_INFO: _bindgen_ty_32 = _bindgen_ty_32::IFLA_VF_INFO;
@@ -1820,7 +1831,9 @@ IFLA_GRO_IPV4_MAX_SIZE = 64,
 IFLA_DPLL_PIN = 65,
 IFLA_MAX_PACING_OFFLOAD_HORIZON = 66,
 IFLA_NETNS_IMMUTABLE = 67,
-__IFLA_MAX = 68,
+IFLA_HEADROOM = 68,
+IFLA_TAILROOM = 69,
+__IFLA_MAX = 70,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -1918,7 +1931,17 @@ IFLA_BR_MULTI_BOOLOPT = 46,
 IFLA_BR_MCAST_QUERIER_STATE = 47,
 IFLA_BR_FDB_N_LEARNED = 48,
 IFLA_BR_FDB_MAX_LEARNED = 49,
-__IFLA_BR_MAX = 50,
+IFLA_BR_STP_MODE = 50,
+__IFLA_BR_MAX = 51,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum br_stp_mode {
+BR_STP_MODE_AUTO = 0,
+BR_STP_MODE_USER = 1,
+BR_STP_MODE_KERNEL = 2,
+__BR_STP_MODE_MAX = 3,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2148,6 +2171,13 @@ NETKIT_L3 = 1,
 #[repr(u32)]
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum netkit_pairing {
+NETKIT_DEVICE_PAIR = 0,
+NETKIT_DEVICE_SINGLE = 1,
+}
+#[repr(u32)]
+#[non_exhaustive]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum netkit_scrub {
 NETKIT_SCRUB_NONE = 0,
 NETKIT_SCRUB_DEFAULT = 1,
@@ -2166,7 +2196,8 @@ IFLA_NETKIT_SCRUB = 6,
 IFLA_NETKIT_PEER_SCRUB = 7,
 IFLA_NETKIT_HEADROOM = 8,
 IFLA_NETKIT_TAILROOM = 9,
-__IFLA_NETKIT_MAX = 10,
+IFLA_NETKIT_PAIRING = 10,
+__IFLA_NETKIT_MAX = 11,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2282,7 +2313,8 @@ IFLA_GENEVE_TTL_INHERIT = 12,
 IFLA_GENEVE_DF = 13,
 IFLA_GENEVE_INNER_PROTO_INHERIT = 14,
 IFLA_GENEVE_PORT_RANGE = 15,
-__IFLA_GENEVE_MAX = 16,
+IFLA_GENEVE_GRO_HINT = 16,
+__IFLA_GENEVE_MAX = 17,
 }
 #[repr(u32)]
 #[non_exhaustive]
@@ -2400,7 +2432,10 @@ IFLA_BOND_SLAVE_AD_AGGREGATOR_ID = 6,
 IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE = 7,
 IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE = 8,
 IFLA_BOND_SLAVE_PRIO = 9,
-__IFLA_BOND_SLAVE_MAX = 10,
+IFLA_BOND_SLAVE_ACTOR_PORT_PRIO = 10,
+IFLA_BOND_SLAVE_AD_CHURN_ACTOR_STATE = 11,
+IFLA_BOND_SLAVE_AD_CHURN_PARTNER_STATE = 12,
+__IFLA_BOND_SLAVE_MAX = 13,
 }
 #[repr(u32)]
 #[non_exhaustive]

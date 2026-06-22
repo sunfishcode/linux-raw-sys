@@ -30,6 +30,7 @@ pub type __kernel_ssize_t = crate::ctypes::c_int;
 pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -448,6 +449,15 @@ pub tcpi_rehash: __u32,
 pub tcpi_total_rto: __u16,
 pub tcpi_total_rto_recoveries: __u16,
 pub tcpi_total_rto_time: __u32,
+pub tcpi_received_ce: __u32,
+pub tcpi_delivered_e1_bytes: __u32,
+pub tcpi_delivered_e0_bytes: __u32,
+pub tcpi_delivered_ce_bytes: __u32,
+pub tcpi_received_e1_bytes: __u32,
+pub tcpi_received_e0_bytes: __u32,
+pub tcpi_received_ce_bytes: __u32,
+pub _bitfield_align_2: [u32; 0],
+pub _bitfield_2: __BindgenBitfieldUnit<[u8; 4usize]>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1329,6 +1339,14 @@ pub const TCPI_OPT_ECN_SEEN: u32 = 16;
 pub const TCPI_OPT_SYN_DATA: u32 = 32;
 pub const TCPI_OPT_USEC_TS: u32 = 64;
 pub const TCPI_OPT_TFO_CHILD: u32 = 128;
+pub const TCPI_ECN_MODE_DISABLED: u32 = 0;
+pub const TCPI_ECN_MODE_RFC3168: u32 = 1;
+pub const TCPI_ECN_MODE_ACCECN: u32 = 2;
+pub const TCPI_ECN_MODE_PENDING: u32 = 3;
+pub const TCP_ACCECN_OPT_NOT_SEEN: u32 = 0;
+pub const TCP_ACCECN_OPT_EMPTY_SEEN: u32 = 1;
+pub const TCP_ACCECN_OPT_COUNTER_SEEN: u32 = 2;
+pub const TCP_ACCECN_OPT_FAIL_SEEN: u32 = 3;
 pub const TCP_MD5SIG_MAXKEYLEN: u32 = 80;
 pub const TCP_MD5SIG_FLAG_PREFIX: u32 = 1;
 pub const TCP_MD5SIG_FLAG_IFINDEX: u32 = 2;
@@ -2996,6 +3014,115 @@ tcpi_delivery_rate_app_limited as u64
 __bindgen_bitfield_unit.set(9usize, 2u8, {
 let tcpi_fastopen_client_fail: u8 = unsafe { ::core::mem::transmute(tcpi_fastopen_client_fail) };
 tcpi_fastopen_client_fail as u64
+});
+__bindgen_bitfield_unit
+}
+#[inline]
+pub fn tcpi_ecn_mode(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_2.get(0usize, 2u8) as u32) }
+}
+#[inline]
+pub fn set_tcpi_ecn_mode(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_2.set(0usize, 2u8, val as u64)
+}
+}
+#[inline]
+pub unsafe fn tcpi_ecn_mode_raw(this: *const Self) -> __u32 {
+unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_2), 0usize, 2u8) as u32) }
+}
+#[inline]
+pub unsafe fn set_tcpi_ecn_mode_raw(this: *mut Self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_2), 0usize, 2u8, val as u64)
+}
+}
+#[inline]
+pub fn tcpi_accecn_opt_seen(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_2.get(2usize, 2u8) as u32) }
+}
+#[inline]
+pub fn set_tcpi_accecn_opt_seen(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_2.set(2usize, 2u8, val as u64)
+}
+}
+#[inline]
+pub unsafe fn tcpi_accecn_opt_seen_raw(this: *const Self) -> __u32 {
+unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_2), 2usize, 2u8) as u32) }
+}
+#[inline]
+pub unsafe fn set_tcpi_accecn_opt_seen_raw(this: *mut Self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_2), 2usize, 2u8, val as u64)
+}
+}
+#[inline]
+pub fn tcpi_accecn_fail_mode(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_2.get(4usize, 4u8) as u32) }
+}
+#[inline]
+pub fn set_tcpi_accecn_fail_mode(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_2.set(4usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub unsafe fn tcpi_accecn_fail_mode_raw(this: *const Self) -> __u32 {
+unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_2), 4usize, 4u8) as u32) }
+}
+#[inline]
+pub unsafe fn set_tcpi_accecn_fail_mode_raw(this: *mut Self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_2), 4usize, 4u8, val as u64)
+}
+}
+#[inline]
+pub fn tcpi_options2(&self) -> __u32 {
+unsafe { ::core::mem::transmute(self._bitfield_2.get(8usize, 24u8) as u32) }
+}
+#[inline]
+pub fn set_tcpi_options2(&mut self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+self._bitfield_2.set(8usize, 24u8, val as u64)
+}
+}
+#[inline]
+pub unsafe fn tcpi_options2_raw(this: *const Self) -> __u32 {
+unsafe { ::core::mem::transmute(<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(::core::ptr::addr_of!((*this)._bitfield_2), 8usize, 24u8) as u32) }
+}
+#[inline]
+pub unsafe fn set_tcpi_options2_raw(this: *mut Self, val: __u32) {
+unsafe {
+let val: u32 = ::core::mem::transmute(val);
+<__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(::core::ptr::addr_of_mut!((*this)._bitfield_2), 8usize, 24u8, val as u64)
+}
+}
+#[inline]
+pub fn new_bitfield_2(tcpi_ecn_mode: __u32, tcpi_accecn_opt_seen: __u32, tcpi_accecn_fail_mode: __u32, tcpi_options2: __u32) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+__bindgen_bitfield_unit.set(0usize, 2u8, {
+let tcpi_ecn_mode: u32 = unsafe { ::core::mem::transmute(tcpi_ecn_mode) };
+tcpi_ecn_mode as u64
+});
+__bindgen_bitfield_unit.set(2usize, 2u8, {
+let tcpi_accecn_opt_seen: u32 = unsafe { ::core::mem::transmute(tcpi_accecn_opt_seen) };
+tcpi_accecn_opt_seen as u64
+});
+__bindgen_bitfield_unit.set(4usize, 4u8, {
+let tcpi_accecn_fail_mode: u32 = unsafe { ::core::mem::transmute(tcpi_accecn_fail_mode) };
+tcpi_accecn_fail_mode as u64
+});
+__bindgen_bitfield_unit.set(8usize, 24u8, {
+let tcpi_options2: u32 = unsafe { ::core::mem::transmute(tcpi_options2) };
+tcpi_options2 as u64
 });
 __bindgen_bitfield_unit
 }

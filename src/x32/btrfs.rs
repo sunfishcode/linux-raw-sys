@@ -30,6 +30,7 @@ pub type __kernel_ssize_t = crate::ctypes::c_int;
 pub type __kernel_ptrdiff_t = crate::ctypes::c_int;
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = crate::ctypes::c_longlong;
+pub type __kernel_uoff_t = crate::ctypes::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = crate::ctypes::c_longlong;
@@ -173,10 +174,10 @@ pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
-pub spare: __u32,
+pub __bindgen_anon_1: mnt_id_req__bindgen_ty_1,
 pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
@@ -741,7 +742,7 @@ pub dirid: __u64,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_encoded_io_args {
-pub iov: *const iovec,
+pub iov: *mut iovec,
 pub iovcnt: crate::ctypes::c_ulong,
 pub offset: __s64,
 pub flags: __u64,
@@ -912,7 +913,10 @@ pub cache_generation: __le64,
 pub uuid_tree_generation: __le64,
 pub metadata_uuid: [__u8; 16usize],
 pub nr_global_roots: __u64,
-pub reserved: [__le64; 27usize],
+pub remap_root: __le64,
+pub remap_root_generation: __le64,
+pub remap_root_level: __u8,
+pub reserved: [__u8; 199usize],
 pub sys_chunk_array: [__u8; 2048usize],
 pub super_roots: [btrfs_root_backup; 4usize],
 pub padding: [__u8; 565usize],
@@ -1176,6 +1180,15 @@ pub flags: __le64,
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
+pub struct btrfs_block_group_item_v2 {
+pub used: __le64,
+pub chunk_objectid: __le64,
+pub flags: __le64,
+pub remap_bytes: __le64,
+pub identity_remap_count: __le32,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
 pub struct btrfs_free_space_info {
 pub extent_count: __le32,
 pub flags: __le32,
@@ -1213,6 +1226,11 @@ pub struct btrfs_verity_descriptor_item {
 pub size: __le64,
 pub reserved: [__le64; 2usize],
 pub encryption: __u8,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct btrfs_remap_item {
+pub address: __le64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1340,6 +1358,7 @@ pub const MS_RMT_MASK: u32 = 41943121;
 pub const MS_MGC_VAL: u32 = 3236757504;
 pub const MS_MGC_MSK: u32 = 4294901760;
 pub const OPEN_TREE_CLONE: u32 = 1;
+pub const OPEN_TREE_NAMESPACE: u32 = 2;
 pub const MOVE_MOUNT_F_SYMLINKS: u32 = 1;
 pub const MOVE_MOUNT_F_AUTOMOUNTS: u32 = 2;
 pub const MOVE_MOUNT_F_EMPTY_PATH: u32 = 4;
@@ -1355,6 +1374,7 @@ pub const FSPICK_SYMLINK_NOFOLLOW: u32 = 2;
 pub const FSPICK_NO_AUTOMOUNT: u32 = 4;
 pub const FSPICK_EMPTY_PATH: u32 = 8;
 pub const FSMOUNT_CLOEXEC: u32 = 1;
+pub const FSMOUNT_NAMESPACE: u32 = 2;
 pub const MOUNT_ATTR_RDONLY: u32 = 1;
 pub const MOUNT_ATTR_NOSUID: u32 = 2;
 pub const MOUNT_ATTR_NODEV: u32 = 4;
@@ -1386,6 +1406,7 @@ pub const STATMOUNT_MNT_UIDMAP: u32 = 8192;
 pub const STATMOUNT_MNT_GIDMAP: u32 = 16384;
 pub const LSMT_ROOT: i32 = -1;
 pub const LISTMOUNT_REVERSE: u32 = 1;
+pub const STATMOUNT_BY_FD: u32 = 1;
 pub const INR_OPEN_CUR: u32 = 1024;
 pub const INR_OPEN_MAX: u32 = 4096;
 pub const BLOCK_SIZE_BITS: u32 = 10;
@@ -1431,6 +1452,7 @@ pub const FS_XFLAG_NODEFRAG: u32 = 8192;
 pub const FS_XFLAG_FILESTREAM: u32 = 16384;
 pub const FS_XFLAG_DAX: u32 = 32768;
 pub const FS_XFLAG_COWEXTSIZE: u32 = 65536;
+pub const FS_XFLAG_VERITY: u32 = 131072;
 pub const FS_XFLAG_HASATTR: u32 = 2147483648;
 pub const BMAP_IOCTL: u32 = 1;
 pub const FSLABEL_MAX: u32 = 256;
@@ -1482,6 +1504,9 @@ pub const PAGE_IS_SOFT_DIRTY: u32 = 128;
 pub const PAGE_IS_GUARD: u32 = 256;
 pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
+pub const FS_SHUTDOWN_FLAGS_DEFAULT: u32 = 0;
+pub const FS_SHUTDOWN_FLAGS_LOGFLUSH: u32 = 1;
+pub const FS_SHUTDOWN_FLAGS_NOLOGFLUSH: u32 = 2;
 pub const BTRFS_IOCTL_MAGIC: u32 = 148;
 pub const BTRFS_VOL_NAME_MAX: u32 = 255;
 pub const BTRFS_LABEL_SIZE: u32 = 256;
@@ -1547,6 +1572,7 @@ pub const BTRFS_FEATURE_INCOMPAT_ZONED: u32 = 4096;
 pub const BTRFS_FEATURE_INCOMPAT_EXTENT_TREE_V2: u32 = 8192;
 pub const BTRFS_FEATURE_INCOMPAT_RAID_STRIPE_TREE: u32 = 16384;
 pub const BTRFS_FEATURE_INCOMPAT_SIMPLE_QUOTA: u32 = 65536;
+pub const BTRFS_FEATURE_INCOMPAT_REMAP_TREE: u32 = 131072;
 pub const BTRFS_BALANCE_CTL_PAUSE: u32 = 1;
 pub const BTRFS_BALANCE_CTL_CANCEL: u32 = 2;
 pub const BTRFS_BALANCE_DATA: u32 = 1;
@@ -1607,6 +1633,10 @@ pub const BTRFS_SUBVOL_SYNC_WAIT_FOR_QUEUED: u32 = 1;
 pub const BTRFS_SUBVOL_SYNC_COUNT: u32 = 2;
 pub const BTRFS_SUBVOL_SYNC_PEEK_FIRST: u32 = 3;
 pub const BTRFS_SUBVOL_SYNC_PEEK_LAST: u32 = 4;
+pub const BTRFS_SHUTDOWN_FLAGS_DEFAULT: u32 = 0;
+pub const BTRFS_SHUTDOWN_FLAGS_LOGFLUSH: u32 = 1;
+pub const BTRFS_SHUTDOWN_FLAGS_NOLOGFLUSH: u32 = 2;
+pub const BTRFS_SHUTDOWN_FLAGS_LAST: u32 = 3;
 pub const BTRFS_MAGIC: u64 = 5575266562640200287;
 pub const BTRFS_MAX_LEVEL: u32 = 8;
 pub const BTRFS_NAME_LEN: u32 = 255;
@@ -1623,6 +1653,7 @@ pub const BTRFS_UUID_TREE_OBJECTID: u32 = 9;
 pub const BTRFS_FREE_SPACE_TREE_OBJECTID: u32 = 10;
 pub const BTRFS_BLOCK_GROUP_TREE_OBJECTID: u32 = 11;
 pub const BTRFS_RAID_STRIPE_TREE_OBJECTID: u32 = 12;
+pub const BTRFS_REMAP_TREE_OBJECTID: u32 = 13;
 pub const BTRFS_DEV_STATS_OBJECTID: u32 = 0;
 pub const BTRFS_BALANCE_OBJECTID: i32 = -4;
 pub const BTRFS_ORPHAN_OBJECTID: i32 = -5;
@@ -1672,6 +1703,9 @@ pub const BTRFS_DEV_EXTENT_KEY: u32 = 204;
 pub const BTRFS_DEV_ITEM_KEY: u32 = 216;
 pub const BTRFS_CHUNK_ITEM_KEY: u32 = 228;
 pub const BTRFS_RAID_STRIPE_KEY: u32 = 230;
+pub const BTRFS_IDENTITY_REMAP_KEY: u32 = 234;
+pub const BTRFS_REMAP_KEY: u32 = 235;
+pub const BTRFS_REMAP_BACKREF_KEY: u32 = 236;
 pub const BTRFS_QGROUP_STATUS_KEY: u32 = 240;
 pub const BTRFS_QGROUP_INFO_KEY: u32 = 242;
 pub const BTRFS_QGROUP_LIMIT_KEY: u32 = 244;
@@ -1751,7 +1785,9 @@ pub const BTRFS_BLOCK_GROUP_RAID5: u32 = 128;
 pub const BTRFS_BLOCK_GROUP_RAID6: u32 = 256;
 pub const BTRFS_BLOCK_GROUP_RAID1C3: u32 = 512;
 pub const BTRFS_BLOCK_GROUP_RAID1C4: u32 = 1024;
-pub const BTRFS_BLOCK_GROUP_TYPE_MASK: u32 = 7;
+pub const BTRFS_BLOCK_GROUP_REMAPPED: u32 = 2048;
+pub const BTRFS_BLOCK_GROUP_METADATA_REMAP: u32 = 4096;
+pub const BTRFS_BLOCK_GROUP_TYPE_MASK: u32 = 4103;
 pub const BTRFS_BLOCK_GROUP_PROFILE_MASK: u32 = 2040;
 pub const BTRFS_BLOCK_GROUP_RAID56_MASK: u32 = 384;
 pub const BTRFS_BLOCK_GROUP_RAID1_MASK: u32 = 1552;
@@ -1759,6 +1795,7 @@ pub const BTRFS_AVAIL_ALLOC_BIT_SINGLE: u64 = 281474976710656;
 pub const BTRFS_SPACE_INFO_GLOBAL_RSV: u64 = 562949953421312;
 pub const BTRFS_EXTENDED_PROFILE_MASK: u64 = 281474976712696;
 pub const BTRFS_FREE_SPACE_USING_BITMAPS: u32 = 1;
+pub const BTRFS_FREE_SPACE_FLAGS_MASK: u32 = 1;
 pub const BTRFS_QGROUP_LEVEL_SHIFT: u32 = 48;
 pub const BTRFS_QGROUP_STATUS_FLAG_ON: u32 = 1;
 pub const BTRFS_QGROUP_STATUS_FLAG_RESCAN: u32 = 2;
@@ -1858,6 +1895,12 @@ pub union fscrypt_key_specifier__bindgen_ty_1 {
 pub __reserved: [__u8; 32usize],
 pub descriptor: [__u8; 8usize],
 pub identifier: [__u8; 16usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union mnt_id_req__bindgen_ty_1 {
+pub mnt_ns_fd: __u32,
+pub mnt_fd: __u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
