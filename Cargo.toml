@@ -14,13 +14,16 @@ rust-version = "1.63"
 
 [dependencies]
 core = { version = "1.0.0", optional = true, package = "rustc-std-workspace-core" }
+# Optional: compile-time-verified byte-conversion derives on the fixed-layout
+# wire-format types (see `ZEROCOPY_TYPES` in gen/src/main.rs).
+zerocopy = { version = "0.8.0", optional = true, default-features = false, features = ["derive"] }
 
 [dev-dependencies]
 static_assertions = "1.1.0"
 libc = "0.2.100"
 
 [package.metadata.docs.rs]
-features = ["default", "bootparam", "btrfs", "elf_uapi", "image", "ioctl", "landlock", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "ptrace", "prctl", "elf", "xdp", "mempolicy", "system", "loop_device"]
+features = ["default", "bootparam", "btrfs", "elf_uapi", "image", "ioctl", "landlock", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "ptrace", "prctl", "elf", "xdp", "mempolicy", "system", "loop_device", "zerocopy"]
 targets = ["x86_64-unknown-linux-gnu", "i686-unknown-linux-gnu"]
 
 [lints.rust.unexpected_cfgs]
@@ -58,4 +61,5 @@ default = ["std", "general", "errno"]
 std = []
 no_std = []
 elf = []
+zerocopy = ["dep:zerocopy"]
 rustc-dep-of-std = ["core", "no_std"]

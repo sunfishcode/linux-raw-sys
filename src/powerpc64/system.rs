@@ -97,6 +97,7 @@ pub machine: [crate::ctypes::c_char; 65usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct new_utsname {
 pub sysname: [crate::ctypes::c_char; 65usize],
 pub nodename: [crate::ctypes::c_char; 65usize],

@@ -82,6 +82,7 @@ pub fds_bits: [crate::ctypes::c_ulong; 16usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_fsid_t {
 pub val: [crate::ctypes::c_int; 2usize],
 }
@@ -478,6 +479,7 @@ pub nr_recently_evicted: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct pollfd {
 pub fd: crate::ctypes::c_int,
 pub events: crate::ctypes::c_short,
@@ -500,18 +502,21 @@ pub reserved: [__u32; 13usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_timespec {
 pub tv_sec: __kernel_time64_t,
 pub tv_nsec: crate::ctypes::c_longlong,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_itimerspec {
 pub it_interval: __kernel_timespec,
 pub it_value: __kernel_timespec,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_old_timeval {
 pub tv_sec: __kernel_long_t,
 pub tv_usec: __kernel_long_t,
@@ -536,6 +541,7 @@ pub tv_usec: __s64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct rusage {
 pub ru_utime: __kernel_old_timeval,
 pub ru_stime: __kernel_old_timeval,
@@ -556,12 +562,14 @@ pub ru_nivcsw: __kernel_long_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct rlimit {
 pub rlim_cur: __kernel_ulong_t,
 pub rlim_max: __kernel_ulong_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct rlimit64 {
 pub rlim_cur: __u64,
 pub rlim_max: __u64,
@@ -698,6 +706,7 @@ pub _attribute: *mut crate::ctypes::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct statx_timestamp {
 pub tv_sec: __s64,
 pub tv_nsec: __u32,
@@ -705,6 +714,7 @@ pub __reserved: __s32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct statx {
 pub stx_mask: __u32,
 pub stx_blksize: __u32,
@@ -774,6 +784,7 @@ pub c_ospeed: speed_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct winsize {
 pub ws_row: crate::ctypes::c_ushort,
 pub ws_col: crate::ctypes::c_ushort,
@@ -792,30 +803,35 @@ pub c_cc: [crate::ctypes::c_uchar; 8usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct timespec {
 pub tv_sec: __kernel_old_time_t,
 pub tv_nsec: crate::ctypes::c_long,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct timeval {
 pub tv_sec: __kernel_old_time_t,
 pub tv_usec: __kernel_suseconds_t,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct itimerspec {
 pub it_interval: timespec,
 pub it_value: timespec,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct itimerval {
 pub it_interval: timeval,
 pub it_value: timeval,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct timezone {
 pub tz_minuteswest: crate::ctypes::c_int,
 pub tz_dsttime: crate::ctypes::c_int,
@@ -965,6 +981,7 @@ pub d_name: __IncompleteArrayField<crate::ctypes::c_char>,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct stat {
 pub st_dev: crate::ctypes::c_ulong,
 pub st_ino: crate::ctypes::c_ulong,
@@ -989,6 +1006,7 @@ pub __unused5: crate::ctypes::c_uint,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct statfs {
 pub f_type: __kernel_long_t,
 pub f_bsize: __kernel_long_t,
@@ -1005,6 +1023,7 @@ pub f_spare: [__kernel_long_t; 4usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct statfs64 {
 pub f_type: __kernel_long_t,
 pub f_bsize: __kernel_long_t,
