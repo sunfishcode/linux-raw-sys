@@ -328,18 +328,21 @@ pub build_id_addr: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_timespec {
 pub tv_sec: __kernel_time64_t,
 pub tv_nsec: crate::ctypes::c_longlong,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_itimerspec {
 pub it_interval: __kernel_timespec,
 pub it_value: __kernel_timespec,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "zerocopy", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]
 pub struct __kernel_old_timeval {
 pub tv_sec: __kernel_long_t,
 pub tv_usec: __kernel_long_t,
