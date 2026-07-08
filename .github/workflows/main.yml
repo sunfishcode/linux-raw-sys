@@ -70,6 +70,46 @@ jobs:
         cargo +nightly check --tests -vv --target=hexagon-unknown-linux-musl -Zbuild-std -Zbuild-std-features=llvm-libunwind 
 
 
+  zerocopy:
+    name: Zerocopy derives
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: -D warnings
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+    - uses: ./.github/actions/install-rust
+      with:
+        toolchain: stable
+    - run: >
+        rustup target add
+        x86_64-unknown-linux-musl
+        x86_64-unknown-linux-gnux32
+        i686-unknown-linux-gnu
+        riscv64gc-unknown-linux-gnu
+        aarch64-unknown-linux-gnu
+        powerpc64le-unknown-linux-gnu
+        armv5te-unknown-linux-gnueabi
+        loongarch64-unknown-linux-gnu
+        s390x-unknown-linux-gnu
+    - run: |
+        # The derives are compile-time verified per target (padding differs
+        # by architecture), so check a width- and endianness-diverse set.
+        for target in \
+          x86_64-unknown-linux-gnu \
+          x86_64-unknown-linux-musl \
+          x86_64-unknown-linux-gnux32 \
+          i686-unknown-linux-gnu \
+          riscv64gc-unknown-linux-gnu \
+          aarch64-unknown-linux-gnu \
+          powerpc64le-unknown-linux-gnu \
+          armv5te-unknown-linux-gnueabi \
+          loongarch64-unknown-linux-gnu \
+          s390x-unknown-linux-gnu; do
+          cargo check --features zerocopy --target=$target
+        done
+
   gen:
     name: Update generated files
     runs-on: ubuntu-latest

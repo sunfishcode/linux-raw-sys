@@ -1,6 +1,7 @@
 //! A program which generates a linux-headers installation and runs bindgen
 //! over the headers, for each supported architecture.
 
+use bindgen::callbacks::{AttributeInfo, ParseCallbacks, TypeKind};
 use bindgen::{builder, EnumVariation};
 use std::collections::HashSet;
 use std::fs::File;
@@ -14,6 +15,106 @@ const LINUX_VERSION: &str = "v6.17";
 
 /// Some commonly used features.
 const DEFAULT_FEATURES: &str = "\"general\", \"errno\"";
+
+/// Fixed-layout wire-format types that receive `zerocopy` trait derives
+/// under the optional `zerocopy` feature, so users can safely convert them
+/// to and from byte buffers without hand-written `unsafe`.
+///
+/// A type belongs here only if, on every supported architecture, it has no
+/// pointer, enum, or union fields and no implicit padding — `zerocopy`'s
+/// derives verify all of that at compile time, so an unsound addition fails
+/// the build rather than compiling into UB.
+const ZEROCOPY_TYPES: &[&str] = &[
+    "__kernel_fsid_t",
+    "__kernel_itimerspec",
+    "__kernel_old_timeval",
+    "__kernel_timespec",
+    "epoll_event",
+    "itimerspec",
+    "itimerval",
+    "new_utsname",
+    "pollfd",
+    "rlimit",
+    "rlimit64",
+    "rusage",
+    "stat",
+    "statfs",
+    "statfs64",
+    "statx",
+    "statx_timestamp",
+    "timespec",
+    "timeval",
+    "timezone",
+    "winsize",
+];
+
+/// Architectures on which a [`ZEROCOPY_TYPES`] entry does *not* get the
+/// derives: the type has implicit padding there (`IntoBytes` would reject
+/// it — e.g. `epoll_event` is `__EPOLL_PACKED` only on x86-family), or a
+/// field type is excluded. Verified empirically by compiling the feature
+/// for every architecture; entries for csky, m68k, and mips32r6 are
+/// conservative because their toolchains can't currently build core (a
+/// missing derive is never unsound, just unavailable).
+const ZEROCOPY_ARCH_EXCEPTIONS: &[(&str, &[&str])] = &[
+    (
+        "epoll_event",
+        &[
+            "aarch64",
+            "arm",
+            "csky",
+            "hexagon",
+            "loongarch64",
+            "m68k",
+            "mips",
+            "mips32r6",
+            "mips64",
+            "mips64r6",
+            "powerpc",
+            "powerpc64",
+            "riscv32",
+            "riscv64",
+            "s390x",
+            "sparc",
+            "sparc64",
+        ],
+    ),
+    (
+        "statfs64",
+        &[
+            "csky", "hexagon", "m68k", "mips", "mips32r6", "powerpc", "riscv32", "sparc", "x32",
+        ],
+    ),
+    ("stat", &["m68k", "powerpc", "powerpc64", "sparc", "sparc64"]),
+    ("timespec", &["x32"]),
+    ("itimerspec", &["x32"]), // contains timespec
+    ("timeval", &["sparc64"]),
+    ("__kernel_old_timeval", &["sparc64"]),
+    ("itimerval", &["sparc64"]), // contains timeval
+    ("rusage", &["sparc64"]),    // contains __kernel_old_timeval
+];
+
+/// Adds `zerocopy` derives (feature-gated) to the types in
+/// [`ZEROCOPY_TYPES`], per the architecture exceptions above.
+#[derive(Debug)]
+struct ZerocopyDerives {
+    arch: String,
+}
+
+impl ParseCallbacks for ZerocopyDerives {
+    fn add_attributes(&self, info: &AttributeInfo<'_>) -> Vec<String> {
+        let excepted = ZEROCOPY_ARCH_EXCEPTIONS
+            .iter()
+            .any(|(name, arches)| *name == info.name && arches.contains(&self.arch.as_str()));
+        if info.kind == TypeKind::Struct && ZEROCOPY_TYPES.contains(&info.name) && !excepted {
+            vec![
+                "#[cfg_attr(feature = \"zerocopy\", derive(zerocopy::FromBytes, zerocopy::IntoBytes, zerocopy::KnownLayout, zerocopy::Immutable))]"
+                    .to_owned(),
+            ]
+        } else {
+            vec![]
+        }
+    }
+}
 
 fn main() {
     let mut args = env::args();
@@ -174,6 +275,7 @@ fn main() {
     writeln!(cargo_toml, "std = []").unwrap();
     writeln!(cargo_toml, "no_std = []").unwrap();
     writeln!(cargo_toml, "elf = []").unwrap();
+    writeln!(cargo_toml, "zerocopy = [\"dep:zerocopy\"]").unwrap();
     writeln!(cargo_toml, "rustc-dep-of-std = [\"core\", \"no_std\"]").unwrap();
 
     eprintln!("All bindings generated!");
@@ -320,6 +422,9 @@ fn run_bindgen(
         // The generated bindings are quite large, so use a few simple options
         // to keep the file sizes down.
         .rustfmt_configuration_file(Some(Path::new("bindgen-rustfmt.toml").to_owned()))
+        .parse_callbacks(Box::new(ZerocopyDerives {
+            arch: rust_arch.to_owned(),
+        }))
         .layout_tests(false)
         .generate_comments(false)
         .default_enum_style(EnumVariation::Rust {

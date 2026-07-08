@@ -24,6 +24,15 @@ The full bindings are quite large, so they've been split up into modules and
 cargo features. By default, `general` and `errno` are enabled, which provide
 most things needed by general-purpose code.
 
+The optional `zerocopy` feature adds compile-time-verified [zerocopy] trait
+derives (`FromBytes`, `IntoBytes`, `KnownLayout`, `Immutable`) to a curated
+set of fixed-layout wire-format types (`stat`, `statx`, `rusage`,
+`timespec`, …), so they can be converted to and from byte buffers without
+hand-written `unsafe`. See `ZEROCOPY_TYPES` in `gen/src/main.rs` for the
+list and the criteria for adding to it.
+
+[zerocopy]: https://crates.io/crates/zerocopy
+
 To regenerate the generated bindings, run `cargo update && cd gen && cargo run --release`.
 
 ## Similar crates
