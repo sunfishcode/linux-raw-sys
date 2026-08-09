@@ -878,6 +878,15 @@ pub value: __u64,
 pub size: __u32,
 pub flags: __u32,
 }
+#[repr(C)]
+#[derive(Debug)]
+pub struct lsm_ctx {
+pub id: __u64,
+pub flags: __u64,
+pub len: __u64,
+pub ctx_len: __u64,
+pub ctx: __IncompleteArrayField<__u8>,
+}
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
 pub struct uffd_msg {
@@ -3008,6 +3017,29 @@ pub const TFD_TIMER_ABSTIME: u32 = 1;
 pub const TFD_TIMER_CANCEL_ON_SET: u32 = 2;
 pub const TFD_CLOEXEC: u32 = 524288;
 pub const TFD_NONBLOCK: u32 = 128;
+pub const LSM_ID_UNDEF: u32 = 0;
+pub const LSM_ID_CAPABILITY: u32 = 100;
+pub const LSM_ID_SELINUX: u32 = 101;
+pub const LSM_ID_SMACK: u32 = 102;
+pub const LSM_ID_TOMOYO: u32 = 103;
+pub const LSM_ID_APPARMOR: u32 = 104;
+pub const LSM_ID_YAMA: u32 = 105;
+pub const LSM_ID_LOADPIN: u32 = 106;
+pub const LSM_ID_SAFESETID: u32 = 107;
+pub const LSM_ID_LOCKDOWN: u32 = 108;
+pub const LSM_ID_BPF: u32 = 109;
+pub const LSM_ID_LANDLOCK: u32 = 110;
+pub const LSM_ID_IMA: u32 = 111;
+pub const LSM_ID_EVM: u32 = 112;
+pub const LSM_ID_IPE: u32 = 113;
+pub const LSM_ATTR_UNDEF: u32 = 0;
+pub const LSM_ATTR_CURRENT: u32 = 100;
+pub const LSM_ATTR_EXEC: u32 = 101;
+pub const LSM_ATTR_FSCREATE: u32 = 102;
+pub const LSM_ATTR_KEYCREATE: u32 = 103;
+pub const LSM_ATTR_PREV: u32 = 104;
+pub const LSM_ATTR_SOCKCREATE: u32 = 105;
+pub const LSM_FLAG_SINGLE: u32 = 1;
 pub const USERFAULTFD_IOC: u32 = 170;
 pub const _UFFDIO_REGISTER: u32 = 0;
 pub const _UFFDIO_UNREGISTER: u32 = 1;
