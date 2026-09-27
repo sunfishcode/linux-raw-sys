@@ -31,6 +31,10 @@
 #include <linux/wait.h>
 #include <linux/xattr.h>
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6,8,0)
+#include <linux/lsm.h>
+#endif
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,17,0)
 #include <linux/memfd.h>
 #endif
@@ -49,6 +53,18 @@
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,3,0)
 #include <linux/userfaultfd.h>
+#endif
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,9,0)
+#include <linux/close_range.h>
+#endif
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
+#include <linux/pidfd.h>
+#endif
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,11,0)
+#include <linux/sched/types.h>
 #endif
 
 #define DT_UNKNOWN 0
