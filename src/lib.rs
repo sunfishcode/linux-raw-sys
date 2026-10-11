@@ -271,6 +271,10 @@ pub mod io_uring;
 #[cfg(target_arch = "arm")]
 #[path = "arm/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/landlock.rs"]
@@ -363,6 +367,10 @@ pub mod io_uring;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/landlock.rs"]
@@ -455,6 +463,10 @@ pub mod io_uring;
 #[cfg(target_arch = "csky")]
 #[path = "csky/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/landlock.rs"]
@@ -547,6 +559,10 @@ pub mod io_uring;
 #[cfg(target_arch = "hexagon")]
 #[path = "hexagon/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "hexagon")]
+#[path = "hexagon/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "hexagon")]
 #[path = "hexagon/landlock.rs"]
@@ -639,6 +655,10 @@ pub mod io_uring;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/landlock.rs"]
@@ -731,6 +751,10 @@ pub mod io_uring;
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "m68k")]
+#[path = "m68k/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/landlock.rs"]
@@ -823,6 +847,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips")]
 #[path = "mips/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/landlock.rs"]
@@ -915,6 +943,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/landlock.rs"]
@@ -1007,6 +1039,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/landlock.rs"]
@@ -1099,6 +1135,10 @@ pub mod io_uring;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/landlock.rs"]
@@ -1191,6 +1231,10 @@ pub mod io_uring;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/landlock.rs"]
@@ -1283,6 +1327,10 @@ pub mod io_uring;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/landlock.rs"]
@@ -1375,6 +1423,10 @@ pub mod io_uring;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/landlock.rs"]
@@ -1467,6 +1519,10 @@ pub mod io_uring;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/landlock.rs"]
@@ -1559,6 +1615,10 @@ pub mod io_uring;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/landlock.rs"]
@@ -1651,6 +1711,10 @@ pub mod io_uring;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/landlock.rs"]
@@ -1743,6 +1807,10 @@ pub mod io_uring;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/landlock.rs"]
@@ -1835,6 +1903,10 @@ pub mod io_uring;
 #[cfg(target_arch = "x86")]
 #[path = "x86/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/landlock.rs"]
@@ -1927,6 +1999,10 @@ pub mod io_uring;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/landlock.rs"]
@@ -2019,6 +2095,10 @@ pub mod io_uring;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/ioctl.rs"]
 pub mod ioctl;
+#[cfg(feature = "keyctl")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/keyctl.rs"]
+pub mod keyctl;
 #[cfg(feature = "landlock")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/landlock.rs"]
